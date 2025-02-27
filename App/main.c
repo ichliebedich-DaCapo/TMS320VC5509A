@@ -1,9 +1,9 @@
-#include<_csl_gpio.h>
+#include<zq_gpio.h>
 
 /**
  * main.c
  */
-int main(void)
+int main()
 {
 
 
