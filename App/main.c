@@ -1,8 +1,6 @@
 #include<zq_gpio.h>
 
-/**
- * main.c
- */
+
 int main()
 {
 
