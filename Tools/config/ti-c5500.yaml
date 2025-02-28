@@ -1,10 +1,13 @@
 compilers:
-  - description: TI C5500 Compiler
-    match-compiler-exe: "E:/Tools/Develop/ToolsKits/TI/C5500_Code_Generation_Tools4.4.1/bin/cl55(.exe)?"
-    match-language: C
-    code-insight-target-name: msp430  # Clangd目标平台
-    include-dirs: [ "E:/Tools/Develop/ToolsKits/TI/C5500_Code_Generation_Tools4.4.1/include" ]
+  - description: TI C5500 Compiler v4.4.1
+    match-compiler-exe: "(.*/)?cl55(.exe)?"
+    match-language:  C
+    code-insight-target-name: msp430 # Clangd 的目标平台名称
+    include-dirs: ${compiler-exe-dir}/../include # 特定于编译器的标头搜索路径
+    # 宏定义配置（对象结构）
     defines:
-      CHIP_5509A: ""
-      c5509a: ""
-    match-args: [ "--memory_model=small", "--ptrdiff_size=16", "--relaxed_ansi" ]
+      template: "--define=<NAME>$if(<VALUE>):=<VALUE>"
+      separator: " "  # 多个宏之间的分隔符
+
+    # 包含目录配置
+    match-args: []

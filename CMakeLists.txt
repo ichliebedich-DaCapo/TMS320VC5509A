@@ -42,8 +42,8 @@ add_link_options(--xml_link_info=${LINKINFO_XML} --rom_model --sys_stacksize=0x2
 
 ## ====调试与预处理配置====
 # 为Clangd提供compile_commands.json
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON)  # 生成编译数据库
-set(CMAKE_VERBOSE_MAKEFILE ON)         # 显示详细编译命令
+#set(CMAKE_EXPORT_COMPILE_COMMANDS ON)  # 生成编译数据库
+#set(CMAKE_VERBOSE_MAKEFILE ON)         # 显示详细编译命令
 
 #-------------------------------------------库-------------------------------------------
 file(GLOB_RECURSE SOURCES
