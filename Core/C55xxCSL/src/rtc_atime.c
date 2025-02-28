@@ -3,10 +3,11 @@
 /*  Copyright (c) 1993-2001  Texas Instruments Incorporated                 */
 /****************************************************************************/
 #define _RTC_MOD_
+#include <csl_chiphal.h>
 
 #if (_RTC_SUPPORT)
 
-#include <csl_chiphal.h>
+
 #include <csl_time.h> 
 #include <csl_rtc.h>
 
