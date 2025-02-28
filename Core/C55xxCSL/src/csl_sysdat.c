@@ -31,7 +31,8 @@
 \****************************************/
 
 
-
+/*
 #pragma DATA_SECTION(CSL_SysData,".csldat:SYS_data")
 
 CSL_SysDataObj CSL_SysData = CSL_SYSDATAINIT;
+*/
