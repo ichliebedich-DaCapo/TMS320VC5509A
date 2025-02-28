@@ -1,0 +1,10 @@
+compilers:
+  - description: TI C5500 Compiler
+    match-compiler-exe: "E:/Tools/Develop/ToolsKits/TI/C5500_Code_Generation_Tools4.4.1/bin/cl55(.exe)?"
+    match-language: C
+    code-insight-target-name: msp430  # Clangd目标平台
+    include-dirs: [ "E:/Tools/Develop/ToolsKits/TI/C5500_Code_Generation_Tools4.4.1/include" ]
+    defines:
+      CHIP_5509A: ""
+      c5509a: ""
+    match-args: [ "--memory_model=small", "--ptrdiff_size=16", "--relaxed_ansi" ]
