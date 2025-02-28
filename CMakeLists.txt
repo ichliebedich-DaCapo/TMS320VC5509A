@@ -23,8 +23,9 @@ set(APP_DIR App/demo)
 
 # =======添加编译标志=======
 add_compile_options(-v5509A)
-add_compile_options(--define=c5509a --define=CHIP_5509A)
-add_compile_options(--relaxed_ansi --gcc)
+add_compile_definitions(c5509a;CHIP_5509A)
+add_compile_options(--relaxed_ansi --gcc )
+add_compile_options(--memory_model=small --ptrdiff_size=16)
 add_compile_options(--display_error_number --diag_warning=225)
 # 编译优化
 add_compile_options(-O -g)
