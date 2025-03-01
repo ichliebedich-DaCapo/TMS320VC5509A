@@ -6,7 +6,7 @@ include(Tools/cmake/arm-gcc.cmake)
 project(demo C CXX ASM)
 
 # ===================设置工程目录======================
-set(APP_DIR App/1_debug)
+set(APP_DIR App/4_sdram)
 
 # ===================设置工程目录======================
 
@@ -16,6 +16,16 @@ if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 else ()
     set(TARGET_FILE ${PROJECT_NAME}.out)
 endif ()
+
+# 生成配置文件
+get_filename_component(DIR_NAME ${APP_DIR} NAME)  # 从 "App/x_calc" 提取 "x_calc"
+string(REGEX MATCH "^[0-9]+" PREFIX_NUM ${DIR_NAME})  # 匹配开头的连续数字
+if(PREFIX_NUM)
+    set(PROGRAM_INDEX ${PREFIX_NUM} CACHE INTERNAL "Program Index")  # 提取成功，例如 2
+else()
+    set(PROGRAM_INDEX 0 CACHE INTERNAL "Program Index")             # 未匹配到数字，例如目录名为 "demo"
+endif()
+configure_file(${CMAKE_SOURCE_DIR}/App/conf/app_conf.h.in ${CMAKE_SOURCE_DIR}/App/conf/app_conf.h)
 
 #-------------------------------------------库-------------------------------------------
 file(GLOB_RECURSE SOURCES

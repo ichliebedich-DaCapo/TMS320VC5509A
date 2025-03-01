@@ -2,6 +2,8 @@
 // Created by fairy on 2025/3/1 21:22.
 //
 //-------------------------------相关头文件------------------------------------//
+#include<app_conf.h>
+#if PROGRAM_INDEX == 1
 #include <stdio.h>
 
 //-------------------------------声明----------------------------------//
@@ -81,3 +83,5 @@ int output_signals(int *output)
     // 在此将输出缓冲区out_buffer中的数据发送到输出设备(比如DA)
     return (TRUE);
 }
+
+#endif
