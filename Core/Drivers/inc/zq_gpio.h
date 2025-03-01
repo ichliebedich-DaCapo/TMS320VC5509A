@@ -21,9 +21,9 @@ extern "C" {
 
 /* GPIO分组枚举 */
 typedef enum {
-    ZQ_GPIO_GROUP_NORMAL,   // 普通GPIO（GPIO0-7）
-    ZQ_GPIO_GROUP_ADDR,     // 地址总线GPIO（A0-A13）
-    ZQ_GPIO_GROUP_EHPI      // EHPI GPIO
+    GPIO_GROUP_NORMAL,   // 普通GPIO（GPIO0-7）
+    GPIO_GROUP_ADDR,     // 地址总线GPIO（A0-A13）
+    GPIO_GROUP_EHPI      // EHPI GPIO
 } GPIO_GroupType;
 
 /* GPIO引脚*/
@@ -80,10 +80,10 @@ INLINE void ZQ_GPIO_Enable(GPIO_GroupType type,uint16_t pin)
 {
     switch (type)
     {
-        case ZQ_GPIO_GROUP_ADDR:
+        case GPIO_GROUP_ADDR:
             GPIO_AGPIOEN |=(1 << pin);
             break;
-        case ZQ_GPIO_GROUP_EHPI:
+        case GPIO_GROUP_EHPI:
             GPIO_EHPIGPIOEN |=(1 << pin);
           break;
         default:
@@ -98,10 +98,10 @@ INLINE void ZQ_GPIO_Disable(GPIO_GroupType type,uint16_t pin)
 {
     switch (type)
     {
-        case ZQ_GPIO_GROUP_ADDR:
+        case GPIO_GROUP_ADDR:
             GPIO_AGPIOEN &= ~(1 << pin);
             break;
-        case ZQ_GPIO_GROUP_EHPI:
+        case GPIO_GROUP_EHPI:
             GPIO_EHPIGPIOEN &= ~(1 << pin);
             break;
         default:
@@ -120,13 +120,13 @@ INLINE void ZQ_GPIO_SetDir(GPIO_GroupType type,uint16_t pin,GPIO_DirType dir)
 {
     switch (type)
     {
-        case ZQ_GPIO_GROUP_NORMAL:
+        case GPIO_GROUP_NORMAL:
             GPIO_IODIR = (GPIO_IODIR & ~(1<<pin))| (dir << pin);
             break;
-        case ZQ_GPIO_GROUP_ADDR:
+        case GPIO_GROUP_ADDR:
             GPIO_AGPIODIR = (GPIO_AGPIODIR & ~(1<<pin))| (dir << pin);
             break;
-        case ZQ_GPIO_GROUP_EHPI:
+        case GPIO_GROUP_EHPI:
             GPIO_EHPIGPIODIR = (GPIO_EHPIGPIODIR & ~(1<<pin))| (dir << pin);
             break;
     }
@@ -140,13 +140,11 @@ INLINE uint16_t ZQ_GPIO_GetDir(GPIO_GroupType type,uint16_t pin)
 {
     switch (type)
     {
-        case ZQ_GPIO_GROUP_NORMAL:
+        case GPIO_GROUP_NORMAL:
             return (GPIO_IODIR >> pin) & 0x01;
-            break;
-        case ZQ_GPIO_GROUP_ADDR:
+        case GPIO_GROUP_ADDR:
             return (GPIO_AGPIODIR >> pin) & 0x01;
-            break;
-        case ZQ_GPIO_GROUP_EHPI:
+        case GPIO_GROUP_EHPI:
             return (GPIO_EHPIGPIODIR >> pin) & 0x01;
         default:
             return 0;
@@ -162,13 +160,13 @@ INLINE void ZQ_GPIO_Set(GPIO_GroupType type,uint16_t pin,uint16_t level)
 {
     switch (type)
     {
-        case ZQ_GPIO_GROUP_NORMAL:
+        case GPIO_GROUP_NORMAL:
             GPIO_IODATA = (GPIO_IODATA & ~(1<<pin))| (level << pin);
             break;
-        case ZQ_GPIO_GROUP_ADDR:
+        case GPIO_GROUP_ADDR:
             GPIO_AGPIODATA = (GPIO_AGPIODATA & ~(1<<pin))| (level << pin);
             break;
-        case ZQ_GPIO_GROUP_EHPI:
+        case GPIO_GROUP_EHPI:
             GPIO_EHPIGPIODATA = (GPIO_EHPIGPIODATA & ~(1<<pin))| (level << pin);
             break;
         default:
@@ -184,13 +182,11 @@ INLINE uint16_t ZQ_GPIO_Get(GPIO_GroupType type,uint16_t pin)
 {
     switch (type)
     {
-        case ZQ_GPIO_GROUP_NORMAL:
+        case GPIO_GROUP_NORMAL:
             return (GPIO_IODATA >> pin) & 0x01;
-            break;
-        case ZQ_GPIO_GROUP_ADDR:
+        case GPIO_GROUP_ADDR:
             return (GPIO_AGPIODATA >> pin) & 0x01;
-            break;
-        case ZQ_GPIO_GROUP_EHPI:
+        case GPIO_GROUP_EHPI:
             return (GPIO_EHPIGPIODATA >> pin) & 0x01;
         default:
             return 0;
