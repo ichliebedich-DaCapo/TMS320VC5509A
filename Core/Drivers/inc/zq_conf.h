@@ -9,7 +9,10 @@ extern "C" {
 #endif
 #include<stdint.h>
 
+// 强制内联
 
+#define ALWAYS_INLINE __attribute__((always_inline))
+#define INLINE static inline
 
 
 

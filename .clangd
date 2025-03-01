@@ -1,0 +1,4 @@
+CompileFlags:
+  Add:
+    - Dioprot=__attribute__((ioport))
+  Compiler: cl55

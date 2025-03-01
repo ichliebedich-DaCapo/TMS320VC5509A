@@ -12,14 +12,17 @@ set(CMAKE_CXX_COMPILER ${CMAKE_C_COMPILER})
 set(CMAKE_ASM_COMPILER ${CMAKE_C_COMPILER})
 
 # 项目名称
-project(TI C CXX ASM)
+project(demo C CXX ASM)
+# ===================设置工程目录======================
+set(APP_DIR App/demo)
+# ===================设置工程目录======================
+
 
 # =====================设置项目文件=====================
 set(MAP_FILE "${CMAKE_SOURCE_DIR}/Debug/demo.map")
 set(LINKINFO_XML "${CMAKE_SOURCE_DIR}/Debug/demo_linkInfo.xml")
-# ===================设置工程目录======================
-set(APP_DIR App/demo)
-# ===================设置工程目录======================
+set(TARGET_FILE ${PROJECT_NAME}.out)
+
 
 # =======添加编译标志=======
 add_compile_options(-v5509A)
@@ -30,11 +33,6 @@ add_compile_options(--display_error_number --diag_warning=225)
 # 编译优化
 add_compile_options(-O -g)
 # =======添加链接标志=======
-# 设置链接脚本
-#add_link_options("-v5509A")
-#add_link_options(--memory_model=small -g)
-#add_link_options(--relaxed_ansi --gcc)
-add_link_options(--define=c5509a --define=CHIP_5509A)
 add_link_options(--display_error_number --diag_warning=225 -z -m${MAP_FILE} --stack_size=0x200 --heap_size=0x400)
 add_link_options(--reread_libs --display_error_number --warn_sections)
 add_link_options(--xml_link_info=${LINKINFO_XML} --rom_model --sys_stacksize=0x200)
@@ -58,7 +56,6 @@ include_directories([[E:/Tools/Develop/ToolsKits/TI/C5500_Code_Generation_Tools4
         "Core/Drivers/inc"
 )
 
-set(TARGET_FILE ${PROJECT_NAME}.out)
 add_executable(${TARGET_FILE} ${SOURCES})
 # 链接库
 target_include_directories(${TARGET_FILE} PRIVATE
@@ -68,9 +65,7 @@ target_link_directories(${TARGET_FILE} PRIVATE
         "E:/Tools/Develop/ToolsKits/TI/C5500_Code_Generation_Tools4.4.1/lib"
 )
 
-
 # 添加自定义命令：
-# 生成十六进制和二进制文件
-add_custom_command(TARGET ${TARGET_FILE} POST_BUILD
-        COMMENT "Building "
-)
+#add_custom_command(TARGET ${TARGET_FILE} POST_BUILD
+#        COMMENT "Building "
+#)

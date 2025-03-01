@@ -38,6 +38,18 @@ typedef enum {
     GPIO_PIN_7=0x0080,
 } ZQ_GPIO_PinType;
 
+/* GPIO方向枚举 */
+typedef enum {
+    ZQ_GPIO_DIR_INPUT=0,
+    ZQ_GPIO_DIR_OUTPUT=1
+} ZQ_GPIO_DirType;
+
+
+INLINE void ZQ_GPIO_SetDir(ZQ_GPIO_PinType pin,uint16_t dir)
+{
+  GPIO_IODIR = dir;
+}
+
 
 
 

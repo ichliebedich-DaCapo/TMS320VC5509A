@@ -7,6 +7,7 @@
     <option name="/Default/RiderDebugger/RiderRestoreDecompile/RestoreDecompileSetting/@EntryValue" value="false" type="bool" />
     <option name="/Default/Housekeeping/FeatureSuggestion/FeatureSuggestionManager/DisabledSuggesters/=SwitchToGoToActionSuggester/@EntryIndexedValue" value="true" type="bool" />
     <option name="/Default/Housekeeping/OptionsDialog/SelectedPageId/@EntryValue" value="CppIncludesOrderOptions" type="string" />
+    <option name="/Default/Housekeeping/FeatureSuggestion/FeatureSuggestionManager/DisabledSuggesters/=SwitchToGoToActionSuggester/@EntryIndexRemoved" />
   </component>
   <component name="CMakePresetLoader">{
   &quot;useNewFormat&quot;: true
@@ -19,17 +20,24 @@
   </component>
   <component name="CMakeRunConfigurationManager">
     <generated>
-      <config projectName="TI" targetName="TI.out" />
+      <config projectName="demo" targetName="demo.out" />
     </generated>
   </component>
   <component name="CMakeSettings">
     <configurations>
-      <configuration PROFILE_NAME="Debug-TI C5500" ENABLED="true" CONFIG_NAME="Debug" TOOLCHAIN_NAME="TI C5500" GENERATION_OPTIONS="-G &quot;MinGW Makefiles&quot;" BUILD_OPTIONS="-j 16" />
+      <configuration PROFILE_NAME="Debug-TI C5500" ENABLED="true" GENERATION_DIR="$PROJECT_DIR$/Debug/cmake-build-debug" CONFIG_NAME="Debug" TOOLCHAIN_NAME="TI C5500" GENERATION_OPTIONS="-G &quot;MinGW Makefiles&quot;" BUILD_OPTIONS="-j 16" />
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a78db7b0-77d9-459c-87d1-f1d260dcb0d0" name="更改" comment="【修复】自定义编译器信息yaml">
+    <list default="true" id="a78db7b0-77d9-459c-87d1-f1d260dcb0d0" name="更改" comment="【？？】更新一下，clangd就可以正常使用了，代码补全也回来了">
+      <change afterPath="$PROJECT_DIR$/.clangd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.cproject" beforeDir="false" afterPath="$PROJECT_DIR$/.cproject" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Drivers/inc/zq_conf.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Drivers/inc/zq_conf.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Drivers/inc/zq_gpio.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Drivers/inc/zq_gpio.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tools/config/ti-c5500.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Tools/config/ti-c5500.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,7 +64,7 @@
   }
 }</component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="QODANA_PROBLEMS_VIEW_TAB" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectApplicationVersion">
     <option name="ide" value="CLion" />
@@ -78,6 +86,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "CMake 应用程序.TI.out.executor": "Run",
     "RunOnceActivity.RadMigrateCodeStyle": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.cidr.known.project.marker": "true",
@@ -88,24 +97,24 @@
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "E:/Program/Embedded/MCU/TI/Program/new_demo/demo/Tools/config/ti-c5500.yaml",
+    "last_opened_file_path": "E:/Program/Embedded/MCU/TI/Program/new_demo/demo",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "CppIncludesOrderOptionsId",
+    "settings.editor.selected.configurable": "editor.preferences.tabs",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RunManager">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TI.out" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="TI" TARGET_NAME="TI.out" CONFIG_NAME="Debug-TI C5500" RUN_TARGET_PROJECT_NAME="TI" RUN_TARGET_NAME="TI.out">
+    <configuration name="demo.out" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="demo" TARGET_NAME="demo.out" CONFIG_NAME="Debug-TI C5500" RUN_TARGET_PROJECT_NAME="demo" RUN_TARGET_NAME="demo.out">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -124,7 +133,8 @@
       <updated>1740748136854</updated>
       <workItem from="1740748138753" duration="9544000" />
       <workItem from="1740759256727" duration="5950000" />
-      <workItem from="1740765768020" duration="68000" />
+      <workItem from="1740765768020" duration="114000" />
+      <workItem from="1740802121981" duration="8701000" />
     </task>
     <task id="LOCAL-00001" summary="【工程】成功使用CLion编译TI工程">
       <option name="closed" value="true" />
@@ -150,7 +160,15 @@
       <option name="project" value="LOCAL" />
       <updated>1740764437256</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="【？？】更新一下，clangd就可以正常使用了，代码补全也回来了">
+      <option name="closed" value="true" />
+      <created>1740765878480</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1740765878480</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -188,7 +206,8 @@
     <MESSAGE value="【工程】成功使用CLion编译TI工程" />
     <MESSAGE value="【修复】CMakeLists收集编译器信息收到警告" />
     <MESSAGE value="【修复】自定义编译器信息yaml" />
-    <option name="LAST_COMMIT_MESSAGE" value="【修复】自定义编译器信息yaml" />
+    <MESSAGE value="【？？】更新一下，clangd就可以正常使用了，代码补全也回来了" />
+    <option name="LAST_COMMIT_MESSAGE" value="【？？】更新一下，clangd就可以正常使用了，代码补全也回来了" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

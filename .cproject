@@ -57,6 +57,7 @@
 								</option>
 								<option id="com.ti.ccstudio.buildDefinitions.C5500_4.4.compilerID.GCC.43718520" name="Enable support for GCC extensions (--gcc)" superClass="com.ti.ccstudio.buildDefinitions.C5500_4.4.compilerID.GCC" value="true" valueType="boolean"/>
 								<option id="com.ti.ccstudio.buildDefinitions.C5500_4.4.compilerID.LANGUAGE_MODE.591409482" name="Language mode" superClass="com.ti.ccstudio.buildDefinitions.C5500_4.4.compilerID.LANGUAGE_MODE" value="com.ti.ccstudio.buildDefinitions.C5500_4.4.compilerID.LANGUAGE_MODE.RELAXED_ANSI" valueType="enumerated"/>
+								<option id="com.ti.ccstudio.buildDefinitions.C5500_4.4.compilerID.OPT_LEVEL.949979731" superClass="com.ti.ccstudio.buildDefinitions.C5500_4.4.compilerID.OPT_LEVEL" value="com.ti.ccstudio.buildDefinitions.C5500_4.4.compilerID.OPT_LEVEL.2" valueType="enumerated"/>
 								<inputType id="com.ti.ccstudio.buildDefinitions.C5500_4.4.compiler.inputType__C_SRCS.119434604" name="C Sources" superClass="com.ti.ccstudio.buildDefinitions.C5500_4.4.compiler.inputType__C_SRCS"/>
 								<inputType id="com.ti.ccstudio.buildDefinitions.C5500_4.4.compiler.inputType__CPP_SRCS.1667091389" name="C++ Sources" superClass="com.ti.ccstudio.buildDefinitions.C5500_4.4.compiler.inputType__CPP_SRCS"/>
 								<inputType id="com.ti.ccstudio.buildDefinitions.C5500_4.4.compiler.inputType__ASM_SRCS.1564908710" name="Assembly Sources" superClass="com.ti.ccstudio.buildDefinitions.C5500_4.4.compiler.inputType__ASM_SRCS"/>
