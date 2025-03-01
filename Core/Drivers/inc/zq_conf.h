@@ -9,11 +9,16 @@ extern "C" {
 #endif
 #include<stdint.h>
 
-// 强制内联
+// ======================兼容GCC======================
+#ifdef __GNUC__
+// 定义关键字
+#define ioport
+#endif
+// ======================兼容GCC======================
 
+// 强制内联
 #define ALWAYS_INLINE __attribute__((always_inline))
 #define INLINE static inline
-
 
 
 #ifdef __cplusplus

@@ -25,12 +25,16 @@
   </component>
   <component name="CMakeSettings">
     <configurations>
-      <configuration PROFILE_NAME="Debug-TI C5500" ENABLED="true" GENERATION_DIR="$PROJECT_DIR$/Debug/cmake-build-debug" CONFIG_NAME="Debug" TOOLCHAIN_NAME="TI C5500" GENERATION_OPTIONS="-G &quot;MinGW Makefiles&quot;" BUILD_OPTIONS="-j 16" />
+      <configuration PROFILE_NAME="Debug-w64-i686-arm-none-eabi" ENABLED="true" GENERATION_DIR="$PROJECT_DIR$/Debug/cmake-build-debug" CONFIG_NAME="Debug" TOOLCHAIN_NAME="w64-i686-arm-none-eabi" GENERATION_OPTIONS="-G Ninja" BUILD_OPTIONS="-j 16" />
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a78db7b0-77d9-459c-87d1-f1d260dcb0d0" name="更改" comment="【开发】GPIO库已经补全了">
+    <list default="true" id="a78db7b0-77d9-459c-87d1-f1d260dcb0d0" name="更改" comment="【修复】修复了GPIO库">
+      <change afterPath="$PROJECT_DIR$/Tools/cmake/arm-gcc.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Tools/cmake/ti_c5500.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/custom-compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/custom-compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,8 +44,13 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug-TI C5500" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug-w64-i686-arm-none-eabi" />
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -56,6 +65,11 @@
     &quot;accountId&quot;: &quot;a679c97f-91ee-40eb-8ce5-af8a944aaf79&quot;
   }
 }</component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/App/demo/main.c" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Core/Drivers/inc/zq_conf.h" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Core/Drivers/inc/zq_gpio.h" root0="SKIP_HIGHLIGHTING" />
+  </component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -89,7 +103,7 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;ZQ&quot;,
     &quot;last_opened_file_path&quot;: &quot;E:/Program/Embedded/MCU/TI/Program/new_demo/demo&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -97,21 +111,25 @@
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;CPPToolchains&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="demo.out" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="demo" TARGET_NAME="demo.out" CONFIG_NAME="Debug-TI C5500" RUN_TARGET_PROJECT_NAME="demo" RUN_TARGET_NAME="demo.out">
+  <component name="RunManager" selected="CMake 应用程序.gcc">
+    <configuration name="demo.out" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="demo" TARGET_NAME="demo.out" CONFIG_NAME="Debug-w64-i686-arm-none-eabi" RUN_TARGET_PROJECT_NAME="demo" RUN_TARGET_NAME="demo.out">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration name="gcc" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="demo" TARGET_NAME="demo.out" CONFIG_NAME="Debug-w64-i686-arm-none-eabi" RUN_TARGET_PROJECT_NAME="demo" RUN_TARGET_NAME="demo.out">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="CMake 应用程序.demo.out" />
+      <item itemvalue="CMake 应用程序.gcc" />
+    </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
@@ -128,7 +146,9 @@
       <workItem from="1740759256727" duration="5950000" />
       <workItem from="1740765768020" duration="114000" />
       <workItem from="1740802121981" duration="11356000" />
-      <workItem from="1740813920411" duration="3000" />
+      <workItem from="1740813920411" duration="1488000" />
+      <workItem from="1740815421525" duration="4000" />
+      <workItem from="1740815436090" duration="8000" />
     </task>
     <task id="LOCAL-00001" summary="【工程】成功使用CLion编译TI工程">
       <option name="closed" value="true" />
@@ -178,7 +198,15 @@
       <option name="project" value="LOCAL" />
       <updated>1740813892407</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="【修复】修复了GPIO库">
+      <option name="closed" value="true" />
+      <created>1740814139871</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1740814139871</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -219,7 +247,8 @@
     <MESSAGE value="【？？】更新一下，clangd就可以正常使用了，代码补全也回来了" />
     <MESSAGE value="【体验提升】添加了clangd配置文件，让其不对ioport关键字报错，并整理了CMakeLists，测试了内联语法" />
     <MESSAGE value="【开发】GPIO库已经补全了" />
-    <option name="LAST_COMMIT_MESSAGE" value="【开发】GPIO库已经补全了" />
+    <MESSAGE value="【修复】修复了GPIO库" />
+    <option name="LAST_COMMIT_MESSAGE" value="【修复】修复了GPIO库" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
