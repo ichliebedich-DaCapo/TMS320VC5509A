@@ -9,9 +9,10 @@ set(CMAKE_SIZE arm-none-eabi-size)
 
 # 设置编译标准
 set(CMAKE_CXX_STANDARD 98)
-set(CMAKE_C_STANDARD 99)
+set(CMAKE_C_STANDARD 90)
 
 #--------------------------编译选项----------------------------
+add_compile_definitions(__ARM__)
 add_compile_options(-mcpu=cortex-m4 -mthumb -mthumb-interwork)
 add_compile_options(-mfloat-abi=hard -mfpu=fpv4-sp-d16)
 add_compile_options(-ffunction-sections -fdata-sections -fno-common -fmessage-length=0)
@@ -40,7 +41,6 @@ add_link_options(-Wl,-gc-sections,--relax,--as-needed,--print-memory-usage,-Map=
 add_link_options(-T${CMAKE_SOURCE_DIR}/Tools/scripts/C55x_GCC_LinkerScript.ld)
 
 # =====================设置项目文件=====================
-set(TARGET_FILE ${PROJECT_NAME}.elf)
 set(CMAKE_C_COMPILER_WORKS ON)   # 强制绕过编译器检查
 set(CMAKE_CXX_COMPILER_WORKS ON)
 #set(CMAKE_C_COMPILER_FORCED ON)

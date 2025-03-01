@@ -10,7 +10,7 @@ extern "C" {
 #include<stdint.h>
 
 // ======================兼容GCC======================
-#ifdef __GNUC__
+#ifdef __ARM__
 // 定义关键字
 #define ioport
 #endif

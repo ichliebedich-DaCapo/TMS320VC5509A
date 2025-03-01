@@ -5,8 +5,8 @@ MEMORY {
     PMEM (rx)   : ORIGIN = 0x00010000, LENGTH = 64K  /* 假设程序存储器起始地址 */
 
     /* 数据存储器 (DMEM) - 分多个物理bank */
-    DARAM (rwx) : ORIGIN = 0x00020000, LENGTH = 32K  /* 双访问RAM */
-    SARAM (rwx) : ORIGIN = 0x00030000, LENGTH = 32K  /* 单访问RAM */
+    DARAM (rwx) : ORIGIN = 0x00020000, LENGTH = 64K  /* 双访问RAM */
+    SARAM (rwx) : ORIGIN = 0x00030000, LENGTH = 192K  /* 单访问RAM */
 
     /* 外设寄存器空间 (需根据实际映射调整) */
     IO_REGS (rw) : ORIGIN = 0x00C00000, LENGTH = 1M

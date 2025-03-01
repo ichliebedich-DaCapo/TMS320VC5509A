@@ -29,6 +29,4 @@ add_link_options(--xml_link_info=${LINKINFO_XML} --rom_model --sys_stacksize=0x2
 #set(CMAKE_EXPORT_COMPILE_COMMANDS ON)  # 生成编译数据库
 #set(CMAKE_VERBOSE_MAKEFILE ON)         # 显示详细编译命令
 
-# =====================设置项目文件=====================
-set(TARGET_FILE ${PROJECT_NAME}.out)
 

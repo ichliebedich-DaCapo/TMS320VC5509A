@@ -1,3 +1,5 @@
+#include<app_conf.h>
+#if PROGRAM_INDEX == 0
 #include<zq_gpio.h>
 
 
@@ -9,3 +11,5 @@ int main()
     {
     }
 }
+
+#endif
