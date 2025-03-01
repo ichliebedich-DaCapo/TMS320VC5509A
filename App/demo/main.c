@@ -3,11 +3,9 @@
 
 int main()
 {
-
+    // ZQ_GPIO_Disable(GPIO_GROUP_NORMAL, GPIO_PIN_0);
 
     while (1)
     {
-
-
     }
 }

@@ -24,13 +24,13 @@ SECTIONS {
         *(.text.*)         /* 函数级链接时可能需要 */
         KEEP(*(.init))     /* 系统初始化代码 */
         KEEP(*(.fini))     /* 系统终止代码 */
-    } > PMEM
+    } > SARAM
 
     /* 常量数据 (ROM中) */
     .rodata : {
         *(.rodata)
         *(.rodata.*)
-    } > PMEM
+    } > DARAM
 
     /* 初始化数据 (加载在PMEM，运行时拷贝到DARAM) */
     .data : AT (ADDR(.rodata) + SIZEOF(.rodata) + SIZEOF(.ARM.exidx)) {
@@ -48,21 +48,23 @@ SECTIONS {
         *(.bss.*)
         *(COMMON)
         __bss_end__ = .;
-    } > SARAM
+    } > DARAM
 
     /* 堆空间 (通常放在剩余DARAM) */
     .heap (NOLOAD) : {
         _heap_start = .;
-        . += 0x1000;       /* 最小4KB堆 */
+        . += 0x0400;       /* 最小4KB堆 */
         _heap_end = .;
     } > DARAM
 
     /* 堆栈 (通常使用SARAM) */
     .stack (NOLOAD) : {
         _stack_top = .;
-        . += 0x0800;       /* 2KB系统堆栈 */
+        . += 0x0200;       /* 2KB系统堆栈 */
         _stack = .;
-    } > SARAM
+    } > DARAM
+
+
 
     /* 特殊功能寄存器 */
     .io_regs : {
@@ -78,4 +80,4 @@ SECTIONS {
 
 /* 符号导出供启动代码使用 */
 PROVIDE(__stack = _stack);
-PROVIDE(_system_stack_size = 0x0800);
+PROVIDE(_system_stack_size = 0x0200);

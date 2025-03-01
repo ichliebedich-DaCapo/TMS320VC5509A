@@ -41,5 +41,6 @@ add_link_options(-T${CMAKE_SOURCE_DIR}/Tools/scripts/C55x_GCC_LinkerScript.ld)
 
 # =====================设置项目文件=====================
 set(TARGET_FILE ${PROJECT_NAME}.elf)
-#set(CMAKE_C_COMPILER_WORKS 1)   # 强制绕过编译器检查
+set(CMAKE_C_COMPILER_WORKS ON)   # 强制绕过编译器检查
+set(CMAKE_CXX_COMPILER_WORKS ON)
 #set(CMAKE_C_COMPILER_FORCED ON)

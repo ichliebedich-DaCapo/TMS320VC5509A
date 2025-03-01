@@ -31,3 +31,4 @@ add_link_options(--xml_link_info=${LINKINFO_XML} --rom_model --sys_stacksize=0x2
 
 # =====================设置项目文件=====================
 set(TARGET_FILE ${PROJECT_NAME}.out)
+
