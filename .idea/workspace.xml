@@ -29,27 +29,10 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a78db7b0-77d9-459c-87d1-f1d260dcb0d0" name="更改" comment="【优化】修复了CMakeLists中的一些问题，并把实验1成功添加置工程里">
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/App/2_map/add.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/App/2_map/main.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/App/4_sdram/main.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/App/conf/app_conf.h.in" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BSP/inc/dip.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BSP/inc/led.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BSP/inc/sdram.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BSP/src/dip.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BSP/src/led.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BSP/src/sdram.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Core/Drivers/inc/zq_delay.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Core/Drivers/src/zq_delay.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.cproject" beforeDir="false" afterPath="$PROJECT_DIR$/.cproject" afterDir="false" />
+    <list default="true" id="a78db7b0-77d9-459c-87d1-f1d260dcb0d0" name="更改" comment="【开发】添加了DSP库，并添加了一些片外外设">
+      <change afterPath="$PROJECT_DIR$/Core/Drivers/inc/zq_pll.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Core/Drivers/src/zq_pll.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.settings/org.eclipse.core.resources.prefs" beforeDir="false" afterPath="$PROJECT_DIR$/.settings/org.eclipse.core.resources.prefs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/1_debug/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/App/1_debug/main.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/conf/app_conf.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BSP/inc/lcd.h" beforeDir="false" afterPath="$PROJECT_DIR$/BSP/inc/lcd.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -143,8 +126,8 @@
       <recent name="E:\Program\Embedded\MCU\TI\Program\new_demo\demo\BSP\src" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="E:\Program\Embedded\MCU\TI\Program\new_demo\demo\BSP\src" />
       <recent name="E:\Program\Embedded\MCU\TI\Program\new_demo\demo\Core\Drivers\src" />
+      <recent name="E:\Program\Embedded\MCU\TI\Program\new_demo\demo\BSP\src" />
     </key>
   </component>
   <component name="RunManager">
@@ -179,7 +162,7 @@
       <workItem from="1740815436090" duration="4594000" />
       <workItem from="1740820057734" duration="385000" />
       <workItem from="1740820453337" duration="3290000" />
-      <workItem from="1740824813556" duration="15029000" />
+      <workItem from="1740824813556" duration="20607000" />
     </task>
     <task id="LOCAL-00001" summary="【工程】成功使用CLion编译TI工程">
       <option name="closed" value="true" />
@@ -253,7 +236,15 @@
       <option name="project" value="LOCAL" />
       <updated>1740837680580</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="【开发】添加了DSP库，并添加了一些片外外设">
+      <option name="closed" value="true" />
+      <created>1740847515657</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1740847515657</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -297,7 +288,8 @@
     <MESSAGE value="【修复】修复了GPIO库" />
     <MESSAGE value="【体验提升】GCC下有代码补全，为了模仿GCC，编写了链接脚本并添加了一写兼容GCC的函数和宏" />
     <MESSAGE value="【优化】修复了CMakeLists中的一些问题，并把实验1成功添加置工程里" />
-    <option name="LAST_COMMIT_MESSAGE" value="【优化】修复了CMakeLists中的一些问题，并把实验1成功添加置工程里" />
+    <MESSAGE value="【开发】添加了DSP库，并添加了一些片外外设" />
+    <option name="LAST_COMMIT_MESSAGE" value="【开发】添加了DSP库，并添加了一些片外外设" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
