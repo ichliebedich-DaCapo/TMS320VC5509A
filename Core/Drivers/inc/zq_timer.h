@@ -11,17 +11,17 @@ extern "C" {
 
 typedef struct
 {
-    volatile ioport uint16_t CNT; // 计数器
-    volatile ioport uint16_t PRD; // 周期寄存器
-    volatile ioport uint16_t TCR; // 控制寄存器
-    volatile ioport uint16_t PRSC; // 预分频寄存器
+    volatile uint16_t CNT; // 计数器
+    volatile uint16_t PRD; // 周期寄存器
+    volatile uint16_t TCR; // 控制寄存器
+    volatile uint16_t PRSC; // 预分频寄存器
 } TIMER_Type;
 
 #define TIMER0_BASE 0x1000
 #define TIMER1_BASE 0x2400
 
-#define TIMER0 (*(TIMER_Type *)TIMER0_BASE)
-#define TIMER1 (*(TIMER_Type *)TIMER1_BASE)
+#define TIMER0 (*(volatile ioport TIMER_Type *)TIMER0_BASE)
+#define TIMER1 (*(volatile ioport TIMER_Type *)TIMER1_BASE)
 
 /**
  * 获取定时器的计数值

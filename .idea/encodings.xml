@@ -4,5 +4,9 @@
     <file url="file://$PROJECT_DIR$/App/3_memory/memory.c" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/App/4_sdram/dip.c" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/App/4_sdram/led.c" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/App/9_LCD/lcd/ICETEK-VC5509-EDU.h" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/App/9_LCD/lcd/lcd.c" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/App/9_LCD/ledarray/ICETEK-VC5509-EDU.h" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/App/9_LCD/ledarray/main.c" charset="UTF-8" />
   </component>
 </project>
