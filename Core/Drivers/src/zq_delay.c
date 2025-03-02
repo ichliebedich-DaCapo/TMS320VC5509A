@@ -6,7 +6,7 @@
 
 
 // 函数
-void Delay(const uint16_t nDelay)
+void delay(const uint16_t nDelay)
 {
     int ii,jj,kk=0;
     for ( ii=0;ii<nDelay;ii++ )

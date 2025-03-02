@@ -9,6 +9,9 @@
 #include<led.h>
 #include <dip.h>
 #include<sdram.h>
+#include<zq_pll.h>
+
+
 
 // 流水灯测试
 void led_test();
@@ -19,6 +22,7 @@ void dip_test();
 // 函数
 int main()
 {
+    ZQ_PLL_Init();
     sdram_init();
 
     while (1)
@@ -33,12 +37,12 @@ void led_test()
     int16_t i;
     for (i = 0; i < 4; ++i)
     {
-        led_on(1 << i); // 正向
+        led_on(1 << i); // 正向开启
         delay(256);
     }
     for (i = 3; i >= 0; --i)
     {
-        led_off(1 << i); // 反向顺序送控制字
+        led_off(1 << i); // 反向关闭
         delay(256);
     }
 }
