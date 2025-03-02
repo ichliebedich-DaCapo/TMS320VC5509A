@@ -29,15 +29,8 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a78db7b0-77d9-459c-87d1-f1d260dcb0d0" name="更改" comment="【开发】添加了锁相环驱动，完成了一半">
+    <list default="true" id="a78db7b0-77d9-459c-87d1-f1d260dcb0d0" name="更改" comment="【开发】完善了锁相环驱动（包含USBPLL）">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/4_sdram/common/5509.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/4_sdram/common/c55xxdefs.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/4_sdram/common/util.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/4_sdram/common/util.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/4_sdram/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/App/4_sdram/main.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Drivers/inc/zq_pll.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Drivers/inc/zq_pll.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Drivers/src/zq_pll.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Drivers/src/zq_pll.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -136,6 +129,11 @@
     </key>
   </component>
   <component name="RunManager">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="demo.elf" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="demo" TARGET_NAME="demo.elf" CONFIG_NAME="Debug-w64-i686-arm-none-eabi" RUN_TARGET_PROJECT_NAME="demo" RUN_TARGET_NAME="demo.elf">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -163,7 +161,7 @@
       <workItem from="1740820057734" duration="385000" />
       <workItem from="1740820453337" duration="3290000" />
       <workItem from="1740824813556" duration="20787000" />
-      <workItem from="1740891880985" duration="15264000" />
+      <workItem from="1740891880985" duration="15642000" />
     </task>
     <task id="LOCAL-00001" summary="【工程】成功使用CLion编译TI工程">
       <option name="closed" value="true" />
@@ -253,7 +251,15 @@
       <option name="project" value="LOCAL" />
       <updated>1740853441042</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="【开发】完善了锁相环驱动（包含USBPLL）">
+      <option name="closed" value="true" />
+      <created>1740912288116</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1740912288116</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -299,18 +305,8 @@
     <MESSAGE value="【优化】修复了CMakeLists中的一些问题，并把实验1成功添加置工程里" />
     <MESSAGE value="【开发】添加了DSP库，并添加了一些片外外设" />
     <MESSAGE value="【开发】添加了锁相环驱动，完成了一半" />
-    <option name="LAST_COMMIT_MESSAGE" value="【开发】添加了锁相环驱动，完成了一半" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/App/4_sdram/main.c</url>
-          <line>7</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="【开发】完善了锁相环驱动（包含USBPLL）" />
+    <option name="LAST_COMMIT_MESSAGE" value="【开发】完善了锁相环驱动（包含USBPLL）" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
