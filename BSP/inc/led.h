@@ -10,7 +10,7 @@ extern "C" {
 #include<zq_conf.h>
 
 // 定义指示灯寄存器地址和寄存器类型
-#define LED_BASE (*((unsigned int *)0x400001))
+#define LED_BASE (*((volatile unsigned int *)0x400001))
 
 typedef enum
 {

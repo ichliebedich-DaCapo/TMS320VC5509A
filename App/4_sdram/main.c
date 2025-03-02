@@ -37,12 +37,12 @@ void led_test()
     int16_t i;
     for (i = 0; i < 4; ++i)
     {
-        led_on(1 << i); // 正向开启
+        led_on((LED_Pin)(1 << i)); // 正向开启
         delay(256);
     }
     for (i = 3; i >= 0; --i)
     {
-        led_off(1 << i); // 反向关闭
+        led_off((LED_Pin)(1 << i)); // 反向关闭
         delay(256);
     }
 }

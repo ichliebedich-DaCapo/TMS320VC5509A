@@ -6,7 +6,7 @@ include(Tools/cmake/arm-gcc.cmake)
 project(demo C CXX ASM)
 
 # ===================设置工程目录======================
-set(APP_DIR App/4_sdram)
+set(APP_DIR App/5_TIM_INT)
 
 # ===================设置工程目录======================
 
