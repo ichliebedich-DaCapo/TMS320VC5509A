@@ -29,16 +29,20 @@ configure_file(${CMAKE_SOURCE_DIR}/App/conf/app_conf.h.in ${CMAKE_SOURCE_DIR}/Ap
 
 #-------------------------------------------库-------------------------------------------
 file(GLOB_RECURSE SOURCES
+        "Adapter/GUI/*.c"
         "${APP_DIR}/*.c"
         "BSP/src/*.c"
         "Core/Drivers/src/*.c"
+        "Middleware/Third_Party/u8g2/*.c"
 )
 include_directories(
+        "Adapter/GUI"
         ${APP_DIR}
         "App"
         "App/conf"
         "BSP/inc"
         "Core/Drivers/inc"
+        "Middleware/Third_Party/u8g2"
 )
 
 add_executable(${TARGET_FILE} ${SOURCES})
