@@ -8,7 +8,7 @@
 #include<zq_delay.h>
 #include<led.h>
 #include <dip.h>
-#include<sdram.h>
+#include <zq_sdram.h>
 #include<zq_pll.h>
 
 
@@ -23,7 +23,7 @@ void dip_test();
 int main()
 {
     ZQ_PLL_Init();
-    sdram_init();
+    ZQ_SDRAM_Init();
 
     while (1)
     {
