@@ -19,7 +19,9 @@ extern "C"
 #endif
 
     /********************LCD驱动接口***********************/
-void lcd_write_data(uint16_t page, uint16_t column, uint8_t color);
+void lcd_write_data(uint16_t page, uint16_t column, uint8_t data);
+
+void lcd_full_flush(const uint8_t *buf);// 刷新整个屏幕
 
 void LCD_Clear();
 

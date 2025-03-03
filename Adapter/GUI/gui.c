@@ -62,19 +62,11 @@ uint8_t external_buffer[128 * 8]; // 全缓冲模式（128列 x 8页）
 
 uint8_t u8x8_refresh_cb(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *arg_ptr)
 {
-    uint8_t page, col;
+// uint8_t page, col;
     switch (msg)
     {
         case U8X8_MSG_DISPLAY_REFRESH:
-        for (page = 0; page < 8; page++)
-        {
-            // 遍历所有页（8页）
-            for (col = 0; col <128; col++)
-            {
-                const uint8_t data = external_buffer[page * 128 + col]; // 当前页当前列的数据
-                lcd_write_data(page, col, data); // 写入LCD
-            }
-        }
+            lcd_full_flush(external_buffer);
         break;
         default:
             break;
@@ -82,7 +74,7 @@ uint8_t u8x8_refresh_cb(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *arg_pt
     return 0;
 }
 
-static const u8x8_display_info_t u8x8_ssd1306_128x64_noname_display_info =
+static const u8x8_display_info_t u8x8_custom_128x64_display_info =
 {
     /* chip_enable_level = */ 0,
     /* chip_disable_level = */ 1,
@@ -116,7 +108,7 @@ void GUI_Init()
     u8x8_t *u8x8 = u8g2_GetU8x8(&u8g2);
     u8x8_SetupDefaults(u8x8);
     u8x8->display_cb = u8x8_refresh_cb;
-    u8x8->display_info = &u8x8_ssd1306_128x64_noname_display_info;
+    u8x8->display_info = &u8x8_custom_128x64_display_info;
 
 
     // 设置U8g2缓冲区

@@ -8,8 +8,11 @@
 
 static volatile bool keep_running = true;
 
-constexpr int HOR = 128 * 4; // 屏幕宽度
-constexpr int VER = 64 * 4; // 屏幕高度
+constexpr int HOR = 128; // 屏幕宽度
+constexpr int VER = 64; // 屏幕高度
+constexpr int REAL_HOR = HOR*4;
+constexpr int REAL_VER = VER*4;
+
 
 static SDL_Window *window;
 static SDL_Renderer *renderer;
@@ -17,7 +20,7 @@ static SDL_Texture *texture;
 
 
 // 屏幕显存
-static uint16_t TFT_GRAM[VER][HOR];
+static uint16_t TFT_GRAM[REAL_VER][REAL_HOR];
 static uint16_t *GRAM = &TFT_GRAM[0][0];
 
 // 触摸屏相关变量
@@ -49,7 +52,7 @@ void simulator_init()
 
     // 创建窗口
     window = SDL_CreateWindow("LVGL Simulator", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-                              HOR, VER, SDL_WINDOW_SHOWN | SDL_WINDOW_INPUT_FOCUS);
+                              REAL_HOR, REAL_VER, SDL_WINDOW_SHOWN | SDL_WINDOW_INPUT_FOCUS);
 
     // 创建渲染器（此处使用硬件加速，可以使用软件加速SDL_RENDERER_SOFTWARE）
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
@@ -57,7 +60,7 @@ void simulator_init()
     // 创建纹理
     texture = SDL_CreateTexture(renderer,
                                 SDL_PIXELFORMAT_RGB565, SDL_TEXTUREACCESS_STREAMING,
-                                HOR, VER);
+                                REAL_HOR, REAL_VER);
 
 
     if (!window || !renderer || !texture)
@@ -141,15 +144,39 @@ void simulator_event_Handler()
     }
 
     // 更新纹理
-    SDL_UpdateTexture(texture, nullptr, GRAM, HOR * sizeof(uint16_t));
+    SDL_UpdateTexture(texture, nullptr, GRAM, REAL_HOR * sizeof(uint16_t));
     SDL_RenderClear(renderer);
     SDL_RenderCopy(renderer, texture, nullptr, nullptr);
     SDL_RenderPresent(renderer);
 }
 
 
-/***********************************LCD驱动接口******************************************/
 
+/***********************************LCD驱动接口******************************************/
+//
+/**
+ * 设置单个像素点
+ * @param x 横坐标
+ * @param y 纵坐标
+ * @param color 颜色，0：白色 1：黑色
+ */
+static void lcd_write_pixel(const uint16_t x, const uint16_t y, const uint8_t color)
+{
+    // 填充4x4像素块
+    for (int dy = 0; dy < 4; ++dy)
+    {
+        for (int dx = 0; dx < 4; ++dx)
+        {
+            // 计算实际显存坐标
+            const uint16_t ty = y + dy;
+            const uint16_t tx = x + dx;
+
+            // TFT_GRAM[y][x] = is_black ? 0xF000 : 0x6789;// 左黑右白
+            TFT_GRAM[ty][tx] = color ? 0x0000 : 0xFFFF;// 左黑右白
+
+        }
+    }
+}
 
 /**
  * 绘制竖着的一页数据（一页数据是8个像素点）
@@ -157,7 +184,7 @@ void simulator_event_Handler()
  * @param column 列 0到127
  * @param data 一页的数据，为1时即黑
  */
-void lcd_write_data(const uint16_t page, const uint16_t column, uint8_t data)
+void lcd_write_data(const uint16_t page, const uint16_t column, const uint8_t data)
 {
     const uint16_t logical_x = column; // 逻辑列坐标
     const uint16_t screen_x_start = logical_x * 4; // 显存起始列坐标
@@ -169,22 +196,21 @@ void lcd_write_data(const uint16_t page, const uint16_t column, uint8_t data)
         const bool is_black = data & (1 << i); // 获取当前bit值
 
         // 填充4x4像素块
-        for (int dy = 0; dy < 4; ++dy)
-        {
-            for (int dx = 0; dx < 4; ++dx)
-            {
-                // 计算实际显存坐标
-                const uint16_t y = screen_y_start + dy;
-                const uint16_t x = screen_x_start + dx;
-
-                // TFT_GRAM[y][x] = is_black ? 0xF000 : 0x6789;// 左黑右白
-                TFT_GRAM[y][x] = is_black ? 0x0000 : 0xFFFF;// 左黑右白
-
-            }
-        }
+        lcd_write_pixel(screen_x_start, screen_y_start, is_black);
     }
 }
 
+void lcd_full_flush(const uint8_t *buf)
+{
+    for (uint8_t page = 0; page < 8; page++)
+    {
+        // 遍历所有页（8页）
+        for (uint8_t col = 0; col <128; col++)
+        {
+            lcd_write_data(page, col, buf[page * 128 + col]); // 写入LCD
+        }
+    }
+}
 
 void LCD_Clear()
 {
@@ -227,17 +253,17 @@ void mouse_handler(SDL_Event *event)
 
         case SDL_FINGERUP:
             press_state = false;
-            last_x = (int) ((float) HOR * event->tfinger.x);
-            last_y = (int) ((float) VER * event->tfinger.y);
+            last_x = (int) ((float) REAL_HOR * event->tfinger.x);
+            last_y = (int) ((float) REAL_VER * event->tfinger.y);
             break;
         case SDL_FINGERDOWN:
             press_state = true;
-            last_x = (int) ((float) HOR * event->tfinger.x);
-            last_y = (int) ((float) VER * event->tfinger.y);
+            last_x = (int) ((float) REAL_HOR * event->tfinger.x);
+            last_y = (int) ((float) REAL_VER * event->tfinger.y);
             break;
         case SDL_FINGERMOTION:
-            last_x = (int) ((float) HOR * event->tfinger.x);
-            last_y = (int) ((float) VER * event->tfinger.y);
+            last_x = (int) ((float) REAL_HOR * event->tfinger.x);
+            last_y = (int) ((float) REAL_VER * event->tfinger.y);
             break;
         default: break;
     }
@@ -245,3 +271,4 @@ void mouse_handler(SDL_Event *event)
 
 
 /**************************键盘*****************************/
+
