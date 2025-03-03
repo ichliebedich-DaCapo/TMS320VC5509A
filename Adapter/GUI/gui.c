@@ -59,24 +59,28 @@ u8g2_t u8g2; // 全局 U8g2 对象
 uint8_t external_buffer[128 * 8]; // 全缓冲模式（128列 x 8页）
 
 
-void lcd_refresh(u8g2_t *u8g2)
+
+uint8_t u8x8_refresh_cb(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *arg_ptr)
 {
-    const uint8_t *buf = u8g2_GetBufferPtr(u8g2); // 获取缓冲区指针
-    uint16_t buf_width = 128; // 每页的列数（128）
-
     uint8_t page, col;
-    for (page = 0; page < 8; page++)
+    switch (msg)
     {
-        // 遍历所有页（8页）
-        for (col = 0; col < buf_width; col++)
+        case U8X8_MSG_DISPLAY_REFRESH:
+        for (page = 0; page < 8; page++)
         {
-            uint8_t data = buf[page * buf_width + col]; // 当前页当前列的数据
-            lcd_write_data(page, col, data); // 写入LCD
+            // 遍历所有页（8页）
+            for (col = 0; col <128; col++)
+            {
+                const uint8_t data = external_buffer[page * 128 + col]; // 当前页当前列的数据
+                lcd_write_data(page, col, data); // 写入LCD
+            }
         }
+        break;
+        default:
+            break;
     }
+    return 0;
 }
-
-uint8_t u8x8_msg_cb_empty(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *arg_ptr) { return 0; }
 
 static const u8x8_display_info_t u8x8_ssd1306_128x64_noname_display_info =
 {
@@ -104,35 +108,24 @@ static const u8x8_display_info_t u8x8_ssd1306_128x64_noname_display_info =
     /* pixel_height = */ 64
 };
 
-uint8_t my_128x64(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *arg_ptr)
-{
-    switch (msg)
-    {
-        case U8X8_MSG_DISPLAY_INIT:
-            break;
-        case U8X8_MSG_DISPLAY_DRAW_TILE:
-            break;
-        case U8X8_MSG_DISPLAY_SETUP_MEMORY:
-            u8x8_d_helper_display_setup_memory(u8x8, &u8x8_ssd1306_128x64_noname_display_info);
-            break;
-        default:
-            return 0;
-    }
-    return 1;
-}
+
 
 void GUI_Init()
 {
+    // 初始化U8g2对象
     u8x8_t *u8x8 = u8g2_GetU8x8(&u8g2);
     u8x8_SetupDefaults(u8x8);
-    u8x8->display_cb = my_128x64;
-    u8x8_SetupMemory(u8x8);
+    u8x8->display_cb = u8x8_refresh_cb;
+    u8x8->display_info = &u8x8_ssd1306_128x64_noname_display_info;
 
-    u8g2_SetupBuffer(&u8g2, external_buffer, 8, u8g2_ll_hvline_vertical_top_lsb, U8G2_R2);
+
+    // 设置U8g2缓冲区
+    u8g2_SetupBuffer(&u8g2, external_buffer, 8, u8g2_ll_hvline_vertical_top_lsb, U8G2_R0);
     u8g2_InitDisplay(&u8g2);
     u8g2_SetPowerSave(&u8g2, 0); // 关闭省电模式
 
-    u8g2_FirstPage(&u8g2);// 显示第一页
+    // 显示第一页
+    u8g2_FirstPage(&u8g2);
 }
 
 

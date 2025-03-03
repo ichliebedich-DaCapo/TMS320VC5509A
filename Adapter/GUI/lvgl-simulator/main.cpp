@@ -26,16 +26,15 @@ int main(int argc, char *argv[])
     {
         simulator_event_Handler();// 模拟器事件处理
 
-
-        if (i==300)
+        i++;
+        if (i==100)
         {
             i=0;
-            u8g2_DrawFrame(&u8g2, 20, 10, 50, 40);  // 绘制空心矩形
+            u8g2_DrawFrame(&u8g2, 0, 0, 128, 64);  // 绘制空心矩形
 
         }
-        i++;
+
         u8g2_NextPage(&u8g2);
-        lcd_refresh(&u8g2);  // 手动刷新到硬件
         SDL_Delay(10);// 短暂休眠
     }
 
