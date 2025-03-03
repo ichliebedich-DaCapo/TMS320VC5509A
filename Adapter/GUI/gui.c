@@ -106,22 +106,11 @@ static const u8x8_display_info_t u8x8_ssd1306_128x64_noname_display_info =
 
 uint8_t my_128x64(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *arg_ptr)
 {
-    // 关键代码：处理图形数据
-    uint8_t *tile_ptr = (uint8_t *) arg_ptr;
-    uint8_t x = ((u8x8_tile_t *) tile_ptr)->x_pos * 8; // 转换为像素坐标
-    uint8_t page = ((u8x8_tile_t *) tile_ptr)->y_pos; // 直接对应LCD页号
-    uint8_t col;
     switch (msg)
     {
         case U8X8_MSG_DISPLAY_INIT:
             break;
         case U8X8_MSG_DISPLAY_DRAW_TILE:
-
-
-            for ( col = 0; col < 18; col++)
-            {
-                lcd_write_data(page, x + col, tile_ptr[col]); // 按列写入数据
-            }
             break;
         case U8X8_MSG_DISPLAY_SETUP_MEMORY:
             u8x8_d_helper_display_setup_memory(u8x8, &u8x8_ssd1306_128x64_noname_display_info);
@@ -142,6 +131,8 @@ void GUI_Init()
     u8g2_SetupBuffer(&u8g2, external_buffer, 8, u8g2_ll_hvline_vertical_top_lsb, U8G2_R2);
     u8g2_InitDisplay(&u8g2);
     u8g2_SetPowerSave(&u8g2, 0); // 关闭省电模式
+
+    u8g2_FirstPage(&u8g2);// 显示第一页
 }
 
 
