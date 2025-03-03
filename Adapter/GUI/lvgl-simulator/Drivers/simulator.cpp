@@ -8,8 +8,8 @@
 
 static volatile bool keep_running = true;
 
-constexpr int HOR=128;// 屏幕宽度
-constexpr int VER=64;// 屏幕高度
+constexpr int HOR=128*4;// 屏幕宽度
+constexpr int VER=64*4;// 屏幕高度
 
 static SDL_Window *window;
 static SDL_Renderer *renderer;
@@ -18,7 +18,7 @@ static SDL_Texture *texture;
 
 
 // 屏幕显存
-static uint16_t TFT_GRAM[320][480];
+static uint16_t TFT_GRAM[VER][HOR];
 static uint16_t *GRAM = &TFT_GRAM[0][0];
 
 // 触摸屏相关变量
@@ -156,24 +156,34 @@ void simulator_event_Handler()
 
 
 /**
- *
+ * 绘制竖着的一页数据（一页数据是8个像素点）
  * @param page 页 0到7
  * @param column 列 0到127
  * @param data 一页的数据
  */
 void lcd_write_data(const uint16_t page, const uint16_t column, uint8_t data)
 {
-    const uint16_t y = page*8;
-    const uint16_t x =column;
-    for (int i=0;i<8;++i)
+    const uint16_t logical_x = column; // 逻辑列坐标
+    const uint16_t screen_x_start = logical_x * 4; // 显存起始列坐标
+
+    for (int i = 0; i < 8; ++i) // 遍历8个垂直像素位
     {
-        if (data & (1 << i))
-        {
-            GRAM[x +y * HOR] = 0xFFFF;
-        }
-        else
-        {
-            GRAM[x +y * HOR] = 0;
+        const uint16_t logical_y = page * 8 + i; // 逻辑行坐标
+        const uint16_t screen_y_start = logical_y * 4; // 显存起始行坐标
+        const bool is_black = data & (1 << i); // 获取当前bit值
+
+        // 填充4x4像素块
+        for (int dy = 0; dy < 4; ++dy) {
+            for (int dx = 0; dx < 4; ++dx) {
+                // 计算实际显存坐标
+                const uint16_t y = screen_y_start + dy;
+                const uint16_t x = screen_x_start + dx;
+
+                // 边界检查（防止最后一页超出范围）
+                if (y < VER && x < HOR) {
+                    TFT_GRAM[y][x] = is_black ? 0x0000 : 0xFFFF;
+                }
+            }
         }
     }
 }
@@ -183,7 +193,7 @@ void lcd_write_data(const uint16_t page, const uint16_t column, uint8_t data)
 
 
 
-[[maybe_unused]] void LCD_Clear(uint16_t color)
+void LCD_Clear()
 {
     for (int i=0;i<HOR*VER;++i)
         GRAM[i] = 0xFFFF;

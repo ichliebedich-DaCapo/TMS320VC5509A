@@ -29,21 +29,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a78db7b0-77d9-459c-87d1-f1d260dcb0d0" name="更改" comment="【开发】勉强添加了一个u8g2库，后面可以再做一个模拟器辅助开发">
-      <change afterPath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/.idea/deployment.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/.idea/editor.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/.idea/lvgl-simulator.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/App/9_LCD/ui/ui.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/App/9_LCD/ui/ui.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/gui.c" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/gui.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/gui.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/gui.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Middleware/Third_Party/u8g2/u8g2.h" beforeDir="false" afterPath="$PROJECT_DIR$/Middleware/Third_Party/u8g2/u8g2.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Middleware/Third_Party/u8g2/u8g2_d_setup.c" beforeDir="false" afterPath="$PROJECT_DIR$/Middleware/Third_Party/u8g2/u8g2_d_setup.c" afterDir="false" />
-    </list>
+    <list default="true" id="a78db7b0-77d9-459c-87d1-f1d260dcb0d0" name="更改" comment="【开发】尝试添加了一个模拟器" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -173,7 +159,7 @@
       <workItem from="1740824813556" duration="20787000" />
       <workItem from="1740891880985" duration="31336000" />
       <workItem from="1740931465814" duration="5158000" />
-      <workItem from="1740973641999" duration="1531000" />
+      <workItem from="1740973641999" duration="1580000" />
     </task>
     <task id="LOCAL-00001" summary="【工程】成功使用CLion编译TI工程">
       <option name="closed" value="true" />
@@ -311,7 +297,15 @@
       <option name="project" value="LOCAL" />
       <updated>1740936608594</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="【开发】尝试添加了一个模拟器">
+      <option name="closed" value="true" />
+      <created>1740978301256</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1740978301256</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -363,7 +357,8 @@
     <MESSAGE value="【开发】添加了初始化文件、定时器文件（未开发），并修改了链接脚本" />
     <MESSAGE value="【开发】基础LCD已经搭建好了" />
     <MESSAGE value="【开发】勉强添加了一个u8g2库，后面可以再做一个模拟器辅助开发" />
-    <option name="LAST_COMMIT_MESSAGE" value="【开发】勉强添加了一个u8g2库，后面可以再做一个模拟器辅助开发" />
+    <MESSAGE value="【开发】尝试添加了一个模拟器" />
+    <option name="LAST_COMMIT_MESSAGE" value="【开发】尝试添加了一个模拟器" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

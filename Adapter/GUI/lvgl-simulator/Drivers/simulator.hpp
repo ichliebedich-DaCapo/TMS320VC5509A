@@ -21,7 +21,7 @@ extern "C"
     /********************LCD驱动接口***********************/
 void lcd_write_data(uint16_t page, uint16_t column, uint8_t color);
 
-void LCD_Clear(uint16_t color);
+void LCD_Clear();
 
 /**********************触摸屏驱动接口**********************/
 int32_t touchpad_read_xy(int32_t *x, int32_t *y);
