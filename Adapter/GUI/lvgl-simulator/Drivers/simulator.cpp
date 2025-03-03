@@ -8,13 +8,12 @@
 
 static volatile bool keep_running = true;
 
-constexpr int HOR=128*4;// 屏幕宽度
-constexpr int VER=64*4;// 屏幕高度
+constexpr int HOR = 128 * 4; // 屏幕宽度
+constexpr int VER = 64 * 4; // 屏幕高度
 
 static SDL_Window *window;
 static SDL_Renderer *renderer;
 static SDL_Texture *texture;
-
 
 
 // 屏幕显存
@@ -40,7 +39,6 @@ uint8_t simulator_is_running() { return keep_running; }
  */
 void simulator_init()
 {
-
     // 初始化 SDL
     if (SDL_Init(SDL_INIT_VIDEO) != 0)
     {
@@ -71,15 +69,15 @@ void simulator_init()
     }
 
     // 创建更新纹理的线程
-//    SDL_CreateThread([](void *)
-//                     {
-//                         while (keep_running)
-//                         {
-//
-//                             SDL_Delay(10);
-//                         }
-//                         return 1;
-//                     }, "updateSDLGram", nullptr);
+    //    SDL_CreateThread([](void *)
+    //                     {
+    //                         while (keep_running)
+    //                         {
+    //
+    //                             SDL_Delay(10);
+    //                         }
+    //                         return 1;
+    //                     }, "updateSDLGram", nullptr);
 }
 
 
@@ -104,8 +102,6 @@ void simulator_event_Handler()
     static SDL_Event event;
     while (SDL_PollEvent(&event))
     {
-
-
         if (event.type == SDL_KEYDOWN)
         {
             printf("Key Press\n");
@@ -127,7 +123,7 @@ void simulator_event_Handler()
                 break;
 
             case SDL_KEYDOWN:
-        // 失效了，没有任何用
+                // 失效了，没有任何用
                 break;
 
             case SDL_WINDOWEVENT:
@@ -159,7 +155,7 @@ void simulator_event_Handler()
  * 绘制竖着的一页数据（一页数据是8个像素点）
  * @param page 页 0到7
  * @param column 列 0到127
- * @param data 一页的数据
+ * @param data 一页的数据，为1时即黑
  */
 void lcd_write_data(const uint16_t page, const uint16_t column, uint8_t data)
 {
@@ -173,29 +169,26 @@ void lcd_write_data(const uint16_t page, const uint16_t column, uint8_t data)
         const bool is_black = data & (1 << i); // 获取当前bit值
 
         // 填充4x4像素块
-        for (int dy = 0; dy < 4; ++dy) {
-            for (int dx = 0; dx < 4; ++dx) {
+        for (int dy = 0; dy < 4; ++dy)
+        {
+            for (int dx = 0; dx < 4; ++dx)
+            {
                 // 计算实际显存坐标
                 const uint16_t y = screen_y_start + dy;
                 const uint16_t x = screen_x_start + dx;
 
-                // 边界检查（防止最后一页超出范围）
-                if (y < VER && x < HOR) {
-                    TFT_GRAM[y][x] = is_black ? 0x0000 : 0xFFFF;
-                }
+                // TFT_GRAM[y][x] = is_black ? 0xF000 : 0x6789;// 左黑右白
+                TFT_GRAM[y][x] = is_black ? 0x0000 : 0xFFFF;// 左黑右白
+
             }
         }
     }
 }
 
 
-
-
-
-
 void LCD_Clear()
 {
-    for (int i=0;i<HOR*VER;++i)
+    for (int i = 0; i < HOR * VER; ++i)
         GRAM[i] = 0xFFFF;
 }
 
@@ -252,4 +245,3 @@ void mouse_handler(SDL_Event *event)
 
 
 /**************************键盘*****************************/
-
