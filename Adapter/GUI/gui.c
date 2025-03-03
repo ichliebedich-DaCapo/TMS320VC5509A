@@ -1,6 +1,7 @@
 //
 // Created by fairy on 2025/3/3 01:09.
 //
+#ifndef SIMULATOR
 #include "gui.h"
 #include <lcd.h>
 #include <u8g2.h>
@@ -47,3 +48,38 @@ void GUI_Init()
     u8g2_InitDisplay(&u8g2);
     u8g2_SetPowerSave(&u8g2, 0); // 关闭省电模式
 }
+
+# 模拟器适配
+#else
+#include<gui.h>
+#include<simulator.hpp>
+
+u8g2_t u8g2; // 全局 U8g2 对象
+uint8_t external_buffer[128 * 8]; // 全缓冲模式（128列 x 8页）
+
+
+
+void lcd_refresh(u8g2_t *u8g2) {
+    uint8_t *buf = u8g2_GetBufferPtr(u8g2);  // 获取缓冲区指针
+    uint16_t buf_width =128;  // 每页的列数（128）
+
+    uint8_t page ,col;
+    for (page = 0; page < 8; page++) {  // 遍历所有页（8页）
+        for (col = 0; col < buf_width; col++) {
+            uint8_t data = buf[page * buf_width + col];  // 当前页当前列的数据
+            lcd_write_data(page, col, data);  // 写入LCD
+        }
+    }
+}
+
+
+void GUI_Init()
+{
+    // 配置 U8g2 使用自定义回调
+    u8g2_SetupBuffer(&u8g2, external_buffer, 8, u8g2_ll_hvline_vertical_top_lsb,&u8g2_cb_r0 );
+    u8g2_InitDisplay(&u8g2);
+    u8g2_SetPowerSave(&u8g2, 0); // 关闭省电模式
+}
+
+
+#endif
