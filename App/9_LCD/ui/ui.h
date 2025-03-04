@@ -8,7 +8,11 @@
 extern "C" {
 #endif
 
-    void ui_init();
+#include<zq_conf.h>
+    // 结构体定义
+
+
+// 提供一些ui接口，由于是C风格，那么采样前缀ui_的_形式
 
 
 #ifdef __cplusplus

@@ -72,6 +72,7 @@ include_directories(
         ${GUI_INC_DIRS}
         ${SDL2_ROOT}/include
         ${UI_INC_DIRS}
+        ../../../Core/Drivers/inc
 )
 target_link_libraries(${PROJECT_NAME} PRIVATE ${SDL2_LIB})
 
