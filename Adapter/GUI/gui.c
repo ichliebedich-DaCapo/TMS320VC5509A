@@ -60,7 +60,7 @@ uint8_t external_buffer[128 * 8]; // 全缓冲区（128列 x 8页）
 #define FULL_BUFFER 0   // 全缓冲模式 1:启用 0:禁用
 
 
-uint8_t u8x8_refresh_cb(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *arg_ptr)
+uint8_t u8x8_custom_display_cb(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *arg_ptr)
 {
 #if FULL_BUFFER ==0
     const struct u8x8_tile_struct *tile = (struct u8x8_tile_struct *) arg_ptr;
@@ -140,7 +140,7 @@ void GUI_Init()
     // 初始化U8g2对象
     u8x8_t *u8x8 = u8g2_GetU8x8(&u8g2);
     u8x8_SetupDefaults(u8x8);
-    u8x8->display_cb = u8x8_refresh_cb;
+    u8x8->display_cb = u8x8_custom_display_cb;
     u8x8->display_info = &u8x8_custom_128x64_display_info;
 
 
