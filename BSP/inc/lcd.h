@@ -26,13 +26,13 @@ extern "C" {
 #define LCD_CMD_PAGE 0xb8   // 设置操作页 0xb8 + (0~7)
 #define LCD_CMD_VER_ADDRESS 0x40    // 设置操作列 0x40 + (0~63)
 
-    /*标志*/
+/*标志*/
 
-    /*变量*/
-    // 显示缓冲区：8页 x 128列，每个字节存储一列的8行数据
-    extern uint8_t lcd_buffer[8][128];
-    // 标记页是否被修改，减少刷新范围
-    extern uint8_t lcd_page_dirty[8];
+/*变量*/
+// 显示缓冲区：8页 x 128列，每个字节存储一列的8行数据
+extern uint8_t lcd_buffer[8][128];
+// 标记页是否被修改，减少刷新范围
+extern uint8_t lcd_page_dirty[8];
 
 /*====================================底层基础操作=========================================*/
 //
@@ -77,19 +77,19 @@ INLINE void lcd_set_page(const uint8_t page)
 // 设置当前列 (0~63)
 INLINE void lcd_set_column(const uint8_t column)
 {
-        lcd_write_cmd(LCD_CMD_VER_ADDRESS + column); // 左半屏
+    lcd_write_cmd(LCD_CMD_VER_ADDRESS + column); // 左半屏
 }
 
-    /**
-     * 设置单点像素（缓冲区版，无硬件操作）
-     * @param x 列坐标 (0~127)
-     * @param y 行坐标 (0~63)
-     * @param data 像素颜色，0：熄灭，1：点亮
-     */
-    INLINE void lcd_write_pixel(const uint8_t x, const uint8_t y, const uint8_t data)
+/**
+ * 设置单点像素（缓冲区版，无硬件操作）
+ * @param x 列坐标 (0~127)
+ * @param y 行坐标 (0~63)
+ * @param data 像素颜色，0：熄灭，1：点亮
+ */
+INLINE void lcd_write_pixel(const uint8_t x, const uint8_t y, const uint8_t data)
 {
     // 计算页和位位置（无除法/取余）
-    const uint8_t page = y >> 3;           // y / 8 → y >> 3
+    const uint8_t page = y >> 3; // y / 8 → y >> 3
     const uint8_t bit_pos = 7 - (y & 0x7); // y % 8 → y & 0x7
 
     // 修改缓冲区
@@ -140,11 +140,26 @@ INLINE void lcd_set_column(const uint8_t column)
     }\
 }
 
+INLINE void lcd_write_data(uint16_t page, uint16_t column, uint8_t data)
+{
+    lcd_set_page(page);
+    if (column > 63)
+    {
+        lcd_set_column(column);
+        lcd_write_data_left(data);
+    }
+    else
+    {
+        lcd_set_column(column - 64);
+        lcd_write_data_right(column - 64);
+    }
+}
 
 /*====================================操作=========================================*/
 //
-    void lcd_init();
-    void lcd_refresh() ;
+void lcd_init();
+
+void lcd_refresh();
 
 
 #ifdef __cplusplus

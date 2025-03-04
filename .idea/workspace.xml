@@ -28,11 +28,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a78db7b0-77d9-459c-87d1-f1d260dcb0d0" name="更改" comment="【开发】尝试添加了一个模拟器">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/9_LCD/ui/ui.c" beforeDir="false" afterPath="$PROJECT_DIR$/App/9_LCD/ui/ui.c" afterDir="false" />
-    </list>
+    <list default="true" id="a78db7b0-77d9-459c-87d1-f1d260dcb0d0" name="更改" comment="【开发】尝试添加了一个模拟器" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -164,6 +160,7 @@
       <workItem from="1740931465814" duration="5158000" />
       <workItem from="1740973641999" duration="1580000" />
       <workItem from="1741062970066" duration="631000" />
+      <workItem from="1741077650297" duration="1000" />
     </task>
     <task id="LOCAL-00001" summary="【工程】成功使用CLion编译TI工程">
       <option name="closed" value="true" />

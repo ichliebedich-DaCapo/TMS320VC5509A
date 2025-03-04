@@ -6,7 +6,7 @@ include(Tools/cmake/arm-gcc.cmake)
 project(demo C CXX ASM)
 
 # ===================设置工程目录======================
-set(APP_DIR App/9_LCD)
+set(APP_DIR App/demo)
 
 # ===================设置工程目录======================
 
@@ -29,7 +29,7 @@ configure_file(${CMAKE_SOURCE_DIR}/App/conf/app_conf.h.in ${CMAKE_SOURCE_DIR}/Ap
 
 #-------------------------------------------库-------------------------------------------
 file(GLOB_RECURSE SOURCES
-        "Adapter/GUI/*.c"
+        "Adapter/GUI/gui.c"
         "${APP_DIR}/*.c"
         "BSP/src/*.c"
         "Core/Drivers/src/*.c"
