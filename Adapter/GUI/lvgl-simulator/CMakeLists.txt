@@ -57,7 +57,7 @@ find_sources(UI_SRCS "${UI_DIR}")
 add_compile_definitions(SIMULATOR)
 add_compile_options(-Winline)
 add_link_options(-Wl,-gc-sections,--relax,--as-needed,-Map=${CMAKE_BINARY_DIR}/${PROJECT_NAME}.map)
-add_executable(${PROJECT_NAME} "${CMAKE_CURRENT_SOURCE_DIR}/main.cpp")
+add_executable(${PROJECT_NAME} "${CMAKE_CURRENT_SOURCE_DIR}/main.cpp" "test.cpp")
 
 # 直接编译模式自动继承所有依赖
 target_sources(${PROJECT_NAME} PRIVATE

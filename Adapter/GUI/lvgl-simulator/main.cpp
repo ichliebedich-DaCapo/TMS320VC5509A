@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
 {
     // GUI初始化
     simulator_init();
-    // SDL_CreateThread(keyboard_thread, "keyboard", nullptr);// 键盘线程
+    SDL_CreateThread(keyboard_thread, "keyboard", nullptr);// 键盘线程
 
     GUI_Init();
 

@@ -56,18 +56,52 @@ void GUI_Init()
 #include<simulator.hpp>
 
 u8g2_t u8g2; // 全局 U8g2 对象
-uint8_t external_buffer[128 * 8]; // 全缓冲模式（128列 x 8页）
-
+uint8_t external_buffer[128 * 8]; // 全缓冲区（128列 x 8页）
+#define FULL_BUFFER 0   // 全缓冲模式 1:启用 0:禁用
 
 
 uint8_t u8x8_refresh_cb(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *arg_ptr)
 {
-// uint8_t page, col;
+#if FULL_BUFFER ==0
+    const struct u8x8_tile_struct *tile = (struct u8x8_tile_struct *) arg_ptr;
+    const uint8_t page = tile->y_pos; // 当前页（0-7）
+    const uint8_t start_col = tile->x_pos * 8; // 起始列 = Tile位置 x 8
+    const uint8_t *data = tile->tile_ptr; // 数据指针
+    const uint8_t tile_count = tile->cnt; // 连续Tile数量
+    uint8_t col, t;
+
+#endif
+
     switch (msg)
     {
+#if FULL_BUFFER
         case U8X8_MSG_DISPLAY_REFRESH:
+
+            // 静态全刷屏
             lcd_full_flush(external_buffer);
         break;
+#endif
+
+
+        case U8X8_MSG_DISPLAY_DRAW_TILE:
+#if FULL_BUFFER ==0
+            // 高性能，页面缓冲
+            // 遍历所有Tile 16个tile，即16*64
+
+            // 高性能，页面缓冲
+            // 遍历所有Tile 16个tile，即16*64
+            for (t = 0; t < tile_count; t++)
+            {
+                // 每个Tile覆盖8列，逐列写入  即一个tile包
+                for (col = 0; col < 8; col++)
+                {
+                    const uint8_t current_col = start_col + t * 8 + col;
+                    lcd_write_data(page, current_col, data[t * 8 + col]);
+                }
+            }
+            break;
+#endif
+
         default:
             break;
     }
@@ -99,7 +133,6 @@ static const u8x8_display_info_t u8x8_custom_128x64_display_info =
     /* pixel_width = */ 128,
     /* pixel_height = */ 64
 };
-
 
 
 void GUI_Init()

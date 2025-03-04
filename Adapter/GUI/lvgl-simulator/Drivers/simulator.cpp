@@ -51,7 +51,7 @@ void simulator_init()
     }
 
     // 创建窗口
-    window = SDL_CreateWindow("LVGL Simulator", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+    window = SDL_CreateWindow("u8g2 Simulator", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
                               REAL_HOR, REAL_VER, SDL_WINDOW_SHOWN | SDL_WINDOW_INPUT_FOCUS);
 
     // 创建渲染器（此处使用硬件加速，可以使用软件加速SDL_RENDERER_SOFTWARE）

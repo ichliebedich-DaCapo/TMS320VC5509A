@@ -5,8 +5,7 @@
 
 #include <cmath>
 #include <unistd.h>
-#include "GUI.hpp"
-#include "ui.hpp"
+#include<gui.h>
 #include "simulator.hpp"
 #include <SDL2/SDL.h>
 #include <windows.h>
@@ -19,6 +18,10 @@
 #undef main
 #undef interface
 
+// 变量
+extern volatile uint8_t test;
+
+// 类
 class KeyboardInput
 {
 public:
@@ -73,7 +76,7 @@ int keyboard_thread(void *data)
     keyboard.addKeyCheck('A', []()
     {
         std::cout << "A pressed" << std::endl;
-//        gui::interface::pressA();
+
     });
 
     keyboard.addKeyCheck('S', []()
@@ -84,7 +87,7 @@ int keyboard_thread(void *data)
 
     keyboard.addKeyCheck('D', []()
     {
-
+        std::cout << "D pressed" << std::endl;
     });
 
     keyboard.addKeyCheck('F', []()
