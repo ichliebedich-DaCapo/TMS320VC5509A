@@ -2,7 +2,7 @@
 // Created by fairy on 2025/3/3 12:14.
 //
 #include "ui.h"
-#include <u8g2.h>
+#include "u8g2.h"
 #include<gui.h>
 #include <math.h>
 #include <stdio.h>

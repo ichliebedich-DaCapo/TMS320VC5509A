@@ -2,7 +2,7 @@
 #if PROGRAM_INDEX == 0
 #include<zq_gpio.h>
 #include<gui.h>
-#include<ui/ui.h>
+#include<demo/ui/ui.h>
 
 extern void ui_init();
 

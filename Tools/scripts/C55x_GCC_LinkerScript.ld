@@ -7,7 +7,7 @@ MEMORY {
     /* 数据存储器 (DMEM) - 分多个物理bank */
     DARAM (rwx) : ORIGIN = 0x00020000, LENGTH = 64K  /* 双访问RAM */
     SARAM (rwx) : ORIGIN = 0x00030000, LENGTH = 192K  /* 单访问RAM */
-
+    CONST (rw): ORIGIN = 0x00040000, LENGTH = 8K/*临时创建的*/
     /* 外设寄存器空间 (需根据实际映射调整) */
     IO_REGS (rw) : ORIGIN = 0x00C00000, LENGTH = 1M
 }
@@ -30,7 +30,7 @@ SECTIONS {
     .rodata : {
         *(.rodata)
         *(.rodata.*)
-    } > DARAM
+    } > CONST
 
     /* 初始化数据 (加载在PMEM，运行时拷贝到DARAM) */
     .data : AT (ADDR(.rodata) + SIZEOF(.rodata) + SIZEOF(.ARM.exidx)) {

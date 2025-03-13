@@ -10,7 +10,7 @@ extern "C" {
 #ifndef SIMULATOR
 #include <zq_conf.h>
 #endif
-    #include <u8g2.h>
+    #include "u8g2.h"
 extern u8g2_t u8g2;
 
     void lcd_refresh(u8g2_t *u8g2);

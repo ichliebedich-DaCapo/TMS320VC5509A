@@ -45,10 +45,12 @@
 									<listOptionValue builtIn="false" value="${PROJECT_ROOT}"/>
 									<listOptionValue builtIn="false" value="${CG_TOOL_ROOT}/include"/>
 									<listOptionValue builtIn="false" value="${PROJECT_ROOT}/App"/>
+									<listOptionValue builtIn="false" value="${PROJECT_ROOT}/Adapter/GUI"/>
 									<listOptionValue builtIn="false" value="${PROJECT_ROOT}/App/conf"/>
 									<listOptionValue builtIn="false" value="${PROJECT_ROOT}/BSP/inc"/>
 									<listOptionValue builtIn="false" value="${PROJECT_ROOT}/Core/Drivers/inc"/>
 									<listOptionValue builtIn="false" value="${PROJECT_ROOT}/Middleware/DSP/include"/>
+									<listOptionValue builtIn="false" value="${PROJECT_ROOT}/Middleware/Third_Party/u8g2"/>
 								</option>
 								<option id="com.ti.ccstudio.buildDefinitions.C5500_4.4.compilerID.LANGUAGE_MODE.879005123" name="Language mode" superClass="com.ti.ccstudio.buildDefinitions.C5500_4.4.compilerID.LANGUAGE_MODE" value="com.ti.ccstudio.buildDefinitions.C5500_4.4.compilerID.LANGUAGE_MODE.RELAXED_ANSI" valueType="enumerated"/>
 								<option id="com.ti.ccstudio.buildDefinitions.C5500_4.4.compilerID.GCC.1029006662" name="Enable support for GCC extensions (--gcc)" superClass="com.ti.ccstudio.buildDefinitions.C5500_4.4.compilerID.GCC" value="true" valueType="boolean"/>
@@ -92,7 +94,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="Tools" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="Adapter/GUI/u8g2-simulator|App/9_LCD/ui|Tools" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>

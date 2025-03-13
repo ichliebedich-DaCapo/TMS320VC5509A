@@ -65,9 +65,9 @@ SECTIONS
     .text             >> SARAM0|SARAM1|SARAM2|SARAM3|SARAM4|SARAM5|SARAM6|SARAM7|SARAM8|SARAM9|SARAM10|SARAM11|SARAM12|SARAM13|SARAM14|SARAM15|SARAM16|SARAM17|SARAM18|SARAM19|SARAM20|SARAM21|SARAM22|SARAM23
     .stack            >  DARAM0 /* 主堆栈段 */
     .sysstack         >  DARAM0 /* 系统堆栈段 */
-    .sysmem           >  DARAM4 /* 动态内存池（malloc等） */
-    .data             >  DARAM4 /* 已初始化的全局变量 */
-    .cio              >  DARAM0 /* C I/O缓冲区 */
-    .bss              >  DARAM5 /* 未初始化的全局变量 */
-    .const            >  DARAM0 /* 常量数据段 */
+    .sysmem           >  DARAM2 /* 动态内存池（malloc等） */
+    .data             >  DARAM2 /* 已初始化的全局变量 */
+    .cio              >  DARAM6 /* C I/O缓冲区 */
+    .bss              >  DARAM3 /* 未初始化的全局变量 */
+    .const            >> DARAM4|DARAM5 /* 常量数据段 */
 }
