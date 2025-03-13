@@ -40,7 +40,6 @@ int main(int argc, char *argv[])
 
     ui_init();
 
-
     // 主循环
     while (simulator_is_running())
     {
@@ -63,17 +62,16 @@ int main(int argc, char *argv[])
                     sum_tick += current_tick[i] - last_tick[i];
                 else
                     sum_tick += (0xffffffff - last_tick[i] + current_tick[i]);
-            tick_index = 0;// 重置
+            tick_index = 0; // 重置
 
             // 显示
             const uint32_t average_tick = static_cast<uint32_t>(sum_tick * 1.0f / TICK_ARRAY_SIZE);
-            printf("tick:%d,%03d\r\n", average_tick/1000,average_tick%1000);
+            printf("tick:%d,%03d\r\n", average_tick / 1000, average_tick % 1000);
         }
 
 
         SDL_Delay(10); // 短暂休眠
     }
-
 
 
     // 清理资源

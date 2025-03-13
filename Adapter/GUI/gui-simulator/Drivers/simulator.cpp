@@ -156,8 +156,8 @@ void simulator_event_Handler()
 //
 /**
  * 设置单个像素点
- * @param x 横坐标
- * @param y 纵坐标
+ * @param x 横坐标（0到127）
+ * @param y 纵坐标（0到63）
  * @param color 颜色，0：白色 1：黑色
  */
 static void lcd_write_pixel(const uint16_t x, const uint16_t y, const uint8_t color)
@@ -168,8 +168,8 @@ static void lcd_write_pixel(const uint16_t x, const uint16_t y, const uint8_t co
         for (int dx = 0; dx < 4; ++dx)
         {
             // 计算实际显存坐标
-            const uint16_t ty = y + dy;
-            const uint16_t tx = x + dx;
+            const uint16_t ty = y*4 + dy;
+            const uint16_t tx = x*4 + dx;
 
             // TFT_GRAM[y][x] = is_black ? 0xF000 : 0x6789;// 左黑右白
             TFT_GRAM[ty][tx] = color ? 0x0000 : 0xFFFF;// 左黑右白
@@ -186,17 +186,14 @@ static void lcd_write_pixel(const uint16_t x, const uint16_t y, const uint8_t co
  */
 void lcd_write_data(const uint16_t page, const uint16_t column, const uint8_t data)
 {
-    const uint16_t logical_x = column; // 逻辑列坐标
-    const uint16_t screen_x_start = logical_x * 4; // 显存起始列坐标
+    const uint16_t logical_y = page*8; // 逻辑列坐标
 
     for (int i = 0; i < 8; ++i) // 遍历8个垂直像素位
     {
-        const uint16_t logical_y = page * 8 + i; // 逻辑行坐标
-        const uint16_t screen_y_start = logical_y * 4; // 显存起始行坐标
         const bool is_black = data & (1 << i); // 获取当前bit值
 
         // 填充4x4像素块
-        lcd_write_pixel(screen_x_start, screen_y_start, is_black);
+        lcd_write_pixel(column, logical_y+i, is_black);
     }
 }
 
