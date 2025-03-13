@@ -33,6 +33,11 @@ static uint8_t x = 0;
 void ui_init()
 {
     gui_clear();
+
+    gui_draw_hline(32, 64, 32, 1);
+    // gui_draw_vline(42, 0, 32, 1);
+    // gui_draw_rect(0, 0, 48, 32, 1);
+    // gui_draw_circle(32,32,4,1);
 }
 
 
@@ -47,7 +52,6 @@ void ui_handler()
     }
     phase++;
 
-    gui_draw_hline(0, 64, 32, 1);
 
 #endif
 }

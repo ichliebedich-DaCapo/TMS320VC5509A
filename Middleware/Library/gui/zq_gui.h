@@ -17,6 +17,7 @@ extern "C" {
 #define GUI_HOR 128
 #define GUI_HOR_MAX_INDEX 127
 #define GUI_VOR 64
+#define GUI_VOR_MAX_INDEX 63
 #define GUI_PAGE 8
 
 /*变量*/
@@ -124,3 +125,10 @@ void gui_refresh_buf(); // 刷新缓冲区到LCD屏
 }
 #endif
 #endif //ZQ_GUI_H
+// 做得很好！现在我定义了这些宏，用于后续兼容
+// #define GUI_HOR 128
+// #define GUI_HOR_MAX_INDEX 127
+// #define GUI_VOR 64
+// #define GUI_PAGE 8
+// 并且我修改了一些API的名称，比如gui_write_pixel、gui_fill_rect、gui_draw_hline、gui_draw_vline等，
+// 前面的这些绘制线段、圆的API可用，现在我需要再创建一些API来绘制可以指定长度的绘制线段、圆形等

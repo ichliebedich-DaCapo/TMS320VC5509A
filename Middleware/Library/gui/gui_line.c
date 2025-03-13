@@ -37,12 +37,12 @@ void gui_draw_hline(uint8_t x1, uint8_t x2, uint8_t y, uint8_t color)
 }
 
 /* 垂直线绘制（优化多页处理） */
-void gui_draw_vline(uint8_t x, uint8_t y1, uint8_t y2, uint8_t color)
+void gui_draw_vline(const uint8_t x, uint8_t y1, uint8_t y2, const uint8_t color)
 {
     /* 参数规范化 */
     if(x >= GUI_HOR) return;
-    if(y1 > y2) { uint8_t t = y1; y1 = y2; y2 = t; }
-    if(y2 >= GUI_VOR) y2 = 63;
+    if(y1 > y2) { const uint8_t t = y1; y1 = y2; y2 = t; }
+    if(y2 >= GUI_VOR) y2 = GUI_VOR_MAX_INDEX;
 
     /* 分页处理 */
     const uint8_t page_start = y1 >> 3;
@@ -78,7 +78,7 @@ void gui_draw_rect(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, uint8_t color
     if(x1 > x2) { uint8_t t = x1; x1 = x2; x2 = t; }
     if(y1 > y2) { uint8_t t = y1; y1 = y2; y2 = t; }
     if(x2 >= GUI_HOR) x2 = GUI_HOR_MAX_INDEX;
-    if(y2 >= GUI_VOR) y2 = 63;
+    if(y2 >= GUI_VOR) y2 = GUI_VOR_MAX_INDEX;
 
     /* 绘制四边 */
     gui_draw_hline(x1, x2, y1, color);  // 上边
