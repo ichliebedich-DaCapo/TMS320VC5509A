@@ -12,8 +12,16 @@ extern "C" {
 /*变量*/
 // 显示缓冲区：8页 x 128列，每个字节存储一列的8行数据
 extern uint8_t lcd_buffer[8][128];
-// 标记页是否被修改，减少刷新范围
-extern uint8_t lcd_page_dirty[8];
+
+// 脏页管理（结构体提高缓存效率）
+typedef struct
+{
+    uint8_t is_dirty;
+    uint8_t min_col;
+    uint8_t max_col;
+} PageDirtyInfo;
+
+extern PageDirtyInfo lcd_dirty_info[8];
 
 // 需要的外部函数
 #ifdef SIMULATOR
@@ -26,39 +34,64 @@ extern void lcd_write_page(uint8_t page,uint8_t*buf);
  * @param y 行坐标 (0~63)
  * @param data 像素颜色，0：熄灭，1：点亮
  */
-INLINE void gui_write_pixel_buf(const uint8_t x, const uint8_t y, const uint8_t data)
+INLINE void gui_write_pixel(const uint8_t x, const uint8_t y, const uint8_t data)
 {
-    // 计算页和位位置（无除法/取余）
-    const uint8_t page = y >> 3; // y / 8 → y >> 3
-    const uint8_t bit_pos = 7 - (y & 0x7); // y % 8 → y & 0x7
+    if (x >= 128 || y >= 64) return;
 
-    // 修改缓冲区
+    const uint8_t page = y >> 3;
+    const uint8_t mask = 1 << (7 - (y & 0x07));
+
+    // 原子操作更新缓冲区
     if (data)
     {
-        lcd_buffer[page][x] |= (1 << bit_pos);
+        lcd_buffer[page][x] |= mask;
     }
     else
     {
-        lcd_buffer[page][x] &= ~(1 << bit_pos);
+        lcd_buffer[page][x] &= ~mask;
     }
 
-    // 标记页为脏
-    lcd_page_dirty[page] = 1;
+    // 更新脏区域（使用分支避免多余判断）
+    PageDirtyInfo *p = &lcd_dirty_info[page];
+    p->is_dirty = 1;
+    if (x < p->min_col) p->min_col = x;
+    if (x > p->max_col) p->max_col = x;
 }
 
 // 填充矩形区域（缓冲区版）
-INLINE void gui_fill_rect_buf(const uint8_t x_start, const uint8_t x_end, const uint8_t y_start, const uint8_t y_end)
+INLINE void gui_fill_rect(const uint8_t x1, const uint8_t y1, const uint8_t x2, const uint8_t y2,
+                              const uint8_t color)
 {
-    uint8_t x, y;
-    for (y = y_start; y <= y_end; ++y)
+    if (x1 > x2 || y1 > y2) return;
+
+    const uint8_t page_start = y1 >> 3;
+    const uint8_t page_end = y2 >> 3;
+    uint8_t page,x;
+    for ( page = page_start; page <= page_end; page++)
     {
-        const uint8_t page = y >> 3;
-        const uint8_t bit_mask = 1 << (7 - (y & 0x7));
-        for (x = x_start; x <= x_end; ++x)
+        // 计算垂直掩码
+        uint8_t mask = 0xFF;
+        if (page == page_start) mask &= (0xFF << (8 - (y1 & 7)));
+        if (page == page_end) mask &= (0xFF >> (7 - (y2 & 7)));
+
+        // 批量填充列
+        PageDirtyInfo *p = &lcd_dirty_info[page];
+        for ( x = x1; x <= x2; x++)
         {
-            lcd_buffer[page][x] |= bit_mask;
+            if (color)
+            {
+                lcd_buffer[page][x] |= mask;
+            }
+            else
+            {
+                lcd_buffer[page][x] &= ~mask;
+            }
         }
-        lcd_page_dirty[page] = 1;
+
+        // 更新脏区域
+        p->is_dirty = 1;
+        if (x1 < p->min_col) p->min_col = x1;
+        if (x2 > p->max_col) p->max_col = x2;
     }
 }
 
