@@ -57,10 +57,9 @@ INLINE void gui_write_pixel(const uint8_t x, const uint8_t y, const uint8_t data
     }
 
     // 更新脏区域（使用分支避免多余判断）
-    PageDirtyInfo *p = &lcd_dirty_info[page];
-    p->is_dirty = 1;
-    if (x < p->min_col) p->min_col = x;
-    if (x > p->max_col) p->max_col = x;
+    lcd_dirty_info[page].is_dirty = 1;
+    if (x < lcd_dirty_info[page].min_col) lcd_dirty_info[page].min_col = x;
+    if (x > lcd_dirty_info[page].max_col) lcd_dirty_info[page].max_col = x;
 }
 
 // 填充矩形区域（缓冲区版）
@@ -80,7 +79,6 @@ INLINE void gui_fill_rect(const uint8_t x1, const uint8_t y1, const uint8_t x2, 
         if (page == page_end) mask &= (0xFF >> (7 - (y2 & 7)));
 
         // 批量填充列
-        PageDirtyInfo *p = &lcd_dirty_info[page];
         for (x = x1; x <= x2; x++)
         {
             if (color)
@@ -94,9 +92,9 @@ INLINE void gui_fill_rect(const uint8_t x1, const uint8_t y1, const uint8_t x2, 
         }
 
         // 更新脏区域
-        p->is_dirty = 1;
-        if (x1 < p->min_col) p->min_col = x1;
-        if (x2 > p->max_col) p->max_col = x2;
+        lcd_dirty_info[page].is_dirty = 1;
+        if (x1 < lcd_dirty_info[page].min_col) lcd_dirty_info[page].min_col = x1;
+        if (x2 > lcd_dirty_info[page].max_col) lcd_dirty_info[page].max_col = x2;
     }
 }
 
@@ -112,6 +110,8 @@ void gui_draw_line_buf(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, uint8_t c
 void gui_draw_circle_buf(uint8_t x0, uint8_t y0, uint8_t radius, uint8_t color);
 
 /*===================================缓冲区管理===================================*/
+void gui_clear();
+
 void gui_refresh_buf(); // 刷新缓冲区到LCD屏
 #define gui_handler() gui_refresh_buf() // GUI处理函数
 

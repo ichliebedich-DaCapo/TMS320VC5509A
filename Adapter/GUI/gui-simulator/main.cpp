@@ -51,7 +51,6 @@ int main(int argc, char *argv[])
         ui_handler(); // 界面处理（动态）
 
         GUI_handler();
-        // u8g2_NextPage(&u8g2);
 
         // --------------测量结束-------------
         current_tick[tick_index] = tick;

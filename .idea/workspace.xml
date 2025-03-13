@@ -7,7 +7,6 @@
     <option name="/Default/RiderDebugger/RiderRestoreDecompile/RestoreDecompileSetting/@EntryValue" value="false" type="bool" />
     <option name="/Default/Housekeeping/FeatureSuggestion/FeatureSuggestionManager/DisabledSuggesters/=SwitchToGoToActionSuggester/@EntryIndexedValue" value="true" type="bool" />
     <option name="/Default/Housekeeping/OptionsDialog/SelectedPageId/@EntryValue" value="CppIncludesOrderOptions" type="string" />
-    <option name="/Default/Housekeeping/FeatureSuggestion/FeatureSuggestionManager/DisabledSuggesters/=SwitchToGoToActionSuggester/@EntryIndexRemoved" />
   </component>
   <component name="CMakePresetLoader">{
   &quot;useNewFormat&quot;: true
@@ -29,241 +28,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a78db7b0-77d9-459c-87d1-f1d260dcb0d0" name="更改" comment="【开发】在GCC主工程里成功对接模拟器工程">
-      <change beforePath="$PROJECT_DIR$/.cproject" beforeDir="false" afterPath="$PROJECT_DIR$/.cproject" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/_2025_3_1_18_14____.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/在进行合并之前于_2025_3_1_18_14_取消提交了更改_[更改]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.settings/org.eclipse.core.resources.prefs" beforeDir="false" afterPath="$PROJECT_DIR$/.settings/org.eclipse.core.resources.prefs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/gui.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/gui.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/.idea/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/.idea/.name" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/.idea/deployment.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/.idea/editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/.idea/editor.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/.idea/lvgl-simulator.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/.idea/lvgl-simulator.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/Drivers/simulator.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/Drivers/simulator.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/Drivers/simulator.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/Drivers/simulator.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/bin/SDL2.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/bin/SDL2.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/bin/sdl2-config" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/bin/sdl2-config" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_assert.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_assert.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_atomic.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_atomic.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_audio.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_audio.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_bits.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_bits.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_blendmode.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_blendmode.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_clipboard.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_clipboard.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_config.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_config.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_config_android.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_config_android.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_config_emscripten.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_config_emscripten.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_config_iphoneos.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_config_iphoneos.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_config_macosx.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_config_macosx.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_config_minimal.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_config_minimal.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_config_ngage.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_config_ngage.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_config_os2.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_config_os2.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_config_pandora.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_config_pandora.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_config_windows.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_config_windows.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_config_wingdk.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_config_wingdk.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_config_winrt.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_config_winrt.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_config_xbox.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_config_xbox.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_cpuinfo.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_cpuinfo.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_egl.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_egl.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_endian.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_endian.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_error.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_error.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_events.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_events.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_filesystem.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_filesystem.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_gamecontroller.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_gamecontroller.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_gesture.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_gesture.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_guid.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_guid.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_haptic.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_haptic.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_hidapi.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_hidapi.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_hints.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_hints.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_joystick.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_joystick.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_keyboard.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_keyboard.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_keycode.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_keycode.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_loadso.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_loadso.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_locale.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_locale.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_log.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_log.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_main.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_main.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_messagebox.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_messagebox.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_metal.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_metal.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_misc.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_misc.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_mouse.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_mouse.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_mutex.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_mutex.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_name.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_name.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_opengl.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_opengl.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_opengl_glext.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_opengl_glext.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_opengles.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_opengles.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_opengles2.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_opengles2.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_opengles2_gl2.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_opengles2_gl2.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_opengles2_gl2ext.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_opengles2_gl2ext.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_opengles2_gl2platform.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_opengles2_gl2platform.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_opengles2_khrplatform.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_opengles2_khrplatform.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_pixels.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_pixels.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_platform.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_platform.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_power.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_power.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_quit.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_quit.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_rect.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_rect.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_render.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_render.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_revision.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_revision.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_rwops.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_rwops.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_scancode.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_scancode.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_sensor.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_sensor.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_shape.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_shape.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_stdinc.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_stdinc.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_surface.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_surface.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_system.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_system.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_syswm.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_syswm.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_test.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_test.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_test_assert.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_test_assert.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_test_common.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_test_common.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_test_compare.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_test_compare.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_test_crc32.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_test_crc32.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_test_font.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_test_font.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_test_fuzzer.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_test_fuzzer.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_test_harness.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_test_harness.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_test_images.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_test_images.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_test_log.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_test_log.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_test_md5.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_test_md5.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_test_memory.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_test_memory.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_test_random.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_test_random.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_thread.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_thread.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_timer.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_timer.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_touch.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_touch.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_types.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_types.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_version.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_version.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_video.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_video.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_vulkan.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/SDL_vulkan.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/begin_code.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/begin_code.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/include/SDL2/close_code.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/include/SDL2/close_code.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/lib/cmake/SDL2/sdl2-config-version.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/lib/cmake/SDL2/sdl2-config-version.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/lib/cmake/SDL2/sdl2-config.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/lib/cmake/SDL2/sdl2-config.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/lib/libSDL2.a" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/lib/libSDL2.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/lib/libSDL2.dll.a" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/lib/libSDL2.dll.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/lib/libSDL2.la" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/lib/libSDL2.la" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/lib/libSDL2_test.a" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/lib/libSDL2_test.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/lib/libSDL2_test.la" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/lib/libSDL2_test.la" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/lib/libSDL2main.a" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/lib/libSDL2main.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/lib/libSDL2main.la" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/lib/libSDL2main.la" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/lib/pkgconfig/sdl2.pc" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/lib/pkgconfig/sdl2.pc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/i686-w64-mingw32/share/aclocal/sdl2.m4" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/i686-w64-mingw32/share/aclocal/sdl2.m4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/bin/SDL2.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/bin/SDL2.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/bin/sdl2-config" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/bin/sdl2-config" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_assert.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_assert.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_atomic.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_atomic.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_audio.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_audio.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_bits.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_bits.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_blendmode.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_blendmode.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_clipboard.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_clipboard.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_config.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_config.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_config_android.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_config_android.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_config_emscripten.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_config_emscripten.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_config_iphoneos.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_config_iphoneos.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_config_macosx.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_config_macosx.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_config_minimal.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_config_minimal.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_config_ngage.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_config_ngage.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_config_os2.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_config_os2.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_config_pandora.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_config_pandora.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_config_windows.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_config_windows.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_config_wingdk.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_config_wingdk.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_config_winrt.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_config_winrt.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_config_xbox.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_config_xbox.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_cpuinfo.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_cpuinfo.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_egl.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_egl.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_endian.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_endian.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_error.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_error.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_events.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_events.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_filesystem.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_filesystem.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_gamecontroller.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_gamecontroller.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_gesture.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_gesture.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_guid.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_guid.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_haptic.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_haptic.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_hidapi.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_hidapi.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_hints.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_hints.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_joystick.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_joystick.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_keyboard.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_keyboard.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_keycode.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_keycode.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_loadso.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_loadso.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_locale.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_locale.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_log.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_log.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_main.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_main.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_messagebox.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_messagebox.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_metal.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_metal.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_misc.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_misc.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_mouse.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_mouse.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_mutex.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_mutex.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_name.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_name.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_opengl.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_opengl.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_opengl_glext.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_opengl_glext.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_opengles.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_opengles.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_opengles2.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_opengles2.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_opengles2_gl2.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_opengles2_gl2.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_opengles2_gl2ext.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_opengles2_gl2ext.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_opengles2_gl2platform.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_opengles2_gl2platform.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_opengles2_khrplatform.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_opengles2_khrplatform.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_pixels.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_pixels.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_platform.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_platform.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_power.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_power.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_quit.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_quit.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_rect.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_rect.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_render.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_render.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_revision.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_revision.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_rwops.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_rwops.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_scancode.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_scancode.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_sensor.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_sensor.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_shape.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_shape.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_stdinc.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_stdinc.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_surface.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_surface.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_system.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_system.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_syswm.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_syswm.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_test.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_test.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_test_assert.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_test_assert.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_test_common.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_test_common.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_test_compare.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_test_compare.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_test_crc32.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_test_crc32.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_test_font.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_test_font.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_test_fuzzer.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_test_fuzzer.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_test_harness.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_test_harness.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_test_images.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_test_images.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_test_log.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_test_log.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_test_md5.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_test_md5.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_test_memory.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_test_memory.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_test_random.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_test_random.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_thread.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_thread.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_timer.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_timer.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_touch.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_touch.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_types.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_types.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_version.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_version.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_video.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_video.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_vulkan.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/SDL_vulkan.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/begin_code.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/begin_code.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/close_code.h" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/include/SDL2/close_code.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/lib/cmake/SDL2/sdl2-config-version.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/lib/cmake/SDL2/sdl2-config-version.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/lib/cmake/SDL2/sdl2-config.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/lib/cmake/SDL2/sdl2-config.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/lib/libSDL2.a" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/lib/libSDL2.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/lib/libSDL2.dll.a" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/lib/libSDL2.dll.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/lib/libSDL2.la" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/lib/libSDL2.la" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/lib/libSDL2_test.a" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/lib/libSDL2_test.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/lib/libSDL2_test.la" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/lib/libSDL2_test.la" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/lib/libSDL2main.a" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/lib/libSDL2main.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/lib/libSDL2main.la" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/lib/libSDL2main.la" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/lib/pkgconfig/sdl2.pc" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/lib/pkgconfig/sdl2.pc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/SDL2/x86_64-w64-mingw32/share/aclocal/sdl2.m4" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/SDL2/x86_64-w64-mingw32/share/aclocal/sdl2.m4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/common_functions.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/common_functions.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/lvgl-simulator/test.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/u8g2-simulator/test.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/9_LCD/ui/ui.c" beforeDir="false" afterPath="$PROJECT_DIR$/App/9_LCD/ui/ui.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/demo/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/App/demo/main.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/demo/ui/ui.c" beforeDir="false" afterPath="$PROJECT_DIR$/App/demo/ui/ui.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Middleware/Third_Party/u8g2/u8g2.h" beforeDir="false" afterPath="$PROJECT_DIR$/Middleware/Third_Party/u8g2/u8g2.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Middleware/Third_Party/u8g2/u8g2_fonts.c" beforeDir="false" afterPath="$PROJECT_DIR$/Middleware/Third_Party/u8g2/u8g2_fonts.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tools/scripts/C55x_GCC_LinkerScript.ld" beforeDir="false" afterPath="$PROJECT_DIR$/Tools/scripts/C55x_GCC_LinkerScript.ld" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VC5509.cmd" beforeDir="false" afterPath="$PROJECT_DIR$/VC5509.cmd" afterDir="false" />
-    </list>
+    <list default="true" id="a78db7b0-77d9-459c-87d1-f1d260dcb0d0" name="更改" comment="【开发】搭建一个GUI框架" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -368,6 +133,11 @@
     </key>
   </component>
   <component name="RunManager">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="demo.elf" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="demo" TARGET_NAME="demo.elf" CONFIG_NAME="Debug-w64-i686-arm-none-eabi" RUN_TARGET_PROJECT_NAME="demo" RUN_TARGET_NAME="demo.elf">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -404,6 +174,7 @@
       <workItem from="1741242072730" duration="341000" />
       <workItem from="1741242640653" duration="827000" />
       <workItem from="1741502502403" duration="8000" />
+      <workItem from="1741829648418" duration="10567000" />
     </task>
     <task id="LOCAL-00001" summary="【工程】成功使用CLion编译TI工程">
       <option name="closed" value="true" />
@@ -557,7 +328,39 @@
       <option name="project" value="LOCAL" />
       <updated>1741078437688</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="【开发】优化了LCD的一些函数">
+      <option name="closed" value="true" />
+      <created>1741833189621</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1741833189621</updated>
+    </task>
+    <task id="LOCAL-00021" summary="【开发】创建新的GUI框架">
+      <option name="closed" value="true" />
+      <created>1741836775284</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1741836775284</updated>
+    </task>
+    <task id="LOCAL-00022" summary="【开发】优化了刷新函数和绘制像素点函数">
+      <option name="closed" value="true" />
+      <created>1741838928142</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1741838928142</updated>
+    </task>
+    <task id="LOCAL-00023" summary="【开发】搭建一个GUI框架">
+      <option name="closed" value="true" />
+      <created>1741840848094</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1741840848094</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -611,7 +414,11 @@
     <MESSAGE value="【开发】勉强添加了一个u8g2库，后面可以再做一个模拟器辅助开发" />
     <MESSAGE value="【开发】尝试添加了一个模拟器" />
     <MESSAGE value="【开发】在GCC主工程里成功对接模拟器工程" />
-    <option name="LAST_COMMIT_MESSAGE" value="【开发】在GCC主工程里成功对接模拟器工程" />
+    <MESSAGE value="【开发】优化了LCD的一些函数" />
+    <MESSAGE value="【开发】创建新的GUI框架" />
+    <MESSAGE value="【开发】优化了刷新函数和绘制像素点函数" />
+    <MESSAGE value="【开发】搭建一个GUI框架" />
+    <option name="LAST_COMMIT_MESSAGE" value="【开发】搭建一个GUI框架" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
