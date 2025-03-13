@@ -184,7 +184,7 @@ static void lcd_write_pixel(const uint16_t x, const uint16_t y, const uint8_t co
  * @param column 列 0到127
  * @param data 一页的数据，为1时即黑
  */
-void lcd_write_data(const uint16_t page, const uint16_t column, const uint8_t data)
+void lcd_write_data(const uint16_t page, const uint16_t column, const uint16_t data)
 {
     const uint16_t logical_y = page*8; // 逻辑列坐标
 
@@ -197,7 +197,7 @@ void lcd_write_data(const uint16_t page, const uint16_t column, const uint8_t da
     }
 }
 
-void lcd_write_page(uint8_t page, const uint8_t*buf)
+void lcd_write_page(uint16_t page, const uint16_t*buf)
 {
     for (uint8_t col = 0; col <128; col++)
     {
@@ -205,7 +205,7 @@ void lcd_write_page(uint8_t page, const uint8_t*buf)
     }
 }
 
-void lcd_full_flush(const uint8_t *buf)
+void lcd_full_flush(const uint16_t *buf)
 {
     for (uint8_t page = 0; page < 8; page++)
     {

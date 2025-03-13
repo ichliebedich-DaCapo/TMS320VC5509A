@@ -31,6 +31,7 @@ configure_file(${CMAKE_SOURCE_DIR}/App/conf/app_conf.h.in ${CMAKE_SOURCE_DIR}/Ap
 file(GLOB_RECURSE SOURCES
         "Adapter/GUI/gui.c"
         "${APP_DIR}/*.c"
+        "${APP_DIR}/*.cpp"
         "BSP/src/*.c"
         "Core/Drivers/src/*.c"
         "Middleware/Third_Party/u8g2/*.c"

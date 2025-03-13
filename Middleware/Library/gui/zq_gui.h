@@ -7,6 +7,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
 #ifdef SIMULATOR
 #include<stdint.h>
 #include <zq_conf.h>

@@ -4,19 +4,26 @@
 #include<gui.h>
 #include<demo/ui/ui.h>
 
-extern void ui_init();
-
+#ifdef __cplusplus
+extern "C"
+{
+    extern void ui_handler();
+}
+#else
 extern void ui_handler();
+#endif
+
+
 
 int main()
 {
     // ZQ_GPIO_Disable(GPIO_GROUP_NORMAL, GPIO_PIN_0);
     GUI_Init();
-    ui_init();
 
-    while (1)
+    for (;;)
     {
         ui_handler();
+        GUI_handler();// 处理GUI事件
     }
 }
 
