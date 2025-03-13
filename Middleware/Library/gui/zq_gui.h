@@ -19,6 +19,12 @@ extern "C" {
 #define GUI_VOR 64
 #define GUI_VOR_MAX_INDEX 63
 #define GUI_PAGE 8
+#define color_white 0
+#define color_black 1
+
+// 函数
+#define ABS_DIFF(a, b) ((a) > (b) ? (a) - (b) : (b) - (a))
+#define MIN(a, b) ((a) < (b) ? (a) : (b))
 
 /*变量声明*/
 // 显示缓冲区：8页 x 128列，每个字节存储一列的8行数据
@@ -50,7 +56,7 @@ INLINE void gui_write_pixel(const uint8_t x, const uint8_t y, const uint8_t data
     if (x >= GUI_HOR || y >= GUI_VOR) return;
 
     const uint8_t page = y >> 3;
-    const uint8_t mask = 1 << (7 - (y & 0x07));
+    const uint8_t mask = 1 << (y & 0x07);
 
     // 原子操作更新缓冲区
     if (data)
@@ -69,17 +75,17 @@ INLINE void gui_write_pixel(const uint8_t x, const uint8_t y, const uint8_t data
 }
 
 
-
 /*===================================图形绘制===================================*/
-void gui_draw_hline(uint8_t x1, uint8_t x2, uint8_t y, uint8_t color);
+void gui_draw_hline(uint8_t x1, uint8_t x2, uint8_t length, uint8_t color);
 
-    void gui_draw_vline(uint8_t x, uint8_t y1, uint8_t y2, uint8_t color);
+void gui_draw_vline(uint8_t y1, uint8_t y2, uint8_t length, uint8_t color);
+
 //
 // void gui_draw_rect(uint8_t x, uint8_t y, uint8_t width, uint8_t height, uint8_t color, uint8_t filled);
 //
 // void gui_fill_rect(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, uint8_t color);
 //
-// void gui_draw_line(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, uint8_t color);
+void gui_draw_line(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, uint8_t color);
 //
 // void gui_draw_circle(uint8_t x0, uint8_t y0, uint8_t radius, uint8_t color);
 

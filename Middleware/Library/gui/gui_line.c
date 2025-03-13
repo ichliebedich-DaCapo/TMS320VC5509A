@@ -5,39 +5,37 @@
 #include"zq_gui.h"
 
 // 函数
-/* 水平线绘制 */
-void gui_draw_hline(uint8_t x1, uint8_t x2, uint8_t y, uint8_t color)
+/**
+ * 绘制水平线（新参数版）
+ * @param x1     起始列坐标 (0~127)
+ * @param length 线段长度（至少1像素）
+ * @param y      行坐标 (0~63)
+ * @param color  颜色，0：熄灭，1：点亮
+ */
+void gui_draw_hline(uint8_t x1, uint8_t length, uint8_t y, uint8_t color)
 {
     /* 参数有效性检查 */
-    if (y >= GUI_VOR) return;
-    if (x1 > x2)
-    {
-        const uint8_t t = x1;
-        x1 = x2;
-        x2 = t;
-    }
-    if (x2 >= GUI_HOR) x2 = GUI_HOR_MAX_INDEX;
+    if (y >= GUI_VOR || length == 0) return;
+
+    /* 计算实际结束列 */
+    uint8_t x2 = x1 + length - 1;
+    if (x1 > GUI_HOR_MAX_INDEX) return;
+    if (x2 > GUI_HOR_MAX_INDEX) x2 = GUI_HOR_MAX_INDEX;
 
     /* 高效页处理 */
     const uint8_t page = y >> 3;
-    const uint8_t bit_mask = 1 <<( y & 0x07);
+    const uint8_t bit_mask = 1 << (y & 0x07);
     PageDirtyInfo *p = &lcd_dirty_info[page];
 
-    uint8_t x;
     /* 批量设置位 */
+    uint8_t x;
     if (color)
     {
-        for (x = x1; x <= x2; ++x)
-        {
-            lcd_buffer[page][x] |= bit_mask;
-        }
+        for (x = x1; x <= x2; ++x) lcd_buffer[page][x] |= bit_mask;
     }
     else
     {
-        for (x = x1; x <= x2; ++x)
-        {
-            lcd_buffer[page][x] &= ~bit_mask;
-        }
+        for (x = x1; x <= x2; ++x) lcd_buffer[page][x] &= ~bit_mask;
     }
 
     /* 更新脏区域 */
@@ -47,24 +45,21 @@ void gui_draw_hline(uint8_t x1, uint8_t x2, uint8_t y, uint8_t color)
 }
 
 /**
- * 绘制垂直线（修正版）
- * @param x    列坐标 (0~127)
- * @param y1   起始行坐标 (0~63)
- * @param y2   结束行坐标 (0~63)
- * @param color 颜色，0：熄灭，1：点亮
+ * 绘制垂直线（新参数版）
+ * @param y1     起始行坐标 (0~63)
+ * @param length 线段长度（至少1像素）
+ * @param x      列坐标 (0~127)
+ * @param color  颜色，0：熄灭，1：点亮
  */
-void gui_draw_vline(uint8_t x, uint8_t y1, uint8_t y2, uint8_t color)
+void gui_draw_vline(uint8_t y1, uint8_t length, uint8_t x, uint8_t color)
 {
     /* 参数有效性检查 */
-    if (x >= GUI_HOR) return;
-    if (y1 > y2)
-    {
-        const uint8_t t = y1;
-        y1 = y2;
-        y2 = t;
-    }
-    if (y1 >= GUI_VOR) return;
-    if (y2 >= GUI_VOR) y2 = GUI_VOR_MAX_INDEX;
+    if (x >= GUI_HOR || length == 0) return;
+
+    /* 计算实际结束行 */
+    uint8_t y2 = y1 + length - 1;
+    if (y1 > GUI_VOR_MAX_INDEX) return;
+    if (y2 > GUI_VOR_MAX_INDEX) y2 = GUI_VOR_MAX_INDEX;
 
     /* 计算涉及的页 */
     const uint8_t start_page = y1 >> 3;
@@ -82,8 +77,7 @@ void gui_draw_vline(uint8_t x, uint8_t y1, uint8_t y2, uint8_t color)
         /* 生成连续位掩码 */
         const uint8_t start_bit = curr_y_start - page_base;
         const uint8_t end_bit = curr_y_end - page_base;
-        const uint8_t bit_count = end_bit - start_bit + 1;
-        const uint8_t mask = (0xFF >> (8 - bit_count)) << start_bit;
+        const uint8_t mask = (0xFF >> (7 - end_bit + start_bit)) << start_bit;
 
         /* 更新缓冲区 */
         if (color)
@@ -102,12 +96,14 @@ void gui_draw_vline(uint8_t x, uint8_t y1, uint8_t y2, uint8_t color)
         if (x > p->max_col) p->max_col = x;
     }
 }
+
+
 /**
- * 绘制任意方向线段（Bresenham算法实现）
- * @param x0 起始点列坐标
- * @param y0 起始点行坐标
- * @param x1 结束点列坐标
- * @param y1 结束点行坐标
+ * 绘制任意方向线段（修正版Bresenham算法）
+ * @param x0 起始列坐标 (0~127)
+ * @param y0 起始行坐标 (0~63)
+ * @param x1 结束列坐标 (0~127)
+ * @param y1 结束行坐标 (0~63)
  * @param color 颜色，0：熄灭，1：点亮
  */
 void gui_draw_line(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, uint8_t color)
@@ -115,28 +111,52 @@ void gui_draw_line(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, uint8_t color
     /* 参数有效性检查 */
     if (x0 >= GUI_HOR || y0 >= GUI_VOR || x1 >= GUI_HOR || y1 >= GUI_VOR) return;
 
-    /* Bresenham算法参数 */
-    int16_t dx = (x1 > x0) ? (x1 - x0) : (x0 - x1);
-    int16_t dy = (y1 > y0) ? (y1 - y0) : (y0 - y1);
+    /* 优化水平线处理 */
+    if (y0 == y1)
+    {
+        const uint8_t start_x = MIN(x0, x1);
+        const uint8_t length = (uint8_t) (ABS_DIFF(x0, x1) + 1);
+        gui_draw_hline(start_x, length, y0, color);
+        return;
+    }
+
+    /* 优化垂直线处理 */
+    if (x0 == x1)
+    {
+        const uint8_t start_y = MIN(y0, y1);
+        const uint8_t length = (uint8_t) (ABS_DIFF(y0, y1) + 1);
+        gui_draw_vline(start_y, length, x0, color);
+        return;
+    }
+
+    /* 标准Bresenham算法实现 */
+    int16_t dx = ABS_DIFF(x1, x0);
+    int16_t dy = -ABS_DIFF(y1, y0);
     int8_t sx = (x0 < x1) ? 1 : -1;
     int8_t sy = (y0 < y1) ? 1 : -1;
-    int16_t err = dx - dy;
-    int16_t e2;
+    int16_t err = dx + dy; // 关键修正点：误差项初始化
 
-    /* 主绘制循环 */
     while (1)
     {
         gui_write_pixel(x0, y0, color);
+
+        /* 终点检查 */
         if (x0 == x1 && y0 == y1) break;
 
-        e2 = err << 1;
-        if (e2 > -dy)
+        int16_t e2 = err << 1;
+
+        /* X轴方向步进 */
+        if (e2 >= dy)
         {
-            err -= dy;
+            // dy为负数，实际判断e2 >= dy
+            err += dy;
             x0 += sx;
         }
-        if (e2 < dx)
+
+        /* Y轴方向步进 */
+        if (e2 <= dx)
         {
+            // dx为正数，实际判断e2 <= dx
             err += dx;
             y0 += sy;
         }

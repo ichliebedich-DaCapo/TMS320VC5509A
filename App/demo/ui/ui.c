@@ -35,12 +35,12 @@ void ui_init()
 
 
     gui_clear();
+    //
+    // gui_draw_hline(32, 64, 0, 1);
+    // gui_draw_hline(32, 64, 2, 1);
+    // gui_draw_hline(32, 64, 13, 1);
+    // gui_draw_vline(0, 5, 20, 1);
 
-    gui_draw_hline(32, 64, 0, 1);
-    gui_draw_hline(32, 64, 2, 1);
-    gui_draw_hline(32, 64, 13, 1);
-    gui_draw_vline(0, 5, 20, 1);
-    // gui_draw_line(12, 12, 48, 32, 1);
     // gui_draw_rect(0, 0, 48, 32, 1);
     // gui_draw_circle(24,24,16,1);
 }
@@ -53,8 +53,17 @@ void ui_handler()
     static uint16_t phase = 0;
     for (x = 0; x < 128; x++)
     {
-        osc.waveform[x] = (uint8_t) (110 * (sin(phase * 0.1 + x * 0.2) + 1.1));
+        osc.waveform[x] = (uint8_t) (32 * (sin(phase * 0.1 + x * 0.2) + 1));
     }
+
+    /*图形系统*/
+    gui_clear();
+    for (x = 0; x < 127; x++)
+    {
+        gui_draw_line(x, 63-osc.waveform[x], x+1, 63-osc.waveform[x+1], 1);
+    }
+
+
     phase++;
 
 
