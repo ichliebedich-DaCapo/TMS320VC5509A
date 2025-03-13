@@ -162,3 +162,129 @@ void gui_draw_line(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, uint8_t color
         }
     }
 }
+
+
+
+/**
+ * 绘制矩形（空心）
+ * @param x 左上角列坐标
+ * @param y 左上角行坐标
+ * @param width 宽度（≥1）
+ * @param height 高度（≥1）
+ * @param color 颜色
+ */
+void gui_draw_rect(uint8_t x, uint8_t y, uint8_t width, uint8_t height, uint8_t color)
+{
+    /* 参数检查 */
+    if (x >= GUI_HOR || y >= GUI_VOR || width == 0 || height == 0) return;
+
+    /* 计算右下角坐标 */
+    uint8_t x_end = x + width - 1;
+    uint8_t y_end = y + height - 1;
+    if (x_end >= GUI_HOR) x_end = GUI_HOR_MAX_INDEX;
+    if (y_end >= GUI_VOR) y_end = GUI_VOR_MAX_INDEX;
+
+    /* 绘制四边 */
+    gui_draw_hline(x, width, y, color);          // 上边
+    gui_draw_hline(x, width, y_end, color);       // 下边
+    gui_draw_vline(y, height, x, color);          // 左边
+    gui_draw_vline(y, height, x_end, color);      // 右边
+}
+
+/**
+ * 填充矩形（实心）
+ * @param x 左上角列坐标
+ * @param y 左上角行坐标
+ * @param width 宽度（≥1）
+ * @param height 高度（≥1）
+ * @param color 颜色
+ */
+void gui_fill_rect(uint8_t x, uint8_t y, uint8_t width, uint8_t height, uint8_t color)
+{
+    /* 参数检查 */
+    if (x >= GUI_HOR || y >= GUI_VOR || width == 0 || height == 0) return;
+
+    /* 计算实际填充范围 */
+    uint8_t x_end = x + width - 1;
+    uint8_t y_end = y + height - 1;
+    if (x_end >= GUI_HOR) x_end = GUI_HOR_MAX_INDEX;
+    if (y_end >= GUI_VOR) y_end = GUI_VOR_MAX_INDEX;
+
+    /* 计算涉及的页 */
+    uint8_t start_page = y >> 3;
+    uint8_t end_page = y_end >> 3;
+
+    /* 逐页填充 */
+    uint8_t page;
+    for (page = start_page; page <= end_page; ++page) {
+        /* 计算当前页的垂直范围 */
+        uint8_t page_y_start = page << 3;
+        uint8_t page_y_end = page_y_start + 7;
+
+        /* 确定当前页内的有效y范围 */
+        uint8_t curr_y_start = (y > page_y_start) ? y : page_y_start;
+        uint8_t curr_y_end = (y_end < page_y_end) ? y_end : page_y_end;
+
+        /* 生成垂直掩码 */
+        uint8_t start_bit = curr_y_start - page_y_start;
+        uint8_t end_bit = curr_y_end - page_y_start;
+        uint8_t mask = (0xFF >> (7 - end_bit + start_bit)) << start_bit;
+
+        /* 批量填充列 */
+        uint8_t col;
+        if (color) {
+            for (col = x; col <= x_end; ++col) {
+                lcd_buffer[page][col] |= mask;
+            }
+        } else {
+            for (col = x; col <= x_end; ++col) {
+                lcd_buffer[page][col] &= ~mask;
+            }
+        }
+
+        /* 更新脏区域 */
+        PageDirtyInfo *p = &lcd_dirty_info[page];
+        p->is_dirty = 1;
+        if (x < p->min_col) p->min_col = x;
+        if (x_end > p->max_col) p->max_col = x_end;
+    }
+}
+
+/**
+ * 绘制圆（中点圆算法）
+ * @param x0 圆心列坐标
+ * @param y0 圆心行坐标
+ * @param radius 半径（≥1）
+ * @param color 颜色
+ */
+void gui_draw_circle(uint8_t x0, uint8_t y0, uint8_t radius, uint8_t color)
+{
+    /* 参数检查 */
+    if (radius == 0) return;
+    int16_t f = 1 - radius;
+    int16_t ddF_x = 0;
+    int16_t ddF_y = -2 * radius;
+    int16_t x = 0;
+    int16_t y = radius;
+
+    /* 绘制八个对称点 */
+    while (x <= y) {
+        gui_write_pixel(x0 + x, y0 + y, color);
+        gui_write_pixel(x0 - x, y0 + y, color);
+        gui_write_pixel(x0 + x, y0 - y, color);
+        gui_write_pixel(x0 - x, y0 - y, color);
+        gui_write_pixel(x0 + y, y0 + x, color);
+        gui_write_pixel(x0 - y, y0 + x, color);
+        gui_write_pixel(x0 + y, y0 - x, color);
+        gui_write_pixel(x0 - y, y0 - x, color);
+
+        if (f >= 0) {
+            y--;
+            ddF_y += 2;
+            f += ddF_y;
+        }
+        x++;
+        ddF_x += 2;
+        f += ddF_x + 1;
+    }
+}

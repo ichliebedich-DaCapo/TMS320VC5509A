@@ -22,9 +22,10 @@ extern "C" {
 #define color_white 0
 #define color_black 1
 
-// 函数
+// 辅助宏
 #define ABS_DIFF(a, b) ((a) > (b) ? (a) - (b) : (b) - (a))
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
+#define SWAP(a, b) { uint8_t t = a; a = b; b = t; }
 
 /*变量声明*/
 // 显示缓冲区：8页 x 128列，每个字节存储一列的8行数据
@@ -76,18 +77,18 @@ INLINE void gui_write_pixel(const uint8_t x, const uint8_t y, const uint8_t data
 
 
 /*===================================图形绘制===================================*/
+
 void gui_draw_hline(uint8_t x1, uint8_t x2, uint8_t length, uint8_t color);
 
 void gui_draw_vline(uint8_t y1, uint8_t y2, uint8_t length, uint8_t color);
 
-//
-// void gui_draw_rect(uint8_t x, uint8_t y, uint8_t width, uint8_t height, uint8_t color, uint8_t filled);
-//
-// void gui_fill_rect(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, uint8_t color);
-//
 void gui_draw_line(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, uint8_t color);
-//
-// void gui_draw_circle(uint8_t x0, uint8_t y0, uint8_t radius, uint8_t color);
+
+void gui_draw_rect(uint8_t x, uint8_t y, uint8_t width, uint8_t height, uint8_t color);
+
+void gui_fill_rect(uint8_t x, uint8_t y, uint8_t width, uint8_t height, uint8_t color);
+
+void gui_draw_circle(uint8_t x0, uint8_t y0, uint8_t radius, uint8_t color);
 
 /*===================================缓冲区管理===================================*/
 void gui_clear();
