@@ -34,12 +34,12 @@ void ui_init()
 {
 
 
-    // gui_clear();
+    gui_clear();
 
-    // gui_draw_hline(32, 64, 0, 1);
-    // gui_draw_hline(32, 64, 1, 1);
-    // gui_draw_hline(32, 64, 63, 1);
-    // gui_draw_vline(12, 5, 16, 1);
+    gui_draw_hline(32, 64, 0, 1);
+    gui_draw_hline(32, 64, 2, 1);
+    gui_draw_hline(32, 64, 13, 1);
+    gui_draw_vline(0, 5, 20, 1);
     // gui_draw_line(12, 12, 48, 32, 1);
     // gui_draw_rect(0, 0, 48, 32, 1);
     // gui_draw_circle(24,24,16,1);

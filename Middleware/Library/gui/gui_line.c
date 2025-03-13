@@ -20,7 +20,7 @@ void gui_draw_hline(uint8_t x1, uint8_t x2, uint8_t y, uint8_t color)
 
     /* 高效页处理 */
     const uint8_t page = y >> 3;
-    const uint8_t bit_mask = 1 << (7 - (y & 0x07));
+    const uint8_t bit_mask = 1 <<( y & 0x07);
     PageDirtyInfo *p = &lcd_dirty_info[page];
 
     uint8_t x;
@@ -47,10 +47,10 @@ void gui_draw_hline(uint8_t x1, uint8_t x2, uint8_t y, uint8_t color)
 }
 
 /**
- * 绘制垂直线
- * @param x   列坐标 (0~127)
- * @param y1  起始行坐标 (0~63)
- * @param y2  结束行坐标 (0~63)
+ * 绘制垂直线（修正版）
+ * @param x    列坐标 (0~127)
+ * @param y1   起始行坐标 (0~63)
+ * @param y2   结束行坐标 (0~63)
  * @param color 颜色，0：熄灭，1：点亮
  */
 void gui_draw_vline(uint8_t x, uint8_t y1, uint8_t y2, uint8_t color)
@@ -74,19 +74,16 @@ void gui_draw_vline(uint8_t x, uint8_t y1, uint8_t y2, uint8_t color)
     uint8_t page;
     for (page = start_page; page <= end_page; ++page)
     {
-        /* 计算当前页内的y范围 */
-        const uint8_t page_y_start = page << 3;
-        const uint8_t page_y_end = page_y_start + 7;
+        /* 计算当前页的y范围 */
+        const uint8_t page_base = page << 3;
+        uint8_t curr_y_start = (y1 > page_base) ? y1 : page_base;
+        uint8_t curr_y_end = (y2 < (page_base + 7)) ? y2 : (page_base + 7);
 
-        uint8_t curr_y_start = (y1 > page_y_start) ? y1 : page_y_start;
-        uint8_t curr_y_end = (y2 < page_y_end) ? y2 : page_y_end;
-
-        /* 生成掩码 */
-        const uint8_t start_offset = curr_y_start - page_y_start;
-        const uint8_t end_offset = curr_y_end - page_y_start;
-        const uint8_t start_bit = 7 - start_offset;
-        const uint8_t end_bit = 7 - end_offset;
-        const uint8_t mask = ((0xFF >> (7 - (start_bit - end_bit))) << end_bit);
+        /* 生成连续位掩码 */
+        const uint8_t start_bit = curr_y_start - page_base;
+        const uint8_t end_bit = curr_y_end - page_base;
+        const uint8_t bit_count = end_bit - start_bit + 1;
+        const uint8_t mask = (0xFF >> (8 - bit_count)) << start_bit;
 
         /* 更新缓冲区 */
         if (color)
@@ -105,7 +102,6 @@ void gui_draw_vline(uint8_t x, uint8_t y1, uint8_t y2, uint8_t color)
         if (x > p->max_col) p->max_col = x;
     }
 }
-
 /**
  * 绘制任意方向线段（Bresenham算法实现）
  * @param x0 起始点列坐标
