@@ -3,14 +3,10 @@
 //
 #ifndef LVGL_SIMULATOR_SIMULATOR_HPP
 #define LVGL_SIMULATOR_SIMULATOR_HPP
-#ifdef __cplusplus
-#include <cstdint>
-#endif
 
-void simulator_init();
-void simulator_quit();
-void simulator_event_Handler();
-uint8_t simulator_is_running();
+#ifdef __cplusplus
+#include<cstdint>
+#endif
 
 /*****************/
 #ifdef __cplusplus
@@ -18,8 +14,17 @@ extern "C"
 {
 #endif
 
+
+
+void simulator_init();
+void simulator_quit();
+void simulator_event_Handler();
+uint8_t simulator_is_running();
+
     /********************LCD驱动接口***********************/
 void lcd_write_data(uint16_t page, uint16_t column, uint8_t data);
+
+    void lcd_write_page(uint8_t page, const uint8_t*buf);
 
 void lcd_full_flush(const uint8_t *buf);// 刷新整个屏幕
 

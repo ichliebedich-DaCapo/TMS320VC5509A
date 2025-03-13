@@ -1,7 +1,7 @@
 #include <iostream>
 #include <SDL2/SDL.h>
 #include "simulator.hpp"
-#include "u8g2.h"
+#include<zq_gui.h>
 #include "GUI.h"
 #include<ui.h>
 
@@ -24,7 +24,6 @@ int tick_handler(void *data)
     while (simulator_is_running())
     {
         ++tick;
-        // SDL_Delay(1);
     }
     return 0;
 }
@@ -51,6 +50,7 @@ int main(int argc, char *argv[])
 
         ui_handler(); // 界面处理（动态）
 
+        GUI_handler();
         // u8g2_NextPage(&u8g2);
 
         // --------------测量结束-------------

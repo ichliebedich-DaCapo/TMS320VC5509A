@@ -200,6 +200,14 @@ void lcd_write_data(const uint16_t page, const uint16_t column, const uint8_t da
     }
 }
 
+void lcd_write_page(uint8_t page, const uint8_t*buf)
+{
+    for (uint8_t col = 0; col <128; col++)
+    {
+        lcd_write_data(page, col, buf[col]); // 写入LCD
+    }
+}
+
 void lcd_full_flush(const uint8_t *buf)
 {
     for (uint8_t page = 0; page < 8; page++)
@@ -211,6 +219,8 @@ void lcd_full_flush(const uint8_t *buf)
         }
     }
 }
+
+
 
 void LCD_Clear()
 {

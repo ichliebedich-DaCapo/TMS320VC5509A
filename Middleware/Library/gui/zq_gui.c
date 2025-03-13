@@ -17,7 +17,20 @@ PageDirtyInfo lcd_dirty_info[8] = {
 void gui_refresh_buf()
 {
 #ifdef SIMULATOR
+
+    uint8_t page, x;
+    for (page = 0; page < 8; page++)
+    {
+        PageDirtyInfo *p = &lcd_dirty_info[page];
+        if (!p->is_dirty || p->min_col > p->max_col) continue;
+
         lcd_write_page(page,lcd_buffer);
+
+        // 重置脏标记
+        p->is_dirty = 0;
+        p->min_col = 128;
+        p->max_col = 0;
+    }
 #else
     uint8_t page, x;
     for (page = 0; page < 8; page++)

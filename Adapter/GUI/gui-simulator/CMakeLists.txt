@@ -3,7 +3,7 @@ project(Simulator LANGUAGES C CXX)
 include(common_functions.cmake)
 
 # ------------------------ 配置选项 ------------------------
-set(PROJECT_DIR ../../../App/9_LCD)  # 项目选择
+set(PROJECT_DIR ../../../App/demo)  # 项目选择
 #options_enable_static_lib_ld()
 # 引入命名空间后，这该死的静态库链接容易出问题
 #message(WARNING "static_lib_ld has some problems!")
@@ -14,7 +14,7 @@ set(THIRD_PARTY_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../../../Middleware/Third_Party
 
 # 组件路径配置
 set(SDL2_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/SDL2/i686-w64-mingw32")
-set(U8G2_DIR "${THIRD_PARTY_DIR}/u8g2")
+set(MY_GUI_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../../../Middleware/Library/gui")
 set(UI_DIR "${PROJECT_DIR}/ui")  # 通过PROJECT_DIR自动生成
 set(GUI_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../")
 
@@ -35,9 +35,9 @@ string(APPEND CMAKE_CXX_FLAGS " -fconcepts")  # 修正flags设置方式
 find_library(SDL2_LIB SDL2 HINTS "${SDL2_ROOT}/lib" REQUIRED)
 
 # ------------------------ 组件库定义 ------------------------
-# U8G2库
-set(U8G2_INC_DIRS "${U8G2_DIR}")
-find_sources(U8G2_SRCS "${U8G2_DIR}")
+# 我的GUI库
+set(MY_GUI_INC_DIRS "${MY_GUI_DIR}")
+find_sources(MY_GUI_SRCS "${MY_GUI_DIR}")
 
 # Drivers库
 set(DRIVERS_INC_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/Drivers")
@@ -62,13 +62,13 @@ add_executable(${PROJECT_NAME} "${CMAKE_CURRENT_SOURCE_DIR}/main.cpp" "test.cpp"
 # 直接编译模式自动继承所有依赖
 target_sources(${PROJECT_NAME} PRIVATE
         ${DRIVERS_SRCS}
-        ${U8G2_SRCS}
+        ${MY_GUI_SRCS}
         ${GUI_SRCS}
         ${UI_SRCS}
 )
 include_directories(
         ${DRIVERS_INC_DIRS}
-        ${U8G2_INC_DIRS}
+        ${MY_GUI_INC_DIRS}
         ${GUI_INC_DIRS}
         ${SDL2_ROOT}/include
         ${UI_INC_DIRS}

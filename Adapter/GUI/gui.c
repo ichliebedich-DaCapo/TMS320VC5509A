@@ -1,12 +1,12 @@
 //
 // Created by fairy on 2025/3/3 01:09.
 //
-#include <stdio.h>
-#ifdef SIMULATOR
-#include<simulator.hpp>
+
+#ifndef SIMULATOR
+#include <lcd.h>
 #endif
 #include "gui.h"
-#include <lcd.h>
+
 
 
 void GUI_Init()
