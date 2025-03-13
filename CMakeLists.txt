@@ -34,6 +34,7 @@ file(GLOB_RECURSE SOURCES
         "BSP/src/*.c"
         "Core/Drivers/src/*.c"
         "Middleware/Third_Party/u8g2/*.c"
+        "Middleware/Library/gui/*.c"
 )
 include_directories(
         "Adapter/GUI"
@@ -43,6 +44,7 @@ include_directories(
         "BSP/inc"
         "Core/Drivers/inc"
         "Middleware/Third_Party/u8g2"
+        "Middleware/Library/gui"
 )
 
 add_executable(${TARGET_FILE} ${SOURCES})

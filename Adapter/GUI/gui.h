@@ -10,11 +10,10 @@ extern "C" {
 #ifndef SIMULATOR
 #include <zq_conf.h>
 #endif
-    #include "u8g2.h"
-extern u8g2_t u8g2;
+#include<zq_gui.h>
 
-    void lcd_refresh(u8g2_t *u8g2);
-    void GUI_Init();
+void GUI_Init(); // 初始化GUI
+#define GUI_handler() gui_handler()// GUI处理函数
 
 #ifdef __cplusplus
 }
