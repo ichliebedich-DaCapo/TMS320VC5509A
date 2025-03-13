@@ -38,7 +38,7 @@ extern "C" {
  * 向左侧屏幕写入数据
  * @param data 数据
  */
-INLINE void lcd_write_data_left(const uint8_t data)
+INLINE void lcd_write_data_left(const uint16_t data)
 {
     LCD_DATA_L = data;
     LCD_CTRL = 0;
@@ -48,7 +48,7 @@ INLINE void lcd_write_data_left(const uint8_t data)
  * 向右侧屏幕写入数据
  * @param data 数据
  */
-INLINE void lcd_write_data_right(const uint8_t data)
+INLINE void lcd_write_data_right(const uint16_t data)
 {
     LCD_DATA_R = data;
     LCD_CTRL = 0;
@@ -58,7 +58,7 @@ INLINE void lcd_write_data_right(const uint8_t data)
  * 写入命令
  * @param cmd 命令
  */
-INLINE void lcd_write_cmd(const uint8_t cmd)
+INLINE void lcd_write_cmd(const uint16_t cmd)
 {
     LCD_CMD = cmd;
     LCD_CTRL = 0;
@@ -67,13 +67,13 @@ INLINE void lcd_write_cmd(const uint8_t cmd)
 /**
 * 设置当前行(页0~7)
 */
-INLINE void lcd_set_page(const uint8_t page)
+INLINE void lcd_set_page(const uint16_t page)
 {
     lcd_write_cmd(LCD_CMD_PAGE + (page & 0x07)); // 限制 page 在 0~7
 }
 
 // 设置当前列 (0~63)
-INLINE void lcd_set_column(const uint8_t column)
+INLINE void lcd_set_column(const uint16_t column)
 {
     lcd_write_cmd(LCD_CMD_VER_ADDRESS + column); // 左半屏
 }
@@ -97,7 +97,7 @@ INLINE void lcd_set_column(const uint8_t column)
     }\
 }
 
-INLINE void lcd_write_data(const uint16_t page, const uint16_t column, const uint8_t data)
+INLINE void lcd_write_data(const uint16_t page, const uint16_t column, const uint16_t data)
 {
     lcd_set_page(page);
     if (column > 63)
@@ -113,7 +113,7 @@ INLINE void lcd_write_data(const uint16_t page, const uint16_t column, const uin
 }
 
 // 更高效的写入语句,不会刷新流水线，从而避免分支惩罚
-INLINE void lcd_write_data_fast(const uint16_t page, const uint16_t column, const uint8_t data)
+INLINE void lcd_write_data_fast(const uint16_t page, const uint16_t column, const uint16_t data)
 {
     lcd_set_page(page);
     lcd_set_column(column & 0x3f);
@@ -123,7 +123,7 @@ INLINE void lcd_write_data_fast(const uint16_t page, const uint16_t column, cons
 
 // 理论上更高效的写入语句，但是需要测试！！
 // buf: 128字节
-INLINE void lcd_flush(const uint8_t *buf)
+INLINE void lcd_flush(const uint16_t *buf)
 {
     // int i, j;
     // lcd_write_cmd(LCD_CMD_START_LINE);
@@ -163,7 +163,7 @@ INLINE void lcd_flush(const uint8_t *buf)
 //
 void lcd_init();
 
-// void lcd_write_page(uint8_t page,uint8_t*buf);
+// void lcd_write_page(uint16_t page,uint16_t*buf);
 
 
 #ifdef __cplusplus

@@ -12,23 +12,23 @@
  * @param y      行坐标 (0~63)
  * @param color  颜色，0：熄灭，1：点亮
  */
-void gui_draw_hline(uint8_t x1, uint8_t length, uint8_t y, uint8_t color)
+void gui_draw_hline(uint16_t x1, uint16_t length, uint16_t y, uint16_t color)
 {
     /* 参数有效性检查 */
     if (y >= GUI_VOR || length == 0) return;
 
     /* 计算实际结束列 */
-    uint8_t x2 = x1 + length - 1;
+    uint16_t x2 = x1 + length - 1;
     if (x1 > GUI_HOR_MAX_INDEX) return;
     if (x2 > GUI_HOR_MAX_INDEX) x2 = GUI_HOR_MAX_INDEX;
 
     /* 高效页处理 */
-    const uint8_t page = y >> 3;
-    const uint8_t bit_mask = 1 << (y & 0x07);
+    const uint16_t page = y >> 3;
+    const uint16_t bit_mask = 1 << (y & 0x07);
     PageDirtyInfo *p = &lcd_dirty_info[page];
 
     /* 批量设置位 */
-    uint8_t x;
+    uint16_t x;
     if (color)
     {
         for (x = x1; x <= x2; ++x) lcd_buffer[page][x] |= bit_mask;
@@ -51,33 +51,33 @@ void gui_draw_hline(uint8_t x1, uint8_t length, uint8_t y, uint8_t color)
  * @param x      列坐标 (0~127)
  * @param color  颜色，0：熄灭，1：点亮
  */
-void gui_draw_vline(uint8_t y1, uint8_t length, uint8_t x, uint8_t color)
+void gui_draw_vline(uint16_t y1, uint16_t length, uint16_t x, uint16_t color)
 {
     /* 参数有效性检查 */
     if (x >= GUI_HOR || length == 0) return;
 
     /* 计算实际结束行 */
-    uint8_t y2 = y1 + length - 1;
+    uint16_t y2 = y1 + length - 1;
     if (y1 > GUI_VOR_MAX_INDEX) return;
     if (y2 > GUI_VOR_MAX_INDEX) y2 = GUI_VOR_MAX_INDEX;
 
     /* 计算涉及的页 */
-    const uint8_t start_page = y1 >> 3;
-    const uint8_t end_page = y2 >> 3;
+    const uint16_t start_page = y1 >> 3;
+    const uint16_t end_page = y2 >> 3;
 
     /* 逐页处理 */
-    uint8_t page;
+    uint16_t page;
     for (page = start_page; page <= end_page; ++page)
     {
         /* 计算当前页的y范围 */
-        const uint8_t page_base = page << 3;
-        uint8_t curr_y_start = (y1 > page_base) ? y1 : page_base;
-        uint8_t curr_y_end = (y2 < (page_base + 7)) ? y2 : (page_base + 7);
+        const uint16_t page_base = page << 3;
+        uint16_t curr_y_start = (y1 > page_base) ? y1 : page_base;
+        uint16_t curr_y_end = (y2 < (page_base + 7)) ? y2 : (page_base + 7);
 
         /* 生成连续位掩码 */
-        const uint8_t start_bit = curr_y_start - page_base;
-        const uint8_t end_bit = curr_y_end - page_base;
-        const uint8_t mask = (0xFF >> (7 - end_bit + start_bit)) << start_bit;
+        const uint16_t start_bit = curr_y_start - page_base;
+        const uint16_t end_bit = curr_y_end - page_base;
+        const uint16_t mask = (0xFF >> (7 - end_bit + start_bit)) << start_bit;
 
         /* 更新缓冲区 */
         if (color)
@@ -106,7 +106,7 @@ void gui_draw_vline(uint8_t y1, uint8_t length, uint8_t x, uint8_t color)
  * @param y1 结束行坐标 (0~63)
  * @param color 颜色，0：熄灭，1：点亮
  */
-void gui_draw_line(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, uint8_t color)
+void gui_draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint16_t color)
 {
     /* 参数有效性检查 */
     if (x0 >= GUI_HOR || y0 >= GUI_VOR || x1 >= GUI_HOR || y1 >= GUI_VOR) return;
@@ -114,8 +114,8 @@ void gui_draw_line(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, uint8_t color
     /* 优化水平线处理 */
     if (y0 == y1)
     {
-        const uint8_t start_x = MIN(x0, x1);
-        const uint8_t length = (uint8_t) (ABS_DIFF(x0, x1) + 1);
+        const uint16_t start_x = MIN(x0, x1);
+        const uint16_t length = (uint16_t) (ABS_DIFF(x0, x1) + 1);
         gui_draw_hline(start_x, length, y0, color);
         return;
     }
@@ -123,8 +123,8 @@ void gui_draw_line(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, uint8_t color
     /* 优化垂直线处理 */
     if (x0 == x1)
     {
-        const uint8_t start_y = MIN(y0, y1);
-        const uint8_t length = (uint8_t) (ABS_DIFF(y0, y1) + 1);
+        const uint16_t start_y = MIN(y0, y1);
+        const uint16_t length = (uint16_t) (ABS_DIFF(y0, y1) + 1);
         gui_draw_vline(start_y, length, x0, color);
         return;
     }
@@ -173,14 +173,14 @@ void gui_draw_line(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, uint8_t color
  * @param height 高度（≥1）
  * @param color 颜色
  */
-void gui_draw_rect(uint8_t x, uint8_t y, uint8_t width, uint8_t height, uint8_t color)
+void gui_draw_rect(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint16_t color)
 {
     /* 参数检查 */
     if (x >= GUI_HOR || y >= GUI_VOR || width == 0 || height == 0) return;
 
     /* 计算右下角坐标 */
-    uint8_t x_end = x + width - 1;
-    uint8_t y_end = y + height - 1;
+    uint16_t x_end = x + width - 1;
+    uint16_t y_end = y + height - 1;
     if (x_end >= GUI_HOR) x_end = GUI_HOR_MAX_INDEX;
     if (y_end >= GUI_VOR) y_end = GUI_VOR_MAX_INDEX;
 
@@ -199,39 +199,39 @@ void gui_draw_rect(uint8_t x, uint8_t y, uint8_t width, uint8_t height, uint8_t 
  * @param height 高度（≥1）
  * @param color 颜色
  */
-void gui_fill_rect(uint8_t x, uint8_t y, uint8_t width, uint8_t height, uint8_t color)
+void gui_fill_rect(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint16_t color)
 {
     /* 参数检查 */
     if (x >= GUI_HOR || y >= GUI_VOR || width == 0 || height == 0) return;
 
     /* 计算实际填充范围 */
-    uint8_t x_end = x + width - 1;
-    uint8_t y_end = y + height - 1;
+    uint16_t x_end = x + width - 1;
+    uint16_t y_end = y + height - 1;
     if (x_end >= GUI_HOR) x_end = GUI_HOR_MAX_INDEX;
     if (y_end >= GUI_VOR) y_end = GUI_VOR_MAX_INDEX;
 
     /* 计算涉及的页 */
-    uint8_t start_page = y >> 3;
-    uint8_t end_page = y_end >> 3;
+    uint16_t start_page = y >> 3;
+    uint16_t end_page = y_end >> 3;
 
     /* 逐页填充 */
-    uint8_t page;
+    uint16_t page;
     for (page = start_page; page <= end_page; ++page) {
         /* 计算当前页的垂直范围 */
-        uint8_t page_y_start = page << 3;
-        uint8_t page_y_end = page_y_start + 7;
+        uint16_t page_y_start = page << 3;
+        uint16_t page_y_end = page_y_start + 7;
 
         /* 确定当前页内的有效y范围 */
-        uint8_t curr_y_start = (y > page_y_start) ? y : page_y_start;
-        uint8_t curr_y_end = (y_end < page_y_end) ? y_end : page_y_end;
+        uint16_t curr_y_start = (y > page_y_start) ? y : page_y_start;
+        uint16_t curr_y_end = (y_end < page_y_end) ? y_end : page_y_end;
 
         /* 生成垂直掩码 */
-        uint8_t start_bit = curr_y_start - page_y_start;
-        uint8_t end_bit = curr_y_end - page_y_start;
-        uint8_t mask = (0xFF >> (7 - end_bit + start_bit)) << start_bit;
+        uint16_t start_bit = curr_y_start - page_y_start;
+        uint16_t end_bit = curr_y_end - page_y_start;
+        uint16_t mask = (0xFF >> (7 - end_bit + start_bit)) << start_bit;
 
         /* 批量填充列 */
-        uint8_t col;
+        uint16_t col;
         if (color) {
             for (col = x; col <= x_end; ++col) {
                 lcd_buffer[page][col] |= mask;
@@ -257,7 +257,7 @@ void gui_fill_rect(uint8_t x, uint8_t y, uint8_t width, uint8_t height, uint8_t 
  * @param radius 半径（≥1）
  * @param color 颜色
  */
-void gui_draw_circle(uint8_t x0, uint8_t y0, uint8_t radius, uint8_t color)
+void gui_draw_circle(uint16_t x0, uint16_t y0, uint16_t radius, uint16_t color)
 {
     /* 参数检查 */
     if (radius == 0) return;

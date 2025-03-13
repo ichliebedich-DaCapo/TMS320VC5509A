@@ -25,25 +25,25 @@ extern "C" {
 // 辅助宏
 #define ABS_DIFF(a, b) ((a) > (b) ? (a) - (b) : (b) - (a))
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
-#define SWAP(a, b) { uint8_t t = a; a = b; b = t; }
+#define SWAP(a, b) { uint16_t t = a; a = b; b = t; }
 
 /*变量声明*/
 // 显示缓冲区：8页 x 128列，每个字节存储一列的8行数据
-extern uint8_t lcd_buffer[GUI_PAGE][GUI_HOR];
+extern uint16_t lcd_buffer[GUI_PAGE][GUI_HOR];
 
 // 脏页管理（结构体提高缓存效率）
 typedef struct
 {
-    uint8_t is_dirty;
-    uint8_t min_col;
-    uint8_t max_col;
+    uint16_t is_dirty;
+    uint16_t min_col;
+    uint16_t max_col;
 } PageDirtyInfo;
 
 extern PageDirtyInfo lcd_dirty_info[GUI_PAGE];
 
 // 需要的外部函数
 #ifdef SIMULATOR
-extern void lcd_write_page(uint8_t page, const uint8_t *buf);
+extern void lcd_write_page(uint16_t page, const uint16_t *buf);
 #endif
 
 /**
@@ -52,12 +52,12 @@ extern void lcd_write_page(uint8_t page, const uint8_t *buf);
  * @param y 行坐标 (0~63)
  * @param data 像素颜色，0：熄灭，1：点亮
  */
-INLINE void gui_write_pixel(const uint8_t x, const uint8_t y, const uint8_t data)
+INLINE void gui_write_pixel(const uint16_t x, const uint16_t y, const uint16_t data)
 {
     if (x >= GUI_HOR || y >= GUI_VOR) return;
 
-    const uint8_t page = y >> 3;
-    const uint8_t mask = 1 << (y & 0x07);
+    const uint16_t page = y >> 3;
+    const uint16_t mask = 1 << (y & 0x07);
 
     // 原子操作更新缓冲区
     if (data)
@@ -78,17 +78,17 @@ INLINE void gui_write_pixel(const uint8_t x, const uint8_t y, const uint8_t data
 
 /*===================================图形绘制===================================*/
 
-void gui_draw_hline(uint8_t x1, uint8_t x2, uint8_t length, uint8_t color);
+void gui_draw_hline(uint16_t x1, uint16_t x2, uint16_t length, uint16_t color);
 
-void gui_draw_vline(uint8_t y1, uint8_t y2, uint8_t length, uint8_t color);
+void gui_draw_vline(uint16_t y1, uint16_t y2, uint16_t length, uint16_t color);
 
-void gui_draw_line(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, uint8_t color);
+void gui_draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint16_t color);
 
-void gui_draw_rect(uint8_t x, uint8_t y, uint8_t width, uint8_t height, uint8_t color);
+void gui_draw_rect(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint16_t color);
 
-void gui_fill_rect(uint8_t x, uint8_t y, uint8_t width, uint8_t height, uint8_t color);
+void gui_fill_rect(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint16_t color);
 
-void gui_draw_circle(uint8_t x0, uint8_t y0, uint8_t radius, uint8_t color);
+void gui_draw_circle(uint16_t x0, uint16_t y0, uint16_t radius, uint16_t color);
 
 /*===================================缓冲区管理===================================*/
 void gui_clear();
@@ -100,10 +100,4 @@ void gui_refresh_buf(); // 刷新缓冲区到LCD屏
 }
 #endif
 #endif //ZQ_GUI_H
-// 做得很好！现在我定义了这些宏，用于后续兼容
-// #define GUI_HOR 128
-// #define GUI_HOR_MAX_INDEX 127
-// #define GUI_VOR 64
-// #define GUI_PAGE 8
-// 并且我修改了一些API的名称，比如gui_write_pixel、gui_fill_rect、gui_draw_hline、gui_draw_vline等，
-// 前面的这些绘制线段、圆的API可用，现在我需要再创建一些API来绘制可以指定长度的绘制线段、圆形等
+

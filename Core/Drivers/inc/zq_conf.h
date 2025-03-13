@@ -16,7 +16,6 @@ extern "C" {
 #endif
 // ======================兼容GCC======================
 // 类型定义
-    typedef unsigned char uint8_t;
 
 
 // 强制内联

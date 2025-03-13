@@ -50,7 +50,7 @@
 									<listOptionValue builtIn="false" value="${PROJECT_ROOT}/BSP/inc"/>
 									<listOptionValue builtIn="false" value="${PROJECT_ROOT}/Core/Drivers/inc"/>
 									<listOptionValue builtIn="false" value="${PROJECT_ROOT}/Middleware/DSP/include"/>
-									<listOptionValue builtIn="false" value="${PROJECT_ROOT}/Middleware/Third_Party/u8g2"/>
+									<listOptionValue builtIn="false" value="${PROJECT_ROOT}/Middleware/Library/gui"/>
 								</option>
 								<option id="com.ti.ccstudio.buildDefinitions.C5500_4.4.compilerID.LANGUAGE_MODE.879005123" name="Language mode" superClass="com.ti.ccstudio.buildDefinitions.C5500_4.4.compilerID.LANGUAGE_MODE" value="com.ti.ccstudio.buildDefinitions.C5500_4.4.compilerID.LANGUAGE_MODE.RELAXED_ANSI" valueType="enumerated"/>
 								<option id="com.ti.ccstudio.buildDefinitions.C5500_4.4.compilerID.GCC.1029006662" name="Enable support for GCC extensions (--gcc)" superClass="com.ti.ccstudio.buildDefinitions.C5500_4.4.compilerID.GCC" value="true" valueType="boolean"/>
@@ -65,6 +65,7 @@
 									<listOptionValue builtIn="false" value="1"/>
 									<listOptionValue builtIn="false" value="173"/>
 								</option>
+								<option id="com.ti.ccstudio.buildDefinitions.C5500_4.4.compilerID.C_C_PLUS_PLUS_DIALECT.238929068" name="C/C++ Dialect" superClass="com.ti.ccstudio.buildDefinitions.C5500_4.4.compilerID.C_C_PLUS_PLUS_DIALECT" value="com.ti.ccstudio.buildDefinitions.C5500_4.4.compilerID.C_C_PLUS_PLUS_DIALECT._none" valueType="enumerated"/>
 								<inputType id="com.ti.ccstudio.buildDefinitions.C5500_4.4.compiler.inputType__C_SRCS.2105254673" name="C Sources" superClass="com.ti.ccstudio.buildDefinitions.C5500_4.4.compiler.inputType__C_SRCS"/>
 								<inputType id="com.ti.ccstudio.buildDefinitions.C5500_4.4.compiler.inputType__CPP_SRCS.1901331572" name="C++ Sources" superClass="com.ti.ccstudio.buildDefinitions.C5500_4.4.compiler.inputType__CPP_SRCS"/>
 								<inputType id="com.ti.ccstudio.buildDefinitions.C5500_4.4.compiler.inputType__ASM_SRCS.101729166" name="Assembly Sources" superClass="com.ti.ccstudio.buildDefinitions.C5500_4.4.compiler.inputType__ASM_SRCS"/>
@@ -94,7 +95,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="Adapter/GUI/u8g2-simulator|App/9_LCD/ui|Tools" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="Adapter/GUI/gui-simulator|App/9_LCD/ui|Tools" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>

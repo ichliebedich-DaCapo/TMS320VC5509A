@@ -15,11 +15,11 @@
 
 typedef struct
 {
-    uint8_t waveform[128];
-    uint8_t w_index;
-    uint8_t timebase;
-    uint8_t trigger_level;
-    uint8_t vertical_scale;
+    uint16_t waveform[128];
+    uint16_t w_index;
+    uint16_t timebase;
+    uint16_t trigger_level;
+    uint16_t vertical_scale;
 } Oscilloscope;
 
 
@@ -28,10 +28,10 @@ Oscilloscope osc;
 
 
 /* 在文件作用域声明所有变量 */
-static uint8_t last_y = 0;
-static uint8_t x = 0;
+static uint16_t last_y = 0;
+static uint16_t x = 0;
 static char buf[10];
-static uint8_t cache[1024];
+static uint16_t cache[1024];
 
 void ui_init()
 {
@@ -72,7 +72,7 @@ void ui_handler()
     static uint16_t phase = 0;
     for (x = 0; x < 128; x++)
     {
-        osc.waveform[x] = (uint8_t) ( 110 * (sin(phase * 0.1 + x * 0.2)+1.1));
+        osc.waveform[x] = (uint16_t) ( 110 * (sin(phase * 0.1 + x * 0.2)+1.1));
     }
     phase++;
 

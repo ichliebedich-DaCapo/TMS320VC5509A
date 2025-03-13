@@ -5,7 +5,7 @@
 
 #include <string.h>
 // 变量
-uint8_t lcd_buffer[8][128];
+uint16_t lcd_buffer[8][128];
 // 脏页跟踪（每个页独立记录修改范围）
 PageDirtyInfo lcd_dirty_info[8] = {
     {0, GUI_HOR, 0}, {0, GUI_HOR, 0}, {0, GUI_HOR, 0}, {0, GUI_HOR, 0},
@@ -15,7 +15,7 @@ PageDirtyInfo lcd_dirty_info[8] = {
 // 清屏
 void gui_clear()
 {
-    uint8_t page;
+    uint16_t page;
     for (page = 0; page < 8; ++page)
     {
         lcd_dirty_info[page].is_dirty = 1;
@@ -32,7 +32,7 @@ void gui_clear()
 void gui_refresh_buf()
 {
 #ifdef SIMULATOR
-    uint8_t page;
+    uint16_t page;
     for (page = 0; page < 8; page++)
     {
         PageDirtyInfo *p = &lcd_dirty_info[page];
@@ -46,10 +46,9 @@ void gui_refresh_buf()
         p->max_col = 0;
     }
 #else
-    uint8_t page, x;
+    uint16_t page, x;
     for (page = 0; page < 8; page++)
     {
-        PageDirtyInfo *p = &lcd_dirty_info[page];
         if (!lcd_dirty_info[page].is_dirty || lcd_dirty_info[page].min_col > lcd_dirty_info[page].max_col) continue;
 
         // 硬件刷新优化（仅发送变更区域）
@@ -58,8 +57,8 @@ void gui_refresh_buf()
         // 左半屏处理（0-63）
         if (lcd_dirty_info[page].min_col < 64)
         {
-            const uint8_t start = lcd_dirty_info[page].min_col;
-            const uint8_t end = (lcd_dirty_info[page].max_col < 64) ? lcd_dirty_info[page].max_col : 63;
+            const uint16_t start = lcd_dirty_info[page].min_col;
+            const uint16_t end = (lcd_dirty_info[page].max_col < 64) ? lcd_dirty_info[page].max_col : 63;
             lcd_set_column(start);
             for (x = start; x <= end; x++)
             {
@@ -70,8 +69,8 @@ void gui_refresh_buf()
         // 右半屏处理（64-127）
         if (lcd_dirty_info[page].max_col >= 64)
         {
-            const uint8_t start = (lcd_dirty_info[page].min_col > 64) ? lcd_dirty_info[page].min_col : 64;
-            const uint8_t end = lcd_dirty_info[page].max_col;
+            const uint16_t start = (lcd_dirty_info[page].min_col > 64) ? lcd_dirty_info[page].min_col : 64;
+            const uint16_t end = lcd_dirty_info[page].max_col;
             lcd_set_column(start - 64);
             for (x = start; x <= end; x++)
             {
