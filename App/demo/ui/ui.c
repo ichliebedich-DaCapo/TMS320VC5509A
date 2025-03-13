@@ -32,7 +32,7 @@ static uint8_t x = 0;
 
 void ui_init()
 {
-
+    gui_clear();
 }
 
 
@@ -43,10 +43,11 @@ void ui_handler()
     static uint16_t phase = 0;
     for (x = 0; x < 128; x++)
     {
-        osc.waveform[x] = (uint8_t) ( 110 * (sin(phase * 0.1 + x * 0.2)+1.1));
+        osc.waveform[x] = (uint8_t) (110 * (sin(phase * 0.1 + x * 0.2) + 1.1));
     }
     phase++;
 
-#endif
+    gui_draw_hline(0, 64, 32, 1);
 
+#endif
 }

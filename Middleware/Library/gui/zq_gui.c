@@ -8,8 +8,8 @@
 uint8_t lcd_buffer[8][128];
 // 脏页跟踪（每个页独立记录修改范围）
 PageDirtyInfo lcd_dirty_info[8] = {
-    {0, 128, 0}, {0, 128, 0}, {0, 128, 0}, {0, 128, 0},
-    {0, 128, 0}, {0, 128, 0}, {0, 128, 0}, {0, 128, 0}
+    {0, GUI_HOR, 0}, {0, GUI_HOR, 0}, {0, GUI_HOR, 0}, {0, GUI_HOR, 0},
+    {0, GUI_HOR, 0}, {0, GUI_HOR, 0}, {0, GUI_HOR, 0}, {0, GUI_HOR, 0}
 };
 
 // 清屏
@@ -32,17 +32,17 @@ void gui_clear()
 void gui_refresh_buf()
 {
 #ifdef SIMULATOR
-    uint8_t page, x;
+    uint8_t page;
     for (page = 0; page < 8; page++)
     {
         PageDirtyInfo *p = &lcd_dirty_info[page];
         if (!p->is_dirty || p->min_col > p->max_col) continue;
 
-        lcd_write_page(page,(uint8_t*)lcd_buffer);
+        lcd_write_page(page,lcd_buffer[page]);
 
         // 重置脏标记
         p->is_dirty = 0;
-        p->min_col = 128;
+        p->min_col = GUI_HOR;
         p->max_col = 0;
     }
 #else

@@ -14,9 +14,14 @@ extern "C" {
 #include <lcd.h>
 #endif
 
+#define GUI_HOR 128
+#define GUI_HOR_MAX_INDEX 127
+#define GUI_VOR 64
+#define GUI_PAGE 8
+
 /*变量*/
 // 显示缓冲区：8页 x 128列，每个字节存储一列的8行数据
-extern uint8_t lcd_buffer[8][128];
+extern uint8_t lcd_buffer[GUI_PAGE][GUI_HOR];
 
 // 脏页管理（结构体提高缓存效率）
 typedef struct
@@ -26,11 +31,11 @@ typedef struct
     uint8_t max_col;
 } PageDirtyInfo;
 
-extern PageDirtyInfo lcd_dirty_info[8];
+extern PageDirtyInfo lcd_dirty_info[GUI_PAGE];
 
 // 需要的外部函数
 #ifdef SIMULATOR
-extern void lcd_write_page(uint8_t page, const uint8_t*buf);
+extern void lcd_write_page(uint8_t page, const uint8_t *buf);
 #endif
 
 /**
@@ -41,7 +46,7 @@ extern void lcd_write_page(uint8_t page, const uint8_t*buf);
  */
 INLINE void gui_write_pixel(const uint8_t x, const uint8_t y, const uint8_t data)
 {
-    if (x >= 128 || y >= 64) return;
+    if (x >= GUI_HOR || y >= GUI_VOR) return;
 
     const uint8_t page = y >> 3;
     const uint8_t mask = 1 << (7 - (y & 0x07));
@@ -99,15 +104,15 @@ INLINE void gui_fill_rect(const uint8_t x1, const uint8_t y1, const uint8_t x2, 
 }
 
 /*===================================图形绘制===================================*/
-void gui_draw_hline_buf(uint8_t x1, uint8_t x2, uint8_t y, uint8_t color);
+void gui_draw_hline(uint8_t x1, uint8_t x2, uint8_t y, uint8_t color);
 
-void gui_draw_vline_buf(uint8_t x, uint8_t y1, uint8_t y2, uint8_t color);
+void gui_draw_vline(uint8_t x, uint8_t y1, uint8_t y2, uint8_t color);
 
-void gui_draw_rect_buf(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, uint8_t color);
+void gui_draw_rect(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, uint8_t color);
 
-void gui_draw_line_buf(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, uint8_t color);
+void gui_draw_line(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, uint8_t color);
 
-void gui_draw_circle_buf(uint8_t x0, uint8_t y0, uint8_t radius, uint8_t color);
+void gui_draw_circle(uint8_t x0, uint8_t y0, uint8_t radius, uint8_t color);
 
 /*===================================缓冲区管理===================================*/
 void gui_clear();
