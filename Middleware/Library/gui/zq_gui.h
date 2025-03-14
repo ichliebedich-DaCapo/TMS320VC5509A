@@ -114,23 +114,29 @@ protected:
         dirty_info.col[page] = (min_col & DIRTY_MIN_COL) | ((max_col << 8) & DIRTY_MAX_COL);
     }
 
-    // 更新脏列。如果最小列比旧值小，那么更新最小列；如果最大列比旧值大，那么更新最大列
+    // 设置脏标记并更新脏列（如果最小列比旧值小，那么更新最小列；如果最大列比旧值大，那么更新最大列）
     INLINE void update_col(const uint16_t &page, const uint16_t &min_col, const uint16_t &max_col)
     {
+        dirty_info.is_dirty |= 1 << page;
         if (min_col < get_min_col(page)) set_min_col(page, min_col);
         if (max_col > get_max_col(page)) set_max_col(page, max_col);
     }
 
-    // 设置脏标记并更新脏列（如果最小列比旧值小，那么更新最小列；如果最大列比旧值大，那么更新最大列）
-    INLINE void set_dirty_update_col(const uint16_t &page, const uint16_t &min_col, const uint16_t &max_col)
-    {
-        dirty_info.is_dirty |= 1 << page;
-        update_col(page, min_col, max_col);
-    }
-
     // 根据y坐标获取page
     // 128*64分成左右两个页区，左页区有0、2、4等页，由页区有1、3、5等页。由x坐标来区分左右页
-    INLINE uint16_t get_page(const uint16_t &x, const uint16_t &y) { return ((y >> 3) << 1) + (x >> 6); }
+#if GUI_PAGE_MODE == 8
+    INLINE uint16_t get_page( const uint16_t &y)
+    {
+        return (y >> 3) ;
+    }
+#else
+    INLINE uint16_t get_page(const uint16_t &x, const uint16_t &y)
+    {
+
+        return ((y >> 3) << 1) + (x >> 6);
+    }
+#endif
+
     // 取低3位，相当于y对8取余，获取在一个字节的位置
     INLINE uint16_t get_mask(const uint16_t &y) { return 1 << (y & 0x07); }
 
@@ -194,6 +200,7 @@ public:
 #if GUI_PAGE_MODE == 8
     template<void(*oled_write_data)(uint16_t page, uint16_t start_col, uint16_t end_col, const uint16_t *buf)>
     static void handler();
+
 #else
     template<void(*oled_write_data_left)(uint16_t page, uint16_t start_col, uint16_t end_col, const uint16_t *buf),
     void(*oled_write_data_right)(uint16_t page, uint16_t start_col, uint16_t end_col, const uint16_t *buf)
@@ -216,7 +223,12 @@ void GUI_Object::write_pixel(const uint16_t x, const uint16_t y, const uint16_t 
 {
     if (x >= GUI_HOR || y >= GUI_VOR) return;
 
+#if GUI_PAGE_MODE == 8
+    const uint16_t page = get_page(y);
+#else
     const uint16_t page = get_page(x, y);
+#endif
+
     const uint16_t mask = get_mask(y);
 
     // 原子操作更新缓冲区
@@ -242,13 +254,24 @@ void GUI_Render::handler()
 {
     // 阶段1：遍历组件
 
-    // 阶段2：硬件绘制，遍历所有页
+    // 阶段2：硬件绘制
+
+    /*一次遍历所有页，阻塞时间长，不易造成画面撕裂*/
     for (uint16_t page = 0; page < GUI_PAGE; ++page)
     {
-        if (!get_dirty(page)||get_min_col(page)>get_max_col(page))continue;
+        if (!get_dirty(page))continue;
         oled_write_data(page, get_min_col(page), get_max_col(page),buffer+Index(page, get_min_col(page)));
         reset_dirty(page);// 重置脏标记
     }
+
+    /*一次只刷新一页，阻塞时间短，可能会造成画面撕裂*/
+    // static uint16_t page = 0;
+    // if (get_dirty(page))
+    // {
+    //     oled_write_data(page, get_min_col(page), get_max_col(page),buffer+Index(page, get_min_col(page)));
+    //     reset_dirty(page);// 重置脏标记
+    // }
+    // page = (++page)&0x07;
 
 }
 #else

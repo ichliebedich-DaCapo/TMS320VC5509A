@@ -68,7 +68,7 @@ void GUI_Object::draw_hline(uint16_t x1, uint16_t x2, uint16_t y, uint16_t color
     }
 
     /* 更新脏区域 */
-    set_dirty_update_col(page, x1, x2);
+    update_col(page, x1, x2);
 }
 
 /**
@@ -115,7 +115,7 @@ void GUI_Object::draw_vline(uint16_t y1, uint16_t y2, uint16_t x, uint16_t color
         }
 
         /* 更新脏区域 */
-        set_dirty_update_col(page, x, x);
+        update_col(page, x, x);
     }
 }
 
@@ -269,7 +269,7 @@ void GUI_Object::fill_rect(uint16_t x, uint16_t y, uint16_t width, uint16_t heig
         }
 
         /* 更新脏区域 */
-        set_dirty_update_col(page, x, x_end);
+        update_col(page, x, x_end);
     }
 }
 

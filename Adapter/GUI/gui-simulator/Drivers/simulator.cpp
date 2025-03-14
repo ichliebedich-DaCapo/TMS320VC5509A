@@ -195,6 +195,7 @@ void oled_write_data_base(const uint16_t page, const uint16_t column, const uint
     }
 }
 
+// 不需要判断start_col<=end_col，因为for循环内含了边界判断
 void oled_write_data(uint16_t page, uint16_t start_col, uint16_t end_col, const uint16_t *buf)
 {
     for (int16_t col = start_col; col <= end_col; ++col)
