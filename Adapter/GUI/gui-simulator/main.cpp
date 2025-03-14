@@ -35,7 +35,6 @@ int main(int argc, char *argv[])
     SDL_CreateThread(tick_handler, "tick", nullptr);
     GUI_Init();
 
-
     // 主循环
     while (simulator_is_running())
     {
@@ -45,7 +44,11 @@ int main(int argc, char *argv[])
 
         ui_handler();
 
-       GUI_Render::handler<lcd_write_page>();// 界面处理（动态）
+#if GUI_PAGE_MODE==8
+        GUI_Render::handler<oled_write_data>(); // 界面处理（动态）
+#else
+        GUI_Render::handler<oled_write_data,oled_write_data>();// 界面处理（动态）
+#endif
 
         // --------------测量结束-------------
         current_tick[tick_index] = tick;

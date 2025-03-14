@@ -56,7 +56,7 @@ void ui_handler()
     static uint16_t phase = 0;
     for (x = 0; x < 128; x++)
     {
-        osc.waveform[x] = (uint16_t) (32 * (sin(phase * 0.1 + x * 0.2) + 1));
+        osc.waveform[x] = static_cast<uint16_t>(32 * (sin(phase * 0.1 + x * 0.2) + 1));
     }
 
     /*图形系统*/

@@ -10,8 +10,8 @@ static volatile bool keep_running = true;
 
 constexpr int HOR = 128; // 屏幕宽度
 constexpr int VER = 64; // 屏幕高度
-constexpr int REAL_HOR = HOR*4;
-constexpr int REAL_VER = VER*4;
+constexpr int REAL_HOR = HOR * 4;
+constexpr int REAL_VER = VER * 4;
 
 
 static SDL_Window *window;
@@ -151,7 +151,6 @@ void simulator_event_Handler()
 }
 
 
-
 /***********************************LCD驱动接口******************************************/
 //
 /**
@@ -160,7 +159,7 @@ void simulator_event_Handler()
  * @param y 纵坐标（0到63）
  * @param color 颜色，0：白色 1：黑色
  */
-static void lcd_write_pixel(const uint16_t x, const uint16_t y, const uint8_t color)
+static void oled_write_pixel(const uint16_t x, const uint16_t y, const uint8_t color)
 {
     // 填充4x4像素块
     for (int dy = 0; dy < 4; ++dy)
@@ -168,12 +167,11 @@ static void lcd_write_pixel(const uint16_t x, const uint16_t y, const uint8_t co
         for (int dx = 0; dx < 4; ++dx)
         {
             // 计算实际显存坐标
-            const uint16_t ty = y*4 + dy;
-            const uint16_t tx = x*4 + dx;
+            const uint16_t ty = y * 4 + dy;
+            const uint16_t tx = x * 4 + dx;
 
             // TFT_GRAM[y][x] = is_black ? 0xF000 : 0x6789;// 左黑右白
-            TFT_GRAM[ty][tx] = color ? 0x0000 : 0xFFFF;// 左黑右白
-
+            TFT_GRAM[ty][tx] = color ? 0x0000 : 0xFFFF; // 左黑右白
         }
     }
 }
@@ -184,39 +182,26 @@ static void lcd_write_pixel(const uint16_t x, const uint16_t y, const uint8_t co
  * @param column 列 0到127
  * @param data 一页的数据，为1时即黑
  */
-void lcd_write_data(const uint16_t page, const uint16_t column, const uint16_t data)
+void oled_write_data_base(const uint16_t page, const uint16_t column, const uint16_t data)
 {
-    const uint16_t logical_y = page*8; // 逻辑列坐标
+    const uint16_t logical_y = page * 8; // 逻辑列坐标
 
     for (int i = 0; i < 8; ++i) // 遍历8个垂直像素位
     {
         const bool is_black = data & (1 << i); // 获取当前bit值
 
         // 填充4x4像素块
-        lcd_write_pixel(column, logical_y+i, is_black);
+        oled_write_pixel(column, logical_y + i, is_black);
     }
 }
 
-void lcd_write_page(uint16_t page, const uint16_t*buf)
+void oled_write_data(uint16_t page, uint16_t start_col, uint16_t end_col, const uint16_t *buf)
 {
-    for (uint8_t col = 0; col <128; col++)
+    for (int16_t col = start_col; col <= end_col; ++col)
     {
-        lcd_write_data(page, col, buf[col]); // 写入LCD
+        oled_write_data_base(page, col, buf[col - start_col]); // 写入LCD
     }
 }
-
-void lcd_full_flush(const uint16_t *buf)
-{
-    for (uint8_t page = 0; page < 8; page++)
-    {
-        // 遍历所有页（8页）
-        for (uint8_t col = 0; col <128; col++)
-        {
-            lcd_write_data(page, col, buf[page * 128 + col]); // 写入LCD
-        }
-    }
-}
-
 
 
 void LCD_Clear()
@@ -278,4 +263,3 @@ void mouse_handler(SDL_Event *event)
 
 
 /**************************键盘*****************************/
-

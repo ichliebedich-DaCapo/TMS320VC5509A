@@ -7,31 +7,48 @@
 // ========================变量定义================================
 uint16_t GUI_Object::count;
 uint16_t GUI_Base::buffer[GUI_PAGE * GUI_HOR];
+#if GUI_PAGE_MODE ==8
 PageDirtyInfo GUI_Base::dirty_info = {
     0,
     {
-        DIRTY_DEFAULT_COL, DIRTY_DEFAULT_COL,DIRTY_DEFAULT_COL, DIRTY_DEFAULT_COL,
-        DIRTY_DEFAULT_COL, DIRTY_DEFAULT_COL,DIRTY_DEFAULT_COL, DIRTY_DEFAULT_COL
+        DIRTY_DUMMY_COL, DIRTY_DUMMY_COL,DIRTY_DUMMY_COL, DIRTY_DUMMY_COL,
+        DIRTY_DUMMY_COL, DIRTY_DUMMY_COL,DIRTY_DUMMY_COL, DIRTY_DUMMY_COL
     }
 };
+#else
+PageDirtyInfo GUI_Base::dirty_info = {
+    0,
+    {
+        DIRTY_DUMMY_COL, DIRTY_DUMMY_COL,DIRTY_DUMMY_COL, DIRTY_DUMMY_COL,
+        DIRTY_DUMMY_COL, DIRTY_DUMMY_COL,DIRTY_DUMMY_COL, DIRTY_DUMMY_COL,
+        DIRTY_DUMMY_COL, DIRTY_DUMMY_COL,DIRTY_DUMMY_COL, DIRTY_DUMMY_COL,
+        DIRTY_DUMMY_COL, DIRTY_DUMMY_COL,DIRTY_DUMMY_COL, DIRTY_DUMMY_COL
+    }
+};
+#endif
 // ========================基本操作================================
 
+
+void GUI_Base::invalidate()
+{
+    dirty_info.is_dirty = 0xFFFF;
+    for (uint16_t i = 0; i < GUI_PAGE; ++i)
+        dirty_info.col[i] = DIRTY_FULL_COL;
+}
 
 // ========================绘制函数================================
 /**
  * 绘制水平线（新参数版）
  * @param x1     起始列坐标 (0~127)
- * @param length 线段长度（至少1像素）
+ * @param x2     终止列坐标 (0~127)
  * @param y      行坐标 (0~63)
  * @param color  颜色，0：熄灭，1：点亮
  */
-void GUI_Object::draw_hline(uint16_t x1, uint16_t length, uint16_t y, uint16_t color)
+void GUI_Object::draw_hline(uint16_t x1, uint16_t x2, uint16_t y, uint16_t color)
 {
     /* 参数有效性检查 */
-    if (y >= GUI_VOR || length == 0) return;
+    if (y >= GUI_VOR) return;
 
-    /* 计算实际结束列 */
-    uint16_t x2 = x1 + length - 1;
     if (x1 > GUI_HOR_MAX_INDEX) return;
     if (x2 > GUI_HOR_MAX_INDEX) x2 = GUI_HOR_MAX_INDEX;
 
@@ -43,11 +60,11 @@ void GUI_Object::draw_hline(uint16_t x1, uint16_t length, uint16_t y, uint16_t c
     uint16_t x;
     if (color)
     {
-        for (x = x1; x <= x2; ++x) buffer[Coord(page, x)] |= bit_mask;
+        for (x = x1; x <= x2; ++x) buffer[Index(page, x)] |= bit_mask;
     }
     else
     {
-        for (x = x1; x <= x2; ++x) buffer[Coord(page, x)] &= ~bit_mask;
+        for (x = x1; x <= x2; ++x) buffer[Index(page, x)] &= ~bit_mask;
     }
 
     /* 更新脏区域 */
@@ -57,17 +74,16 @@ void GUI_Object::draw_hline(uint16_t x1, uint16_t length, uint16_t y, uint16_t c
 /**
  * 绘制垂直线（新参数版）
  * @param y1     起始行坐标 (0~63)
- * @param length 线段长度（至少1像素）
+ * @param y2     终止行坐标 (0~63)
  * @param x      列坐标 (0~127)
  * @param color  颜色，0：熄灭，1：点亮
  */
-void GUI_Object::draw_vline(uint16_t y1, uint16_t length, uint16_t x, uint16_t color)
+void GUI_Object::draw_vline(uint16_t y1, uint16_t y2, uint16_t x, uint16_t color)
 {
     /* 参数有效性检查 */
-    if (x >= GUI_HOR || length == 0) return;
+    if (x >= GUI_HOR) return;
 
     /* 计算实际结束行 */
-    uint16_t y2 = y1 + length - 1;
     if (y1 > GUI_VOR_MAX_INDEX) return;
     if (y2 > GUI_VOR_MAX_INDEX) y2 = GUI_VOR_MAX_INDEX;
 
@@ -91,11 +107,11 @@ void GUI_Object::draw_vline(uint16_t y1, uint16_t length, uint16_t x, uint16_t c
         /* 更新缓冲区 */
         if (color)
         {
-            buffer[Coord(page, x)] |= mask;
+            buffer[Index(page, x)] |= mask;
         }
         else
         {
-            buffer[Coord(page, x)] &= ~mask;
+            buffer[Index(page, x)] &= ~mask;
         }
 
         /* 更新脏区域 */
@@ -248,7 +264,7 @@ void GUI_Object::fill_rect(uint16_t x, uint16_t y, uint16_t width, uint16_t heig
         {
             for (col = x; col <= x_end; ++col)
             {
-                buffer[Coord(page, col)] &= ~mask;
+                buffer[Index(page, col)] &= ~mask;
             }
         }
 
@@ -301,10 +317,7 @@ void GUI_Object::draw_circle(const uint16_t x0, const uint16_t y0, const uint16_
 // =======================================渲染引擎=====================================
 void GUI_Render::clear()
 {
-    for (uint16_t page = 0; GUI_PAGE < 8; ++page)
-    {
-        reset_dirty(page);
-    }
+    invalidate();
     memset(buffer, 0, sizeof(buffer));
 }
 #ifndef SIMULATOR
