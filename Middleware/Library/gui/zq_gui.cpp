@@ -6,24 +6,17 @@
 
 // ========================变量定义================================
 uint16_t GUI_Object::count;
-uint16_t GUI_Base::buffer[GUI_PAGE][GUI_HOR];
-PageDirtyInfo GUI_Base:: dirty_info[GUI_PAGE]={
-    {0, GUI_HOR, 0}, {0, GUI_HOR, 0}, {0, GUI_HOR, 0}, {0, GUI_HOR, 0},
-    {0, GUI_HOR, 0}, {0, GUI_HOR, 0}, {0, GUI_HOR, 0}, {0, GUI_HOR, 0}
+uint16_t GUI_Base::buffer[GUI_PAGE * GUI_HOR];
+PageDirtyInfo GUI_Base::dirty_info = {
+    0,
+    {
+        DIRTY_DEFAULT_COL, DIRTY_DEFAULT_COL,DIRTY_DEFAULT_COL, DIRTY_DEFAULT_COL,
+        DIRTY_DEFAULT_COL, DIRTY_DEFAULT_COL,DIRTY_DEFAULT_COL, DIRTY_DEFAULT_COL
+    }
 };
 // ========================基本操作================================
 
-void GUI_Object::clear()
-{
-    uint16_t page;
-    for (page = 0; page < 8; ++page)
-    {
-        dirty_info[page].is_dirty = 1;
-        dirty_info[page].min_col = 0;
-        dirty_info[page].max_col = 127;
-        memset(buffer[page], 0, sizeof(buffer[page]));
-    }
-}
+
 // ========================绘制函数================================
 /**
  * 绘制水平线（新参数版）
@@ -45,23 +38,20 @@ void GUI_Object::draw_hline(uint16_t x1, uint16_t length, uint16_t y, uint16_t c
     /* 高效页处理 */
     const uint16_t page = y >> 3;
     const uint16_t bit_mask = 1 << (y & 0x07);
-    PageDirtyInfo *p = &dirty_info[page];
 
     /* 批量设置位 */
     uint16_t x;
     if (color)
     {
-        for (x = x1; x <= x2; ++x) buffer[page][x] |= bit_mask;
+        for (x = x1; x <= x2; ++x) buffer[Coord(page, x)] |= bit_mask;
     }
     else
     {
-        for (x = x1; x <= x2; ++x) buffer[page][x] &= ~bit_mask;
+        for (x = x1; x <= x2; ++x) buffer[Coord(page, x)] &= ~bit_mask;
     }
 
     /* 更新脏区域 */
-    p->is_dirty = 1;
-    if (x1 < p->min_col) p->min_col = x1;
-    if (x2 > p->max_col) p->max_col = x2;
+    set_dirty_update_col(page, x1, x2);
 }
 
 /**
@@ -86,13 +76,12 @@ void GUI_Object::draw_vline(uint16_t y1, uint16_t length, uint16_t x, uint16_t c
     const uint16_t end_page = y2 >> 3;
 
     /* 逐页处理 */
-    uint16_t page;
-    for (page = start_page; page <= end_page; ++page)
+    for (uint16_t page = start_page; page <= end_page; ++page)
     {
         /* 计算当前页的y范围 */
         const uint16_t page_base = page << 3;
-        uint16_t curr_y_start = (y1 > page_base) ? y1 : page_base;
-        uint16_t curr_y_end = (y2 < (page_base + 7)) ? y2 : (page_base + 7);
+        const uint16_t curr_y_start = (y1 > page_base) ? y1 : page_base;
+        const uint16_t curr_y_end = (y2 < (page_base + 7)) ? y2 : (page_base + 7);
 
         /* 生成连续位掩码 */
         const uint16_t start_bit = curr_y_start - page_base;
@@ -102,18 +91,15 @@ void GUI_Object::draw_vline(uint16_t y1, uint16_t length, uint16_t x, uint16_t c
         /* 更新缓冲区 */
         if (color)
         {
-            buffer[page][x] |= mask;
+            buffer[Coord(page, x)] |= mask;
         }
         else
         {
-            buffer[page][x] &= ~mask;
+            buffer[Coord(page, x)] &= ~mask;
         }
 
         /* 更新脏区域 */
-        PageDirtyInfo *p = &dirty_info[page];
-        p->is_dirty = 1;
-        if (x < p->min_col) p->min_col = x;
-        if (x > p->max_col) p->max_col = x;
+        set_dirty_update_col(page, x, x);
     }
 }
 
@@ -134,8 +120,8 @@ void GUI_Object::draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, u
     /* 优化水平线处理 */
     if (y0 == y1)
     {
-        const uint16_t start_x = MIN(x0, x1);
-        const uint16_t length = static_cast<uint16_t>((ABS_DIFF(x0, x1) + 1));
+        const uint16_t start_x = min(x0, x1);
+        const uint16_t length = static_cast<uint16_t>((abs_diff(x0, x1) + 1));
         draw_hline(start_x, length, y0, color);
         return;
     }
@@ -143,17 +129,17 @@ void GUI_Object::draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, u
     /* 优化垂直线处理 */
     if (x0 == x1)
     {
-        const uint16_t start_y = MIN(y0, y1);
-        const uint16_t length = static_cast<uint16_t>((ABS_DIFF(y0, y1) + 1));
+        const uint16_t start_y = min(y0, y1);
+        const uint16_t length = static_cast<uint16_t>((abs_diff(y0, y1) + 1));
         draw_vline(start_y, length, x0, color);
         return;
     }
 
     /* 标准Bresenham算法实现 */
-    int16_t dx = ABS_DIFF(x1, x0);
-    int16_t dy = -ABS_DIFF(y1, y0);
-    int16_t sx = (x0 < x1) ? 1 : -1;
-    int16_t sy = (y0 < y1) ? 1 : -1;
+    const int16_t dx = abs_diff(x1, x0);
+    const int16_t dy = -abs_diff(y1, y0);
+    const int16_t sx = (x0 < x1) ? 1 : -1;
+    const int16_t sy = (y0 < y1) ? 1 : -1;
     int16_t err = dx + dy; // 关键修正点：误差项初始化
 
     while (1)
@@ -184,7 +170,6 @@ void GUI_Object::draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, u
 }
 
 
-
 /**
  * 绘制矩形（空心）
  * @param x 左上角列坐标
@@ -205,10 +190,10 @@ void GUI_Object::draw_rect(uint16_t x, uint16_t y, uint16_t width, uint16_t heig
     if (y_end >= GUI_VOR) y_end = GUI_VOR_MAX_INDEX;
 
     /* 绘制四边 */
-    draw_hline(x, width, y, color);          // 上边
-    draw_hline(x, width, y_end, color);       // 下边
-    draw_vline(y, height, x, color);          // 左边
-    draw_vline(y, height, x_end, color);      // 右边
+    draw_hline(x, width, y, color); // 上边
+    draw_hline(x, width, y_end, color); // 下边
+    draw_vline(y, height, x, color); // 左边
+    draw_vline(y, height, x_end, color); // 右边
 }
 
 /**
@@ -231,42 +216,44 @@ void GUI_Object::fill_rect(uint16_t x, uint16_t y, uint16_t width, uint16_t heig
     if (y_end >= GUI_VOR) y_end = GUI_VOR_MAX_INDEX;
 
     /* 计算涉及的页 */
-    uint16_t start_page = y >> 3;
-    uint16_t end_page = y_end >> 3;
+    const uint16_t start_page = y >> 3;
+    const uint16_t end_page = y_end >> 3;
 
     /* 逐页填充 */
-    uint16_t page;
-    for (page = start_page; page <= end_page; ++page) {
+    for (uint16_t page = start_page; page <= end_page; ++page)
+    {
         /* 计算当前页的垂直范围 */
         uint16_t page_y_start = page << 3;
         uint16_t page_y_end = page_y_start + 7;
 
         /* 确定当前页内的有效y范围 */
-        uint16_t curr_y_start = (y > page_y_start) ? y : page_y_start;
-        uint16_t curr_y_end = (y_end < page_y_end) ? y_end : page_y_end;
+        const uint16_t curr_y_start = (y > page_y_start) ? y : page_y_start;
+        const uint16_t curr_y_end = (y_end < page_y_end) ? y_end : page_y_end;
 
         /* 生成垂直掩码 */
-        uint16_t start_bit = curr_y_start - page_y_start;
-        uint16_t end_bit = curr_y_end - page_y_start;
-        uint16_t mask = (0xFF >> (7 - end_bit + start_bit)) << start_bit;
+        const uint16_t start_bit = curr_y_start - page_y_start;
+        const uint16_t end_bit = curr_y_end - page_y_start;
+        const uint16_t mask = (0xFF >> (7 - end_bit + start_bit)) << start_bit;
 
         /* 批量填充列 */
         uint16_t col;
-        if (color) {
-            for (col = x; col <= x_end; ++col) {
-                buffer[page][col] |= mask;
+        if (color)
+        {
+            for (col = x; col <= x_end; ++col)
+            {
+                buffer[page * GUI_HOR + col] |= mask;
             }
-        } else {
-            for (col = x; col <= x_end; ++col) {
-                buffer[page][col] &= ~mask;
+        }
+        else
+        {
+            for (col = x; col <= x_end; ++col)
+            {
+                buffer[Coord(page, col)] &= ~mask;
             }
         }
 
         /* 更新脏区域 */
-        PageDirtyInfo *p = &dirty_info[page];
-        p->is_dirty = 1;
-        if (x < p->min_col) p->min_col = x;
-        if (x_end > p->max_col) p->max_col = x_end;
+        set_dirty_update_col(page, x, x_end);
     }
 }
 
@@ -277,7 +264,7 @@ void GUI_Object::fill_rect(uint16_t x, uint16_t y, uint16_t width, uint16_t heig
  * @param radius 半径（≥1）
  * @param color 颜色
  */
-void GUI_Object::draw_circle(uint16_t x0, uint16_t y0, uint16_t radius, uint16_t color)
+void GUI_Object::draw_circle(const uint16_t x0, const uint16_t y0, const uint16_t radius, const uint16_t color)
 {
     /* 参数检查 */
     if (radius == 0) return;
@@ -288,7 +275,8 @@ void GUI_Object::draw_circle(uint16_t x0, uint16_t y0, uint16_t radius, uint16_t
     int16_t y = radius;
 
     /* 绘制八个对称点 */
-    while (x <= y) {
+    while (x <= y)
+    {
         write_pixel(x0 + x, y0 + y, color);
         write_pixel(x0 - x, y0 + y, color);
         write_pixel(x0 + x, y0 - y, color);
@@ -298,7 +286,8 @@ void GUI_Object::draw_circle(uint16_t x0, uint16_t y0, uint16_t radius, uint16_t
         write_pixel(x0 + y, y0 - x, color);
         write_pixel(x0 - y, y0 - x, color);
 
-        if (f >= 0) {
+        if (f >= 0)
+        {
             y--;
             ddF_y += 2;
             f += ddF_y;
@@ -310,6 +299,14 @@ void GUI_Object::draw_circle(uint16_t x0, uint16_t y0, uint16_t radius, uint16_t
 }
 
 // =======================================渲染引擎=====================================
+void GUI_Render::clear()
+{
+    for (uint16_t page = 0; GUI_PAGE < 8; ++page)
+    {
+        reset_dirty(page);
+    }
+    memset(buffer, 0, sizeof(buffer));
+}
 #ifndef SIMULATOR
 void GUI_Render::handler()
 {

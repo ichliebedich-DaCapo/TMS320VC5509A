@@ -15,6 +15,7 @@ void GUI_Init()
 #ifndef SIMULATOR
     lcd_init();
 #endif
+    GUI_Render::clear();// 清屏
     ui_init();
 }
 
