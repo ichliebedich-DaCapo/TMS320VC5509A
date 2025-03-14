@@ -1,7 +1,7 @@
 #include <iostream>
 #include <SDL2/SDL.h>
 #include "simulator.hpp"
-#include<zq_gui.h>
+#include<zq_gui_conf.h>
 #include "GUI.h"
 #include<ui.h>
 

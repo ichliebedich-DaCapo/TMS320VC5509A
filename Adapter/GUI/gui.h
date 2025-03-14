@@ -7,7 +7,7 @@
 #ifndef SIMULATOR
 #include <zq_conf.h>
 #endif
-#include<zq_gui.h>
+#include<zq_gui_conf.h>
 
 void GUI_Init(); // 初始化GUI
 
