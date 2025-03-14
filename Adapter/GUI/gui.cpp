@@ -3,7 +3,7 @@
 //
 
 #ifndef SIMULATOR
-#include <lcd.h>
+#include <oled.h>
 #endif
 #include "gui.h"
 extern void ui_init();

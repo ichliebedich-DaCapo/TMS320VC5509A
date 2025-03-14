@@ -45,7 +45,7 @@ find_sources(DRIVERS_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/Drivers")
 
 # GUI库
 set(GUI_INC_DIRS "${GUI_DIR}")
-file(GLOB_RECURSE GUI_SRCS "../gui.c")
+file(GLOB_RECURSE GUI_SRCS "../gui.cpp")
 
 # UI
 set(UI_INC_DIRS "${UI_DIR}")

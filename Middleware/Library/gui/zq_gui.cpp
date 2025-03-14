@@ -1,10 +1,30 @@
 //
-// Created by fairy on 2025/3/13 12:13.
+// Created by fairy on 2025/3/13 10:55.
 //
-// 头文件
-#include"zq_gui.h"
+#include "zq_gui.h"
+#include <string.h>
 
-// 函数
+// ========================变量定义================================
+uint16_t GUI_Object::count;
+uint16_t GUI_Base::buffer[GUI_PAGE][GUI_HOR];
+PageDirtyInfo GUI_Base:: dirty_info[GUI_PAGE]={
+    {0, GUI_HOR, 0}, {0, GUI_HOR, 0}, {0, GUI_HOR, 0}, {0, GUI_HOR, 0},
+    {0, GUI_HOR, 0}, {0, GUI_HOR, 0}, {0, GUI_HOR, 0}, {0, GUI_HOR, 0}
+};
+// ========================基本操作================================
+
+void GUI_Object::clear()
+{
+    uint16_t page;
+    for (page = 0; page < 8; ++page)
+    {
+        dirty_info[page].is_dirty = 1;
+        dirty_info[page].min_col = 0;
+        dirty_info[page].max_col = 127;
+        memset(buffer[page], 0, sizeof(buffer[page]));
+    }
+}
+// ========================绘制函数================================
 /**
  * 绘制水平线（新参数版）
  * @param x1     起始列坐标 (0~127)
@@ -12,7 +32,7 @@
  * @param y      行坐标 (0~63)
  * @param color  颜色，0：熄灭，1：点亮
  */
-void gui_draw_hline(uint16_t x1, uint16_t length, uint16_t y, uint16_t color)
+void GUI_Object::draw_hline(uint16_t x1, uint16_t length, uint16_t y, uint16_t color)
 {
     /* 参数有效性检查 */
     if (y >= GUI_VOR || length == 0) return;
@@ -25,17 +45,17 @@ void gui_draw_hline(uint16_t x1, uint16_t length, uint16_t y, uint16_t color)
     /* 高效页处理 */
     const uint16_t page = y >> 3;
     const uint16_t bit_mask = 1 << (y & 0x07);
-    PageDirtyInfo *p = &lcd_dirty_info[page];
+    PageDirtyInfo *p = &dirty_info[page];
 
     /* 批量设置位 */
     uint16_t x;
     if (color)
     {
-        for (x = x1; x <= x2; ++x) lcd_buffer[page][x] |= bit_mask;
+        for (x = x1; x <= x2; ++x) buffer[page][x] |= bit_mask;
     }
     else
     {
-        for (x = x1; x <= x2; ++x) lcd_buffer[page][x] &= ~bit_mask;
+        for (x = x1; x <= x2; ++x) buffer[page][x] &= ~bit_mask;
     }
 
     /* 更新脏区域 */
@@ -51,7 +71,7 @@ void gui_draw_hline(uint16_t x1, uint16_t length, uint16_t y, uint16_t color)
  * @param x      列坐标 (0~127)
  * @param color  颜色，0：熄灭，1：点亮
  */
-void gui_draw_vline(uint16_t y1, uint16_t length, uint16_t x, uint16_t color)
+void GUI_Object::draw_vline(uint16_t y1, uint16_t length, uint16_t x, uint16_t color)
 {
     /* 参数有效性检查 */
     if (x >= GUI_HOR || length == 0) return;
@@ -82,15 +102,15 @@ void gui_draw_vline(uint16_t y1, uint16_t length, uint16_t x, uint16_t color)
         /* 更新缓冲区 */
         if (color)
         {
-            lcd_buffer[page][x] |= mask;
+            buffer[page][x] |= mask;
         }
         else
         {
-            lcd_buffer[page][x] &= ~mask;
+            buffer[page][x] &= ~mask;
         }
 
         /* 更新脏区域 */
-        PageDirtyInfo *p = &lcd_dirty_info[page];
+        PageDirtyInfo *p = &dirty_info[page];
         p->is_dirty = 1;
         if (x < p->min_col) p->min_col = x;
         if (x > p->max_col) p->max_col = x;
@@ -106,7 +126,7 @@ void gui_draw_vline(uint16_t y1, uint16_t length, uint16_t x, uint16_t color)
  * @param y1 结束行坐标 (0~63)
  * @param color 颜色，0：熄灭，1：点亮
  */
-void gui_draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint16_t color)
+void GUI_Object::draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint16_t color)
 {
     /* 参数有效性检查 */
     if (x0 >= GUI_HOR || y0 >= GUI_VOR || x1 >= GUI_HOR || y1 >= GUI_VOR) return;
@@ -116,7 +136,7 @@ void gui_draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint16_t 
     {
         const uint16_t start_x = MIN(x0, x1);
         const uint16_t length = (uint16_t) (ABS_DIFF(x0, x1) + 1);
-        gui_draw_hline(start_x, length, y0, color);
+        draw_hline(start_x, length, y0, color);
         return;
     }
 
@@ -125,7 +145,7 @@ void gui_draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint16_t 
     {
         const uint16_t start_y = MIN(y0, y1);
         const uint16_t length = (uint16_t) (ABS_DIFF(y0, y1) + 1);
-        gui_draw_vline(start_y, length, x0, color);
+        draw_vline(start_y, length, x0, color);
         return;
     }
 
@@ -138,7 +158,7 @@ void gui_draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint16_t 
 
     while (1)
     {
-        gui_write_pixel(x0, y0, color);
+        write_pixel(x0, y0, color);
 
         /* 终点检查 */
         if (x0 == x1 && y0 == y1) break;
@@ -173,7 +193,7 @@ void gui_draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint16_t 
  * @param height 高度（≥1）
  * @param color 颜色
  */
-void gui_draw_rect(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint16_t color)
+void GUI_Object::draw_rect(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint16_t color)
 {
     /* 参数检查 */
     if (x >= GUI_HOR || y >= GUI_VOR || width == 0 || height == 0) return;
@@ -185,10 +205,10 @@ void gui_draw_rect(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint
     if (y_end >= GUI_VOR) y_end = GUI_VOR_MAX_INDEX;
 
     /* 绘制四边 */
-    gui_draw_hline(x, width, y, color);          // 上边
-    gui_draw_hline(x, width, y_end, color);       // 下边
-    gui_draw_vline(y, height, x, color);          // 左边
-    gui_draw_vline(y, height, x_end, color);      // 右边
+    draw_hline(x, width, y, color);          // 上边
+    draw_hline(x, width, y_end, color);       // 下边
+    draw_vline(y, height, x, color);          // 左边
+    draw_vline(y, height, x_end, color);      // 右边
 }
 
 /**
@@ -199,7 +219,7 @@ void gui_draw_rect(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint
  * @param height 高度（≥1）
  * @param color 颜色
  */
-void gui_fill_rect(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint16_t color)
+void GUI_Object::fill_rect(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint16_t color)
 {
     /* 参数检查 */
     if (x >= GUI_HOR || y >= GUI_VOR || width == 0 || height == 0) return;
@@ -234,16 +254,16 @@ void gui_fill_rect(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint
         uint16_t col;
         if (color) {
             for (col = x; col <= x_end; ++col) {
-                lcd_buffer[page][col] |= mask;
+                buffer[page][col] |= mask;
             }
         } else {
             for (col = x; col <= x_end; ++col) {
-                lcd_buffer[page][col] &= ~mask;
+                buffer[page][col] &= ~mask;
             }
         }
 
         /* 更新脏区域 */
-        PageDirtyInfo *p = &lcd_dirty_info[page];
+        PageDirtyInfo *p = &dirty_info[page];
         p->is_dirty = 1;
         if (x < p->min_col) p->min_col = x;
         if (x_end > p->max_col) p->max_col = x_end;
@@ -257,7 +277,7 @@ void gui_fill_rect(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint
  * @param radius 半径（≥1）
  * @param color 颜色
  */
-void gui_draw_circle(uint16_t x0, uint16_t y0, uint16_t radius, uint16_t color)
+void GUI_Object::draw_circle(uint16_t x0, uint16_t y0, uint16_t radius, uint16_t color)
 {
     /* 参数检查 */
     if (radius == 0) return;
@@ -269,14 +289,14 @@ void gui_draw_circle(uint16_t x0, uint16_t y0, uint16_t radius, uint16_t color)
 
     /* 绘制八个对称点 */
     while (x <= y) {
-        gui_write_pixel(x0 + x, y0 + y, color);
-        gui_write_pixel(x0 - x, y0 + y, color);
-        gui_write_pixel(x0 + x, y0 - y, color);
-        gui_write_pixel(x0 - x, y0 - y, color);
-        gui_write_pixel(x0 + y, y0 + x, color);
-        gui_write_pixel(x0 - y, y0 + x, color);
-        gui_write_pixel(x0 + y, y0 - x, color);
-        gui_write_pixel(x0 - y, y0 - x, color);
+        write_pixel(x0 + x, y0 + y, color);
+        write_pixel(x0 - x, y0 + y, color);
+        write_pixel(x0 + x, y0 - y, color);
+        write_pixel(x0 - x, y0 - y, color);
+        write_pixel(x0 + y, y0 + x, color);
+        write_pixel(x0 - y, y0 + x, color);
+        write_pixel(x0 + y, y0 - x, color);
+        write_pixel(x0 - y, y0 - x, color);
 
         if (f >= 0) {
             y--;
@@ -288,3 +308,6 @@ void gui_draw_circle(uint16_t x0, uint16_t y0, uint16_t radius, uint16_t color)
         f += ddF_x + 1;
     }
 }
+
+// =======================================渲染引擎=====================================
+

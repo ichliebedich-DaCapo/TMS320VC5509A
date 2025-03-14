@@ -4,9 +4,6 @@
 #ifndef GUI_H
 #define GUI_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 #ifndef SIMULATOR
 #include <zq_conf.h>
 #endif
@@ -15,7 +12,5 @@ extern "C" {
 void GUI_Init(); // 初始化GUI
 #define GUI_handler() gui_handler()// GUI处理函数
 
-#ifdef __cplusplus
-}
-#endif
+
 #endif //GUI_H

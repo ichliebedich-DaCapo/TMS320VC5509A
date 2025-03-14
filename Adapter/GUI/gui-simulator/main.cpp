@@ -8,10 +8,7 @@
 extern int keyboard_thread(void *data);
 
 // 界面函数
-extern "C" {
-extern void ui_init(); // 初始静态界面初始化
 extern void ui_handler(); // 界面处理（动态）
-}
 
 #define TICK_ARRAY_SIZE 20
 static uint32_t tick = 0; // 用于测量性能
@@ -38,7 +35,6 @@ int main(int argc, char *argv[])
     SDL_CreateThread(tick_handler, "tick", nullptr);
     GUI_Init();
 
-    ui_init();
 
     // 主循环
     while (simulator_is_running())
@@ -47,9 +43,9 @@ int main(int argc, char *argv[])
         last_tick[tick_index] = tick;
         // --------------测量开始-------------
 
-        ui_handler(); // 界面处理（动态）
+        ui_handler();
 
-        GUI_handler();
+       GUI_Render::handler<lcd_write_page>();// 界面处理（动态）
 
         // --------------测量结束-------------
         current_tick[tick_index] = tick;

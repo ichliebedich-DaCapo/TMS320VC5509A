@@ -40,7 +40,7 @@ public:
     {
         for (auto &[key, state]: keyStates)
         {
-            bool currentState = (GetKeyState(key) & 0x8000) != 0;
+            const bool currentState = (GetKeyState(key) & 0x8000) != 0;
 
             // 检测按键按下事件
             if (currentState && !state)
