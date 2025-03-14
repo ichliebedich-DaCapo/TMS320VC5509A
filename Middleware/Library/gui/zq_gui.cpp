@@ -135,7 +135,7 @@ void GUI_Object::draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, u
     if (y0 == y1)
     {
         const uint16_t start_x = MIN(x0, x1);
-        const uint16_t length = (uint16_t) (ABS_DIFF(x0, x1) + 1);
+        const uint16_t length = static_cast<uint16_t>((ABS_DIFF(x0, x1) + 1));
         draw_hline(start_x, length, y0, color);
         return;
     }
@@ -144,7 +144,7 @@ void GUI_Object::draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, u
     if (x0 == x1)
     {
         const uint16_t start_y = MIN(y0, y1);
-        const uint16_t length = (uint16_t) (ABS_DIFF(y0, y1) + 1);
+        const uint16_t length = static_cast<uint16_t>((ABS_DIFF(y0, y1) + 1));
         draw_vline(start_y, length, x0, color);
         return;
     }
@@ -152,8 +152,8 @@ void GUI_Object::draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, u
     /* 标准Bresenham算法实现 */
     int16_t dx = ABS_DIFF(x1, x0);
     int16_t dy = -ABS_DIFF(y1, y0);
-    int8_t sx = (x0 < x1) ? 1 : -1;
-    int8_t sy = (y0 < y1) ? 1 : -1;
+    int16_t sx = (x0 < x1) ? 1 : -1;
+    int16_t sy = (y0 < y1) ? 1 : -1;
     int16_t err = dx + dy; // 关键修正点：误差项初始化
 
     while (1)
@@ -310,4 +310,45 @@ void GUI_Object::draw_circle(uint16_t x0, uint16_t y0, uint16_t radius, uint16_t
 }
 
 // =======================================渲染引擎=====================================
+#ifndef SIMULATOR
+void GUI_Render::handler()
+{
+    uint16_t page, x;
+    for (page = 0; page < 8; page++)
+    {
+        if (!dirty_info[page].is_dirty || dirty_info[page].min_col > dirty_info[page].max_col) continue;
 
+        // 硬件刷新优化（仅发送变更区域）
+        lcd_set_page(page);
+
+        // 左半屏处理（0-63）
+        if (dirty_info[page].min_col < 64)
+        {
+            const uint16_t start = dirty_info[page].min_col;
+            const uint16_t end = (dirty_info[page].max_col < 64) ? dirty_info[page].max_col : 63;
+            lcd_set_column(start);
+            for (x = start; x <= end; x++)
+            {
+                lcd_write_data_left(buffer[page][x]);
+            }
+        }
+
+        // 右半屏处理（64-127）
+        if (dirty_info[page].max_col >= 64)
+        {
+            const uint16_t start = (dirty_info[page].min_col > 64) ? dirty_info[page].min_col : 64;
+            const uint16_t end = dirty_info[page].max_col;
+            lcd_set_column(start - 64);
+            for (x = start; x <= end; x++)
+            {
+                lcd_write_data_right(buffer[page][x]);
+            }
+        }
+
+        // 重置脏标记
+        dirty_info[page].is_dirty = 0;
+        dirty_info[page].min_col = 128;
+        dirty_info[page].max_col = 0;
+    }
+}
+#endif

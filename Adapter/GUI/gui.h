@@ -10,7 +10,6 @@
 #include<zq_gui.h>
 
 void GUI_Init(); // 初始化GUI
-#define GUI_handler() gui_handler()// GUI处理函数
 
 
 #endif //GUI_H
