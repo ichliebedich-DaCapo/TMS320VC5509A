@@ -136,7 +136,7 @@ protected:
     }
 
     // 设置脏标记并更新脏列（如果最小列比旧值小，那么更新最小列；如果最大列比旧值大，那么更新最大列）
-    INLINE void update_col(const uint16_t &page, const uint16_t &min_col, const uint16_t &max_col)
+    INLINE void update_dirty_col(const uint16_t page, const uint16_t min_col, const uint16_t max_col)
     {
         dirty_info.is_dirty |= 1 << page;
         if (min_col < get_min_col(page)) set_min_col(page, min_col);
@@ -216,6 +216,7 @@ public:
 
     // =======基本绘制函数======
     INLINE void write_pixel(uint16_t x, uint16_t y, uint16_t data);
+    INLINE void write_pixel(uint16_t x, uint16_t y);// 绘制黑色
 
     static void draw_hline(uint16_t x1, uint16_t x2, uint16_t y, uint16_t color);
 
@@ -223,13 +224,16 @@ public:
 
     static void draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint16_t color);
 
+    static void draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1);// 默认绘制黑色
     static void draw_rect(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint16_t color);
 
     static void fill_rect(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint16_t color);
 
     static void draw_circle(uint16_t x0, uint16_t y0, uint16_t radius, uint16_t color);
 
-    // 模板化 默认黑色
+
+
+    // 指定缓冲区 模板化 默认黑色
     template<uint16_t* buf,uint16_t width,uint16_t height>
     static void draw_hline(coord_t x1,coord_t x2,coord_t y);
 
@@ -303,7 +307,20 @@ void GUI_Object::write_pixel(const uint16_t x, const uint16_t y, const uint16_t 
     // set_dirty(page);
     // update_col(page, x, x);
 }
+void GUI_Object::write_pixel(const uint16_t x, const uint16_t y)
+{
+    if (x >= GUI_HOR || y >= GUI_VOR) return;
 
+#if GUI_PAGE_MODE == 8
+    const uint16_t page = get_page(y);
+#else
+    const uint16_t page = get_page(x, y);
+#endif
+
+
+    // 原子操作更新缓冲区
+    buffer[Index(page, x)] |= get_mask(y);
+}
 
 /*===================================缓冲区管理===================================*/
 #if GUI_PAGE_MODE == 8

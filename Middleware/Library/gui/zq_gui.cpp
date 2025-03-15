@@ -187,7 +187,69 @@ void GUI_Object::draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, u
     }
 }
 
+void GUI_Object::draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1)
+{
+    // 合并参数检查，减少判断次数
+    const uint16_t max_x = (x0 > x1) ? x0 : x1;
+    const uint16_t max_y = (y0 > y1) ? y0 : y1;
+    if (max_x >= GUI_HOR || max_y >= GUI_VOR) return;
 
+    // 处理水平线
+    if (y0 == y1) {
+        const uint16_t start_x = min(x0, x1);
+        const uint16_t length = max(x0, x1) - start_x + 1;
+        draw_hline(start_x, length, y0, 1);
+        return;
+    }
+
+    // 处理垂直线
+    if (x0 == x1) {
+        const uint16_t start_y = min(y0, y1);
+        const uint16_t length = max(y0, y1) - start_y + 1;
+        draw_vline(start_y, length, x0, 1);
+        return;
+    }
+
+    // 计算dx和dy的绝对值
+    const int16_t dx = abs_diff(x1, x0);
+    const int16_t dy = abs_diff(y1, y0);
+    const int16_t sx = (x0 < x1) ? 1 : -1;
+    const int16_t sy = (y0 < y1) ? 1 : -1;
+    int16_t err = dx - dy; // 正确初始化误差项
+
+    // 根据主步进方向优化循环
+    if (dx >= dy) {
+        // 主方向为X轴，优先处理X步进
+        while (true) {
+            write_pixel(x0, y0);
+            if (x0 == x1 && y0 == y1) break;
+            const int16_t e2 = err << 1;
+            if (e2 > -dy) {  // 对应原条件e2 >= dy（原dy为负）
+                err -= dy;
+                x0 += sx;
+            }
+            if (e2 < dx) {
+                err += dx;
+                y0 += sy;
+            }
+        }
+    } else {
+        // 主方向为Y轴，优先处理Y步进
+        while (true) {
+            write_pixel(x0, y0);
+            if (x0 == x1 && y0 == y1) break;
+            const int16_t e2 = err << 1;
+            if (e2 < dx) {
+                err += dx;
+                y0 += sy;
+            }
+            if (e2 > -dy) {  // 对应原条件e2 >= dy（原dy为负）
+                err -= dy;
+                x0 += sx;
+            }
+        }
+    }
+}
 /**
  * 绘制矩形（空心）
  * @param x 左上角列坐标

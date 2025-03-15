@@ -7,6 +7,9 @@
 
 extern int keyboard_thread(void *data);
 
+// 宏
+#define MEASURE_ENABLE 1 // 是否测量性能
+
 // 界面函数
 extern void ui_handler(); // 界面处理（动态）
 
@@ -32,14 +35,20 @@ int main(int argc, char *argv[])
     // GUI初始化
     simulator_init();
     SDL_CreateThread(keyboard_thread, "keyboard", nullptr); // 键盘线程
+#if MEASURE_ENABLE
     SDL_CreateThread(tick_handler, "tick", nullptr);
+#endif
+
     GUI_Init();
 
     // 主循环
     while (simulator_is_running())
     {
         simulator_event_Handler(); // 模拟器事件处理
+#if MEASURE_ENABLE
         last_tick[tick_index] = tick;
+#endif
+
         // --------------测量开始-------------
 
         ui_handler();
@@ -51,6 +60,7 @@ int main(int argc, char *argv[])
 #endif
 
         // --------------测量结束-------------
+#if MEASURE_ENABLE
         current_tick[tick_index] = tick;
         ++tick_index;
         if (tick_index >= TICK_ARRAY_SIZE - 1)
@@ -68,8 +78,8 @@ int main(int argc, char *argv[])
             printf("tick:%d,%03d\r\n", average_tick / 1000, average_tick % 1000);
         }
 
-
-        SDL_Delay(10); // 短暂休眠
+#endif
+        SDL_Delay(5); // 短暂休眠
     }
 
 

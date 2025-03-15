@@ -12,9 +12,8 @@
 // 函数
 namespace ui
 {
-    WaveformView<3,2,100,50,100> waveform;
+    WaveformView<3, 2, 100, 50> waveform;
 }
-
 
 
 typedef struct
@@ -39,14 +38,13 @@ void ui_init()
 {
     ui::waveform.create();
 
-// GUI_Object::draw_hline(0,32,1,1);
-//     GUI_Object::draw_vline(0,32,64,1);
-//     // GUI_Object::draw_line(0,0,32,32,1);
-//     // GUI_Object::draw_circle(32,32,18,1);
-//     // GUI_Object::draw_rect(16,16,32,32,1);
-//     GUI_Object::fill_rect(10,10,10,8,1);
-//
-
+    // GUI_Object::draw_hline(0,32,1,1);
+    //     GUI_Object::draw_vline(0,32,64,1);
+    //     // GUI_Object::draw_line(0,0,32,32,1);
+    //     // GUI_Object::draw_circle(32,32,18,1);
+    //     // GUI_Object::draw_rect(16,16,32,32,1);
+    //     GUI_Object::fill_rect(10,10,10,8,1);
+    //
 }
 
 
@@ -55,19 +53,12 @@ void ui_handler()
 #ifdef SIMULATOR
     /* 更新波形数据 */
     static uint16_t phase = 0;
-    for (x = 0; x < 128; x++)
-    {
-        osc.waveform[x] = static_cast<uint16_t>(32 * (sin(phase * 0.1 + x * 0.2) + 1));
-    }
-
-    // memcpy(osc.waveform, osc.waveform, sizeof(osc.waveform));
-
-    /*图形系统*/
-    // gui_clear();
-    // for (x = 0; x < 127; x++)
+    // for (x = 0; x < 128; x++)
     // {
-    //     gui_draw_line(x, 63-osc.waveform[x], x+1, 63-osc.waveform[x+1], 1);
+    //     osc.waveform[x] = static_cast<uint16_t>(32 * (sin(phase * 0.1 + x * 0.2) + 1));
     // }
+    const uint16_t value = (100 * (sin(phase * 0.03) + 1));
+    ui::waveform.set_next_value(value);
 
 
     phase++;
