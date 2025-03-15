@@ -64,6 +64,12 @@ typedef struct
     uint16_t col[GUI_PAGE]; // 考虑到1页只有128列，用8位即可存储，那么一个16位即可存储最小列和最大列
 } PageDirtyInfo;
 
+// 点结构体
+typedef struct Point
+{
+    coord_t x;
+    coord_t y;
+} Point;
 
 
 // =====================辅助内联函数====================
@@ -231,6 +237,9 @@ public:
 
     static void draw_circle(uint16_t x0, uint16_t y0, uint16_t radius, uint16_t color);
 
+    // 绘制曲线算法
+    template<uint16_t steps=5>
+    static void draw_catmull_rom(Point p0, Point p1, Point p2, Point p3);
 
 
     // 指定缓冲区 模板化 默认黑色
@@ -485,6 +494,28 @@ void GUI_Object::draw_line(coord_t x0, coord_t y0,coord_t x1, coord_t y1)
             err += dx;
             y += sy;
         }
+    }
+}
+
+template<uint16_t steps>
+// Catmull-Rom样条（需要4个连续点）
+void GUI_Object::draw_catmull_rom(const Point p0, const Point p1, const Point p2, const Point p3)
+{
+    for (uint16_t i = 0; i <= steps; ++i)
+    {
+        const float t = static_cast<float>(i) / steps;
+        const float t2 = t * t;
+        const float t3 = t2 * t;
+
+        const float x = 0.5f * ((-t3 + 2 * t2 - t) * p0.x +
+                                (3 * t3 - 5 * t2 + 2) * p1.x +
+                                (-3 * t3 + 4 * t2 + t) * p2.x +
+                                (t3 - t2) * p3.x);
+        const float y = 0.5f * ((-t3 + 2 * t2 - t) * p0.y +
+                                (3 * t3 - 5 * t2 + 2) * p1.y +
+                                (-3 * t3 + 4 * t2 + t) * p2.y +
+                                (t3 - t2) * p3.y);
+        write_pixel(static_cast<uint16_t>(x), static_cast<uint16_t>(y), 1);
     }
 }
 

@@ -12,7 +12,7 @@
 // 函数
 namespace ui
 {
-    WaveformView<3, 2, 100, 50> waveform;
+    WaveformView<3, 2, 100, 50,34> waveform;
 }
 
 
@@ -29,10 +29,6 @@ typedef struct
 // 静态界面元素缓存
 Oscilloscope osc;
 
-
-/* 在文件作用域声明所有变量 */
-static uint16_t last_y = 0;
-static uint16_t x = 0;
 
 void ui_init()
 {
@@ -57,7 +53,7 @@ void ui_handler()
     // {
     //     osc.waveform[x] = static_cast<uint16_t>(32 * (sin(phase * 0.1 + x * 0.2) + 1));
     // }
-    const uint16_t value = (100 * (sin(phase * 0.03) + 1));
+    const uint16_t value = (100 * (sin(phase * 0.17) + 1));
     ui::waveform.set_next_value(value);
 
 

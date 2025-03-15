@@ -72,15 +72,19 @@ void simulator_init()
     }
 
     // 创建更新纹理的线程
-    //    SDL_CreateThread([](void *)
-    //                     {
-    //                         while (keep_running)
-    //                         {
-    //
-    //                             SDL_Delay(10);
-    //                         }
-    //                         return 1;
-    //                     }, "updateSDLGram", nullptr);
+    SDL_CreateThread([](void *)
+                     {
+                     while (keep_running)
+                     {
+                     // 更新纹理
+                     SDL_UpdateTexture(texture, nullptr, GRAM, REAL_HOR * sizeof(uint16_t));
+                     SDL_RenderClear(renderer);
+                     SDL_RenderCopy(renderer, texture, nullptr, nullptr);
+                     SDL_RenderPresent(renderer);
+                     SDL_Delay(5);
+                     }
+                     return 1;
+                     }, "updateSDLGram", nullptr);
 }
 
 
@@ -143,11 +147,11 @@ void simulator_event_Handler()
         }
     }
 
-    // 更新纹理
-    SDL_UpdateTexture(texture, nullptr, GRAM, REAL_HOR * sizeof(uint16_t));
-    SDL_RenderClear(renderer);
-    SDL_RenderCopy(renderer, texture, nullptr, nullptr);
-    SDL_RenderPresent(renderer);
+    // // 更新纹理
+    // SDL_UpdateTexture(texture, nullptr, GRAM, REAL_HOR * sizeof(uint16_t));
+    // SDL_RenderClear(renderer);
+    // SDL_RenderCopy(renderer, texture, nullptr, nullptr);
+    // SDL_RenderPresent(renderer);
 }
 
 
@@ -195,15 +199,51 @@ void oled_write_data_base(const uint16_t page, const uint16_t column, const uint
     }
 }
 
-// 不需要判断start_col<=end_col，因为for循环内含了边界判断
-void oled_write_data(uint16_t page, uint16_t start_col, uint16_t end_col, const uint16_t *buf)
-{
-    for (int16_t col = start_col; col <= end_col; ++col)
-    {
-        oled_write_data_base(page, col, buf[col - start_col]); // 写入LCD
+// // 不需要判断start_col<=end_col，因为for循环内含了边界判断
+// void oled_write_data(uint16_t page, uint16_t start_col, uint16_t end_col, const uint16_t *buf)
+// {
+//     for (int16_t col = start_col; col <= end_col; ++col)
+//     {
+//         oled_write_data_base(page, col, buf[col - start_col]); // 写入LCD
+//     }
+// }
+
+void oled_write_data(uint16_t page, uint16_t start_col, uint16_t end_col, const uint16_t *buf) {
+    const uint16_t logical_y_base = page << 3;  // page * 8
+    const uint16_t *buf_ptr = buf;
+
+    for (uint16_t col = start_col; col <= end_col; ++col, ++buf_ptr) {
+        const uint16_t data = *buf_ptr;
+        const uint16_t tx_base = col << 2;      // col * 4
+
+        // 展开所有循环，直接处理每个bit和像素块
+        for (uint8_t i = 0; i < 8; ++i) {
+            const uint16_t color_val = (data & (1 << i)) ? 0x0000 : 0xFFFF;
+            const uint16_t ty = (logical_y_base + i) << 2;  // (logical_y_base + i) * 4
+
+            // 直接操作显存，完全展开dy循环
+            TFT_GRAM[ty][tx_base]     = color_val;
+            TFT_GRAM[ty][tx_base+1]  = color_val;
+            TFT_GRAM[ty][tx_base+2]  = color_val;
+            TFT_GRAM[ty][tx_base+3]  = color_val;
+
+            TFT_GRAM[ty+1][tx_base]   = color_val;
+            TFT_GRAM[ty+1][tx_base+1] = color_val;
+            TFT_GRAM[ty+1][tx_base+2] = color_val;
+            TFT_GRAM[ty+1][tx_base+3] = color_val;
+
+            TFT_GRAM[ty+2][tx_base]   = color_val;
+            TFT_GRAM[ty+2][tx_base+1] = color_val;
+            TFT_GRAM[ty+2][tx_base+2] = color_val;
+            TFT_GRAM[ty+2][tx_base+3] = color_val;
+
+            TFT_GRAM[ty+3][tx_base]   = color_val;
+            TFT_GRAM[ty+3][tx_base+1] = color_val;
+            TFT_GRAM[ty+3][tx_base+2] = color_val;
+            TFT_GRAM[ty+3][tx_base+3] = color_val;
+        }
     }
 }
-
 
 void LCD_Clear()
 {

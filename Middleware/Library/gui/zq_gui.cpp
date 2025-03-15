@@ -195,7 +195,8 @@ void GUI_Object::draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1)
     if (max_x >= GUI_HOR || max_y >= GUI_VOR) return;
 
     // 处理水平线
-    if (y0 == y1) {
+    if (y0 == y1)
+    {
         const uint16_t start_x = min(x0, x1);
         const uint16_t length = max(x0, x1) - start_x + 1;
         draw_hline(start_x, length, y0, 1);
@@ -203,7 +204,8 @@ void GUI_Object::draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1)
     }
 
     // 处理垂直线
-    if (x0 == x1) {
+    if (x0 == x1)
+    {
         const uint16_t start_y = min(y0, y1);
         const uint16_t length = max(y0, y1) - start_y + 1;
         draw_vline(start_y, length, x0, 1);
@@ -218,38 +220,50 @@ void GUI_Object::draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1)
     int16_t err = dx - dy; // 正确初始化误差项
 
     // 根据主步进方向优化循环
-    if (dx >= dy) {
+    if (dx >= dy)
+    {
         // 主方向为X轴，优先处理X步进
-        while (true) {
+        while (true)
+        {
             write_pixel(x0, y0);
             if (x0 == x1 && y0 == y1) break;
             const int16_t e2 = err << 1;
-            if (e2 > -dy) {  // 对应原条件e2 >= dy（原dy为负）
+            if (e2 > -dy)
+            {
+                // 对应原条件e2 >= dy（原dy为负）
                 err -= dy;
                 x0 += sx;
             }
-            if (e2 < dx) {
+            if (e2 < dx)
+            {
                 err += dx;
                 y0 += sy;
             }
         }
-    } else {
+    }
+    else
+    {
         // 主方向为Y轴，优先处理Y步进
-        while (true) {
+        while (true)
+        {
             write_pixel(x0, y0);
             if (x0 == x1 && y0 == y1) break;
             const int16_t e2 = err << 1;
-            if (e2 < dx) {
+            if (e2 < dx)
+            {
                 err += dx;
                 y0 += sy;
             }
-            if (e2 > -dy) {  // 对应原条件e2 >= dy（原dy为负）
+            if (e2 > -dy)
+            {
+                // 对应原条件e2 >= dy（原dy为负）
                 err -= dy;
                 x0 += sx;
             }
         }
     }
 }
+
 /**
  * 绘制矩形（空心）
  * @param x 左上角列坐标
@@ -272,8 +286,8 @@ void GUI_Object::draw_rect(uint16_t x, uint16_t y, uint16_t width, uint16_t heig
     /* 绘制四边 */
     draw_hline(x, x_end, y, color); // 上边
     draw_hline(x, x_end, y_end, color); // 下边
-    draw_vline(y+1, y_end-1, x, color); // 左边
-    draw_vline(y+1, y_end-1, x_end, color); // 右边
+    draw_vline(y + 1, y_end - 1, x, color); // 左边
+    draw_vline(y + 1, y_end - 1, x_end, color); // 右边
 }
 
 /**
@@ -377,6 +391,9 @@ void GUI_Object::draw_circle(const uint16_t x0, const uint16_t y0, const uint16_
         f += ddF_x + 1;
     }
 }
+
+
+
 
 // =======================================渲染引擎=====================================
 void GUI_Render::clear()
