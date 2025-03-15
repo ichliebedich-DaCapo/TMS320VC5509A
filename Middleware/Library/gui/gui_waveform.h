@@ -3,6 +3,7 @@
 //
 #ifndef GUI_WAVEFORM_HPP
 #define GUI_WAVEFORM_HPP
+#include <cmath>
 #include <cstring>
 
 #include"zq_gui.h"
@@ -13,6 +14,7 @@
  * @note 默认是滚动更新，当然，其他模式其实根本没做
  */
 template<uint16_t MAX_POINT_NUM, uint16_t x, uint16_t y, uint16_t width, uint16_t height,
+    uint16_t MAX_AMPLITUDE=255,// 输入数据的最大幅度值
     uint16_t H_GRIDS = 4, // 横向网格数（垂直分割线数量）
     uint16_t V_GRIDS = 4> // 纵向网格数（水平分割线数量）
 class WaveformView : public GUI_Object
@@ -69,6 +71,11 @@ protected:
     // 绘制波形函数
     static void draw();
 
+    // 计算Y坐标转换（屏幕坐标系适配）
+    static inline coord_t scale_y(int data) {
+        return height - 1 - (data * (height - 1) / MAX_AMPLITUDE);
+    }
+
 private:
     static uint16_t buffer[MAX_POINT_NUM]; // 存储波形数据
     static uint16_t static_buffer[width * GUI_PAGE_HEIGHT(height)]; // 存储静态网格数据，由于一页8位，高度需要除以8,向上取整
@@ -77,26 +84,25 @@ private:
 };
 
 // =======================变量====================
-template<uint16_t MAX_POINT_NUM, uint16_t x, uint16_t y, uint16_t width, uint16_t height,
+template<uint16_t MAX_POINT_NUM, uint16_t x, uint16_t y, uint16_t width, uint16_t height,uint16_t MAX_AMPLITUDE,
     uint16_t H_GRIDS, uint16_t V_GRIDS>
-uint16_t WaveformView<MAX_POINT_NUM, x, y, width, height, H_GRIDS, V_GRIDS>::buffer[MAX_POINT_NUM] = {}; // 存储波形数据
-template<uint16_t MAX_POINT_NUM, uint16_t x, uint16_t y, uint16_t width, uint16_t height,
-    uint16_t H_GRIDS, uint16_t V_GRIDS>
-uint16_t
-WaveformView<MAX_POINT_NUM, x, y, width, height, H_GRIDS, V_GRIDS>::static_buffer[width * GUI_PAGE_HEIGHT(height)] = {};
+uint16_t WaveformView<MAX_POINT_NUM, x, y, width, height,MAX_AMPLITUDE, H_GRIDS, V_GRIDS>::buffer[MAX_POINT_NUM] = {}; // 存储波形数据
+template<uint16_t MAX_POINT_NUM, uint16_t x, uint16_t y, uint16_t width, uint16_t height,uint16_t MAX_AMPLITUDE,
+    uint16_t H_GRIDS, uint16_t V_GRIDS>uint16_t
+WaveformView<MAX_POINT_NUM, x, y, width, height,MAX_AMPLITUDE, H_GRIDS, V_GRIDS>::static_buffer[width * GUI_PAGE_HEIGHT(height)] = {};
 // 存储静态网格数据
-template<uint16_t MAX_POINT_NUM, uint16_t x, uint16_t y, uint16_t width, uint16_t height,
+template<uint16_t MAX_POINT_NUM, uint16_t x, uint16_t y, uint16_t width, uint16_t height,uint16_t MAX_AMPLITUDE,
     uint16_t H_GRIDS, uint16_t V_GRIDS>
-uint16_t WaveformView<MAX_POINT_NUM, x, y, width, height, H_GRIDS, V_GRIDS>::index; // 波形数据索引
-template<uint16_t MAX_POINT_NUM, uint16_t x, uint16_t y, uint16_t width, uint16_t height,
+uint16_t WaveformView<MAX_POINT_NUM, x, y, width, height,MAX_AMPLITUDE, H_GRIDS, V_GRIDS>::index; // 波形数据索引
+template<uint16_t MAX_POINT_NUM, uint16_t x, uint16_t y, uint16_t width, uint16_t height,uint16_t MAX_AMPLITUDE,
     uint16_t H_GRIDS, uint16_t V_GRIDS>
-uint16_t WaveformView<MAX_POINT_NUM, x, y, width, height, H_GRIDS, V_GRIDS>::state;
+uint16_t WaveformView<MAX_POINT_NUM, x, y, width, height,MAX_AMPLITUDE, H_GRIDS, V_GRIDS>::state;
 
 // ==================================模板类的实现==========================================
 // 创建函数
-template<uint16_t MAX_POINT_NUM, uint16_t x, uint16_t y, uint16_t width, uint16_t height,
+template<uint16_t MAX_POINT_NUM, uint16_t x, uint16_t y, uint16_t width, uint16_t height,uint16_t MAX_AMPLITUDE,
     uint16_t H_GRIDS, uint16_t V_GRIDS>
-void WaveformView<MAX_POINT_NUM, x, y, width, height, H_GRIDS, V_GRIDS>::create() const
+void WaveformView<MAX_POINT_NUM, x, y, width, height,MAX_AMPLITUDE, H_GRIDS, V_GRIDS>::create() const
 {
     GUI_Object::create(draw); // 里面可以塞入一个指针，然后把当前的draw保存到对象数组里
 
@@ -115,20 +121,38 @@ void WaveformView<MAX_POINT_NUM, x, y, width, height, H_GRIDS, V_GRIDS>::create(
 
     // 再把指定缓冲区的数据复制到显示缓冲区里
     buffer_copy<x, y, static_buffer, width, height>();
+    state=1;
 }
 
 // 绘制波形函数
-template<uint16_t MAX_POINT_NUM, uint16_t x, uint16_t y, uint16_t width, uint16_t height,
+template<uint16_t MAX_POINT_NUM, uint16_t x, uint16_t y, uint16_t width, uint16_t height,uint16_t MAX_AMPLITUDE,
     uint16_t H_GRIDS, uint16_t V_GRIDS>
-void WaveformView<MAX_POINT_NUM, x, y, width, height, H_GRIDS, V_GRIDS>::draw()
+void WaveformView<MAX_POINT_NUM, x, y, width, height,MAX_AMPLITUDE, H_GRIDS, V_GRIDS>::draw()
 {
     if (state)
     {
+        state=0;// 状态复位
+
         // 绘制静态网格
         buffer_copy<x, y, static_buffer, width, height>(); // 使用复制缓冲区的办法来绘制静态网格
 
         // 绘制波形
+        for (int j = 0; j < MAX_POINT_NUM; j++)
+        {
+           buffer[j] = static_cast<uint16_t>(32 * (sin( j * 0.2) + 1));
+        }
 
+        // 生成X坐标序列（均匀分布在水平方向）
+        for(int i = 0; i < MAX_POINT_NUM - 1; ++i) {
+            // 计算相邻点坐标
+            const coord_t x0 = i;
+            const coord_t y0 = scale_y(buffer[i]);
+            const coord_t x1 = i + 1;
+            const coord_t y1 = scale_y(buffer[i+1]);
+
+            // 调用模板化线段绘制
+            draw_line(x0, y0, x1, y1,1);
+        }
     }
 }
 

@@ -60,6 +60,8 @@ void ui_handler()
         osc.waveform[x] = static_cast<uint16_t>(32 * (sin(phase * 0.1 + x * 0.2) + 1));
     }
 
+    // memcpy(osc.waveform, osc.waveform, sizeof(osc.waveform));
+
     /*图形系统*/
     // gui_clear();
     // for (x = 0; x < 127; x++)

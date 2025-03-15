@@ -235,8 +235,8 @@ public:
     template < coord_t y1, coord_t y2,coord_t x,uint16_t* buf, coord_t width, coord_t height>
     static void draw_vline();
 
-    template<coord_t x0, coord_t y0, coord_t x1, coord_t y1,uint16_t* buf, coord_t width, coord_t height>
-    static void draw_line();
+    template<uint16_t* buf, coord_t width, coord_t height>
+    static void draw_line(coord_t x0, coord_t y0,coord_t x1, coord_t y1);
 
     template<int dx, int dy, bool steep> struct LineDrawer;
 
@@ -423,13 +423,11 @@ void GUI_Object::draw_vline()
 
 
 template <
-    coord_t x0, coord_t y0,    // 起点坐标
-    coord_t x1, coord_t y1,    // 终点坐标
     uint16_t* buf,             // 显示缓冲区
     coord_t width,             // 屏幕宽度
     coord_t height            // 屏幕高度
 >
-void GUI_Object::draw_line()
+void GUI_Object::draw_line(coord_t x0, coord_t y0,coord_t x1, coord_t y1)
 {
     // 编译期坐标安全检查
     COMPILE_TIME_ASSERT(x0 < width && x1 < width);
