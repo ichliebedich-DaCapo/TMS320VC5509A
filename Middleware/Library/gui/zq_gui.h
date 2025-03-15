@@ -11,6 +11,7 @@
 #include <oled.h>
 #endif
 #include <cstdio>
+#include <cstring>
 // =====================需要的外部函数=====================
 
 
@@ -176,6 +177,22 @@ protected:
     // 触发重绘（把所有脏标记置为1）
     static void invalidate();
 
+    /**
+    * 缓冲区拷贝，把缓冲区拷贝到显示缓冲区中
+    * @tparam x 显示缓冲区x坐标
+    * @tparam y 显示缓冲区y坐标
+    * @tparam buf 缓冲区指针，即需要拷贝的缓冲区指针
+    * @tparam width 缓冲区宽度
+    * @tparam height 缓冲区高度
+    */
+    template<uint16_t x,uint16_t y,uint16_t*buf, uint16_t width, uint16_t height>
+    static void buffer_copy()
+    {
+        for (uint16_t i=0;i<GUI_PAGE_HEIGHT(height);++i)
+        {
+            memcpy(buffer+Index_xy(x,y)+GUI_HOR*i,buf+i*width,width*sizeof(uint16_t));
+        }
+    }
 
 protected:
     static uint16_t buffer[GUI_PAGE * GUI_HOR]; // 显示缓冲区：8页 x 128列，每个字节存储一列的8行数据
