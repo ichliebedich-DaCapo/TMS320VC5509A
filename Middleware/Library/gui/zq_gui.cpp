@@ -5,8 +5,10 @@
 #include <string.h>
 
 // ========================变量定义================================
-uint16_t GUI_Object::count;
+uint16_t GUI_Base::count;
 uint16_t GUI_Base::buffer[GUI_PAGE * GUI_HOR];
+void* GUI_Base::obj_list[GUI_MAX_OBJ_NUM];
+
 #if GUI_PAGE_MODE ==8
 PageDirtyInfo GUI_Base::dirty_info = {
     0,

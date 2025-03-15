@@ -17,6 +17,7 @@
 // ====================宏定义=====================
 // 控制宏
 #define GUI_PAGE_MODE  8    // 页模式，有8和16两种模式。两种模式均为逻辑页，实际页固定为8页。默认8页，如果要改成16页，一些函数是需要完善的
+#define GUI_MAX_OBJ_NUM 16 // 设置最大组件数量，静态分配内存
 
 // 属性声明
 #define GUI_HOR 128 // 2^7，考虑到一行正好是2^7，那么就可以通过移位代替乘法，提高效率
@@ -43,6 +44,7 @@
 // ====================数据类型声明=====================
 // 类型别名
 typedef uint16_t coord_t; // 坐标类型
+typedef void (*DrawFunc)(); // 定义函数指针类型
 
 // 脏页管理（结构体提高缓存效率）
 typedef struct
@@ -52,7 +54,8 @@ typedef struct
 } PageDirtyInfo;
 
 
-// 辅助内联函数
+
+// =====================辅助内联函数====================
 INLINE void swap(uint16_t &a, uint16_t &b) noexcept
 {
     const uint16_t t = a;
@@ -154,7 +157,9 @@ protected:
 
 protected:
     static uint16_t buffer[GUI_PAGE * GUI_HOR]; // 显示缓冲区：8页 x 128列，每个字节存储一列的8行数据
+    static void* obj_list[GUI_MAX_OBJ_NUM];
     static PageDirtyInfo dirty_info;
+    static uint16_t count; // 组件数量
 };
 
 /**
@@ -165,7 +170,7 @@ class GUI_Object : public GUI_Base
 {
 public:
     // 基本操作
-    static void create() { ++count; }
+    static void create(const DrawFunc& draw) { obj_list[count] = draw;++count; }// 没有进行判断是否越界，因为目前的界面非常简单，暂时没必要
     static void destroy() { --count; }
 
 
@@ -185,7 +190,8 @@ public:
     static void draw_circle(uint16_t x0, uint16_t y0, uint16_t radius, uint16_t color);
 
 protected:
-    static uint16_t count; // 组件数量
+
+
 };
 // =====================================示波器组件=====================================
 
@@ -252,6 +258,10 @@ template<void(*oled_write_data)(uint16_t page, uint16_t start_col, uint16_t end_
 void GUI_Render::handler()
 {
     // 阶段1：遍历组件
+    for (uint16_t i = 0; i < count; ++i)
+    {
+        obj_list[i]();
+    }
 
     // 阶段2：硬件绘制
 
