@@ -97,7 +97,6 @@ INLINE uint16_t abs_diff(const uint16_t &a, const uint16_t &b)
 }
 
 
-
 // =====================================组件基类=====================================
 class GUI_Base
 {
@@ -106,16 +105,17 @@ protected:
     INLINE coord_t Index(const uint16_t &page, const uint16_t &x)
     {
 #if GUI_PAGE_MODE == 8
-        return (page << 7) + x;// 8页的情况下
+        return (page << 7) + x; // 8页的情况下
 #else
         return (page <<6) + x;// 16页的情况下
 #endif
     }
+
     INLINE coord_t Index_xy(const uint16_t &x, uint16_t y)
     {
 #if GUI_PAGE_MODE == 8
-        y = get_page(y);// 获取页数
-        return (y << 7) + x;// 8页的情况下
+        y = get_page(y); // 获取页数
+        return (y << 7) + x; // 8页的情况下
 #else
         y = get_page(x, y);// 获取页数
         return (page <<6) + x;// 16页的情况下
@@ -152,9 +152,9 @@ protected:
     // 根据y坐标获取page
     // 128*64分成左右两个页区，左页区有0、2、4等页，由页区有1、3、5等页。由x坐标来区分左右页
 #if GUI_PAGE_MODE == 8
-    INLINE uint16_t get_page( const uint16_t &y)
+    INLINE uint16_t get_page(const uint16_t &y)
     {
-        return (y >> 3) ;
+        return (y >> 3);
     }
 #else
     INLINE uint16_t get_page(const uint16_t &x, const uint16_t &y)
@@ -191,13 +191,13 @@ protected:
     * @tparam width 缓冲区宽度
     * @tparam height 缓冲区高度
     */
-    template<uint16_t x,uint16_t y,uint16_t*buf, uint16_t width, uint16_t height>
+    template<uint16_t x, uint16_t y, uint16_t *buf, uint16_t width, uint16_t height>
     static void buffer_copy()
     {
-        for (uint16_t i=0;i<GUI_PAGE_HEIGHT(y,height);++i)
+        for (uint16_t i = 0; i < GUI_PAGE_HEIGHT(y, height); ++i)
         {
             // 一行一行地传输
-            memcpy(buffer+(((y>>3)+i)<<7)+x,buf+i*width,width*sizeof(uint16_t));
+            memcpy(buffer + (((y >> 3) + i) << 7) + x, buf + i * width, width * sizeof(uint16_t));
         }
     }
 
@@ -216,13 +216,18 @@ class GUI_Object : public GUI_Base
 {
 public:
     // 基本操作
-    static void create(const DrawFunc& draw) { obj_list[count] = draw;++count; }// 没有进行判断是否越界，因为目前的界面非常简单，暂时没必要
+    static void create(const DrawFunc &draw)
+    {
+        obj_list[count] = draw;
+        ++count;
+    } // 没有进行判断是否越界，因为目前的界面非常简单，暂时没必要
     static void destroy() { --count; }
 
 
     // =======基本绘制函数======
     INLINE void write_pixel(uint16_t x, uint16_t y, uint16_t data);
-    INLINE void write_pixel(uint16_t x, uint16_t y);// 绘制黑色
+
+    INLINE void write_pixel(uint16_t x, uint16_t y); // 绘制黑色
 
     static void draw_hline(uint16_t x1, uint16_t x2, uint16_t y, uint16_t color);
 
@@ -230,37 +235,41 @@ public:
 
     static void draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint16_t color);
 
-    static void draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1);// 默认绘制黑色
+    static void draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1); // 默认绘制黑色
+
     static void draw_rect(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint16_t color);
 
     static void fill_rect(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint16_t color);
 
     static void draw_circle(uint16_t x0, uint16_t y0, uint16_t radius, uint16_t color);
 
-    // 绘制曲线算法
-    template<uint16_t steps=5>
+    // ============绘制曲线算法===========
+    // 样条算法
+    template<uint16_t steps = 5>
     static void draw_catmull_rom(Point p0, Point p1, Point p2, Point p3);
+
+    // 3次贝塞尔曲线算法
+    template<uint16_t steps = 5>
+    static void draw_bezier3(Point p0, Point p1, Point p2, Point p3);
 
 
     // 指定缓冲区 模板化 默认黑色
-    template<uint16_t* buf,uint16_t width,uint16_t height>
-    static void draw_hline(coord_t x1,coord_t x2,coord_t y);
+    template<uint16_t * buf, uint16_t width, uint16_t height>
+    static void draw_hline(coord_t x1, coord_t x2, coord_t y);
 
-    template < uint16_t* buf, coord_t width, coord_t height>
-    static void draw_vline(coord_t y1, coord_t y2,coord_t x);
+    template<uint16_t * buf, coord_t width, coord_t height>
+    static void draw_vline(coord_t y1, coord_t y2, coord_t x);
 
-    template<uint16_t* buf, coord_t width, coord_t height>
-    static void draw_line(coord_t x0, coord_t y0,coord_t x1, coord_t y1);
+    template<uint16_t * buf, coord_t width, coord_t height>
+    static void draw_line(coord_t x0, coord_t y0, coord_t x1, coord_t y1);
 
-    template<int dx, int dy, bool steep> struct LineDrawer;
-
+    template<int dx, int dy, bool steep>
+    struct LineDrawer;
 
 protected:
-
-
 };
-// =====================================示波器组件=====================================
 
+// =====================================示波器组件=====================================
 
 
 // =====================================渲染引擎=====================================
@@ -279,7 +288,6 @@ public:
 static void handler();
 #endif
     static void clear();
-
 };
 
 
@@ -316,6 +324,7 @@ void GUI_Object::write_pixel(const uint16_t x, const uint16_t y, const uint16_t 
     // set_dirty(page);
     // update_col(page, x, x);
 }
+
 void GUI_Object::write_pixel(const uint16_t x, const uint16_t y)
 {
     if (x >= GUI_HOR || y >= GUI_VOR) return;
@@ -348,8 +357,8 @@ void GUI_Render::handler()
     for (uint16_t page = 0; page < GUI_PAGE; ++page)
     {
         if (!get_dirty(page))continue;
-        oled_write_data(page, get_min_col(page), get_max_col(page),buffer+Index(page, get_min_col(page)));
-        reset_dirty(page);// 重置脏标记
+        oled_write_data(page, get_min_col(page), get_max_col(page), buffer + Index(page, get_min_col(page)));
+        reset_dirty(page); // 重置脏标记
     }
 
     /*一次只刷新一页，阻塞时间短，可能会造成画面撕裂*/
@@ -360,7 +369,6 @@ void GUI_Render::handler()
     //     reset_dirty(page);// 重置脏标记
     // }
     // page = (++page)&0x07;
-
 }
 #else
 template<void(*oled_write_data_left)(uint16_t page, uint16_t start_col, uint16_t end_col, const uint16_t *buf),
@@ -399,7 +407,7 @@ void GUI_Render::handler()
 
 // ====================================模板函数实现====================================
 
-template <uint16_t* buf, coord_t width, coord_t height>
+template<uint16_t * buf, coord_t width, coord_t height>
 void GUI_Object::draw_hline(coord_t x1, coord_t x2, coord_t y)
 {
     // 编译期坐标安全检查（C++98兼容方案）
@@ -409,36 +417,36 @@ void GUI_Object::draw_hline(coord_t x1, coord_t x2, coord_t y)
     COMPILE_TIME_ASSERT(x1 <= x2);
 
     // 计算目标存储页（每页8行）
-    const coord_t page = get_page(y);  // 等价于 y / 8
+    const coord_t page = get_page(y); // 等价于 y / 8
 
     // 生成目标位的掩码（黑色对应置1）
     const uint16_t bit_mask = get_mask(y);
 
     // 线性缓冲区访问模式
-    const coord_t start_index= page * width;
-    for(coord_t x = x1; x <= x2; ++x)
+    const coord_t start_index = page * width;
+    for (coord_t x = x1; x <= x2; ++x)
     {
         // 计算目标存储单元在缓冲区中的位置
         buf[start_index + x] |= bit_mask;
     }
 }
 
-template < uint16_t* buf, coord_t width, coord_t height>
-void GUI_Object::draw_vline(coord_t y1, coord_t y2,coord_t x)
+template<uint16_t * buf, coord_t width, coord_t height>
+void GUI_Object::draw_vline(coord_t y1, coord_t y2, coord_t x)
 {
-    COMPILE_TIME_ASSERT(x < width);     // X坐标有效性检查
-    COMPILE_TIME_ASSERT(y1 < height);   // Y起始坐标检查
-    COMPILE_TIME_ASSERT(y2 < height);   // Y结束坐标检查
-    COMPILE_TIME_ASSERT(y1 <= y2);      // 坐标顺序检查
+    COMPILE_TIME_ASSERT(x < width); // X坐标有效性检查
+    COMPILE_TIME_ASSERT(y1 < height); // Y起始坐标检查
+    COMPILE_TIME_ASSERT(y2 < height); // Y结束坐标检查
+    COMPILE_TIME_ASSERT(y1 <= y2); // 坐标顺序检查
 
     // 逐行设置位模式
-    for(coord_t y = y1; y <= y2; ++y)
+    for (coord_t y = y1; y <= y2; ++y)
     {
         // 计算目标存储页（每8行为一页）
-        const coord_t page = get_page(y);  // 等价于 y / 8
+        const coord_t page = get_page(y); // 等价于 y / 8
 
         // 生成位掩码（黑色对应位置1）
-        const uint16_t bit_mask =get_mask(y);
+        const uint16_t bit_mask = get_mask(y);
 
         // 计算缓冲区索引
         const coord_t index = page * width + x;
@@ -449,16 +457,18 @@ void GUI_Object::draw_vline(coord_t y1, coord_t y2,coord_t x)
 }
 
 
-template <
-    uint16_t* buf,             // 显示缓冲区
-    coord_t width,             // 屏幕宽度
-    coord_t height            // 屏幕高度
+template<
+    uint16_t * buf, // 显示缓冲区
+    coord_t width, // 屏幕宽度
+    coord_t height // 屏幕高度
 >
-void GUI_Object::draw_line(coord_t x0, coord_t y0,coord_t x1, coord_t y1)
+void GUI_Object::draw_line(coord_t x0, coord_t y0, coord_t x1, coord_t y1)
 {
     // 编译期坐标安全检查
     COMPILE_TIME_ASSERT(x0 < width && x1 < width);
     COMPILE_TIME_ASSERT(y0 < height && y1 < height);
+
+
 
     // Bresenham 算法参数计算（编译期常量）
     const coord_t dx = (x1 > x0) ? (x1 - x0) : (x0 - x1);
@@ -471,26 +481,29 @@ void GUI_Object::draw_line(coord_t x0, coord_t y0,coord_t x1, coord_t y1)
     coord_t y = y0;
     int err = (dx > dy ? dx : -dy) / 2;
 
-    while(true) {
+    while (true)
+    {
         // 处理当前像素点
         const coord_t page = y >> 3;
         const uint16_t mask = 1 << (y & 0x7);
         const coord_t index = page * width + x;
 
         // 根据颜色模板参数选择操作
-            buf[index] |= mask;
+        buf[index] |= mask;
 
 
         // 终止条件
-        if(x == x1 && y == y1) break;
+        if (x == x1 && y == y1) break;
 
         // 更新步进
         const int e2 = err;
-        if(e2 > -dx) {
+        if (e2 > -dx)
+        {
             err -= dy;
             x += sx;
         }
-        if(e2 < dy) {
+        if (e2 < dy)
+        {
             err += dx;
             y += sy;
         }
@@ -515,9 +528,47 @@ void GUI_Object::draw_catmull_rom(const Point p0, const Point p1, const Point p2
                                 (3 * t3 - 5 * t2 + 2) * p1.y +
                                 (-3 * t3 + 4 * t2 + t) * p2.y +
                                 (t3 - t2) * p3.y);
-        write_pixel(static_cast<uint16_t>(x), static_cast<uint16_t>(y), 1);
+        write_pixel(static_cast<uint16_t>(x), static_cast<uint16_t>(y));
     }
 }
 
+// B-Spline样条（需要4个连续点）
+/**
+ * 三次贝塞尔曲线绘制（整数运算优化版）
+ * @param p0 控制点
+ * @param p1 控制点
+ * @param p2 控制点
+ * @param p3 控制点
+ * @tparam steps 采样点数（越多越平滑，但性能越低）
+ */
+template<uint16_t steps>
+void GUI_Object::draw_bezier3(const Point p0, const Point p1, const Point p2, const Point p3)
+{
+    for (uint16_t i = 0; i <= steps; ++i) {
+        // 计算t的范围[0.0, 1.0]
+        const float t = static_cast<float>(i) / static_cast<float>(steps);
+        const float u = 1.0f - t;
+
+        // 预计算t的幂次减少乘法次数
+        const float t2 = t * t;
+        const float t3 = t2 * t;
+        const float u2 = u * u;
+        const float u3 = u2 * u;
+
+        // 贝塞尔公式展开
+        const float B0 = u3;
+        const float B1 = 3 * u2 * t;
+        const float B2 = 3 * u * t2;
+        const float B3 = t3;
+
+        // 计算实际坐标（四舍五入取整）
+        const uint16_t x = static_cast<uint16_t>(B0 * p0.x + B1 * p1.x + B2 * p2.x + B3 * p3.x + 0.5f);
+        const uint16_t y = static_cast<uint16_t>(B0 * p0.y + B1 * p1.y + B2 * p2.y + B3 * p3.y + 0.5f);
+
+        // 安全绘制（避免坐标越界）
+            write_pixel(x, y, 1); // 1表示黑色
+
+    }
+}
 
 #endif //ZQ_GUI_H

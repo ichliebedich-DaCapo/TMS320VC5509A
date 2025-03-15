@@ -8,7 +8,7 @@
 extern int keyboard_thread(void *data);
 
 // 宏
-#define MEASURE_ENABLE 1 // 是否测量性能
+#define MEASURE_ENABLE 0 // 是否测量性能
 
 // 界面函数
 extern void ui_handler(); // 界面处理（动态）

@@ -139,8 +139,8 @@ void GUI_Object::draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, u
     if (y0 == y1)
     {
         const uint16_t start_x = min(x0, x1);
-        const uint16_t length = static_cast<uint16_t>((abs_diff(x0, x1) + 1));
-        draw_hline(start_x, length, y0, color);
+        const uint16_t end_x = max(x0, x1);
+        draw_hline(start_x, end_x, y0, color);
         return;
     }
 
@@ -148,8 +148,8 @@ void GUI_Object::draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, u
     if (x0 == x1)
     {
         const uint16_t start_y = min(y0, y1);
-        const uint16_t length = static_cast<uint16_t>((abs_diff(y0, y1) + 1));
-        draw_vline(start_y, length, x0, color);
+        const uint16_t end_y = max(y0, y1);
+        draw_vline(start_y, end_y, x0, color);
         return;
     }
 
@@ -194,21 +194,21 @@ void GUI_Object::draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1)
     const uint16_t max_y = (y0 > y1) ? y0 : y1;
     if (max_x >= GUI_HOR || max_y >= GUI_VOR) return;
 
-    // 处理水平线
+    /* 优化水平线处理 */
     if (y0 == y1)
     {
         const uint16_t start_x = min(x0, x1);
-        const uint16_t length = max(x0, x1) - start_x + 1;
-        draw_hline(start_x, length, y0, 1);
+        const uint16_t end_x = max(x0, x1);
+        draw_hline(start_x, end_x, y0, 1);
         return;
     }
 
-    // 处理垂直线
+    /* 优化垂直线处理 */
     if (x0 == x1)
     {
         const uint16_t start_y = min(y0, y1);
-        const uint16_t length = max(y0, y1) - start_y + 1;
-        draw_vline(start_y, length, x0, 1);
+        const uint16_t end_y = max(y0, y1);
+        draw_vline(start_y, end_y, x0, 1);
         return;
     }
 
