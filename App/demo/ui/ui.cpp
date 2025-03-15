@@ -12,7 +12,7 @@
 // 函数
 namespace ui
 {
-    WaveformView<100,3,7,100,55> waveform;
+    WaveformView<3,2,100,50,100> waveform;
 }
 
 

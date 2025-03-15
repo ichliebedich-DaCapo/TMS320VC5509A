@@ -50,7 +50,7 @@ typedef char CONCATENATE(static_assertion_, __COUNTER__)[(pred) ? 1 : -1]
 // typedef char CONCATENATE(static_assertion_, __LINE__)[(pred) ? 1 : -1]
 
 // 根据高度，获得所需的页数，用于定义数组
-#define GUI_PAGE_HEIGHT(height) (((height)>>3)+((height)&0x7?1:0))
+#define GUI_PAGE_HEIGHT(y0,h) ((((y0) + (h) + 7) >> 3) - ((y0) >>3))
 
 // ====================数据类型声明=====================
 // 类型别名
@@ -188,9 +188,10 @@ protected:
     template<uint16_t x,uint16_t y,uint16_t*buf, uint16_t width, uint16_t height>
     static void buffer_copy()
     {
-        for (uint16_t i=0;i<GUI_PAGE_HEIGHT(height);++i)
+        for (uint16_t i=0;i<GUI_PAGE_HEIGHT(y,height);++i)
         {
-            memcpy(buffer+Index_xy(x,y)+GUI_HOR*i,buf+i*width,width*sizeof(uint16_t));
+            // 一行一行地传输
+            memcpy(buffer+(((y>>3)+i)<<7)+x,buf+i*width,width*sizeof(uint16_t));
         }
     }
 
@@ -229,11 +230,11 @@ public:
     static void draw_circle(uint16_t x0, uint16_t y0, uint16_t radius, uint16_t color);
 
     // 模板化 默认黑色
-    template<coord_t x1,coord_t x2,coord_t y,uint16_t* buf,uint16_t width,uint16_t height>
-    static void draw_hline();
+    template<uint16_t* buf,uint16_t width,uint16_t height>
+    static void draw_hline(coord_t x1,coord_t x2,coord_t y);
 
-    template < coord_t y1, coord_t y2,coord_t x,uint16_t* buf, coord_t width, coord_t height>
-    static void draw_vline();
+    template < uint16_t* buf, coord_t width, coord_t height>
+    static void draw_vline(coord_t y1, coord_t y2,coord_t x);
 
     template<uint16_t* buf, coord_t width, coord_t height>
     static void draw_line(coord_t x0, coord_t y0,coord_t x1, coord_t y1);
@@ -372,8 +373,8 @@ void GUI_Render::handler()
 
 // ====================================模板函数实现====================================
 
-template <coord_t x1, coord_t x2, coord_t y,uint16_t* buf, coord_t width, coord_t height>
-void GUI_Object::draw_hline()
+template <uint16_t* buf, coord_t width, coord_t height>
+void GUI_Object::draw_hline(coord_t x1, coord_t x2, coord_t y)
 {
     // 编译期坐标安全检查（C++98兼容方案）
     COMPILE_TIME_ASSERT(y < height);
@@ -396,8 +397,8 @@ void GUI_Object::draw_hline()
     }
 }
 
-template < coord_t y1, coord_t y2,coord_t x,uint16_t* buf, coord_t width, coord_t height>
-void GUI_Object::draw_vline()
+template < uint16_t* buf, coord_t width, coord_t height>
+void GUI_Object::draw_vline(coord_t y1, coord_t y2,coord_t x)
 {
     COMPILE_TIME_ASSERT(x < width);     // X坐标有效性检查
     COMPILE_TIME_ASSERT(y1 < height);   // Y起始坐标检查
