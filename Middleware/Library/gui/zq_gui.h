@@ -263,10 +263,7 @@ public:
     template<uint16_t * buf, coord_t width, coord_t height>
     static void draw_line(coord_t x0, coord_t y0, coord_t x1, coord_t y1);
 
-    template<int dx, int dy, bool steep>
-    struct LineDrawer;
 
-protected:
 };
 
 // =====================================示波器组件=====================================

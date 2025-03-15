@@ -40,7 +40,7 @@ void GUI_Base::invalidate()
 
 // ========================绘制函数================================
 /**
- * 绘制水平线（新参数版）
+ * 绘制水平线
  * @param x1     起始列坐标 (0~127)
  * @param x2     终止列坐标 (0~127)
  * @param y      行坐标 (0~63)
@@ -74,7 +74,7 @@ void GUI_Object::draw_hline(uint16_t x1, uint16_t x2, uint16_t y, uint16_t color
 }
 
 /**
- * 绘制垂直线（新参数版）
+ * 绘制垂直线
  * @param y1     起始行坐标 (0~63)
  * @param y2     终止行坐标 (0~63)
  * @param x      列坐标 (0~127)
@@ -88,6 +88,7 @@ void GUI_Object::draw_vline(uint16_t y1, uint16_t y2, uint16_t x, uint16_t color
     /* 计算实际结束行 */
     if (y1 > GUI_VOR_MAX_INDEX) return;
     if (y2 > GUI_VOR_MAX_INDEX) y2 = GUI_VOR_MAX_INDEX;
+
 
     /* 计算涉及的页 */
     const uint16_t start_page = y1 >> 3;
@@ -123,7 +124,7 @@ void GUI_Object::draw_vline(uint16_t y1, uint16_t y2, uint16_t x, uint16_t color
 
 
 /**
- * 绘制任意方向线段（修正版Bresenham算法）
+ * 绘制任意方向线段
  * @param x0 起始列坐标 (0~127)
  * @param y0 起始行坐标 (0~63)
  * @param x1 结束列坐标 (0~127)

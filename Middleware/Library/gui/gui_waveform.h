@@ -28,6 +28,7 @@ class WaveformView : public GUI_Object
 public:
     void create() const;
 
+    // 添加下一点数据
     void set_next_value(uint16_t value) const
     {
         set_state();

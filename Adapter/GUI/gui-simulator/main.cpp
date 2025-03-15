@@ -1,9 +1,7 @@
 #include <iostream>
 #include <SDL2/SDL.h>
 #include "simulator.hpp"
-#include<zq_gui_conf.h>
-#include "GUI.h"
-#include<ui.h>
+#include "gui.h"
 
 extern int keyboard_thread(void *data);
 

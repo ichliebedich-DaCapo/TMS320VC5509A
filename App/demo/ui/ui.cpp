@@ -54,7 +54,7 @@ void ui_handler()
     {
         time = 0;
         static uint16_t phase = 0;
-        const uint16_t value = (100 * (sin(phase * 0.18) + 1.1));
+        const uint16_t value = (100 * (sin(phase * 0.17 ) + 1.1));
         phase++;
         ui::waveform.set_next_value(value);
     }
