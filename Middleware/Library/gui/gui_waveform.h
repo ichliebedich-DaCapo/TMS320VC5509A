@@ -47,6 +47,12 @@ protected:
         return y + height - (data * height / MAX_AMPLITUDE);
     }
 
+    // 获取处理之后的y坐标
+    INLINE coord_t get_y(const uint16_t i)
+    {
+        return scale_y(data_buffer[(i+index)%MAX_POINT_NUM]);
+    }
+
     // 设置标志
     INLINE void set_state() { state = 1; }
     INLINE void clear_state() { state = 0; }
@@ -144,45 +150,44 @@ void WaveformView<x, y, width, height, MAX_POINT_NUM, MAX_AMPLITUDE, H_GRIDS, V_
         const uint16_t valid_points = is_buffer_full ? MAX_POINT_NUM : index;// 防止曲线突然跌落
         const uint16_t grid = (width-1)/(MAX_POINT_NUM-1);// 从一个点到相邻的后一个点的间隔
 
-        // // 线性插值算法
-        // coord_t x0 = x + 1;
-        // coord_t y0 = scale_y(data_buffer[0]);
-        // for (uint16_t i = 0; i < valid_points-1; ++i)
-        // {
-        //     // 计算相邻点坐标
-        //     const coord_t x1 = x0 + grid;
-        //     const coord_t y1 = scale_y(data_buffer[i%MAX_POINT_NUM]);
-        //
-        //     // 线段绘制
-        //     draw_line(x0, y0, x1, y1);
-        //     x0 += grid;
-        //     y0 = y1;
-        // }
-
-        // 样条算法
-        if (valid_points<4)return;
-
-
-        for (uint16_t i = 0; i < valid_points - 3; ++i)
+        // ==================绘制算法===================
+        // 线性插值算法
+        coord_t x0 = x + 1;
+        coord_t y0 = get_y(0);
+        for (uint16_t i = 0; i < valid_points-1; ++i)
         {
-            const Point p0={
-                static_cast<uint16_t>(x + 1 + grid * i),
-                scale_y(data_buffer[i])
-            };
-            const Point p1={
-                static_cast<uint16_t>(x + 1 + grid * (i+1)),
-                scale_y(data_buffer[i+1])
-            };
-            const Point p2={
-                static_cast<uint16_t>(x + 1 + grid * (i+2)),
-                scale_y(data_buffer[i+2])
-            };
-            const Point p3={
-                static_cast<uint16_t>(x + 1 + grid * (i+3)),
-                scale_y(data_buffer[i+3])
-            };
-            draw_catmull_rom<8>(p0, p1, p2, p3);
+            // 计算相邻点坐标
+            const coord_t x1 = x0 + grid;
+            const coord_t y1 =get_y(i+1);
+
+            // 线段绘制
+            draw_line(x0, y0, x1, y1);
+            x0 += grid;
+            y0 = y1;
         }
+
+        // // 样条算法
+        // if (valid_points<4)return;
+        // for (uint16_t i = 0; i < valid_points - 3; ++i)
+        // {
+        //     const Point p0={
+        //         static_cast<uint16_t>(x + 1 + grid * i),
+        //         get_y(i)
+        //     };
+        //     const Point p1={
+        //         static_cast<uint16_t>(x + 1 + grid * (i+1)),
+        //         get_y(i+1)
+        //     };
+        //     const Point p2={
+        //         static_cast<uint16_t>(x + 1 + grid * (i+2)),
+        //         get_y(i+2)
+        //     };
+        //     const Point p3={
+        //         static_cast<uint16_t>(x + 1 + grid * (i+3)),
+        //         get_y(i+3)
+        //     };
+        //     draw_catmull_rom<8>(p0, p1, p2, p3);
+        // }
 
 
 

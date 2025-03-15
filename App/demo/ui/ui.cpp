@@ -48,16 +48,17 @@ void ui_handler()
 {
 #ifdef SIMULATOR
     /* 更新波形数据 */
-    static uint16_t phase = 0;
-    // for (x = 0; x < 128; x++)
-    // {
-    //     osc.waveform[x] = static_cast<uint16_t>(32 * (sin(phase * 0.1 + x * 0.2) + 1));
-    // }
-    const uint16_t value = (100 * (sin(phase * 0.17) + 1));
-    ui::waveform.set_next_value(value);
+    static uint32_t time = 0;
+    ++time;
+    if (time>=10)
+    {
+        time = 0;
+        static uint16_t phase = 0;
+        const uint16_t value = (100 * (sin(phase * 0.17) + 1.1));
+        phase++;
+        ui::waveform.set_next_value(value);
+    }
 
-
-    phase++;
 
 
 #endif
