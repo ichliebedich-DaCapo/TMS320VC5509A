@@ -39,7 +39,17 @@
 #define DIRTY_MAX_COL 0xFF00    // 高8位作为最大列存储
 #define DIRTY_DUMMY_COL 0x00FF    // 无效脏列，用于重置脏标记
 
+// 辅助宏
+#define CONCATENATE_DETAIL(x, y) x##y
+#define CONCATENATE(x, y) CONCATENATE_DETAIL(x, y)
+#define COMPILE_TIME_ASSERT(pred) \
+typedef char CONCATENATE(static_assertion_, __COUNTER__)[(pred) ? 1 : -1]
+// // 如果编译器不支持 __COUNTER__，可以使用 __LINE__
+// #define COMPILE_TIME_ASSERT_LINE(pred, msg) \
+// typedef char CONCATENATE(static_assertion_, __LINE__)[(pred) ? 1 : -1]
 
+// 根据高度，获得所需的页数，用于定义数组
+#define GUI_PAGE_HEIGHT(height) (((height)>>3)+((height)&0x7?1:0))
 
 // ====================数据类型声明=====================
 // 类型别名
@@ -94,6 +104,17 @@ protected:
         return (page <<6) + x;// 16页的情况下
 #endif
     }
+    INLINE coord_t Index_xy(const uint16_t &x, uint16_t y)
+    {
+#if GUI_PAGE_MODE == 8
+        y = get_page(y);// 获取页数
+        return (y << 7) + x;// 8页的情况下
+#else
+        y = get_page(x, y);// 获取页数
+        return (page <<6) + x;// 16页的情况下
+#endif
+    }
+
     INLINE uint16_t get_min_col(const uint16_t &page) { return dirty_info.col[page] & DIRTY_MIN_COL; }
     INLINE uint16_t get_max_col(const uint16_t &page) { return (dirty_info.col[page] & DIRTY_MAX_COL) >> 8; }
     INLINE void set_min_col(const uint16_t &page, const uint16_t &col)
@@ -155,9 +176,10 @@ protected:
     // 触发重绘（把所有脏标记置为1）
     static void invalidate();
 
+
 protected:
     static uint16_t buffer[GUI_PAGE * GUI_HOR]; // 显示缓冲区：8页 x 128列，每个字节存储一列的8行数据
-    static void* obj_list[GUI_MAX_OBJ_NUM];
+    static DrawFunc obj_list[GUI_MAX_OBJ_NUM];
     static PageDirtyInfo dirty_info;
     static uint16_t count; // 组件数量
 };
@@ -178,6 +200,9 @@ public:
     INLINE void write_pixel(uint16_t x, uint16_t y, uint16_t data);
 
     static void draw_hline(uint16_t x1, uint16_t x2, uint16_t y, uint16_t color);
+    // 默认黑色
+    template<coord_t x1,coord_t x2,coord_t y,uint16_t* buf,uint16_t width,uint16_t height>
+    static void draw_hline();
 
     static void draw_vline(uint16_t y1, uint16_t y2, uint16_t x, uint16_t color);
 
@@ -317,5 +342,32 @@ void GUI_Render::handler()
 
 
 #endif
+
+// ====================================模板函数实现====================================
+
+template <coord_t x1, coord_t x2, coord_t y,uint16_t* buf, coord_t width, coord_t height>
+void GUI_Object::draw_hline()
+{
+    // 编译期坐标安全检查（C++98兼容方案）
+    COMPILE_TIME_ASSERT(y < height);
+    COMPILE_TIME_ASSERT(x1 < width);
+    COMPILE_TIME_ASSERT(x2 < width);
+    COMPILE_TIME_ASSERT(x1 <= x2);
+
+    // 计算目标存储页（每页8行）
+    const coord_t page = get_page(y);  // 等价于 y / 8
+
+    // 生成目标位的掩码（黑色对应置1）
+    const uint16_t bit_mask = get_mask(y);
+
+    // 线性缓冲区访问模式
+    const coord_t start_index= page * width;
+    for(coord_t x = x1; x <= x2; ++x)
+    {
+        // 计算目标存储单元在缓冲区中的位置
+        buf[start_index + x] |= bit_mask;
+    }
+}
+
 
 #endif //ZQ_GUI_H
