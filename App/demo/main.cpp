@@ -4,7 +4,6 @@
 #include<gui.h>
 
 
-
 extern void ui_handler();
 
 #endif
@@ -17,8 +16,6 @@ int main()
     for (;;)
     {
         ui_handler();
-       GUI_Render::handler(); // 处理GUI事件
+        GUI_Render::handler<oled_write_data>(); // 处理GUI事件
     }
 }
-
-

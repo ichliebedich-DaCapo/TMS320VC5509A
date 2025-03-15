@@ -18,6 +18,18 @@ void lcd_init()
     lcd_write_cmd(LCD_CMD_TURN_OFF);
 }
 
+void oled_write_data(uint16_t page,uint16_t start_col,uint16_t end_col, const uint16_t *buf)
+{
+    lcd_set_page(page);
+    lcd_set_column(start_col & 0x3f);
+    int16_t col;
+    for ( col = start_col; col <= end_col; ++col)
+    {
+        // 写入LCD
+        LCD_DATA(col) = buf[col - start_col];
+        LCD_CTRL = 0;
+    }
+}
 
 
 

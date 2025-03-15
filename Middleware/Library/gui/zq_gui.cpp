@@ -306,7 +306,7 @@ void GUI_Object::draw_circle(const uint16_t x0, const uint16_t y0, const uint16_
 
         if (f >= 0)
         {
-            y--;
+            --y;
             ddF_y += 2;
             f += ddF_y;
         }
@@ -322,45 +322,3 @@ void GUI_Render::clear()
     invalidate();
     memset(buffer, 0, sizeof(buffer));
 }
-#ifndef SIMULATOR
-void GUI_Render::handler()
-{
-    uint16_t page, x;
-    for (page = 0; page < 8; page++)
-    {
-        if (!dirty_info[page].is_dirty || dirty_info[page].min_col > dirty_info[page].max_col) continue;
-
-        // 硬件刷新优化（仅发送变更区域）
-        lcd_set_page(page);
-
-        // 左半屏处理（0-63）
-        if (dirty_info[page].min_col < 64)
-        {
-            const uint16_t start = dirty_info[page].min_col;
-            const uint16_t end = (dirty_info[page].max_col < 64) ? dirty_info[page].max_col : 63;
-            lcd_set_column(start);
-            for (x = start; x <= end; x++)
-            {
-                lcd_write_data_left(buffer[page][x]);
-            }
-        }
-
-        // 右半屏处理（64-127）
-        if (dirty_info[page].max_col >= 64)
-        {
-            const uint16_t start = (dirty_info[page].min_col > 64) ? dirty_info[page].min_col : 64;
-            const uint16_t end = dirty_info[page].max_col;
-            lcd_set_column(start - 64);
-            for (x = start; x <= end; x++)
-            {
-                lcd_write_data_right(buffer[page][x]);
-            }
-        }
-
-        // 重置脏标记
-        dirty_info[page].is_dirty = 0;
-        dirty_info[page].min_col = 128;
-        dirty_info[page].max_col = 0;
-    }
-}
-#endif

@@ -121,6 +121,9 @@ INLINE void lcd_write_data_fast(const uint16_t page, const uint16_t column, cons
     LCD_CTRL = 0;
 }
 
+void oled_write_data(uint16_t page,uint16_t start_col,uint16_t end_col, const uint16_t *buf);
+
+
 // 理论上更高效的写入语句，但是需要测试！！
 // buf: 128字节
 INLINE void lcd_flush(const uint16_t *buf)

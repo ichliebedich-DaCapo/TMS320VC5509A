@@ -67,7 +67,7 @@ typedef struct
 
 
 // =====================辅助内联函数====================
-INLINE void swap(uint16_t &a, uint16_t &b) noexcept
+INLINE void swap(uint16_t &a, uint16_t &b)
 {
     const uint16_t t = a;
     a = b;
