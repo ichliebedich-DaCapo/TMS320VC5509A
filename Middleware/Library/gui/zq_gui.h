@@ -240,9 +240,9 @@ void GUI_Object::write_pixel(const uint16_t x, const uint16_t y, const uint16_t 
         buffer[Index(page, x)] &= ~mask;
     }
 
-    // 更新脏区域（使用分支避免多余判断）
-    set_dirty(page);
-    update_col(page, x, x);
+    // // 更新脏区域（使用分支避免多余判断）
+    // set_dirty(page);
+    // update_col(page, x, x);
 }
 
 

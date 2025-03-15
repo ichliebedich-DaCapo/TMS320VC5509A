@@ -12,7 +12,7 @@
 // 函数
 namespace ui
 {
-    WaveformView waveform;
+    WaveformView<100> waveform;
 }
 
 
@@ -38,7 +38,12 @@ static uint16_t x = 0;
 void ui_init()
 {
 
-
+GUI_Object::draw_hline(0,32,1,1);
+    GUI_Object::draw_vline(0,32,64,1);
+    // GUI_Object::draw_line(0,0,32,32,1);
+    // GUI_Object::draw_circle(32,32,18,1);
+    // GUI_Object::draw_rect(16,16,32,32,1);
+    GUI_Object::fill_rect(10,10,10,8,1);
 
 
 }

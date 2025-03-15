@@ -68,7 +68,7 @@ void GUI_Object::draw_hline(uint16_t x1, uint16_t x2, uint16_t y, uint16_t color
     }
 
     /* 更新脏区域 */
-    update_col(page, x1, x2);
+    // update_col(page, x1, x2);
 }
 
 /**
@@ -115,7 +115,7 @@ void GUI_Object::draw_vline(uint16_t y1, uint16_t y2, uint16_t x, uint16_t color
         }
 
         /* 更新脏区域 */
-        update_col(page, x, x);
+        // update_col(page, x, x);
     }
 }
 
@@ -206,10 +206,10 @@ void GUI_Object::draw_rect(uint16_t x, uint16_t y, uint16_t width, uint16_t heig
     if (y_end >= GUI_VOR) y_end = GUI_VOR_MAX_INDEX;
 
     /* 绘制四边 */
-    draw_hline(x, width, y, color); // 上边
-    draw_hline(x, width, y_end, color); // 下边
-    draw_vline(y, height, x, color); // 左边
-    draw_vline(y, height, x_end, color); // 右边
+    draw_hline(x, x_end, y, color); // 上边
+    draw_hline(x, x_end, y_end, color); // 下边
+    draw_vline(y+1, y_end-1, x, color); // 左边
+    draw_vline(y+1, y_end-1, x_end, color); // 右边
 }
 
 /**
@@ -269,7 +269,7 @@ void GUI_Object::fill_rect(uint16_t x, uint16_t y, uint16_t width, uint16_t heig
         }
 
         /* 更新脏区域 */
-        update_col(page, x, x_end);
+        // update_col(page, x, x_end);
     }
 }
 
