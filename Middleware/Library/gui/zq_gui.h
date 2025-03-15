@@ -235,6 +235,12 @@ public:
     template < coord_t y1, coord_t y2,coord_t x,uint16_t* buf, coord_t width, coord_t height>
     static void draw_vline();
 
+    template<coord_t x0, coord_t y0, coord_t x1, coord_t y1,uint16_t* buf, coord_t width, coord_t height>
+    static void draw_line();
+
+    template<int dx, int dy, bool steep> struct LineDrawer;
+
+
 protected:
 
 
@@ -414,5 +420,57 @@ void GUI_Object::draw_vline()
         buf[index] |= bit_mask;
     }
 }
+
+
+template <
+    coord_t x0, coord_t y0,    // 起点坐标
+    coord_t x1, coord_t y1,    // 终点坐标
+    uint16_t* buf,             // 显示缓冲区
+    coord_t width,             // 屏幕宽度
+    coord_t height            // 屏幕高度
+>
+void GUI_Object::draw_line()
+{
+    // 编译期坐标安全检查
+    COMPILE_TIME_ASSERT(x0 < width && x1 < width);
+    COMPILE_TIME_ASSERT(y0 < height && y1 < height);
+
+    // Bresenham 算法参数计算（编译期常量）
+    const coord_t dx = (x1 > x0) ? (x1 - x0) : (x0 - x1);
+    const coord_t dy = (y1 > y0) ? (y1 - y0) : (y0 - y1);
+    const coord_t sx = (x0 < x1) ? 1 : -1;
+    const coord_t sy = (y0 < y1) ? 1 : -1;
+
+    // 运行时变量（需要保留算法逻辑）
+    coord_t x = x0;
+    coord_t y = y0;
+    int err = (dx > dy ? dx : -dy) / 2;
+
+    while(true) {
+        // 处理当前像素点
+        const coord_t page = y >> 3;
+        const uint16_t mask = 1 << (y & 0x7);
+        const coord_t index = page * width + x;
+
+        // 根据颜色模板参数选择操作
+            buf[index] |= mask;
+
+
+        // 终止条件
+        if(x == x1 && y == y1) break;
+
+        // 更新步进
+        const int e2 = err;
+        if(e2 > -dx) {
+            err -= dy;
+            x += sx;
+        }
+        if(e2 < dy) {
+            err += dx;
+            y += sy;
+        }
+    }
+}
+
 
 #endif //ZQ_GUI_H
