@@ -213,13 +213,10 @@ public:
     static void destroy() { --count; }
 
 
-    // 基本绘制函数
+    // =======基本绘制函数======
     INLINE void write_pixel(uint16_t x, uint16_t y, uint16_t data);
 
     static void draw_hline(uint16_t x1, uint16_t x2, uint16_t y, uint16_t color);
-    // 默认黑色
-    template<coord_t x1,coord_t x2,coord_t y,uint16_t* buf,uint16_t width,uint16_t height>
-    static void draw_hline();
 
     static void draw_vline(uint16_t y1, uint16_t y2, uint16_t x, uint16_t color);
 
@@ -230,6 +227,13 @@ public:
     static void fill_rect(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint16_t color);
 
     static void draw_circle(uint16_t x0, uint16_t y0, uint16_t radius, uint16_t color);
+
+    // 模板化 默认黑色
+    template<coord_t x1,coord_t x2,coord_t y,uint16_t* buf,uint16_t width,uint16_t height>
+    static void draw_hline();
+
+    template < coord_t y1, coord_t y2,coord_t x,uint16_t* buf, coord_t width, coord_t height>
+    static void draw_vline();
 
 protected:
 
@@ -386,5 +390,29 @@ void GUI_Object::draw_hline()
     }
 }
 
+template < coord_t y1, coord_t y2,coord_t x,uint16_t* buf, coord_t width, coord_t height>
+void GUI_Object::draw_vline()
+{
+    COMPILE_TIME_ASSERT(x < width);     // X坐标有效性检查
+    COMPILE_TIME_ASSERT(y1 < height);   // Y起始坐标检查
+    COMPILE_TIME_ASSERT(y2 < height);   // Y结束坐标检查
+    COMPILE_TIME_ASSERT(y1 <= y2);      // 坐标顺序检查
+
+    // 逐行设置位模式
+    for(coord_t y = y1; y <= y2; ++y)
+    {
+        // 计算目标存储页（每8行为一页）
+        const coord_t page = get_page(y);  // 等价于 y / 8
+
+        // 生成位掩码（黑色对应位置1）
+        const uint16_t bit_mask =get_mask(y);
+
+        // 计算缓冲区索引
+        const coord_t index = page * width + x;
+
+        // 执行位操作（保证原子性）
+        buf[index] |= bit_mask;
+    }
+}
 
 #endif //ZQ_GUI_H
