@@ -44,20 +44,32 @@ namespace zq
                 return reinterpret_cast<volatile ioport uint16_t *>(Address);
             }
 
-            // 通用位操作
-            static inline void set_bits(const uint16_t mask)
+            // 单位操作
+            static inline void set_bit(const uint16_t mask)
             {
                 *ptr() |= mask;
             }
 
-            static inline void clear_bits(const uint16_t mask)
+            static inline void clear_bit(const uint16_t mask)
             {
                 *ptr() &= ~mask;
             }
 
-            // 通用位修改
-            static inline void modify_bits(const uint16_t mask, const uint16_t value) {
-                *ptr() = (*ptr() & ~mask) | (value & mask);
+            // 读取位
+            static inline bool read_bit(const uint16_t mask)
+            {
+                return (*ptr() & mask) != 0;
+            }
+
+            static inline bool read_bit_not(const uint16_t mask)
+            {
+                return (*ptr() & mask) == 0;
+            }
+
+            // 多位修改
+            static inline void modify_bits(const uint16_t value, const uint16_t mask, const uint16_t offset)
+            {
+                *ptr() = (*ptr() & ~mask) | ((value << offset) & mask);
             }
 
             static inline void write(const uint16_t value)

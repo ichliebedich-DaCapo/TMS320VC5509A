@@ -95,13 +95,13 @@ namespace zq
             static void set_dir(Dir_Type dir)
             {
                 if (dir == Dir_Input)
-                    mmio::RegAccess<Traits::DIR_REG>::clear_bits(PIN_MASK);
+                    mmio::RegAccess<Traits::DIR_REG>::clear_bit(PIN_MASK);
                 else
-                    mmio::RegAccess<Traits::DIR_REG>::set_bits(PIN_MASK);
+                    mmio::RegAccess<Traits::DIR_REG>::set_bit(PIN_MASK);
             }
 
-            static void high() { mmio::RegAccess<Traits::DATA_REG>::set_bits(PIN_MASK); }
-            static void low() { mmio::RegAccess<Traits::DATA_REG>::clear_bits(PIN_MASK); }
+            static void high() { mmio::RegAccess<Traits::DATA_REG>::set_bit(PIN_MASK); }
+            static void low() { mmio::RegAccess<Traits::DATA_REG>::clear_bit(PIN_MASK); }
             static bool read() { return (mmio::RegAccess<Traits::DATA_REG>::read() & PIN_MASK) != 0; }
         };
 
@@ -117,12 +117,12 @@ namespace zq
         public:
             static void enable()
             {
-                mmio::RegAccess<Traits::EN_REG>::set_bits(PIN_MASK);
+                mmio::RegAccess<Traits::EN_REG>::set_bit(PIN_MASK);
             }
 
             static void disable()
             {
-                mmio::RegAccess<Traits::EN_REG>::clear_bits(PIN_MASK);
+                mmio::RegAccess<Traits::EN_REG>::clear_bit(PIN_MASK);
             }
         };
 

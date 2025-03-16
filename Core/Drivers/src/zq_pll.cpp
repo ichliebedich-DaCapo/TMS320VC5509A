@@ -44,27 +44,5 @@ void ZQ_USBPLL_Init()
     while (!ZQ_USBPLL_APLL_Get_Stat());
 }
 
-/**
- * @brief 设置数字 PLL 锁相环时钟频率
- * @note 为了简化配置，默认启用APLL，并且已经配置为最高可用频率。此处CVDD接1.6V，因此最高推荐频率为200MHz，
- *       而外部晶振为20MHz，因此倍频为10
- */
-void ZQ_PLL_Init()
-{
-    ZQ_PLL_DISABLE(); // 关闭PLL
-    while (ZQ_PLL_Get_LOCK_FLAG()); // 等待退出PLL模式
-
-    ZQ_PLL_Set_IAI(PLL_IAI_SAME); // 设置PLL退出Idle后，使用上次设置，快速锁相
-    ZQ_PLL_Set_IOB(PLL_IOB_SWITCH_BYPASS); // 设置PLL应急模式，如果发生失锁，就切换为旁路模式
-    ZQ_PLL_Set_TEST(); // TEST位必须置为0
-    ZQ_PLL_Set_DIV(PLL_DIV_1); // 不分频
-    ZQ_PLL_Set_MULT(PLL_MULT_10); // 十倍频
-    ZQ_PLL_Set_BYPASS_DIV(PLL_BYPASS_DIV_1); // 旁路模式下不分频
-
-    while (!ZQ_PLL_Get_LOCK_FLAG()); // 等待PLL锁定
-
-    ZQ_PLL_Set_CLKOUT_DIV(PLL_CLKOUT_DIV_4);// 设置输出时钟分频为4
-}
-
 
 
