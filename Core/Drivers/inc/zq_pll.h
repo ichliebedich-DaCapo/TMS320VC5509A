@@ -218,7 +218,7 @@ INLINE void ZQ_PLL_Set_CLKOUT_DIV(const PLL_CLKOUT_DIV div)
  */
 INLINE PLL_CLKOUT_DIV ZQ_PLL_Get_CLKOUT_DIV(void)
 {
-    return (PLL_CLKOUT_DIV)(SYSR & PLL_SYSR_CLKOUT_DIV_MASK);
+    return (PLL_CLKOUT_DIV) (SYSR & PLL_SYSR_CLKOUT_DIV_MASK);
 }
 
 // =========锁相环时钟生成器=========
@@ -298,7 +298,7 @@ INLINE void ZQ_PLL_Set_BYPASS_DIV(const PLL_BYPASS_DIV div)
  */
 INLINE PLL_BREAKLN ZQ_PLL_Get_BREAKLN(void)
 {
-    return (PLL_BREAKLN)((CLKMD & PLL_BREAKLN_MASK) >> PLL_BREAKLN_POS);
+    return (PLL_BREAKLN) ((CLKMD & PLL_BREAKLN_MASK) >> PLL_BREAKLN_POS);
 }
 
 /**
@@ -307,7 +307,7 @@ INLINE PLL_BREAKLN ZQ_PLL_Get_BREAKLN(void)
  */
 INLINE PLL_LOCK_FLAG ZQ_PLL_Get_LOCK_FLAG(void)
 {
-    return (PLL_LOCK_FLAG)((CLKMD & PLL_LOCK_MASK) >> PLL_LOCK_POS);
+    return (PLL_LOCK_FLAG) ((CLKMD & PLL_LOCK_MASK) >> PLL_LOCK_POS);
 }
 
 
@@ -328,7 +328,7 @@ INLINE void ZQ_USBPLL_APLL_Set_MULT(const USBPLL_APLL_MULT mult)
  */
 INLINE USBPLL_APLL_MULT ZQ_USBPLL_APLL_Get_MULT(void)
 {
-    return (USBPLL_APLL_MULT)((USBAPLL & USBPLL_APLL_MULT_MASK) >> USBPLL_APLL_MULT_POS);
+    return (USBPLL_APLL_MULT) ((USBAPLL & USBPLL_APLL_MULT_MASK) >> USBPLL_APLL_MULT_POS);
 }
 
 /**
@@ -390,7 +390,7 @@ INLINE void ZQ_USBPLL_APLL_Set_Mode(const USBPLL_APLL_MODE mode)
  */
 INLINE USBPLL_APLL_MODE ZQ_USBPLL_APLL_Get_Mode()
 {
-    return (USBPLL_APLL_MODE)((USBAPLL & USBPLL_APLL_MODE_MASK) >> USBPLL_APLL_MODE_POS);
+    return (USBPLL_APLL_MODE) ((USBAPLL & USBPLL_APLL_MODE_MASK) >> USBPLL_APLL_MODE_POS);
 }
 
 
@@ -421,7 +421,7 @@ INLINE void ZQ_USBPLL_DPLL_Set_Mode(const USBPLL_DPLL_MODE mode)
  */
 INLINE USBPLL_DPLL_MODE ZQ_USBPLL_DPLL_Get_Mode()
 {
-    return (USBPLL_DPLL_MODE)USBDPLL;
+    return (USBPLL_DPLL_MODE) USBDPLL;
 }
 
 /*
@@ -468,5 +468,193 @@ void ZQ_USBPLL_Init();
 void ZQ_PLL_Init();
 
 
+namespace zq
+{
+    namespace pll
+    {
+        // PLL类型标签
+        struct MainPLLTag
+        {
+        };
+
+        struct USB_APLLTag
+        {
+        };
+
+        struct USB_DPLLTag
+        {
+        };
+
+        // 通用特征模板
+        template<typename PLLType>
+        struct PLL_Traits;
+
+        // 主PLL特征
+        template<>
+        struct PLL_Traits<MainPLLTag>
+        {
+            enum
+            {
+                CLKMD_REG = 0x1C00,
+                SYSR_REG = 0x07FD,
+                MULT_OFFSET = 7,
+                MULT_MASK = 0x0F80,
+                // 其他寄存器特征...
+            };
+        };
+
+        // USB模拟PLL特征
+        template<>
+        struct PLL_Traits<USB_APLLTag>
+        {
+            enum
+            {
+                USBAPLL_REG = 0x1F00,
+                MULT_OFFSET = 12,
+                MULT_MASK = 0xF000,
+                // 其他特征...
+            };
+        };
+
+        // USB数字PLL特征
+        template<>
+        struct PLL_Traits<USB_DPLLTag>
+        {
+            enum
+            {
+                USBDPLL_REG = 0x1E00,
+                MODE_MASK = 0xFFFF,
+                // 其他特征...
+            };
+        };
+
+        // =========================  =========================
+        // 类型安全方向枚举
+        typedef enum
+        {
+            Dir_Input, Dir_Output
+        } Dir_Type;
+
+        // 类型安全倍频系数
+        template<uint16_t Min, uint16_t Max>
+        class PLL_Multiplier
+        {
+        public:
+            template<uint16_t Val>
+            static PLL_Multiplier create()
+            {
+                COMPILE_TIME_ASSERT(Val >= Min && Val <= Max, "PLL multiplier value out of range");
+                return Val;
+            }
+
+        };
+
+        typedef PLL_Multiplier<2, 31> MainPLL_Mult; // 主PLL倍频范围
+        typedef PLL_Multiplier<1, 16> USBAPLL_Mult; // USB APLL倍频范围
+
+        // =========================  =========================
+        template<typename PLLType>
+        class PLL_Controller;
+
+        // 主PLL特化
+        template<>
+        class PLL_Controller<MainPLLTag>
+        {
+            typedef PLL_Traits<MainPLLTag> Traits;
+
+        public:
+            static void enable()
+            {
+                mmio::RegAccess<Traits::CLKMD_REG>::set_bits(0x0008);
+            }
+
+            static void disable()
+            {
+                mmio::RegAccess<Traits::CLKMD_REG>::clear_bits(0x0008);
+            }
+
+            template<typename MultType>
+            static void set_multiplier(MultType mult)
+            {
+                mmio::RegAccess<Traits::CLKMD_REG>::modify_bits(
+                    Traits::MULT_MASK,
+                    static_cast<uint16_t>(mult) << Traits::MULT_OFFSET
+                );
+            }
+
+            static bool is_locked()
+            {
+                return (mmio::RegAccess<Traits::CLKMD_REG>::read() & 0x0001) != 0;
+            }
+        };
+
+        // USB APLL特化
+        template<>
+        class PLL_Controller<USB_APLLTag>
+        {
+            typedef PLL_Traits<USB_APLLTag> Traits;
+
+        public:
+            template<typename MultType>
+            static void set_multiplier(MultType mult)
+            {
+                mmio::RegAccess<Traits::USBAPLL_REG>::modify_bits(
+                    Traits::MULT_MASK,
+                    static_cast<uint16_t>(mult) << Traits::MULT_OFFSET
+                );
+            }
+
+            static void enable()
+            {
+                mmio::RegAccess<Traits::USBAPLL_REG>::set_bits(0x0004);
+            }
+
+            static bool is_ready()
+            {
+                return (mmio::RegAccess<Traits::USBAPLL_REG>::read() & 0x0001) != 0;
+            }
+        };
+
+        // =========================  =========================
+        // 主PLL配置器
+        class MainPLL
+        {
+        public:
+            template<uint16_t Mult>
+            static void configure()
+            {
+                Controller::disable();
+                while (Controller::is_locked()); // 等待解锁
+
+                Controller::set_multiplier(MainPLL_Mult::create<Mult>());
+                Controller::enable();
+
+                while (!Controller::is_locked()); // 等待锁定
+            }
+
+        private:
+            typedef PLL_Controller<MainPLL> Controller;
+        };
+
+        // USB APLL配置器
+        class USB_APLL
+        {
+        public:
+            template<uint16_t Mult>
+            static void configure()
+            {
+                typedef PLL_Multiplier<1, 16>::create<Mult> SafeMult;
+
+                Controller::set_multiplier(SafeMult());
+                Controller::enable();
+
+                while (!Controller::is_ready()); // 等待就绪
+            }
+
+        private:
+            typedef PLL_Controller<USB_APLL> Controller;
+        };
+    } // namespace pll
+} // namespace zq
 
 #endif //ZQ_PLL_H

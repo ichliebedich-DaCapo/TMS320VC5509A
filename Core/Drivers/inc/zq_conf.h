@@ -55,6 +55,11 @@ namespace zq
                 *ptr() &= ~mask;
             }
 
+            // 通用位修改
+            static inline void modify_bits(const uint16_t mask, const uint16_t value) {
+                *ptr() = (*ptr() & ~mask) | (value & mask);
+            }
+
             static inline void write(const uint16_t value)
             {
                 *ptr() = value;
