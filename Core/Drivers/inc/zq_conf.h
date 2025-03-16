@@ -12,6 +12,8 @@
 // 定义关键字
 #define ioport
 #endif
+
+
 // ======================兼容GCC======================
 // 类型定义
 
@@ -20,6 +22,14 @@
 #define ALWAYS_INLINE __attribute__((always_inline))
 #define INLINE static inline
 
+// 辅助宏
+#define CONCATENATE_DETAIL(x, y) x##y
+#define CONCATENATE(x, y) CONCATENATE_DETAIL(x, y)
+#define COMPILE_TIME_ASSERT(pred,msg) \
+typedef char CONCATENATE(static_assertion_, __COUNTER__)[(pred) ? 1 : -1]
+// // 如果编译器不支持 __COUNTER__，可以使用 __LINE__
+// #define COMPILE_TIME_ASSERT_LINE(pred, msg) \
+// typedef char CONCATENATE(static_assertion_, __LINE__)[(pred) ? 1 : -1]
 
 namespace zq
 {
