@@ -23,26 +23,26 @@
  *
  * @note 最终频率公式: F_USB_APLLCLK = F_CLKIN * (M/D)
  */
-void ZQ_USBPLL_Init()
-{
-    // 选择USB APLL
-    ZQ_USBPLL_Select(USBPLL_APLL);
-
-    // 设置为倍频模式
-    ZQ_USBPLL_APLL_Set_Mode(USBPLL_APLL_MODE_MULT);
-
-    // 设置1分频
-    ZQ_USBPLL_APLL_Set_DIV(USBPLL_APLL_DIV_1);
-
-    // 设置倍频系数为10
-    ZQ_USBPLL_APLL_Set_MULT(USBPLL_APLL_MULT_10);
-
-    // 启用APLL
-    ZQ_USBPLL_APLL_ENABLE();
-
-    // 等待APLL稳定
-    while (!ZQ_USBPLL_APLL_Get_Stat());
-}
+// void ZQ_USBPLL_Init()
+// {
+//     // 选择USB APLL
+//     ZQ_USBPLL_Select(USBPLL_APLL);
+//
+//     // 设置为倍频模式
+//     ZQ_USBPLL_APLL_Set_Mode(USBPLL_APLL_MODE_MULT);
+//
+//     // 设置1分频
+//     ZQ_USBPLL_APLL_Set_DIV(USBPLL_APLL_DIV_1);
+//
+//     // 设置倍频系数为10
+//     ZQ_USBPLL_APLL_Set_MULT(USBPLL_APLL_MULT_10);
+//
+//     // 启用APLL
+//     ZQ_USBPLL_APLL_ENABLE();
+//
+//     // 等待APLL稳定
+//     while (!ZQ_USBPLL_APLL_Get_Stat());
+// }
 
 
 
