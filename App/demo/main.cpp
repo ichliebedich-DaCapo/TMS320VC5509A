@@ -12,6 +12,10 @@ extern void ui_handler();
 int main()
 {
     GUI_Init();
+    using namespace zq::gpio;
+    GPIO_Normal0::set_dir(Dir_Output);
+
+
 
     for (;;)
     {

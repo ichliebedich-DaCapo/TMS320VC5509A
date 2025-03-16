@@ -4,9 +4,7 @@
 #ifndef ZQ_CONF_H
 #define ZQ_CONF_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+
 #include<stdint.h>
 
 // ======================兼容GCC======================
@@ -23,7 +21,42 @@ extern "C" {
 #define INLINE static inline
 
 
-#ifdef __cplusplus
-}
-#endif
+namespace zq
+{
+    namespace mmio
+    {
+        template<uint16_t Address>
+        struct RegAccess
+        {
+            // 编译期地址计算
+            static inline volatile ioport uint16_t *ptr()
+            {
+                return reinterpret_cast<volatile ioport uint16_t *>(Address);
+            }
+
+            // 通用位操作
+            static inline void set_bits(const uint16_t mask)
+            {
+                *ptr() |= mask;
+            }
+
+            static inline void clear_bits(const uint16_t mask)
+            {
+                *ptr() &= ~mask;
+            }
+
+            static inline void write(const uint16_t value)
+            {
+                *ptr() = value;
+            }
+
+            static inline uint16_t read()
+            {
+                return *ptr();
+            }
+        };
+    } // namespace mmio
+} // namespace hal
+
+
 #endif //ZQ_CONF_H

@@ -4,9 +4,6 @@
 #ifndef ZQ_PLL_H
 #define ZQ_PLL_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 #include<zq_conf.h>
 
@@ -471,7 +468,5 @@ void ZQ_USBPLL_Init();
 void ZQ_PLL_Init();
 
 
-#ifdef __cplusplus
-}
-#endif
+
 #endif //ZQ_PLL_H

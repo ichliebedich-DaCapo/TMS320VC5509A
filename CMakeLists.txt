@@ -32,8 +32,8 @@ file(GLOB_RECURSE SOURCES
         "Adapter/GUI/gui.cpp"
         "${APP_DIR}/*.c"
         "${APP_DIR}/*.cpp"
-        "BSP/src/*.c"
-        "Core/Drivers/src/*.c"
+        "BSP/src/*.cpp"
+        "Core/Drivers/src/*.cpp"
         "Middleware/Library/gui/*.c"
         "Middleware/Library/gui/*.cpp"
 )

@@ -4,9 +4,6 @@
 #ifndef SDRAM_H
 #define SDRAM_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 #include <zq_conf.h>
 
@@ -39,7 +36,5 @@ extern "C" {
 void ZQ_SDRAM_Init();
 
 
-#ifdef __cplusplus
-}
-#endif
+
 #endif //SDRAM_H

@@ -4,9 +4,7 @@
 #ifndef DEMO_LCD_H
 #define DEMO_LCD_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+
 #include<zq_conf.h>
 
 /*寄存器映射*/
@@ -169,7 +167,5 @@ void lcd_init();
 // void lcd_write_page(uint16_t page,uint16_t*buf);
 
 
-#ifdef __cplusplus
-}
-#endif
+
 #endif //DEMO_LCD_H

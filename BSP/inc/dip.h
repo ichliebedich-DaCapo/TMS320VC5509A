@@ -4,9 +4,6 @@
 #ifndef DIPS_H
 #define DIPS_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 #include <zq_conf.h>
 
@@ -42,7 +39,5 @@ INLINE uint16_t dip_get_single(const DIP_Pin pin)
 }
 
 
-#ifdef __cplusplus
-}
-#endif
+
 #endif //DIPS_H

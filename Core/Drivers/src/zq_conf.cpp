@@ -6,6 +6,7 @@
 
 // 为了兼容GCC
 #ifdef __ARM__
+extern "C"{
 #include <reent.h>
 #include <sys/stat.h>
 
@@ -91,7 +92,7 @@ int _stat(char *file, struct stat *st)
     return 0;
 }
 
-int _link(char *old, char *new)
+int _link(char *old, char *new_)
 {
     return -1;
 }
@@ -111,6 +112,6 @@ void *_sbrk(ptrdiff_t incr)
 
     return (void *)0;
 }
-
+}
 
 #endif

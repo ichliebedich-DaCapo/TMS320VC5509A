@@ -4,9 +4,7 @@
 #ifndef LED_H
 #define LED_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+
 #include<zq_conf.h>
 
 // 定义指示灯寄存器地址和寄存器类型
@@ -47,7 +45,4 @@ INLINE void leds_set(const uint16_t value)
     LED_BASE = value;
 }
 
-#ifdef __cplusplus
-}
-#endif
 #endif //LED_H

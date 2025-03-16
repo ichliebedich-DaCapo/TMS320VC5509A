@@ -245,11 +245,11 @@ public:
 
     // ============绘制曲线算法===========
     // 样条算法
-    template<uint16_t steps = 5>
+    template<uint16_t steps >
     static void draw_catmull_rom(Point p0, Point p1, Point p2, Point p3);
 
     // 3次贝塞尔曲线算法
-    template<uint16_t steps = 5>
+    template<uint16_t steps >
     static void draw_bezier3(Point p0, Point p1, Point p2, Point p3);
 
 

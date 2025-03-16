@@ -4,9 +4,7 @@
 #ifndef ZQ_TIMER_H
 #define ZQ_TIMER_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+
 #include<zq_conf.h>
 
 typedef struct
@@ -44,7 +42,5 @@ INLINE void ZQ_TIMER_Set_PRSC(TIMER_Type *timer, uint16_t psc)
 }
 
 
-#ifdef __cplusplus
-}
-#endif
+
 #endif //ZQ_TIMER_H
