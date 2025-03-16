@@ -24,10 +24,13 @@ namespace zq
 
         // ================= 公共属性 ================
         // 类型安全方向枚举
-        typedef enum
+        struct Dir
         {
-            Dir_Input, Dir_Output
-        } Dir_Type;
+            typedef enum
+            {
+                Dir_Input, Dir_Output
+            }Type;
+        };
 
 
         // ================= 特征萃取模板 ================
@@ -92,9 +95,9 @@ namespace zq
             };
 
         public:
-            static void set_dir(Dir_Type dir)
+            static void set_dir(Dir::Type dir)
             {
-                if (dir == Dir_Input)
+                if (dir == Dir::Dir_Input)
                     mmio::RegAccess<Traits::DIR_REG>::clear_bit(PIN_MASK);
                 else
                     mmio::RegAccess<Traits::DIR_REG>::set_bit(PIN_MASK);

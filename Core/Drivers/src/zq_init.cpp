@@ -9,6 +9,6 @@
 // 函数
 void ZQ_Init()
 {
-    ZQ_PLL_Init();
+    zq::pll::MainPLL::configure<10>();
     ZQ_SDRAM_Init();
 }

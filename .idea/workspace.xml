@@ -29,8 +29,11 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a78db7b0-77d9-459c-87d1-f1d260dcb0d0" name="更改" comment="【开发】主锁相环框架已经搭建好了">
+    <list default="true" id="a78db7b0-77d9-459c-87d1-f1d260dcb0d0" name="更改" comment="【开发】USB锁相环先构建一点点">
+      <change beforePath="$PROJECT_DIR$/App/demo/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/App/demo/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Drivers/inc/zq_gpio.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Drivers/inc/zq_gpio.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Drivers/inc/zq_pll.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Drivers/inc/zq_pll.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Drivers/src/zq_init.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Drivers/src/zq_init.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,6 +75,8 @@
     <setting file="file://$PROJECT_DIR$/Core/Drivers/inc/zq_conf.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Core/Drivers/inc/zq_gpio.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="mock://E:/Program/Embedded/MCU/TI/Program/new_demo/demo/Core/Drivers/inc/zq_pll.h" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://E:/Program/Embedded/MCU/TI/Program/new_demo/demo/Core/Drivers/src/zq_pll.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://E:/Program/Embedded/MCU/TI/Program/new_demo/demo/Core/Drivers/src/zq_pll.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_HOME_DIR$/bin/cmake/win/x64/share/cmake-3.30/Modules/CMakeTestCCompiler.cmake" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_HOME_DIR$/bin/cmake/win/x64/share/cmake-3.30/Modules/CMakeTestCXXCompiler.cmake" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -187,7 +192,7 @@
       <workItem from="1742025954575" duration="954000" />
       <workItem from="1742086955658" duration="9711000" />
       <workItem from="1742098567181" duration="171000" />
-      <workItem from="1742098749713" duration="8875000" />
+      <workItem from="1742098749713" duration="10280000" />
     </task>
     <task id="LOCAL-00001" summary="【工程】成功使用CLion编译TI工程">
       <option name="closed" value="true" />
@@ -429,7 +434,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742107087220</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="【开发】USB锁相环先构建一点点">
+      <option name="closed" value="true" />
+      <created>1742108695482</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1742108695482</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -464,7 +477,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="【开发】GPIO库已经补全了" />
     <MESSAGE value="【修复】修复了GPIO库" />
     <MESSAGE value="【体验提升】GCC下有代码补全，为了模仿GCC，编写了链接脚本并添加了一写兼容GCC的函数和宏" />
     <MESSAGE value="【优化】修复了CMakeLists中的一些问题，并把实验1成功添加置工程里" />
@@ -489,7 +501,8 @@
     <MESSAGE value="【开发】GPIO基本框架已经搭建好了" />
     <MESSAGE value="【开发】开始搭建锁相环框架" />
     <MESSAGE value="【开发】主锁相环框架已经搭建好了" />
-    <option name="LAST_COMMIT_MESSAGE" value="【开发】主锁相环框架已经搭建好了" />
+    <MESSAGE value="【开发】USB锁相环先构建一点点" />
+    <option name="LAST_COMMIT_MESSAGE" value="【开发】USB锁相环先构建一点点" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

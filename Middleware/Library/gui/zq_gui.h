@@ -399,12 +399,6 @@ void GUI_Render::handler()
 template<uint16_t * buf, coord_t width, coord_t height>
 void GUI_Object::draw_hline(coord_t x1, coord_t x2, coord_t y)
 {
-    // 编译期坐标安全检查（C++98兼容方案）
-    COMPILE_TIME_ASSERT(y < height, "y坐标超出范围");
-    COMPILE_TIME_ASSERT(x1 < width,"x1坐标超出范围");
-    COMPILE_TIME_ASSERT(x2 < width, "x2坐标超出范围");
-    COMPILE_TIME_ASSERT(x1 <= x2,"x1坐标必须小于等于x2");
-
     // 计算目标存储页（每页8行）
     const coord_t page = get_page(y); // 等价于 y / 8
 
@@ -423,11 +417,6 @@ void GUI_Object::draw_hline(coord_t x1, coord_t x2, coord_t y)
 template<uint16_t * buf, coord_t width, coord_t height>
 void GUI_Object::draw_vline(coord_t y1, coord_t y2, coord_t x)
 {
-    COMPILE_TIME_ASSERT(x < width, "x坐标超出范围"); // X坐标有效性检查
-    COMPILE_TIME_ASSERT(y1 < height,"y1坐标超出范围"); // Y起始坐标检查
-    COMPILE_TIME_ASSERT(y2 < height,"y2坐标超出范围"); // Y结束坐标检查
-    COMPILE_TIME_ASSERT(y1 <= y2,"y1坐标必须小于等于y2"); // 坐标顺序检查
-
     // 逐行设置位模式
     for (coord_t y = y1; y <= y2; ++y)
     {
@@ -453,11 +442,6 @@ template<
 >
 void GUI_Object::draw_line(coord_t x0, coord_t y0, coord_t x1, coord_t y1)
 {
-    // 编译期坐标安全检查
-    COMPILE_TIME_ASSERT(x0 < width && x1 < width, "x坐标超出范围");
-    COMPILE_TIME_ASSERT(y0 < height && y1 < height,"y坐标超出范围");
-
-
 
     // Bresenham 算法参数计算（编译期常量）
     const coord_t dx = (x1 > x0) ? (x1 - x0) : (x0 - x1);

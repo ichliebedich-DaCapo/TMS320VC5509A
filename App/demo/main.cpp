@@ -1,6 +1,6 @@
 #include<app_conf.h>
 #if PROGRAM_INDEX == 0
-#include<zq_gpio.h>
+#include <zq_init.h>
 #include<gui.h>
 
 
@@ -11,8 +11,9 @@ extern void ui_handler();
 
 int main()
 {
+    ZQ_Init();
     GUI_Init();
-    using namespace zq::gpio;
+
 
 
 

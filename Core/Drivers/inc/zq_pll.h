@@ -432,7 +432,7 @@ namespace zq
         {
         public:
             template<uint16_t Val>
-            static PLL_Multiplier create()
+            static uint16_t create()
             {
                 COMPILE_TIME_ASSERT(Val >= Min && Val <= Max, "PLL multiplier value out of range");
                 return Val;
