@@ -77,7 +77,7 @@ struct NAME { \
     typedef enum { \
         __VA_ARGS__ \
     } Type; \
-};
+}
 
 
 
@@ -94,7 +94,7 @@ namespace zq
                 return reinterpret_cast<volatile ioport uint16_t *>(Address);
             }
 
-            // 单位操作
+            // 单位操作(操作的是掩码)
             static inline void set_bit(const uint16_t mask)
             {
                 *ptr() |= mask;

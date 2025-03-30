@@ -29,8 +29,25 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a78db7b0-77d9-459c-87d1-f1d260dcb0d0" name="更改" comment="【开发】准备利用命名空间的可扩展性">
-      <change beforePath="$PROJECT_DIR$/Core/Drivers/inc/zq_timer.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Drivers/inc/zq_timer.h" afterDir="false" />
+    <list default="true" id="a78db7b0-77d9-459c-87d1-f1d260dcb0d0" name="更改" comment="【开发】命名空间的封装可以，暂时不打算使用私有权限来限制寄存器的可见性">
+      <change beforePath="$PROJECT_DIR$/.cproject" beforeDir="false" afterPath="$PROJECT_DIR$/.cproject" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.settings/org.eclipse.core.resources.prefs" beforeDir="false" afterPath="$PROJECT_DIR$/.settings/org.eclipse.core.resources.prefs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Drivers/inc/zq_conf.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Drivers/inc/zq_conf.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Drivers/inc/zq_cpu.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Drivers/inc/zq_cpu.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Drivers/inc/zq_interrupt.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Drivers/inc/zq_interrupt.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Drivers/inc/zq_pll.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Drivers/inc/zq_pll.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Drivers/src/zq_cpu.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Drivers/src/zq_cpu.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Drivers/src/zq_interrupt.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Drivers/src/zq_interrupt.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projects/1_debug/main.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projects/2_map/add.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projects/2_map/main.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projects/3_memory/memory.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projects/4_sdram/main.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projects/5_TIM_INT/main.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projects/9_LCD/main.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projects/9_LCD/ui/ui.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projects/9_LCD/ui/ui.h" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -205,7 +222,7 @@
       <workItem from="1743230258506" duration="57000" />
       <workItem from="1743318924997" duration="609000" />
       <workItem from="1743321342009" duration="8196000" />
-      <workItem from="1743329743377" duration="4073000" />
+      <workItem from="1743329743377" duration="10409000" />
     </task>
     <task id="LOCAL-00001" summary="【工程】成功使用CLion编译TI工程">
       <option name="closed" value="true" />
@@ -503,7 +520,15 @@
       <option name="project" value="LOCAL" />
       <updated>1743333727860</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="【开发】命名空间的封装可以，暂时不打算使用私有权限来限制寄存器的可见性">
+      <option name="closed" value="true" />
+      <created>1743334906548</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1743334906548</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -538,7 +563,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="【修复】USBPLL相关赋值问题" />
     <MESSAGE value="【修复】SDRAM文件放错位置问题" />
     <MESSAGE value="【开发】添加了初始化文件、定时器文件（未开发），并修改了链接脚本" />
     <MESSAGE value="【开发】基础LCD已经搭建好了" />
@@ -563,7 +587,8 @@
     <MESSAGE value="【开发】准备尝试中断" />
     <MESSAGE value="【开发】添加了CPU寄存器" />
     <MESSAGE value="【开发】准备利用命名空间的可扩展性" />
-    <option name="LAST_COMMIT_MESSAGE" value="【开发】准备利用命名空间的可扩展性" />
+    <MESSAGE value="【开发】命名空间的封装可以，暂时不打算使用私有权限来限制寄存器的可见性" />
+    <option name="LAST_COMMIT_MESSAGE" value="【开发】命名空间的封装可以，暂时不打算使用私有权限来限制寄存器的可见性" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

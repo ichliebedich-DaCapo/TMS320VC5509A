@@ -23,405 +23,152 @@ namespace zq
         template<typename PLLType>
         struct PLL_Traits;
 
-        // 主PLL特征
-        template<>
-        struct PLL_Traits<MainPLLTag>
+        DECLARE_REGISTER(SYSR, 0x07FD); // 系统寄存器地址（SYSR） 控制系统时钟输出分频系数
+        DECLARE_BITS_FIELD_FROM_REG(SYSR, DIV, 0x0007, 0x0000);
+
+        // CLKOUT分频位掩码（3位）   控制SYSCLK输出分频系数，值范围0-7 CLKOUT分频位偏移量（位0）
+        DECLARE_REGISTER(CLKMD, 0x1C00); // 时钟模式寄存器地址（CLKMD）     控制PLL倍频、分频、使能等核心功能
+
+        namespace CLKMD
         {
-            // ====================== SYSR寄存器 ======================
-            struct SYSR
+            DECLARE_BITS_FIELD(IAI, 0x4000, 0x000E); // IAI位配置（位14）  退出Idle状态后的PLL锁定行为控制
+            DECLARE_BITS_FIELD(IOB, 0x2000, 0x000D); // IOB位配置（位13）  PLL失锁应急处置控制
+            DECLARE_BITS_FIELD(TEST, 0x1000, 0x000C); // TEST位配置（位12）必须保持为0
+
+            /// @brief 倍频系数配置域（位7-11）
+            /// @note 5位宽，有效值范围2-31（实际值=配置值+1）
+            namespace MULT
             {
-                /// @brief 系统寄存器地址（SYSR）
-                /// @note 控制系统时钟输出分频系数
                 enum
                 {
-                    REG = 0x07FD
-                };
-
-                struct DIV
-                {
-                    /// @brief 系统时钟分频配置
-                    enum
-                    {
-                        /// @brief CLKOUT分频位掩码（3位）
-                        /// @note 控制SYSCLK输出分频系数，值范围0-7
-                        MASK = 0x0007,
-
-                        /// @brief CLKOUT分频位偏移量（位0）
-                        SHIFT = 0x0000
-                    };
+                    MASK = 0x0F80, ///< 位掩码（bit7-11）
+                    SHIFT = 7, ///< 位偏移量（7-11）
+                    MIN = 2, ///< 最小倍频系数（对应寄存器值0x0002）
+                    MAX = 31 ///< 最大倍频系数（对应寄存器值0x001F）
                 };
             };
 
-            // ====================== CLKMD寄存器 ======================
-            struct CLKMD
-            {
-                /// @brief 时钟模式寄存器地址（CLKMD）
-                /// @note 控制PLL倍频、分频、使能等核心功能
-                enum
-                {
-                    REG = 0x1C00
-                };
+            DECLARE_BITS_FIELD(DIV, 0x0060, 5); // 分频系数配置域（位5-6） 2位宽，有效值范围0-3（实际分频=配置值+1）
+            DECLARE_BITS_FIELD(ENABLE, 0x0008, 0x0004); // PLL使能控制位（位4）
+            DECLARE_BITS_FIELD(BYPASS_DIV, 0x000C, 2); // 旁路模式分频配置（位2-3）     仅在旁路模式（BYPASS）下生效
+            DECLARE_BITS_FIELD(BREAKLN, 0x0002, 1); // 失锁状态标志位（位1）   只读位，指示PLL当前锁定状态
+            DECLARE_BITS_FIELD(LOCK, 0x0001, 0); // 工作模式标志位（位0）  只读位，指示当前工作模式
+        }
 
-                /// @brief IAI位配置（位14）
-                /// @note 退出Idle状态后的PLL锁定行为控制
-                struct IAI
-                {
-                    enum
-                    {
-                        MASK = 0x4000, ///< 位掩码（bit14）
-                        SHIFT = 0x000E ///< 位偏移量（14-14）
-                    };
-                };
+        // 数字锁相环寄存器 为了向后兼容性，默认选择DPLL
+        DECLARE_REGISTER(DPLL, 0x1E00);
 
-                /// @brief IOB位配置（位13）
-                /// @note PLL失锁应急处置控制
-                struct IOB
-                {
-                    enum
-                    {
-                        MASK = 0x2000, ///< 位掩码（bit13）
-                        SHIFT = 0x000D, ///< 位偏移量（13-13）
-                    };
-                };
+        // 模拟锁相环寄存器 相比数字PLL有更好的耐噪性和更少的长期抖动
+        DECLARE_REGISTER(APLL, 0x1F00);
 
-                /// @brief TEST位配置（位12）
-                /// @warning 必须保持为0
-                struct TEST
-                {
-                    enum
-                    {
-                        MASK = 0x1000, ///< 位掩码（bit12）
-                        SHIFT = 0x000C, ///< 位偏移量（12-12）
-                    };
-                };
-
-                /// @brief 倍频系数配置域（位7-11）
-                /// @note 5位宽，有效值范围2-31（实际值=配置值+1）
-                struct MULT
-                {
-                    enum
-                    {
-                        MASK = 0x0F80, ///< 位掩码（bit7-11）
-                        SHIFT = 7, ///< 位偏移量（7-11）
-                        WIDTH = 5, ///< 位域宽度
-                        MIN = 2, ///< 最小倍频系数（对应寄存器值0x0002）
-                        MAX = 31 ///< 最大倍频系数（对应寄存器值0x001F）
-                    };
-                };
-
-                /// @brief 分频系数配置域（位5-6）
-                /// @note 2位宽，有效值范围0-3（实际分频=配置值+1）
-                struct DIV
-                {
-                    enum
-                    {
-                        MASK = 0x0060, ///< 位掩码（bit5-6）
-                        SHIFT = 5, ///< 位偏移量（5-6）
-                        WIDTH = 2, ///< 位域宽度
-                        MIN = 0, ///< 最小分频配置值（1分频）
-                        MAX = 3 ///< 最大分频配置值（4分频）
-                    };
-                };
-
-                /// @brief PLL使能控制位（位4）
-                struct ENABLE
-                {
-                    enum
-                    {
-                        MASK = 0x0008, ///< 位掩码（bit4）
-                        SHIFT = 4, ///< 位偏移量（4-4）
-                    };
-                };
-
-                /// @brief 旁路模式分频配置（位2-3）
-                /// @note 仅在旁路模式（BYPASS）下生效
-                struct BYPASS_DIV
-                {
-                    enum
-                    {
-                        MASK = 0x000C, ///< 位掩码（bit2-3）
-                        SHIFT = 2, ///< 位偏移量（2-3）
-                        WIDTH = 2 ///< 位域宽度
-                    };
-                };
-
-                /// @brief 失锁状态标志位（位1）
-                /// @note 只读位，指示PLL当前锁定状态
-                struct BREAKLN
-                {
-                    enum
-                    {
-                        MASK = 0x0002, ///< 位掩码（bit1）
-                        SHIFT = 1, ///< 位偏移量（1-1）
-                    };
-                };
-
-                /// @brief 工作模式标志位（位0）
-                /// @note 只读位，指示当前工作模式
-                struct LOCK
-                {
-                    enum
-                    {
-                        MASK = 0x0001, ///< 位掩码（bit0）
-                        SHIFT = 0, ///< 位偏移量（0-0）
-                    };
-                };
-            };
-        };
-
-
-        // USB模拟PLL特征
-        template<>
-        struct PLL_Traits<USB_PLLTag>
+        namespace APLL
         {
-            // 数字锁相环寄存器 为了向后兼容性，默认选择DPLL
-            struct DPLL
-            {
-                enum
-                {
-                    REG = 0x1E00
-                };
-            };
+            DECLARE_BITS_FIELD(MULT, 0xF000, 12); // 倍频系数:bit12-15
+            DECLARE_BITS_FIELD(DIV, 0x0800, 11); // 分频系数:bit11
+            DECLARE_BITS_FIELD(COUNT, 0x07F8, 3); // 计数：bit3-11
+            DECLARE_BITS_FIELD(ENABLE, 0x0004, 2); // 使能位：bit2
+            DECLARE_BITS_FIELD(MODE, 0x0002, 1); // 模式位：bit1
+            DECLARE_BITS_FIELD(STAT, 0x0001, 0); // 状态位：bit0
+        }
 
-            // 模拟锁相环寄存器 相比数字PLL有更好的耐噪性和更少的长期抖动
-            struct APLL
-            {
-                enum
-                {
-                    REG = 0x1F00
-                };
+        // USB PLL选择寄存器
+        DECLARE_REGISTER(SEL, 0x1E80);
 
-                // 倍频系数:bit12-15
-                struct MULT
-                {
-                    enum
-                    {
-                        MASK = 0xF000,
-                        SHIFT = 12
-                    };
-                };
-
-                // 分频系数:bit11
-                struct DIV
-                {
-                    enum
-                    {
-                        MASK = 0x0800,
-                        SHIFT = 11
-                    };
-                };
-
-                // 计数：bit3-11
-                struct COUNT
-                {
-                    enum
-                    {
-                        MASK = 0x07F8,
-                        SHIFT = 3
-                    };
-                };
-
-                // 使能位：bit2
-                struct ENABLE
-                {
-                    enum
-                    {
-                        MASK = 0x0004,
-                        SHIFT = 2
-                    };
-                };
-
-                // 模式位：bit1
-                struct MODE
-                {
-                    enum
-                    {
-                        MASK = 0x0002,
-                        SHIFT = 1
-                    };
-                };
-
-                // 状态位：bit0
-                struct STAT
-                {
-                    enum
-                    {
-                        MASK = 0x0001,
-                        SHIFT = 0
-                    };
-                };
-            };
-
-            // USB PLL选择寄存器
-            struct SEL
-            {
-                enum
-                {
-                    REG = 0x1E80
-                };
-
-                // 选择位：bit0
-                struct PLLSEL
-                {
-                    enum
-                    {
-                        MASK = 0x0001,
-                        SHIFT = 0
-                    };
-                };
-
-                // APLL状态位：bit1
-                struct APLLSTAT
-                {
-                    enum
-                    {
-                        MASK = 0x0002,
-                        SHIFT = 1
-                    };
-                };
-
-                // DPLL状态位：bit2
-                struct DPLLSTAT
-                {
-                    enum
-                    {
-                        MASK = 0x0004,
-                        SHIFT = 2
-                    };
-                };
-            };
-        };
+        namespace SEL
+        {
+            DECLARE_BITS_FIELD(PLLSEL, 0x0001, 0); // 选择位：bit0
+            DECLARE_BITS_FIELD(APLLSTAT, 0x0002, 1); // APLL状态位：bit1
+            DECLARE_BITS_FIELD(DPLLSTAT, 0x0004, 2); // DPLL状态位：bit2
+        }
 
 
         // ========================= 枚举声明 =========================
-
         // 主锁相环
-        struct Main
+        namespace Main
         {
             // 分频系数
-            struct DIV
-            {
-                typedef enum
-                {
-                    DIV_1 = 0x0000,
-                    DIV_2 = 0x0001,
-                    DIV_3 = 0x0002,
-                    DIV_4 = 0x0003
-                } Type;
-            };
+            DECLARE_ATTRIBUTE(DIV,
+                              DIV_1 = 0x0000,
+                              DIV_2 = 0x0001,
+                              DIV_3 = 0x0002,
+                              DIV_4 = 0x0003);
 
             // 输出时钟的分频系数
-            struct CLKOUT_DIV
-            {
-                typedef enum
-                {
-                    DIV_1 = 0x0000,
-                    DIV_2 = 0x0001,
-                    DIV_4 = 0x0002,
-                    DIV_6 = 0x0003,
-                    DIV_8 = 0x0004,
-                    DIV_10 = 0x0005,
-                    DIV_12 = 0x0006,
-                    DIV_14 = 0x0007
-                } Type;
-            };
+            DECLARE_ATTRIBUTE(CLKOUT_DIV,
+                              DIV_1 = 0x0000,
+                              DIV_2 = 0x0001,
+                              DIV_4 = 0x0002,
+                              DIV_6 = 0x0003,
+                              DIV_8 = 0x0004,
+                              DIV_10 = 0x0005,
+                              DIV_12 = 0x0006,
+                              DIV_14 = 0x0007
+            );
 
-            /// @brief PLL工作模式
-            struct Mode
+            namespace Mode
             {
                 // IAI：退出Idle状态后的PLL锁定行为控制
-                struct IAI
-                {
-                    typedef enum
-                    {
-                        SAME = 0x0000, // 保持当前工作模式
-                        RELOCK = 0x0001 // 重新锁定PLL
-                    } Type;
-                };
+                DECLARE_ATTRIBUTE(IAI,
+                                  SAME = 0x0000, // 保持当前工作模式
+                                  RELOCK = 0x0001 // 重新锁定PLL
+                );
 
                 // IOB：失锁应急处置控制
-                struct IOB
-                {
-                    typedef enum
-                    {
-                        NO_INTERRUPT = 0x0000, ///< 不中断PLL继续输出
-                        SWITCH_BYPASS = 0x0001 ///< 切换旁路模式并重启
-                    } Type;
-                };
+                DECLARE_ATTRIBUTE(IOB,
+                                  NO_INTERRUPT = 0x0000, // 不中断PLL继续输出
+                                  SWITCH_BYPASS = 0x0001 // 切换旁路模式并重启
+                );
+
 
                 // 旁路分频系数
-                struct BYPASS_DIV
-                {
-                    typedef enum
-                    {
-                        DIV_1 = 0x0000,
-                        DIV_2 = 0x0001,
-                        DIV_4 = 0x0002
-                    } Type;
-                };
-            };
+                DECLARE_ATTRIBUTE(BYPASS_DIV,
+                                  DIV_1 = 0x0000,
+                                  DIV_2 = 0x0001,
+                                  DIV_4 = 0x0002
+                );
+            }
 
-            // 锁相环状态
-            // 不过由于这些位都比较简单，所以这个只是摆设
-            struct Status
+            // 失锁状态标志位
+            namespace Status
             {
-                // 失锁状态标志位
-                struct BREAKLN
-                {
-                    typedef enum
-                    {
-                        UNLOCK = 0x0000, ///< PLL已失锁
-                        LOCKED = 0x0001 ///< PLL处于锁定状态
-                    } Type;
-                };
-            };
-        };
+                DECLARE_ATTRIBUTE(BREAKLN,
+                                  UNLOCK = 0x0000, ///< PLL已失锁
+                                  LOCKED = 0x0001 ///< PLL处于锁定状态
+                );
+            }
+        }
 
-        struct USB
+
+        namespace USB
         {
             // USB锁相环类型
-            struct SEL
-            {
-                typedef enum
-                {
-                    DPLL = 0x0000, // 数字锁相环
-                    APLL = 0x0001, // 模拟锁相环
-                } Type;
-            };
+            DECLARE_ATTRIBUTE(SEL,
+                              DPLL = 0x0000, // 数字锁相环
+                              APLL = 0x0001, // 模拟锁相环
+            );
 
-            struct APLL
+            namespace APLL
             {
-                struct DIV
-                {
-                    // 锁相环分频系数
-                    typedef enum
-                    {
-                        DIV_1 = 0x0000,
-                        DIV_2_OR_4 = 0x0001 // 如果倍频系数是奇数，那么就是2，如果倍频系数是偶数，那么就是4
-                    } Type;
-                };
+                // 锁相环分频系数
+                DECLARE_ATTRIBUTE(DIV,
+                                  DIV_1 = 0x0000,
+                                  DIV_2_OR_4 = 0x0001 // 如果倍频系数是奇数，那么就是2，如果倍频系数是偶数，那么就是4
+                );
 
                 // 工作模式
-                struct Mode
-                {
-                    typedef enum
-                    {
-                        DIV = 0x0000, // 分频模式下，VCO被旁路，PLL仅作为分频器，且DIV位失效，此时PLL的分频系数由倍频决定，K为1到15，D=2，K为16，D=4
-                        MULT = 0x0001 // 倍频模式下，VCO启用，PLL倍频和分频共同作用
-                    } Type;
-                };
-            };
+                DECLARE_ATTRIBUTE(MODE,
+                                  DIV = 0x0000, // 分频模式下，VCO被旁路，PLL仅作为分频器，且DIV位失效，此时PLL的分频系数由倍频决定，K为1到15，D=2，K为16，D=4
+                                  MULT = 0x0001 // 倍频模式下，VCO启用，PLL倍频和分频共同作用
+                );
+            }
 
-            struct DPLL
+
+            namespace DPLL
             {
-                struct Mode
-                {
-                    typedef enum
-                    {
-                        NO_USB_BOOT = 0x2006, // 二分频
-                        USB_BOOT = 0x2213 // 四倍频
-                    } Type;
-                };
+                DECLARE_ATTRIBUTE(Mode,
+                                  NO_USB_BOOT = 0x2006, // 二分频
+                                  USB_BOOT = 0x2213 // 四倍频
+                );
             };
         };
 
@@ -450,9 +197,6 @@ namespace zq
         template<>
         class PLL_Controller<MainPLLTag>
         {
-            // 属性
-            typedef PLL_Traits<MainPLLTag>::SYSR SYSR;
-            typedef PLL_Traits<MainPLLTag>::CLKMD CLKMD;
             // 寄存器
             typedef mmio::RegAccess<SYSR::REG> SYSR_REG; // 系统寄存器
             typedef mmio::RegAccess<CLKMD::REG> CLKMD_REG; // 时钟模式控制寄存器
@@ -518,10 +262,6 @@ namespace zq
         template<>
         class PLL_Controller<USB_PLLTag>
         {
-            // USB PLL属性
-            typedef PLL_Traits<USB_PLLTag>::DPLL DPLL;
-            typedef PLL_Traits<USB_PLLTag>::APLL APLL;
-            typedef PLL_Traits<USB_PLLTag>::SEL SEL;
             // USB PLL寄存器
             typedef mmio::RegAccess<DPLL::REG> DPLL_REG;
             typedef mmio::RegAccess<APLL::REG> APLL_REG;

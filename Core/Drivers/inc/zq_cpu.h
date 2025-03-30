@@ -120,7 +120,7 @@ namespace zq
 
         // 系统类寄存器
         DECLARE_REGISTER(IVPD,   0x0049);  // 中断向量页指针        [15-0]
-        DECLARE_REGISTER(IVPH,   0x004A);  // C55x状态寄存器2       [15-0]
+        DECLARE_REGISTER(IVPH,   0x004A);  // 中断向量页指针       [15-0]
         DECLARE_REGISTER(ST2_55, 0x004B);  // 保留区域             [15-0]
         DECLARE_REGISTER(SSP,    0x004C);  // 系统堆栈指针          [15-0]
         DECLARE_REGISTER(USP,     0x004D);  // 用户堆栈指针          [15-0](原为SP)

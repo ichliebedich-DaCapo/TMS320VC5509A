@@ -365,7 +365,7 @@ void GUI_Object::draw_circle(const uint16_t x0, const uint16_t y0, const uint16_
     if (radius == 0) return;
     int16_t f = 1 - radius;
     int16_t ddF_x = 0;
-    int16_t ddF_y = -2 * radius;
+    int16_t ddF_y = -(radius<<1);
     int16_t x = 0;
     int16_t y = radius;
 
