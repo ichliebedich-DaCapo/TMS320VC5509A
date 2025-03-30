@@ -27,89 +27,67 @@ namespace zq
             typedef enum
             {
                 TIM0 = 0,
-                TIM1 = 1
+                TIM1 = 0x1400
             } Type;
         };
 
+        // 均为基址，需要加上偏置0x1400
+        // 主计数器
+        DECLARE_REGISTER(TIM, 0x1000);
 
-        // TIM可取0或1，代表TIM0或TIM1
-        template<TIMTag::Type TIMTag>
-        struct Traits
+        // 预装载计时器
+        DECLARE_REGISTER(PRD, 0x1001);
+
+        // 控制寄存器
+        DECLARE_REGISTER(TCR, 0x1002);
+
+        // 分频寄存器
+        DECLARE_REGISTER(PRSC, 0x1003);
+
+        DECLARE_BITS_FIELD_FROM_REG(PRSC, PSC, 0x01C0, 6); // 预分频值bit6~9
+        DECLARE_BITS_FIELD_FROM_REG(PRSC, TDDR, 0x0007, 0); // 用于装入PSC中
+
+        namespace TCR
         {
-            enum
-            {
-                OFFSET = 0x1400 * TIMTag
-            };
+            // 为1时表示可以进入IDLE状态，当PERIS为1时进入IDLE状态
+            DECLARE_BITS_FIELD(IDLEEN, 0x8000, 15);
 
+            // 标志位：时钟源从内部切换为外部标志    0：外部时钟源没有准备好 1：外部时钟源已经准备好
+            DECLARE_BITS_FIELD(INTEXT, 0x4000, 14);
 
-            // 主计数器
-            DECLARE_REGISTER(TIM, 0x1000 + OFFSET);
+            // 检测错误标志   0: 没有发生错误 1: 发生了错误
+            DECLARE_BITS_FIELD(ERRTIM, 0x2000, 13);
 
-            // 预装载计时器
-            DECLARE_REGISTER(PRD, 0x1001 + OFFSET);
+            // 工作模式选择位
+            DECLARE_BITS_FIELD(FUNC, 0x1800, 11);
 
-            // 控制寄存器
-            struct TCR
-            {
-                enum
-                {
-                    REG = 0x1002 + OFFSET
-                };
+            // 定时器装载位
+            DECLARE_BITS_FIELD(TLB, 0x0600, 10);
 
-                // 为1时表示可以进入IDLE状态，当PERIS为1时进入IDLE状态
-                DECLARE_BITS_FIELD(IDLEEN, 0x8000, 15);
+            // 软件触发位
+            DECLARE_BITS_FIELD(SOFT, 0x0020, 9);
 
-                // 标志位：时钟源从内部切换为外部标志    0：外部时钟源没有准备好 1：外部时钟源已经准备好
-                DECLARE_BITS_FIELD(INTEXT, 0x4000, 14);
+            DECLARE_BITS_FIELD(FREE, 0x0100, 8);
 
-                // 检测错误标志   0: 没有发生错误 1: 发生了错误
-                DECLARE_BITS_FIELD(ERRTIM, 0x2000, 13);
+            // 窄脉冲输出宽度  每当TIM归零时，输出指定宽度的窄脉冲
+            DECLARE_BITS_FIELD(PWID, 0x00C0, 6);
 
-                // 工作模式选择位
-                DECLARE_BITS_FIELD(FUNC, 0x1800, 11);
+            // 自动重装控制位
+            DECLARE_BITS_FIELD(ARB, 0x0010, 5);
 
-                // 定时器装载位
-                DECLARE_BITS_FIELD(TLB, 0x0600, 10);
+            // 定时器停止状态位 0：启动定时器 1：停止定时器
+            DECLARE_BITS_FIELD(TSS, 0x0010, 4);
 
-                // 软件触发位
-                DECLARE_BITS_FIELD(SOFT, 0x0020, 9);
+            // 定时器输出时钟/脉冲模式选择   0：脉冲模式  1：时钟模式，占空比固定为50%
+            DECLARE_BITS_FIELD(CP, 0x0008, 3);
 
-                DECLARE_BITS_FIELD(FREE, 0x0100, 8);
+            // 时钟输出极性位
+            DECLARE_BITS_FIELD(POLAR, 0x0004, 2);
 
-                // 窄脉冲输出宽度  每当TIM归零时，输出指定宽度的窄脉冲
-                DECLARE_BITS_FIELD(PWID, 0x00C0, 6);
+            // GPIO模式下，控制引脚输出电平
+            DECLARE_BITS_FIELD(DATOUT, 0x0002, 1);
+        }
 
-                // 自动重装控制位
-                DECLARE_BITS_FIELD(ARB, 0x0010, 5);
-
-                // 定时器停止状态位 0：启动定时器 1：停止定时器
-                DECLARE_BITS_FIELD(TSS, 0x0010, 4);
-
-                // 定时器输出时钟/脉冲模式选择   0：脉冲模式  1：时钟模式，占空比固定为50%
-                DECLARE_BITS_FIELD(CP, 0x0008, 3);
-
-                // 时钟输出极性位
-                DECLARE_BITS_FIELD(POLAR, 0x0004, 2);
-
-                // GPIO模式下，控制引脚输出电平
-                DECLARE_BITS_FIELD(DATOUT, 0x0002, 1);
-            };
-
-            // 预分频寄存器
-            struct PRSC
-            {
-                enum
-                {
-                    REG = 0x1003 + OFFSET
-                };
-
-                // 预分频值bit6~9
-                DECLARE_BITS_FIELD(PSC, 0x01C0, 6);
-
-                // 用于装入PSC中
-                DECLARE_BITS_FIELD(TDDR, 0x0007, 0);
-            };
-        };
 
         // =================================标志===============================
         DECLARE_ATTRIBUTE(Mode,
@@ -123,16 +101,11 @@ namespace zq
         template<TIMTag::Type TIMTag>
         class Timer
         {
-            // 属性
-            typedef typename Traits<TIMTag>::TIM TIM;
-            typedef typename Traits<TIMTag>::PRD PRD;
-            typedef typename Traits<TIMTag>::TCR TCR;
-            typedef typename Traits<TIMTag>::PRSC PRSC;
             // 寄存器
-            typedef mmio::RegAccess<TIM::REG> TIM_REG; // 计数寄存器
-            typedef mmio::RegAccess<PRD::REG> PRD_REG;
-            typedef mmio::RegAccess<TCR::REG> TCR_REG;
-            typedef mmio::RegAccess<PRSC::REG> PRSC_REG;
+            typedef mmio::RegAccess<TIM::REG + TIMTag> TIM_REG; // 计数寄存器
+            typedef mmio::RegAccess<PRD::REG + TIMTag> PRD_REG;
+            typedef mmio::RegAccess<TCR::REG + TIMTag> TCR_REG;
+            typedef mmio::RegAccess<PRSC::REG + TIMTag> PRSC_REG;
 
         public:
             /**

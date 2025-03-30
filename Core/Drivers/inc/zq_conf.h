@@ -31,19 +31,29 @@ typedef char CONCATENATE(static_assertion_, __COUNTER__)[(pred) ? 1 : -1]
 // #define COMPILE_TIME_ASSERT_LINE(pred, msg) \
 // typedef char CONCATENATE(static_assertion_, __LINE__)[(pred) ? 1 : -1]
 
-// 用于快速声明寄存器的位域
-#define DECLARE_BITS_FIELD(NAME, MASK_VAL, SHIFT_VAL) \
-struct NAME { \
+// 用于指定寄存器快速声明寄存器的位域
+#define DECLARE_BITS_FIELD_FROM_REG(REG_NAME,BITS_NAME, MASK_VAL, SHIFT_VAL) \
+namespace REG_NAME {\
+    namespace BITS_NAME{\
+        enum { \
+            MASK = MASK_VAL, \
+            SHIFT = SHIFT_VAL \
+        };  \
+    }\
+}
+// 直接在寄存器作用域中声明位域
+#define DECLARE_BITS_FIELD(BITS_NAME, MASK_VAL, SHIFT_VAL) \
+namespace BITS_NAME{\
     enum { \
         MASK = MASK_VAL, \
         SHIFT = SHIFT_VAL \
-    }; \
+    };  \
 }
 
 // 快速声明整个寄存器（无位域）
 // 映射寄存器地址，以便供寄存器类使用 可以通过NAME::REG来访问寄存器地址
-#define DECLARE_REGISTER(NAME, ADDRESS) \
-struct NAME { \
+#define DECLARE_REGISTER(REG_NAME, ADDRESS) \
+namespace REG_NAME { \
     enum { \
         REG = ADDRESS \
     }; \
