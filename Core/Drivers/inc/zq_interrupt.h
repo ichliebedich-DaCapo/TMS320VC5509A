@@ -92,34 +92,6 @@ namespace zq
 
     }
 
-    namespace timer
-    {
-        // TIM0寄存器
-        DECLARE_REGISTER(TIM0, 0x1000);
-
-        // TCR0寄存器
-        DECLARE_REGISTER(TCR0, 0x1002);
-
-        // TCRO寄存器位域
-        namespace TCR0
-        {
-
-        };
-
-        class Timer0
-        {
-            // 寄存器
-            typedef mmio::RegAccess<TCR0::REG> TCR0_REG;
-        public:
-            // 设置IDLE是否使能   0:禁止进入IDLE状态   1：允许进入IDLE状态
-            template<uint16_t mode>
-            static void set_idle_mode()
-            {
-                TCR0_REG::modify_bits(mode, TCR0::IDLEEN::MASK, TCR0::IDLEEN::SHIFT);
-            }
-        };
-
-    }
 
 
 }
