@@ -8,7 +8,7 @@
 #include<stdint.h>
 
 // ======================兼容GCC======================
-#ifdef __ARM__
+#if defined(__ARM__)||defined(SIMULATOR)
 // 定义关键字
 #define ioport
 #endif
