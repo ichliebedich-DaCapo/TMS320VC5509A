@@ -28,29 +28,9 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a78db7b0-77d9-459c-87d1-f1d260dcb0d0" name="更改" comment="【开发】与CCS兼容">
-      <change beforePath="$PROJECT_DIR$/.idea/editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/editor.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/1_debug/Sine2.dat" beforeDir="false" afterPath="$PROJECT_DIR$/Projects/1_debug/Sine2.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/1_debug/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/Projects/1_debug/main.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/2_map/add.c" beforeDir="false" afterPath="$PROJECT_DIR$/Projects/2_map/add.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/2_map/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/Projects/2_map/main.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/3_memory/memory.c" beforeDir="false" afterPath="$PROJECT_DIR$/Projects/3_memory/memory.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/4_sdram/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/Projects/4_sdram/main.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/5_TIM_INT/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/Projects/5_TIM_INT/main.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/9_LCD/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/Projects/9_LCD/main.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/9_LCD/ui/ui.c" beforeDir="false" afterPath="$PROJECT_DIR$/Projects/9_LCD/ui/ui.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/9_LCD/ui/ui.h" beforeDir="false" afterPath="$PROJECT_DIR$/Projects/9_LCD/ui/ui.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/conf/app_conf.h" beforeDir="false" afterPath="$PROJECT_DIR$/Projects/conf/app_conf.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/conf/app_conf.h.in" beforeDir="false" afterPath="$PROJECT_DIR$/Projects/conf/app_conf.h.in" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/demo/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Projects/demo/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/demo/ui/ui.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Projects/demo/ui/ui.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/demo/ui/ui.h" beforeDir="false" afterPath="$PROJECT_DIR$/Projects/demo/ui/ui.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Drivers/inc/zq_conf.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Drivers/inc/zq_conf.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Drivers/inc/zq_pll.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Drivers/inc/zq_pll.h" afterDir="false" />
+    <list default="true" id="a78db7b0-77d9-459c-87d1-f1d260dcb0d0" name="更改" comment="【开发】添加了定时器外设，同时更改目录App为Projects">
       <change beforePath="$PROJECT_DIR$/Core/Drivers/inc/zq_timer.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Drivers/inc/zq_timer.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projects/demo/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Projects/demo/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -224,7 +204,7 @@
       <workItem from="1742870959089" duration="2657000" />
       <workItem from="1743230258506" duration="57000" />
       <workItem from="1743318924997" duration="609000" />
-      <workItem from="1743321342009" duration="4796000" />
+      <workItem from="1743321342009" duration="5471000" />
     </task>
     <task id="LOCAL-00001" summary="【工程】成功使用CLion编译TI工程">
       <option name="closed" value="true" />
@@ -482,7 +462,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742109308658</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="【开发】添加了定时器外设，同时更改目录App为Projects">
+      <option name="closed" value="true" />
+      <created>1743326182958</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1743326182958</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -517,7 +505,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="【体验提升】GCC下有代码补全，为了模仿GCC，编写了链接脚本并添加了一写兼容GCC的函数和宏" />
     <MESSAGE value="【优化】修复了CMakeLists中的一些问题，并把实验1成功添加置工程里" />
     <MESSAGE value="【开发】添加了DSP库，并添加了一些片外外设" />
     <MESSAGE value="【开发】添加了锁相环驱动，完成了一半" />
@@ -542,7 +529,8 @@
     <MESSAGE value="【开发】主锁相环框架已经搭建好了" />
     <MESSAGE value="【开发】USB锁相环先构建一点点" />
     <MESSAGE value="【开发】与CCS兼容" />
-    <option name="LAST_COMMIT_MESSAGE" value="【开发】与CCS兼容" />
+    <MESSAGE value="【开发】添加了定时器外设，同时更改目录App为Projects" />
+    <option name="LAST_COMMIT_MESSAGE" value="【开发】添加了定时器外设，同时更改目录App为Projects" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

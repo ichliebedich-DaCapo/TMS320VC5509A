@@ -1,4 +1,5 @@
 #include<app_conf.h>
+#include <zq_timer.h>
 #if PROGRAM_INDEX == 0
 #include <zq_init.h>
 #include<gui.h>
@@ -13,6 +14,8 @@ int main()
 {
     ZQ_Init();
     GUI_Init();
+
+    zq::timer::TIM0::init(TIM_FREQ_200M_to_1M);
 
 
 

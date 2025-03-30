@@ -5,6 +5,18 @@
 #define ZQ_TIMER_H
 #include<zq_conf.h>
 
+// 定时器频率宏
+#define TIM_FREQ_200M_to_10M 0,19
+#define TIM_FREQ_200M_to_5M 1,19
+#define TIM_FREQ_200M_to_2M 3,24
+#define TIM_FREQ_200M_to_1M 9,19
+#define TIM_FREQ_200M_to_500K 9,39
+#define TIM_FREQ_200M_to_250K 9,79
+#define TIM_FREQ_200M_to_100K 9,199
+#define TIM_FREQ_200M_to_50K 9,399
+#define TIM_FREQ_200M_to_25K 9,799
+#define TIM_FREQ_200M_to_10K 9,1999
+
 namespace zq
 {
     namespace timer
@@ -66,7 +78,7 @@ namespace zq
                     };
                 };
 
-                // 时钟源从内部切换为外部标志    0：外部时钟源没有准备好 1：外部时钟源已经准备好
+                // 标志位：时钟源从内部切换为外部标志    0：外部时钟源没有准备好 1：外部时钟源已经准备好
                 struct INTEXT
                 {
                     enum
@@ -325,7 +337,7 @@ namespace zq
             INLINE void set_simulation_breakpoint()
             {
                 // SOFT=0表示仿真暂停时，立即停止
-                TCR_REG::modify_bits(0, TCR::SOFT::MASK, TCR::SOFT::SHIFT);// 这个我也不知道是啥，手册上和教材上都它宝贝的不说
+                TCR_REG::modify_bits(0, TCR::SOFT::MASK, TCR::SOFT::SHIFT); // 这个我也不知道是啥，手册上和教材上都它宝贝的不说
                 TCR_REG::modify_bits(1, TCR::FREE::MASK, TCR::FREE::SHIFT);
             }
 
@@ -333,7 +345,7 @@ namespace zq
             template<uint16_t mode>
             INLINE void set_idle_mode()
             {
-                TCR_REG::modify_bits(mode, TCR::PERIS::MASK, TCR::PERIS::SHIFT);
+                TCR_REG::modify_bits(mode, TCR::IDLEEN::MASK, TCR::IDLEEN::SHIFT);
             }
 
             // 启动定时器
@@ -350,6 +362,10 @@ namespace zq
                 TCR_REG::modify_bits(1, TCR::TSS::MASK, TCR::TSS::SHIFT);
             }
         };
+
+        // ================= 显示实例化 ================
+        typedef Timer<TIMTag::TIM0> TIM0;
+        typedef Timer<TIMTag::TIM1> TIM1;
     }
 }
 
