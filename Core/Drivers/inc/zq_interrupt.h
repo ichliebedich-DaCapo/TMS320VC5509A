@@ -6,18 +6,23 @@
 #include<zq_conf.h>
 #include<zq_cpu.h>
 namespace zq{
-    namespace interrupt{
+    namespace interrupt
+    {
+        namespace IFR0
+        {
+            typedef enum
+            {
+                REG = cpu::IFR0::REG,
+            }Type;
+        }
 
         struct Traits{
-struct IFR
-{
-    enum
-    {
-        REG = 0x8000,
-    };
-};
-          };
 
+
+
+
+
+        };
     }
 }
 
