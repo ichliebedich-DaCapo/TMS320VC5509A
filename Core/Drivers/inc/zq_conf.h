@@ -31,6 +31,46 @@ typedef char CONCATENATE(static_assertion_, __COUNTER__)[(pred) ? 1 : -1]
 // #define COMPILE_TIME_ASSERT_LINE(pred, msg) \
 // typedef char CONCATENATE(static_assertion_, __LINE__)[(pred) ? 1 : -1]
 
+// 用于快速声明寄存器的位域
+#define DECLARE_BITS_FIELD(NAME, MASK_VAL, SHIFT_VAL) \
+struct NAME { \
+    enum { \
+        MASK = MASK_VAL, \
+        SHIFT = SHIFT_VAL \
+    }; \
+}
+
+// 快速声明整个寄存器（无位域）
+// 映射寄存器地址，以便供寄存器类使用 可以通过NAME::REG来访问寄存器地址
+#define DECLARE_REGISTER(NAME, ADDRESS) \
+struct NAME { \
+    enum { \
+        REG = ADDRESS \
+    }; \
+}
+
+/**
+ *快速定义属性类型
+ * @example
+ *      DECLARE_ATTRIBUTE(Mode,
+ *                  HIZ = 0b00, // TIN/TOUT为高阻态，时钟源是内部CPU时钟源
+ *                  OUTPUT = 0b01, // TIN/TOUT为定时器输出，时钟源是内部CPU时钟
+ *                  GPIO = 0b10, // TIN/TOUT为通用输出，引脚电平反映的是DATOUT位的值
+ *                  EXT_INPUT = 0b11 // TIN/TOUT为定时器输入，时钟源是外部时钟
+ *      );
+ *      使用方法既可以定义这个类型（模拟enum class)，也可以直接通过NAME来访问。比如
+ *          void func(NAME::Type mode);
+ *          NAME::Type mode = NAME::Type::HIZ;
+**/
+#define DECLARE_ATTRIBUTE(NAME, ...) \
+struct NAME { \
+    typedef enum { \
+        __VA_ARGS__ \
+    } Type; \
+};
+
+
+
 namespace zq
 {
     namespace mmio

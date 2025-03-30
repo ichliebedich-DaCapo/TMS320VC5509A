@@ -43,22 +43,10 @@ namespace zq
 
 
             // 主计数器
-            struct TIM
-            {
-                enum
-                {
-                    REG = 0x1000 + OFFSET
-                };
-            };
+            DECLARE_REGISTER(TIM, 0x1000 + OFFSET);
 
             // 预装载计时器
-            struct PRD
-            {
-                enum
-                {
-                    REG = 0x1001 + OFFSET
-                };
-            };
+            DECLARE_REGISTER(PRD, 0x1001 + OFFSET);
 
             // 控制寄存器
             struct TCR
@@ -69,132 +57,42 @@ namespace zq
                 };
 
                 // 为1时表示可以进入IDLE状态，当PERIS为1时进入IDLE状态
-                struct IDLEEN
-                {
-                    enum
-                    {
-                        MASK = 0x8000,
-                        SHIFT = 15
-                    };
-                };
+                DECLARE_BITS_FIELD(IDLEEN, 0x8000, 15);
 
                 // 标志位：时钟源从内部切换为外部标志    0：外部时钟源没有准备好 1：外部时钟源已经准备好
-                struct INTEXT
-                {
-                    enum
-                    {
-                        MASK = 0x4000,
-                        SHIFT = 14
-                    };
-                };
+                DECLARE_BITS_FIELD(INTEXT, 0x4000, 14);
 
                 // 检测错误标志   0: 没有发生错误 1: 发生了错误
-                struct ERRTIM
-                {
-                    enum
-                    {
-                        MASK = 0x2000,
-                        SHIFT = 13
-                    };
-                };
+                DECLARE_BITS_FIELD(ERRTIM, 0x2000, 13);
 
                 // 工作模式选择位
-                struct FUNC
-                {
-                    enum
-                    {
-                        MASK = 0x1800,
-                        SHIFT = 11
-                    };
-                };
+                DECLARE_BITS_FIELD(FUNC, 0x1800, 11);
 
                 // 定时器装载位
-                struct TLB
-                {
-                    enum
-                    {
-                        MASK = 0x0600,
-                        SHIFT = 10
-                    };
-                };
+                DECLARE_BITS_FIELD(TLB, 0x0600, 10);
 
-                struct SOFT
-                {
-                    enum
-                    {
-                        MASK = 0x0200,
-                        SHIFT = 9
-                    };
-                };
+                // 软件触发位
+                DECLARE_BITS_FIELD(SOFT, 0x0020, 9);
 
-                struct FREE
-                {
-                    enum
-                    {
-                        MASK = 0x0100,
-                        SHIFT = 8
-                    };
-                };
+                DECLARE_BITS_FIELD(FREE, 0x0100, 8);
 
                 // 窄脉冲输出宽度  每当TIM归零时，输出指定宽度的窄脉冲
-                struct PWID
-                {
-                    enum
-                    {
-                        MASK = 0x00C0,
-                        SHIFT = 6
-                    };
-                };
+                DECLARE_BITS_FIELD(PWID, 0x00C0, 6);
 
                 // 自动重装控制位
-                struct ARB
-                {
-                    enum
-                    {
-                        MASK = 0x0020,
-                        SHIFT = 5
-                    };
-                };
+                DECLARE_BITS_FIELD(ARB, 0x0010, 5);
 
                 // 定时器停止状态位 0：启动定时器 1：停止定时器
-                struct TSS
-                {
-                    enum
-                    {
-                        MASK = 0x0010,
-                        SHIFT = 4
-                    };
-                };
+                DECLARE_BITS_FIELD(TSS, 0x0010, 4);
 
                 // 定时器输出时钟/脉冲模式选择   0：脉冲模式  1：时钟模式，占空比固定为50%
-                struct CP
-                {
-                    enum
-                    {
-                        MASK = 0x0008,
-                        SHIFT = 3
-                    };
-                };
+                DECLARE_BITS_FIELD(CP, 0x0008, 3);
 
                 // 时钟输出极性位
-                struct POLAR
-                {
-                    enum
-                    {
-                        MASK = 0x0004,
-                        SHIFT = 2
-                    };
-                };
+                DECLARE_BITS_FIELD(POLAR, 0x0004, 2);
 
                 // GPIO模式下，控制引脚输出电平
-                struct DATOUT
-                {
-                    enum
-                    {
-                        MASK = 0x0002,
-                        SHIFT = 1
-                    };
-                };
+                DECLARE_BITS_FIELD(DATOUT, 0x0002, 1);
             };
 
             // 预分频寄存器
@@ -206,38 +104,21 @@ namespace zq
                 };
 
                 // 预分频值bit6~9
-                struct PSC
-                {
-                    enum
-                    {
-                        MASK = 0x01C0,
-                        SHIFT = 6
-                    };
-                };
+                DECLARE_BITS_FIELD(PSC, 0x01C0, 6);
 
                 // 用于装入PSC中
-                struct TDDR
-                {
-                    enum
-                    {
-                        MASK = 0x0007,
-                        SHIFT = 0
-                    };
-                };
+                DECLARE_BITS_FIELD(TDDR, 0x0007, 0);
             };
         };
 
         // =================================标志===============================
-        struct Mode
-        {
-            typedef enum
-            {
-                HIZ = 0b00, // TIN/TOUT为高阻态，时钟源是内部CPU时钟源
-                OUTPUT = 0b01, // TIN/TOUT为定时器输出，时钟源是内部CPU时钟
-                GPIO = 0b10, // TIN/TOUT为通用输出，引脚电平反映的是DATOUT位的值
-                EXT_INPUT = 0b11 // TIN/TOUT为定时器输入，时钟源是外部时钟
-            } Type;
-        };
+        DECLARE_ATTRIBUTE(Mode,
+                          HIZ = 0x00, // TIN/TOUT为高阻态，时钟源是内部CPU时钟源
+                          OUTPUT = 0x01, // TIN/TOUT为定时器输出，时钟源是内部CPU时钟
+                          GPIO = 0x02, // TIN/TOUT为通用输出，引脚电平反映的是DATOUT位的值
+                          EXT_INPUT = 0x03 // TIN/TOUT为定时器输入，时钟源是外部时钟
+        );
+
 
         template<TIMTag::Type TIMTag>
         class Timer
