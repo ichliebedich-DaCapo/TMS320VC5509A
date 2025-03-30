@@ -7,6 +7,7 @@
     <option name="/Default/RiderDebugger/RiderRestoreDecompile/RestoreDecompileSetting/@EntryValue" value="false" type="bool" />
     <option name="/Default/Housekeeping/FeatureSuggestion/FeatureSuggestionManager/DisabledSuggesters/=SwitchToGoToActionSuggester/@EntryIndexedValue" value="true" type="bool" />
     <option name="/Default/Housekeeping/OptionsDialog/SelectedPageId/@EntryValue" value="CppFormatterOtherPage" type="string" />
+    <option name="/Default/Housekeeping/FeatureSuggestion/FeatureSuggestionManager/DisabledSuggesters/=SwitchToGoToActionSuggester/@EntryIndexRemoved" />
   </component>
   <component name="CMakePresetLoader">{
   &quot;useNewFormat&quot;: true
@@ -28,10 +29,13 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a78db7b0-77d9-459c-87d1-f1d260dcb0d0" name="更改" comment="【开发】修复了定时器的一些错误，并添加了定时器频率宏来辅助设置">
+    <list default="true" id="a78db7b0-77d9-459c-87d1-f1d260dcb0d0" name="更改" comment="【开发】准备尝试中断">
+      <change afterPath="$PROJECT_DIR$/Core/Drivers/inc/zq_cpu.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Core/Drivers/inc/zq_interrupt.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Core/Drivers/src/zq_cpu.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Core/Drivers/src/zq_interrupt.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Drivers/inc/zq_conf.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Drivers/inc/zq_conf.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Drivers/inc/zq_timer.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Drivers/inc/zq_timer.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projects/demo/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Projects/demo/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -145,9 +149,9 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <configuration name="demo.elf" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="demo" TARGET_NAME="demo.elf" CONFIG_NAME="Debug-w64-i686-arm-none-eabi" RUN_TARGET_PROJECT_NAME="demo" RUN_TARGET_NAME="demo.elf">
@@ -205,7 +209,8 @@
       <workItem from="1742870959089" duration="2657000" />
       <workItem from="1743230258506" duration="57000" />
       <workItem from="1743318924997" duration="609000" />
-      <workItem from="1743321342009" duration="7316000" />
+      <workItem from="1743321342009" duration="8196000" />
+      <workItem from="1743329743377" duration="2467000" />
     </task>
     <task id="LOCAL-00001" summary="【工程】成功使用CLion编译TI工程">
       <option name="closed" value="true" />
@@ -479,7 +484,15 @@
       <option name="project" value="LOCAL" />
       <updated>1743326930662</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="【开发】准备尝试中断">
+      <option name="closed" value="true" />
+      <created>1743329528938</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1743329528938</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -514,7 +527,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="【开发】添加了DSP库，并添加了一些片外外设" />
     <MESSAGE value="【开发】添加了锁相环驱动，完成了一半" />
     <MESSAGE value="【开发】完善了锁相环驱动（包含USBPLL）" />
     <MESSAGE value="【修复】USBPLL相关赋值问题" />
@@ -539,7 +551,8 @@
     <MESSAGE value="【开发】与CCS兼容" />
     <MESSAGE value="【开发】添加了定时器外设，同时更改目录App为Projects" />
     <MESSAGE value="【开发】修复了定时器的一些错误，并添加了定时器频率宏来辅助设置" />
-    <option name="LAST_COMMIT_MESSAGE" value="【开发】修复了定时器的一些错误，并添加了定时器频率宏来辅助设置" />
+    <MESSAGE value="【开发】准备尝试中断" />
+    <option name="LAST_COMMIT_MESSAGE" value="【开发】准备尝试中断" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
