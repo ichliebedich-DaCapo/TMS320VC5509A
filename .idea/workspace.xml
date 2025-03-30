@@ -7,7 +7,6 @@
     <option name="/Default/RiderDebugger/RiderRestoreDecompile/RestoreDecompileSetting/@EntryValue" value="false" type="bool" />
     <option name="/Default/Housekeeping/FeatureSuggestion/FeatureSuggestionManager/DisabledSuggesters/=SwitchToGoToActionSuggester/@EntryIndexedValue" value="true" type="bool" />
     <option name="/Default/Housekeeping/OptionsDialog/SelectedPageId/@EntryValue" value="CppFormatterOtherPage" type="string" />
-    <option name="/Default/Housekeeping/FeatureSuggestion/FeatureSuggestionManager/DisabledSuggesters/=SwitchToGoToActionSuggester/@EntryIndexRemoved" />
   </component>
   <component name="CMakePresetLoader">{
   &quot;useNewFormat&quot;: true
@@ -29,13 +28,9 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a78db7b0-77d9-459c-87d1-f1d260dcb0d0" name="更改" comment="【开发】已经与CCS进行了同步">
+    <list default="true" id="a78db7b0-77d9-459c-87d1-f1d260dcb0d0" name="更改" comment="【开发】与CCS兼容">
+      <change beforePath="$PROJECT_DIR$/.idea/editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/editor.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/gui-simulator/.idea/editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/gui-simulator/.idea/editor.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/gui-simulator/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/gui-simulator/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Drivers/inc/zq_conf.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Drivers/inc/zq_conf.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Drivers/inc/zq_interrupt.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Drivers/inc/zq_interrupt.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Drivers/inc/zq_timer.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Drivers/inc/zq_timer.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,12 +55,12 @@
     &quot;assignee&quot;: &quot;ichliebedich-DaCapo&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/ichliebedich-DaCapo/TMS320VC5509A.git&quot;,
-    &quot;accountId&quot;: &quot;a679c97f-91ee-40eb-8ce5-af8a944aaf79&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/ichliebedich-DaCapo/TMS320VC5509A.git",
+    "accountId": "c469951f-a5a3-4d89-b046-c3d770b7ef47"
   }
-}</component>
+}]]></component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/App/1_debug/main.c" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/App/2_map/add.c" root0="FORCE_HIGHLIGHTING" />
@@ -75,17 +70,10 @@
     <setting file="file://$PROJECT_DIR$/App/9_LCD/ui/ui.c" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/App/demo/main.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Core/Drivers/inc/zq_conf.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Core/Drivers/inc/zq_delay.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Core/Drivers/inc/zq_gpio.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Core/Drivers/inc/zq_init.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Core/Drivers/inc/zq_pll.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Core/Drivers/inc/zq_sdram.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Core/Drivers/inc/zq_timer.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Core/Drivers/src/zq_delay.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Core/Drivers/src/zq_init.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Core/Drivers/src/zq_pll.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Core/Drivers/src/zq_sdram.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Middleware/Library/gui/zq_gui.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://E:/Program/Embedded/MCU/TI/Program/new_demo/demo/Core/Drivers/inc/zq_pll.h" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://E:/Program/Embedded/MCU/TI/Program/new_demo/demo/Core/Drivers/src/zq_pll.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://E:/Program/Embedded/MCU/TI/Program/new_demo/demo/Core/Drivers/src/zq_pll.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_HOME_DIR$/bin/cmake/win/x64/share/cmake-3.30/Modules/CMakeTestCCompiler.cmake" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_HOME_DIR$/bin/cmake/win/x64/share/cmake-3.30/Modules/CMakeTestCXXCompiler.cmake" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -149,11 +137,6 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="demo.elf" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="demo" TARGET_NAME="demo.elf" CONFIG_NAME="Debug-w64-i686-arm-none-eabi" RUN_TARGET_PROJECT_NAME="demo" RUN_TARGET_NAME="demo.elf">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -204,13 +187,8 @@
       <workItem from="1742098749713" duration="11287000" />
       <workItem from="1742205060000" duration="438000" />
       <workItem from="1742213918992" duration="436000" />
-      <workItem from="1742226396755" duration="1356000" />
-      <workItem from="1742538971255" duration="813000" />
-      <workItem from="1742870959089" duration="2657000" />
-      <workItem from="1743230258506" duration="57000" />
-      <workItem from="1743318924997" duration="609000" />
-      <workItem from="1743321342009" duration="8196000" />
-      <workItem from="1743329743377" duration="15764000" />
+      <workItem from="1742226396755" duration="4000" />
+      <workItem from="1742227139216" duration="3000" />
     </task>
     <task id="LOCAL-00001" summary="【工程】成功使用CLion编译TI工程">
       <option name="closed" value="true" />
@@ -468,63 +446,7 @@
       <option name="project" value="LOCAL" />
       <updated>1742109308658</updated>
     </task>
-    <task id="LOCAL-00033" summary="【开发】添加了定时器外设，同时更改目录App为Projects">
-      <option name="closed" value="true" />
-      <created>1743326182958</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1743326182958</updated>
-    </task>
-    <task id="LOCAL-00034" summary="【开发】修复了定时器的一些错误，并添加了定时器频率宏来辅助设置">
-      <option name="closed" value="true" />
-      <created>1743326930662</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1743326930662</updated>
-    </task>
-    <task id="LOCAL-00035" summary="【开发】准备尝试中断">
-      <option name="closed" value="true" />
-      <created>1743329528938</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1743329528938</updated>
-    </task>
-    <task id="LOCAL-00036" summary="【开发】添加了CPU寄存器">
-      <option name="closed" value="true" />
-      <created>1743332390383</created>
-      <option name="number" value="00036" />
-      <option name="presentableId" value="LOCAL-00036" />
-      <option name="project" value="LOCAL" />
-      <updated>1743332390383</updated>
-    </task>
-    <task id="LOCAL-00037" summary="【开发】准备利用命名空间的可扩展性">
-      <option name="closed" value="true" />
-      <created>1743333727860</created>
-      <option name="number" value="00037" />
-      <option name="presentableId" value="LOCAL-00037" />
-      <option name="project" value="LOCAL" />
-      <updated>1743333727860</updated>
-    </task>
-    <task id="LOCAL-00038" summary="【开发】命名空间的封装可以，暂时不打算使用私有权限来限制寄存器的可见性">
-      <option name="closed" value="true" />
-      <created>1743334906548</created>
-      <option name="number" value="00038" />
-      <option name="presentableId" value="LOCAL-00038" />
-      <option name="project" value="LOCAL" />
-      <updated>1743334906548</updated>
-    </task>
-    <task id="LOCAL-00039" summary="【开发】已经与CCS进行了同步">
-      <option name="closed" value="true" />
-      <created>1743340406986</created>
-      <option name="number" value="00039" />
-      <option name="presentableId" value="LOCAL-00039" />
-      <option name="project" value="LOCAL" />
-      <updated>1743340406986</updated>
-    </task>
-    <option name="localTasksCounter" value="40" />
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -559,6 +481,13 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="【体验提升】GCC下有代码补全，为了模仿GCC，编写了链接脚本并添加了一写兼容GCC的函数和宏" />
+    <MESSAGE value="【优化】修复了CMakeLists中的一些问题，并把实验1成功添加置工程里" />
+    <MESSAGE value="【开发】添加了DSP库，并添加了一些片外外设" />
+    <MESSAGE value="【开发】添加了锁相环驱动，完成了一半" />
+    <MESSAGE value="【开发】完善了锁相环驱动（包含USBPLL）" />
+    <MESSAGE value="【修复】USBPLL相关赋值问题" />
+    <MESSAGE value="【修复】SDRAM文件放错位置问题" />
     <MESSAGE value="【开发】添加了初始化文件、定时器文件（未开发），并修改了链接脚本" />
     <MESSAGE value="【开发】基础LCD已经搭建好了" />
     <MESSAGE value="【开发】勉强添加了一个u8g2库，后面可以再做一个模拟器辅助开发" />
@@ -577,14 +506,7 @@
     <MESSAGE value="【开发】主锁相环框架已经搭建好了" />
     <MESSAGE value="【开发】USB锁相环先构建一点点" />
     <MESSAGE value="【开发】与CCS兼容" />
-    <MESSAGE value="【开发】添加了定时器外设，同时更改目录App为Projects" />
-    <MESSAGE value="【开发】修复了定时器的一些错误，并添加了定时器频率宏来辅助设置" />
-    <MESSAGE value="【开发】准备尝试中断" />
-    <MESSAGE value="【开发】添加了CPU寄存器" />
-    <MESSAGE value="【开发】准备利用命名空间的可扩展性" />
-    <MESSAGE value="【开发】命名空间的封装可以，暂时不打算使用私有权限来限制寄存器的可见性" />
-    <MESSAGE value="【开发】已经与CCS进行了同步" />
-    <option name="LAST_COMMIT_MESSAGE" value="【开发】已经与CCS进行了同步" />
+    <option name="LAST_COMMIT_MESSAGE" value="【开发】与CCS兼容" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
