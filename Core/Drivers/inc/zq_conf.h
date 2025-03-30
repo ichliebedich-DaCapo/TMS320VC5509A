@@ -66,12 +66,18 @@ namespace zq
                 return (*ptr() & mask) == 0;
             }
 
-            // 多位修改
-            static inline void modify_bits(const uint16_t value, const uint16_t mask, const uint16_t offset)
+            /**
+             *
+             * @param value 要修改的值
+             * @param mask 掩码
+             * @param shift 位偏移
+             */
+            static inline void modify_bits(const uint16_t value, const uint16_t mask, const uint16_t shift)
             {
-                *ptr() = (*ptr() & ~mask) | ((value << offset) & mask);
+                *ptr() = (*ptr() & ~mask) | ((value << shift) & mask);
             }
 
+            // 直接向寄存器写入16位的值
             static inline void write(const uint16_t value)
             {
                 *ptr() = value;

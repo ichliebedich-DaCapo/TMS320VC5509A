@@ -6,7 +6,7 @@ include(Tools/cmake/arm-gcc.cmake)
 project(demo C CXX ASM)
 
 # ===================设置工程目录======================
-set(APP_DIR App/demo)
+set(APP_DIR Projects/demo)
 
 # ===================设置工程目录======================
 
@@ -25,7 +25,7 @@ if(PREFIX_NUM)
 else()
     set(PROGRAM_INDEX 0 CACHE INTERNAL "Program Index")             # 未匹配到数字，例如目录名为 "demo"
 endif()
-configure_file(${CMAKE_SOURCE_DIR}/App/conf/app_conf.h.in ${CMAKE_SOURCE_DIR}/App/conf/app_conf.h)
+configure_file(${CMAKE_SOURCE_DIR}/Projects/conf/app_conf.h.in ${CMAKE_SOURCE_DIR}/Projects/conf/app_conf.h)
 
 #-------------------------------------------库-------------------------------------------
 file(GLOB_RECURSE SOURCES
@@ -40,8 +40,8 @@ file(GLOB_RECURSE SOURCES
 include_directories(
         "Adapter/GUI"
         ${APP_DIR}
-        "App"
-        "App/conf"
+        "Projects"
+        "Projects/conf"
         "BSP/inc"
         "Core/Drivers/inc"
         "Middleware/Third_Party/u8g2"

@@ -47,7 +47,7 @@ namespace zq
                         MASK = 0x0007,
 
                         /// @brief CLKOUT分频位偏移量（位0）
-                        OFFSET = 0x0000
+                        SHIFT = 0x0000
                     };
                 };
             };
@@ -69,7 +69,7 @@ namespace zq
                     enum
                     {
                         MASK = 0x4000, ///< 位掩码（bit14）
-                        OFFSET = 0x000E ///< 位偏移量（14-14）
+                        SHIFT = 0x000E ///< 位偏移量（14-14）
                     };
                 };
 
@@ -80,7 +80,7 @@ namespace zq
                     enum
                     {
                         MASK = 0x2000, ///< 位掩码（bit13）
-                        OFFSET = 0x000D, ///< 位偏移量（13-13）
+                        SHIFT = 0x000D, ///< 位偏移量（13-13）
                     };
                 };
 
@@ -91,7 +91,7 @@ namespace zq
                     enum
                     {
                         MASK = 0x1000, ///< 位掩码（bit12）
-                        OFFSET = 0x000C, ///< 位偏移量（12-12）
+                        SHIFT = 0x000C, ///< 位偏移量（12-12）
                     };
                 };
 
@@ -102,7 +102,7 @@ namespace zq
                     enum
                     {
                         MASK = 0x0F80, ///< 位掩码（bit7-11）
-                        OFFSET = 7, ///< 位偏移量（7-11）
+                        SHIFT = 7, ///< 位偏移量（7-11）
                         WIDTH = 5, ///< 位域宽度
                         MIN = 2, ///< 最小倍频系数（对应寄存器值0x0002）
                         MAX = 31 ///< 最大倍频系数（对应寄存器值0x001F）
@@ -116,7 +116,7 @@ namespace zq
                     enum
                     {
                         MASK = 0x0060, ///< 位掩码（bit5-6）
-                        OFFSET = 5, ///< 位偏移量（5-6）
+                        SHIFT = 5, ///< 位偏移量（5-6）
                         WIDTH = 2, ///< 位域宽度
                         MIN = 0, ///< 最小分频配置值（1分频）
                         MAX = 3 ///< 最大分频配置值（4分频）
@@ -129,7 +129,7 @@ namespace zq
                     enum
                     {
                         MASK = 0x0008, ///< 位掩码（bit4）
-                        OFFSET = 4, ///< 位偏移量（4-4）
+                        SHIFT = 4, ///< 位偏移量（4-4）
                     };
                 };
 
@@ -140,7 +140,7 @@ namespace zq
                     enum
                     {
                         MASK = 0x000C, ///< 位掩码（bit2-3）
-                        OFFSET = 2, ///< 位偏移量（2-3）
+                        SHIFT = 2, ///< 位偏移量（2-3）
                         WIDTH = 2 ///< 位域宽度
                     };
                 };
@@ -152,7 +152,7 @@ namespace zq
                     enum
                     {
                         MASK = 0x0002, ///< 位掩码（bit1）
-                        OFFSET = 1, ///< 位偏移量（1-1）
+                        SHIFT = 1, ///< 位偏移量（1-1）
                     };
                 };
 
@@ -163,7 +163,7 @@ namespace zq
                     enum
                     {
                         MASK = 0x0001, ///< 位掩码（bit0）
-                        OFFSET = 0, ///< 位偏移量（0-0）
+                        SHIFT = 0, ///< 位偏移量（0-0）
                     };
                 };
             };
@@ -197,7 +197,7 @@ namespace zq
                     enum
                     {
                         MASK = 0xF000,
-                        OFFSET = 12
+                        SHIFT = 12
                     };
                 };
 
@@ -207,7 +207,7 @@ namespace zq
                     enum
                     {
                         MASK = 0x0800,
-                        OFFSET = 11
+                        SHIFT = 11
                     };
                 };
 
@@ -217,7 +217,7 @@ namespace zq
                     enum
                     {
                         MASK = 0x07F8,
-                        OFFSET = 3
+                        SHIFT = 3
                     };
                 };
 
@@ -227,7 +227,7 @@ namespace zq
                     enum
                     {
                         MASK = 0x0004,
-                        OFFSET = 2
+                        SHIFT = 2
                     };
                 };
 
@@ -237,7 +237,7 @@ namespace zq
                     enum
                     {
                         MASK = 0x0002,
-                        OFFSET = 1
+                        SHIFT = 1
                     };
                 };
 
@@ -247,7 +247,7 @@ namespace zq
                     enum
                     {
                         MASK = 0x0001,
-                        OFFSET = 0
+                        SHIFT = 0
                     };
                 };
             };
@@ -266,7 +266,7 @@ namespace zq
                     enum
                     {
                         MASK = 0x0001,
-                        OFFSET = 0
+                        SHIFT = 0
                     };
                 };
 
@@ -276,7 +276,7 @@ namespace zq
                     enum
                     {
                         MASK = 0x0002,
-                        OFFSET = 1
+                        SHIFT = 1
                     };
                 };
 
@@ -286,7 +286,7 @@ namespace zq
                     enum
                     {
                         MASK = 0x0004,
-                        OFFSET = 2
+                        SHIFT = 2
                     };
                 };
             };
@@ -473,20 +473,20 @@ namespace zq
             // 设置输出分频系数
             static void set_out_divider(const Main::CLKOUT_DIV::Type div)
             {
-                SYSR_REG::modify_bits(div, SYSR::DIV::MASK, SYSR::DIV::OFFSET);
+                SYSR_REG::modify_bits(div, SYSR::DIV::MASK, SYSR::DIV::SHIFT);
             }
 
             // 设置分频系数
             static void set_divider(const Main::DIV::Type div)
             {
-                SYSR_REG::modify_bits(div, CLKMD::DIV::MASK, CLKMD::DIV::OFFSET);
+                SYSR_REG::modify_bits(div, CLKMD::DIV::MASK, CLKMD::DIV::SHIFT);
             }
 
             // 设置倍频系数
             template<typename MultType>
             static void set_multiplier(MultType mult)
             {
-                CLKMD_REG::modify_bits(mult, CLKMD::MULT::MASK, CLKMD::MULT::OFFSET);
+                CLKMD_REG::modify_bits(mult, CLKMD::MULT::MASK, CLKMD::MULT::SHIFT);
             }
 
             // 检查是否处于失锁状态:true表示已经失锁
@@ -508,9 +508,9 @@ namespace zq
             )
             {
                 CLKMD_REG::clear_bit(CLKMD::TEST::MASK); // 测试位必须置为0
-                CLKMD_REG::modify_bits(iai, CLKMD::IAI::MASK, CLKMD::IAI::OFFSET);
-                CLKMD_REG::modify_bits(iob, CLKMD::IOB::MASK, CLKMD::IOB::OFFSET);
-                CLKMD_REG::modify_bits(bypass_div, CLKMD::BYPASS_DIV::MASK, CLKMD::BYPASS_DIV::OFFSET);
+                CLKMD_REG::modify_bits(iai, CLKMD::IAI::MASK, CLKMD::IAI::SHIFT);
+                CLKMD_REG::modify_bits(iob, CLKMD::IOB::MASK, CLKMD::IOB::SHIFT);
+                CLKMD_REG::modify_bits(bypass_div, CLKMD::BYPASS_DIV::MASK, CLKMD::BYPASS_DIV::SHIFT);
             }
         };
 
@@ -531,13 +531,13 @@ namespace zq
             template<typename MultType>
             static void set_multiplier(MultType mult)
             {
-                APLL_REG::modify_bits(mult, APLL::MULT::MASK, APLL::MULT::OFFSET);
+                APLL_REG::modify_bits(mult, APLL::MULT::MASK, APLL::MULT::SHIFT);
             }
 
             // 选择APLL或DPLL作为USB PLL的输入
             static void sel(const USB::SEL::Type sel)
             {
-                SEL_REG::modify_bits(sel, SEL::PLLSEL::MASK, SEL::PLLSEL::OFFSET);
+                SEL_REG::modify_bits(sel, SEL::PLLSEL::MASK, SEL::PLLSEL::SHIFT);
             }
 
             // 剩下的东西不写了，写累了，有空再补
