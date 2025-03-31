@@ -56,7 +56,7 @@ int main()
         read_signals(input); // 加软件断点和探针
         write_buffer(input, output,BUF_SIZE);
         output_signals(output);
-        printf("Number: %d\n", i++);
+        // printf("Number: %d\n", i++);
     }
 }
 

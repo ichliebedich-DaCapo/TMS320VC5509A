@@ -7,7 +7,6 @@
     <option name="/Default/RiderDebugger/RiderRestoreDecompile/RestoreDecompileSetting/@EntryValue" value="false" type="bool" />
     <option name="/Default/Housekeeping/FeatureSuggestion/FeatureSuggestionManager/DisabledSuggesters/=SwitchToGoToActionSuggester/@EntryIndexedValue" value="true" type="bool" />
     <option name="/Default/Housekeeping/OptionsDialog/SelectedPageId/@EntryValue" value="CppFormatterOtherPage" type="string" />
-    <option name="/Default/Housekeeping/FeatureSuggestion/FeatureSuggestionManager/DisabledSuggesters/=SwitchToGoToActionSuggester/@EntryIndexRemoved" />
   </component>
   <component name="CMakePresetLoader">{
   &quot;useNewFormat&quot;: true
@@ -29,14 +28,14 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a78db7b0-77d9-459c-87d1-f1d260dcb0d0" name="更改" comment="【开发】更新了dip和led">
-      <change afterPath="$PROJECT_DIR$/Algorithm/inc/Flag.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.cproject" beforeDir="false" afterPath="$PROJECT_DIR$/.cproject" afterDir="false" />
+    <list default="true" id="a78db7b0-77d9-459c-87d1-f1d260dcb0d0" name="更改" comment="【开发】更新了一些东西">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BSP/inc/oled.h" beforeDir="false" afterPath="$PROJECT_DIR$/BSP/inc/oled.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.launches/demo.launch" beforeDir="false" afterPath="$PROJECT_DIR$/.launches/demo.launch" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Drivers/inc/zq_conf.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Drivers/inc/zq_conf.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projects/1_debug/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Projects/1_debug/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projects/conf/app_conf.h" beforeDir="false" afterPath="$PROJECT_DIR$/Projects/conf/app_conf.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Projects/demo/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Projects/demo/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/targetConfigs/TMS320C5509A.ccxml" beforeDir="false" afterPath="$PROJECT_DIR$/targetConfigs/TMS320C5509A.ccxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,25 +60,17 @@
     &quot;assignee&quot;: &quot;ichliebedich-DaCapo&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/ichliebedich-DaCapo/TMS320VC5509A.git",
-    "accountId": "a679c97f-91ee-40eb-8ce5-af8a944aaf79"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/ichliebedich-DaCapo/TMS320VC5509A.git&quot;,
+    &quot;accountId&quot;: &quot;a679c97f-91ee-40eb-8ce5-af8a944aaf79&quot;
   }
-}]]></component>
+}</component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/App/1_debug/main.c" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/App/2_map/add.c" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/App/2_map/main.c" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/App/4_sdram/main.c" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/App/9_LCD/main.c" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/App/9_LCD/ui/ui.c" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/App/demo/main.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Core/Drivers/inc/zq_conf.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Core/Drivers/inc/zq_gpio.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://E:/Program/Embedded/MCU/TI/Program/new_demo/demo/Core/Drivers/inc/zq_pll.h" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://E:/Program/Embedded/MCU/TI/Program/new_demo/demo/Core/Drivers/src/zq_pll.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://E:/Program/Embedded/MCU/TI/Program/new_demo/demo/Core/Drivers/src/zq_pll.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Projects/demo/main.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Projects/demo/ui/ui.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_HOME_DIR$/bin/cmake/win/x64/share/cmake-3.30/Modules/CMakeTestCCompiler.cmake" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_HOME_DIR$/bin/cmake/win/x64/share/cmake-3.30/Modules/CMakeTestCXXCompiler.cmake" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -143,9 +134,9 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
       </method>
     </configuration>
     <configuration name="demo.elf" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="demo" TARGET_NAME="demo.elf" CONFIG_NAME="Debug-w64-i686-arm-none-eabi" RUN_TARGET_PROJECT_NAME="demo" RUN_TARGET_NAME="demo.elf">
@@ -200,7 +191,8 @@
       <workItem from="1742213918992" duration="436000" />
       <workItem from="1742226396755" duration="4000" />
       <workItem from="1742227139216" duration="3000" />
-      <workItem from="1743379354353" duration="5650000" />
+      <workItem from="1743379354353" duration="5941000" />
+      <workItem from="1743385379291" duration="2025000" />
     </task>
     <task id="LOCAL-00001" summary="【工程】成功使用CLion编译TI工程">
       <option name="closed" value="true" />
@@ -466,7 +458,15 @@
       <option name="project" value="LOCAL" />
       <updated>1743381310714</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="【开发】更新了一些东西">
+      <option name="closed" value="true" />
+      <created>1743385269888</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1743385269888</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -501,7 +501,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="【优化】修复了CMakeLists中的一些问题，并把实验1成功添加置工程里" />
     <MESSAGE value="【开发】添加了DSP库，并添加了一些片外外设" />
     <MESSAGE value="【开发】添加了锁相环驱动，完成了一半" />
     <MESSAGE value="【开发】完善了锁相环驱动（包含USBPLL）" />
@@ -526,7 +525,8 @@
     <MESSAGE value="【开发】USB锁相环先构建一点点" />
     <MESSAGE value="【开发】与CCS兼容" />
     <MESSAGE value="【开发】更新了dip和led" />
-    <option name="LAST_COMMIT_MESSAGE" value="【开发】更新了dip和led" />
+    <MESSAGE value="【开发】更新了一些东西" />
+    <option name="LAST_COMMIT_MESSAGE" value="【开发】更新了一些东西" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
