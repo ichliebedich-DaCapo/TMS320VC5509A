@@ -46,6 +46,7 @@
 									<listOptionValue builtIn="false" value="${CG_TOOL_ROOT}/include"/>
 									<listOptionValue builtIn="false" value="${PROJECT_ROOT}/Projects"/>
 									<listOptionValue builtIn="false" value="${PROJECT_ROOT}/Adapter/GUI"/>
+									<listOptionValue builtIn="false" value="${PROJECT_ROOT}/Algorithm/inc"/>
 									<listOptionValue builtIn="false" value="${PROJECT_ROOT}/Projects/conf"/>
 									<listOptionValue builtIn="false" value="${PROJECT_ROOT}/BSP/inc"/>
 									<listOptionValue builtIn="false" value="${PROJECT_ROOT}/Core/Drivers/inc"/>

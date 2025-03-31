@@ -4,7 +4,8 @@
 #if PROGRAM_INDEX == 0
 #include <zq_init.h>
 #include<gui.h>
-
+#include <AsyncDelay.h>
+#include<Flag.h>
 
 extern void ui_handler();
 

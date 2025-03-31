@@ -59,6 +59,8 @@ namespace REG_NAME { \
     }; \
 }
 
+
+
 /**
  *快速定义属性类型
  * @example

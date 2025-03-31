@@ -30,6 +30,7 @@ configure_file(${CMAKE_SOURCE_DIR}/Projects/conf/app_conf.h.in ${CMAKE_SOURCE_DI
 #-------------------------------------------库-------------------------------------------
 file(GLOB_RECURSE SOURCES
         "Adapter/GUI/gui.cpp"
+        "Algorithm/src/*.cpp"
         "${APP_DIR}/*.c"
         "${APP_DIR}/*.cpp"
         "BSP/src/*.cpp"
@@ -39,6 +40,7 @@ file(GLOB_RECURSE SOURCES
 )
 include_directories(
         "Adapter/GUI"
+        "Algorithm/inc"
         ${APP_DIR}
         "Projects"
         "Projects/conf"

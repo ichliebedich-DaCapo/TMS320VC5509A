@@ -29,9 +29,14 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a78db7b0-77d9-459c-87d1-f1d260dcb0d0" name="更改" comment="【开发】先上传一个版本再说">
+    <list default="true" id="a78db7b0-77d9-459c-87d1-f1d260dcb0d0" name="更改" comment="【开发】更新了dip和led">
+      <change afterPath="$PROJECT_DIR$/Algorithm/inc/Flag.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.cproject" beforeDir="false" afterPath="$PROJECT_DIR$/.cproject" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BSP/inc/oled.h" beforeDir="false" afterPath="$PROJECT_DIR$/BSP/inc/oled.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Drivers/inc/zq_conf.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Drivers/inc/zq_conf.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projects/demo/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Projects/demo/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -138,6 +143,11 @@
     </key>
   </component>
   <component name="RunManager">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="demo.elf" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="demo" TARGET_NAME="demo.elf" CONFIG_NAME="Debug-w64-i686-arm-none-eabi" RUN_TARGET_PROJECT_NAME="demo" RUN_TARGET_NAME="demo.elf">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -190,7 +200,7 @@
       <workItem from="1742213918992" duration="436000" />
       <workItem from="1742226396755" duration="4000" />
       <workItem from="1742227139216" duration="3000" />
-      <workItem from="1743379354353" duration="717000" />
+      <workItem from="1743379354353" duration="5650000" />
     </task>
     <task id="LOCAL-00001" summary="【工程】成功使用CLion编译TI工程">
       <option name="closed" value="true" />
@@ -448,7 +458,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742109308658</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="【开发】更新了dip和led">
+      <option name="closed" value="true" />
+      <created>1743381310714</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1743381310714</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -483,7 +501,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="【体验提升】GCC下有代码补全，为了模仿GCC，编写了链接脚本并添加了一写兼容GCC的函数和宏" />
     <MESSAGE value="【优化】修复了CMakeLists中的一些问题，并把实验1成功添加置工程里" />
     <MESSAGE value="【开发】添加了DSP库，并添加了一些片外外设" />
     <MESSAGE value="【开发】添加了锁相环驱动，完成了一半" />
@@ -508,7 +525,8 @@
     <MESSAGE value="【开发】主锁相环框架已经搭建好了" />
     <MESSAGE value="【开发】USB锁相环先构建一点点" />
     <MESSAGE value="【开发】与CCS兼容" />
-    <option name="LAST_COMMIT_MESSAGE" value="【开发】与CCS兼容" />
+    <MESSAGE value="【开发】更新了dip和led" />
+    <option name="LAST_COMMIT_MESSAGE" value="【开发】更新了dip和led" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

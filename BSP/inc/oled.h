@@ -3,9 +3,111 @@
 //
 #ifndef DEMO_LCD_H
 #define DEMO_LCD_H
-
-
 #include<zq_conf.h>
+
+// 动态计算列地址
+#define LCD_DATA(column) (*(volatile uint32_t *)(0x600802 + (( ( (column) & 0x40 ) << 7 ) - ((column) >> 6 & 1) )))
+
+namespace bsp
+{
+    namespace oled
+    {
+        DECLARE_REGISTER(CTRL, 0x600801); // 如果要写入数据或者命令，那么该寄存器需要置零
+        DECLARE_REGISTER(CMD, 0x602800); // 命令寄存器
+        DECLARE_REGISTER(DATA_BASE, 0x602801);
+
+        DECLARE_REGISTER(DATA_L, 0x602801); // 左侧的显示屏
+        DECLARE_REGISTER(DATA_R, 0x600802); // 右侧的显示屏
+
+        DECLARE_REGISTER(CTR_GR, 0x600800);
+        DECLARE_REGISTER(CTR_KEY, 0x602800);
+        DECLARE_REGISTER(CTR_LR, 0x602803);
+
+        DECLARE_ATTRIBUTE(OP_CMD,
+            ON = 0x3f,
+            OFF = 0x3e,
+            START_LINE = 0xc0, // 设置显示起始行 0xc0 + (0~63)
+            PAGE = 0xb8,   // 设置操作页 0xb8 + (0~7)
+            VER_ADDRESS = 0x40    // 设置操作列 0x40 + (0~63)
+            );
+
+    }
+
+    class OLED
+    {
+        // 寄存器
+        typedef zq::mmio::ExMemAccess<oled::CTRL::REG> CTRL_REG;
+        typedef zq::mmio::ExMemAccess<oled::CMD::REG> CMD_REG;
+        typedef zq::mmio::ExMemAccess<oled::DATA_BASE::REG> DATA_REG;
+        typedef zq::mmio::ExMemAccess<oled::DATA_L::REG> DATA_L_REG;
+        typedef zq::mmio::ExMemAccess<oled::DATA_R::REG> DATA_R_REG;
+        typedef zq::mmio::ExMemAccess<oled::CTR_GR::REG> CTR_GR_REG;
+        typedef zq::mmio::ExMemAccess<oled::CTR_KEY::REG> CTR_KEY_REG;
+        typedef zq::mmio::ExMemAccess<oled::CTR_LR::REG> CTR_LR_REG;
+    public:
+
+        /**
+         * 向左侧屏幕写入数据
+         * @param data 数据
+         */
+        INLINE void write_data_left(const uint16_t data)
+        {
+            DATA_L_REG::write(data);
+            CTRL_REG::write(0);
+        }
+
+        /**
+         * 向右侧屏幕写入数据
+         * @param data 数据
+         */
+        INLINE void write_data_right(const uint16_t data)
+        {
+            DATA_R_REG::write(data);
+            CTRL_REG::write(0);
+        }
+
+        /**
+         * 写入命令
+         * @param cmd 命令
+         */
+        INLINE void write_cmd(const uint16_t cmd)
+        {
+            CMD_REG::write(cmd);
+            CTRL_REG::write(0);
+        }
+
+        /**
+        * 设置当前行(页0~7)
+        */
+        INLINE void set_page(const uint16_t page)
+        {
+            write_cmd(oled::OP_CMD::START_LINE + (page & 0x07)); // 限制 page 在 0~7
+        }
+
+        // 设置当前列 (0~63)
+        INLINE void set_column(const uint16_t column)
+        {
+            write_cmd(oled::OP_CMD::VER_ADDRESS + column); // 左半屏
+        }
+
+        INLINE void clear()
+        {
+            int j;
+            write_cmd(oled::OP_CMD::START_LINE);
+            for (int i = 0; i < 8; ++i)
+            {
+                set_page(i);
+                set_column(0);
+                for (j = 0; j < 64; ++j)
+                    write_data_left(0);
+                set_page(i);
+                set_column(0);
+                for (j = 0; j < 64; ++j)
+                    write_data_right(0);
+            }
+        }
+    };
+}
 
 /*寄存器映射*/
 #define LCD_CTRL (*(volatile uint32_t *)0x600801)// 如果要写入数据或者命令，那么该寄存器需要置零
@@ -14,6 +116,7 @@
 #define LCD_DATA_L (*(volatile uint32_t *)0x602801)  // 左侧的显示屏
 #define LCD_DATA_R (*(volatile uint32_t *)0x600802)
 #define LCD_DATA(column) (*(volatile uint32_t *)(0x600802 + (( ( (column) & 0x40 ) << 7 ) - ((column) >> 6 & 1) )))// 动态计算列地址
+
 
 
 #define LCD_CTR_GR (*(volatile uint32_t *)0x600800)
@@ -26,8 +129,6 @@
 #define LCD_CMD_START_LINE 0xc0 // 设置显示起始行 0xc0 + (0~63)
 #define LCD_CMD_PAGE 0xb8   // 设置操作页 0xb8 + (0~7)
 #define LCD_CMD_VER_ADDRESS 0x40    // 设置操作列 0x40 + (0~63)
-
-
 
 
 /*====================================底层基础操作=========================================*/
@@ -119,7 +220,7 @@ INLINE void lcd_write_data_fast(const uint16_t page, const uint16_t column, cons
     LCD_CTRL = 0;
 }
 
-void oled_write_data(uint16_t page,uint16_t start_col,uint16_t end_col, const uint16_t *buf);
+void oled_write_data(uint16_t page, uint16_t start_col, uint16_t end_col, const uint16_t *buf);
 
 
 // 理论上更高效的写入语句，但是需要测试！！
@@ -165,7 +266,6 @@ INLINE void lcd_flush(const uint16_t *buf)
 void lcd_init();
 
 // void lcd_write_page(uint16_t page,uint16_t*buf);
-
 
 
 #endif //DEMO_LCD_H
