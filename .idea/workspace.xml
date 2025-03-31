@@ -28,14 +28,9 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a78db7b0-77d9-459c-87d1-f1d260dcb0d0" name="更改" comment="【开发】更新了一些东西">
+    <list default="true" id="a78db7b0-77d9-459c-87d1-f1d260dcb0d0" name="更改" comment="【开发】与CCS兼容，又更新了一些东西">
+      <change beforePath="$PROJECT_DIR$/.cproject" beforeDir="false" afterPath="$PROJECT_DIR$/.cproject" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.launches/demo.launch" beforeDir="false" afterPath="$PROJECT_DIR$/.launches/demo.launch" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Projects/1_debug/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Projects/1_debug/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Projects/conf/app_conf.h" beforeDir="false" afterPath="$PROJECT_DIR$/Projects/conf/app_conf.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Projects/demo/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Projects/demo/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/targetConfigs/TMS320C5509A.ccxml" beforeDir="false" afterPath="$PROJECT_DIR$/targetConfigs/TMS320C5509A.ccxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -192,7 +187,7 @@
       <workItem from="1742226396755" duration="4000" />
       <workItem from="1742227139216" duration="3000" />
       <workItem from="1743379354353" duration="5941000" />
-      <workItem from="1743385379291" duration="2025000" />
+      <workItem from="1743385379291" duration="3095000" />
     </task>
     <task id="LOCAL-00001" summary="【工程】成功使用CLion编译TI工程">
       <option name="closed" value="true" />
@@ -466,7 +461,15 @@
       <option name="project" value="LOCAL" />
       <updated>1743385269888</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="【开发】与CCS兼容，又更新了一些东西">
+      <option name="closed" value="true" />
+      <created>1743387570047</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1743387570048</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -501,7 +504,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="【开发】添加了DSP库，并添加了一些片外外设" />
     <MESSAGE value="【开发】添加了锁相环驱动，完成了一半" />
     <MESSAGE value="【开发】完善了锁相环驱动（包含USBPLL）" />
     <MESSAGE value="【修复】USBPLL相关赋值问题" />
@@ -526,7 +528,8 @@
     <MESSAGE value="【开发】与CCS兼容" />
     <MESSAGE value="【开发】更新了dip和led" />
     <MESSAGE value="【开发】更新了一些东西" />
-    <option name="LAST_COMMIT_MESSAGE" value="【开发】更新了一些东西" />
+    <MESSAGE value="【开发】与CCS兼容，又更新了一些东西" />
+    <option name="LAST_COMMIT_MESSAGE" value="【开发】与CCS兼容，又更新了一些东西" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
