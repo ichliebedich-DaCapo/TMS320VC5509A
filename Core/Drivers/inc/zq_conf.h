@@ -85,6 +85,7 @@ namespace zq
 {
     namespace mmio
     {
+        /// @brief 寄存器访问
         template<uint16_t Address>
         struct RegAccess
         {
@@ -138,6 +139,62 @@ namespace zq
                 return *ptr();
             }
         };
+
+        /// @brief 外部存储访问
+        template<uint32_t addr>
+        struct  ExMemAccess
+        {
+            // 编译期地址计算
+            static inline volatile uint32_t *ptr()
+            {
+                return reinterpret_cast<volatile uint32_t *>(addr);
+            }
+
+            // 单位操作(操作的是掩码)
+            static inline void set_bit(const uint16_t mask)
+            {
+                *ptr() |= mask;
+            }
+
+            static inline void clear_bit(const uint16_t mask)
+            {
+                *ptr() &= ~mask;
+            }
+
+            // 读取位
+            static inline bool read_bit(const uint16_t mask)
+            {
+                return (*ptr() & mask) != 0;
+            }
+
+            static inline bool read_bit_not(const uint16_t mask)
+            {
+                return (*ptr() & mask) == 0;
+            }
+
+            /**
+             *
+             * @param value 要修改的值
+             * @param mask 掩码
+             * @param shift 位偏移
+             */
+            static inline void modify_bits(const uint16_t value, const uint16_t mask, const uint16_t shift)
+            {
+                *ptr() = (*ptr() & ~mask) | ((value << shift) & mask);
+            }
+
+            // 直接向寄存器写入16位的值
+            static inline void write(const uint16_t value)
+            {
+                *ptr() = value;
+            }
+
+            static inline uint16_t read()
+            {
+                return *ptr();
+            }
+        };
+
     } // namespace mmio
 } // namespace hal
 

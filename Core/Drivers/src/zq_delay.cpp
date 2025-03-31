@@ -8,10 +8,10 @@
 // 函数
 void delay(const uint16_t nDelay)
 {
-    int ii,jj,kk=0;
-    for ( ii=0;ii<nDelay;ii++ )
+    int kk=0;
+    for ( int ii = 0;ii<nDelay;ii++ )
     {
-        for ( jj=0;jj<1024;jj++ )
+        for ( int jj = 0;jj<1024;jj++ )
         {
             kk++;
         }
