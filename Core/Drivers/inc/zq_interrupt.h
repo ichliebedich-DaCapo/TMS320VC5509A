@@ -12,76 +12,67 @@ namespace zq
     namespace cpu
     {
         // 中断标志寄存器
-        namespace IFR0
-        {
-            DECLARE_BITS_FIELD(DMAC5, 0x8000, 15);  // DMA通道5中断标志/屏蔽位
-            DECLARE_BITS_FIELD(DMAC4, 0x4000, 14);  // DMA通道4中断标志/屏蔽位
-            DECLARE_BITS_FIELD(XINT2, 0x2000, 13);  // XINT2外部中断或MMC/SD2中断标志/屏蔽位
-            DECLARE_BITS_FIELD(RINT2, 0x1000, 12);  // McBSP2接收中断标志/屏蔽位
-            DECLARE_BITS_FIELD(INT3, 0x0800, 11);   // 外部中断3或看门狗定时器中断标志/屏蔽位
-            DECLARE_BITS_FIELD(DSPINT, 0x0400, 10); // HPI主机到DSP的中断标志/屏蔽位
-            DECLARE_BITS_FIELD(DMAC1, 0x0200, 9);   // DMA通道1中断标志/屏蔽位
-            DECLARE_BITS_FIELD(USB, 0x0100, 8);     // USB中断标志/屏蔽位
-            DECLARE_BITS_FIELD(XINT1, 0x0080, 7);   // XINT1外部中断或MMC/SD1中断标志/屏蔽位
-            DECLARE_BITS_FIELD(RINT1, 0x0040, 6);   // McBSP1接收中断标志/屏蔽位
-            DECLARE_BITS_FIELD(RINT0, 0x0020, 5);   // McBSP0接收中断标志/屏蔽位
-            DECLARE_BITS_FIELD(TINT0, 0x0010, 4);   // 定时器0中断标志位
-            DECLARE_BITS_FIELD(INT2, 0x0008, 3);    // 外部中断2标志位
-            DECLARE_BITS_FIELD(INT0, 0x0004, 2);    // 外部中断1标志位（注意表格中疑似标注错误）
-            DECLARE_BITS_FIELD(RSVED, 0x0003, 0);   // 位1-0为保留位（0x0002-0x0001），需保持写0
-        }
+        DECLARE_BIT_FIELD(IFR0,DMAC5,15);  // DMA通道5中断标志/屏蔽位
+        DECLARE_BIT_FIELD(IFR0,DMAC4,14);  // DMA通道4中断标志/屏蔽位
+        DECLARE_BIT_FIELD(IFR0,XINT2,13);  // XINT2外部中断或MMC/SD2中断标志/屏蔽位
+        DECLARE_BIT_FIELD(IFR0,RINT2,12);  // McBSP2接收中断标志/屏蔽位
+        DECLARE_BIT_FIELD(IFR0,INT3,11);   // 外部中断3或看门狗定时器中断标志/屏蔽位
+        DECLARE_BIT_FIELD(IFR0,DSPINT,10); // HPI主机到DSP的中断标志/屏蔽位
+        DECLARE_BIT_FIELD(IFR0,DMAC1,9);   // DMA通道1中断标志/屏蔽位
+        DECLARE_BIT_FIELD(IFR0,USB, 8);    // USB中断标志/屏蔽位
+        DECLARE_BIT_FIELD(IFR0,XINT1,7);   // XINT1外部中断或MMC/SD1中断标志/屏蔽位
+        DECLARE_BIT_FIELD(IFR0,RINT1,6);   // McBSP1接收中断标志/屏蔽位
+        DECLARE_BIT_FIELD(IFR0,RINT0,5);   // McBSP0接收中断标志/屏蔽位
+        DECLARE_BIT_FIELD(IFR0,TINT0,4);   // 定时器0中断标志位
+        DECLARE_BIT_FIELD(IFR0,INT2,3);    // 外部中断2标志位
+        DECLARE_BIT_FIELD(IFR0,INT0,2);    // 外部中断1标志位（注意表格中疑似标注错误）
+        DECLARE_BITS_FIELD(IFR0,RSVED,2,0); // 位1-0为保留位（0x0002-0x0001），需保持写0
+
 
         // 中断使能寄存器
-        namespace IER0
-        {
-            DECLARE_BITS_FIELD(DMAC5, 0x8000, 15);  // DMA通道5中断标志/屏蔽位
-            DECLARE_BITS_FIELD(DMAC4, 0x4000, 14);  // DMA通道4中断标志/屏蔽位
-            DECLARE_BITS_FIELD(XINT2, 0x2000, 13);  // XINT2外部中断或MMC/SD2中断标志/屏蔽位
-            DECLARE_BITS_FIELD(RINT2, 0x1000, 12);  // McBSP2接收中断标志/屏蔽位
-            DECLARE_BITS_FIELD(INT3, 0x0800, 11);   // 外部中断3或看门狗定时器中断标志/屏蔽位
-            DECLARE_BITS_FIELD(DSPINT, 0x0400, 10); // HPI主机到DSP的中断标志/屏蔽位
-            DECLARE_BITS_FIELD(DMAC1, 0x0200, 9);   // DMA通道1中断标志/屏蔽位
-            DECLARE_BITS_FIELD(USB, 0x0100, 8);     // USB中断标志/屏蔽位
-            DECLARE_BITS_FIELD(XINT1, 0x0080, 7);   // XINT1外部中断或MMC/SD1中断标志/屏蔽位
-            DECLARE_BITS_FIELD(RINT1, 0x0040, 6);   // McBSP1接收中断标志/屏蔽位
-            DECLARE_BITS_FIELD(RINT0, 0x0020, 5);   // McBSP0接收中断标志/屏蔽位
-            DECLARE_BITS_FIELD(TINT0, 0x0010, 4);   // 定时器0中断标志位
-            DECLARE_BITS_FIELD(INT2, 0x0008, 3);    // 外部中断2标志位
-            DECLARE_BITS_FIELD(INT0, 0x0004, 2);    // 外部中断1标志位（注意表格中疑似标注错误）
-            DECLARE_BITS_FIELD(RSVED, 0x0003, 0);   // 位1-0为保留位（0x0002-0x0001），需保持写0
-        }
+        DECLARE_BIT_FIELD(IER0,DMAC5,15);  // DMA通道5中断标志/屏蔽位
+        DECLARE_BIT_FIELD(IER0,DMAC4,14);  // DMA通道4中断标志/屏蔽位
+        DECLARE_BIT_FIELD(IER0,XINT2,13);  // XINT2外部中断或MMC/SD2中断标志/屏蔽位
+        DECLARE_BIT_FIELD(IER0,RINT2,12);  // McBSP2接收中断标志/屏蔽位
+        DECLARE_BIT_FIELD(IER0,INT3,11);   // 外部中断3或看门狗定时器中断标志/屏蔽位
+        DECLARE_BIT_FIELD(IER0,DSPINT,10); // HPI主机到DSP的中断标志/屏蔽位
+        DECLARE_BIT_FIELD(IER0,DMAC1,9);   // DMA通道1中断标志/屏蔽位
+        DECLARE_BIT_FIELD(IER0,USB,8);     // USB中断标志/屏蔽位
+        DECLARE_BIT_FIELD(IER0,XINT1,7);   // XINT1外部中断或MMC/SD1中断标志/屏蔽位
+        DECLARE_BIT_FIELD(IER0,RINT1,6);   // McBSP1接收中断标志/屏蔽位
+        DECLARE_BIT_FIELD(IER0,RINT0,5);   // McBSP0接收中断标志/屏蔽位
+        DECLARE_BIT_FIELD(IER0,TINT0,4);   // 定时器0中断标志位
+        DECLARE_BIT_FIELD(IER0,INT2,3);    // 外部中断2标志位
+        DECLARE_BIT_FIELD(IER0,INT0,2);    // 外部中断1标志位（注意表格中疑似标注错误）
+        DECLARE_BIT_FIELD(IER0,RSVED,0);   // 位1-0为保留位（0x0002-0x0001），需保持写0
 
-        namespace IFR1
-        {
-            DECLARE_BITS_FIELD(RSVED, 0xF800, 11);   // [15:11] 保留位（必须写0）
-            DECLARE_BITS_FIELD(RTOS, 0x0400, 10);    // [10]    实时操作系统中断标志/掩码位
-            DECLARE_BITS_FIELD(DLOG, 0x0200, 9);     // [9]     数据日志中断标志/掩码位
-            DECLARE_BITS_FIELD(BERR, 0x0100, 8);     // [8]     总线错误中断标志/掩码位
-            DECLARE_BITS_FIELD(I2C, 0x0080, 7);      // [7]     I2C中断标志/掩码位（原表12C应为I2C）
-            DECLARE_BITS_FIELD(TINT1, 0x0040, 6);    // [6]     定时器1中断标志/掩码位
-            DECLARE_BITS_FIELD(DMAC3, 0x0020, 5);    // [5]     DMA通道3中断标志/掩码位
-            DECLARE_BITS_FIELD(DMAC2, 0x0010, 4);    // [4]     DMA通道2中断标志/掩码位（原表RMAC2应为DMAC2）
-            DECLARE_BITS_FIELD(INT4_RTC, 0x0008, 3); // [3]     外部中断4或实时时钟中断标志/掩码位
-            DECLARE_BITS_FIELD(DMAC0, 0x0004, 2);    // [2]     DMA通道0中断标志/掩码位
-            DECLARE_BITS_FIELD(XINT0, 0x0002, 1);    // [1]     McBSP发送0中断标志/掩码位（原表XINTO应为XINT0）
-            DECLARE_BITS_FIELD(INT1, 0x0001, 0);     // [0]     外部用户中断1标志/掩码位
-        }
 
-        namespace IER1
-        {
-            DECLARE_BITS_FIELD(RSVED, 0xF800, 11);   // [15:11] 保留位（必须写0）
-            DECLARE_BITS_FIELD(RTOS, 0x0400, 10);    // [10]    实时操作系统中断标志/掩码位
-            DECLARE_BITS_FIELD(DLOG, 0x0200, 9);     // [9]     数据日志中断标志/掩码位
-            DECLARE_BITS_FIELD(BERR, 0x0100, 8);     // [8]     总线错误中断标志/掩码位
-            DECLARE_BITS_FIELD(I2C, 0x0080, 7);      // [7]     I2C中断标志/掩码位（原表12C应为I2C）
-            DECLARE_BITS_FIELD(TINT1, 0x0040, 6);    // [6]     定时器1中断标志/掩码位
-            DECLARE_BITS_FIELD(DMAC3, 0x0020, 5);    // [5]     DMA通道3中断标志/掩码位
-            DECLARE_BITS_FIELD(DMAC2, 0x0010, 4);    // [4]     DMA通道2中断标志/掩码位（原表RMAC2应为DMAC2）
-            DECLARE_BITS_FIELD(INT4_RTC, 0x0008, 3); // [3]     外部中断4或实时时钟中断标志/掩码位
-            DECLARE_BITS_FIELD(DMAC0, 0x0004, 2);    // [2]     DMA通道0中断标志/掩码位
-            DECLARE_BITS_FIELD(XINT0, 0x0002, 1);    // [1]     McBSP发送0中断标志/掩码位（原表XINTO应为XINT0）
-            DECLARE_BITS_FIELD(INT1, 0x0001, 0);     // [0]     外部用户中断1标志/掩码位
-        }
+        DECLARE_BITS_FIELD(IFR1,RSVED, 5, 11);  // [15:11] 保留位（必须写0）
+        DECLARE_BIT_FIELD(IFR1,RTOS,10);        // [10]    实时操作系统中断标志/掩码位
+        DECLARE_BIT_FIELD(IFR1,DLOG,9);         // [9]     数据日志中断标志/掩码位
+        DECLARE_BIT_FIELD(IFR1,BERR,8);         // [8]     总线错误中断标志/掩码位
+        DECLARE_BIT_FIELD(IFR1,I2C,7);          // [7]     I2C中断标志/掩码位（原表12C应为I2C）
+        DECLARE_BIT_FIELD(IFR1,TINT1,6);        // [6]     定时器1中断标志/掩码位
+        DECLARE_BIT_FIELD(IFR1,DMAC3,5);        // [5]     DMA通道3中断标志/掩码位
+        DECLARE_BIT_FIELD(IFR1,DMAC2,4);        // [4]     DMA通道2中断标志/掩码位（原表RMAC2应为DMAC2）
+        DECLARE_BIT_FIELD(IFR1,INT4_RTC,3);     // [3]     外部中断4或实时时钟中断标志/掩码位
+        DECLARE_BIT_FIELD(IFR1,DMAC0,2);        // [2]     DMA通道0中断标志/掩码位
+        DECLARE_BIT_FIELD(IFR1,XINT0,1);        // [1]     McBSP发送0中断标志/掩码位（原表XINTO应为XINT0）
+        DECLARE_BIT_FIELD(IFR1,INT1,0);         // [0]     外部用户中断1标志/掩码位
+
+
+        DECLARE_BITS_FIELD(IER1,RSVED, 5, 11);  // [15:11] 保留位（必须写0）
+        DECLARE_BIT_FIELD(IER1,RTOS,10);        // [10]    实时操作系统中断标志/掩码位
+        DECLARE_BIT_FIELD(IER1,DLOG,9);         // [9]     数据日志中断标志/掩码位
+        DECLARE_BIT_FIELD(IER1,BERR,8);         // [8]     总线错误中断标志/掩码位
+        DECLARE_BIT_FIELD(IER1,I2C,7);          // [7]     I2C中断标志/掩码位（原表12C应为I2C）
+        DECLARE_BIT_FIELD(IER1,TINT1,6);        // [6]     定时器1中断标志/掩码位
+        DECLARE_BIT_FIELD(IER1,DMAC3,5);        // [5]     DMA通道3中断标志/掩码位
+        DECLARE_BIT_FIELD(IER1,DMAC2,4);        // [4]     DMA通道2中断标志/掩码位（原表RMAC2应为DMAC2）
+        DECLARE_BIT_FIELD(IER1,INT4_RTC,3);     // [3]     外部中断4或实时时钟中断标志/掩码位
+        DECLARE_BIT_FIELD(IER1,DMAC0,2);        // [2]     DMA通道0中断标志/掩码位
+        DECLARE_BIT_FIELD(IER1,XINT0,1);        // [1]     McBSP发送0中断标志/掩码位（原表XINTO应为XINT0）
+        DECLARE_BIT_FIELD(IER1,INT1,0);         // [0]     外部用户中断1标志/掩码位
     }
 
     namespace isr

@@ -12,14 +12,17 @@ namespace zq
         // ================= GPIO组类型定义 ================
         struct NormalGroup
         {
+
         };
 
         struct AddrGroup
         {
+
         };
 
         struct EHPIGroup
         {
+
         };
 
         // ================= 公共属性 ================
@@ -41,26 +44,29 @@ namespace zq
         template<>
         struct GPIO_Traits<NormalGroup>
         {
+            // 普通GPIO引脚
+            DECLARE_REGISTER_T(DIR, 0x3400);
+            DECLARE_REGISTER_T(DATA, 0x3401);
             enum
             {
-                DIR_REG = 0x3400,
-                DATA_REG = 0x3401,
                 MAX_PIN = 7,
                 NEED_ENABLE = 0 // 判断是否需要enable这个成员函数
             };
         };
+
 
         template<>
         struct GPIO_Traits<AddrGroup>
         {
             enum
             {
-                EN_REG = 0x4400,
-                DIR_REG = 0x4404,
-                DATA_REG = 0x4402,
                 MAX_PIN = 15,
                 NEED_ENABLE = 1
             };
+            // Addr GPIO引脚
+            DECLARE_REGISTER_T(EN, 0x4400);
+            DECLARE_REGISTER_T(DIR, 0x4404);
+            DECLARE_REGISTER_T(DATA, 0x4402);
         };
 
         template<>
@@ -68,12 +74,13 @@ namespace zq
         {
             enum
             {
-                EN_REG = 0x4403,
-                DIR_REG = 0x4404,
-                DATA_REG = 0x4405,
                 MAX_PIN = 5,
                 NEED_ENABLE = 1
             };
+            // EHPI引脚
+            DECLARE_REGISTER_T(EN, 0x4403);
+            DECLARE_REGISTER_T(DIR, 0x4404);
+            DECLARE_REGISTER_T(DATA, 0x4405);
         };
 
         // ================= 基础模板分层设计 ===============
@@ -98,14 +105,14 @@ namespace zq
             static void set_dir(Dir::Type dir)
             {
                 if (dir == Dir::Dir_Input)
-                    mmio::RegAccess<Traits::DIR_REG>::clear_bit(PIN_MASK);
+                    Traits::DIR_REG::clear_bit();
                 else
-                    mmio::RegAccess<Traits::DIR_REG>::set_bit(PIN_MASK);
+                    Traits::DIR_REG::set_bit();
             }
 
-            static void high() { mmio::RegAccess<Traits::DATA_REG>::set_bit(PIN_MASK); }
-            static void low() { mmio::RegAccess<Traits::DATA_REG>::clear_bit(PIN_MASK); }
-            static bool read() { return (mmio::RegAccess<Traits::DATA_REG>::read() & PIN_MASK) != 0; }
+            static void high() { Traits::DATA_REG::set_bit(); }
+            static void low() { Traits::DATA_REG::clear_bit(); }
+            static bool read() { return (Traits::DATA_REG::read_bit()) != 0; }
         };
 
         // 需要Enable的组实现
@@ -120,12 +127,12 @@ namespace zq
         public:
             static void enable()
             {
-                mmio::RegAccess<Traits::EN_REG>::set_bit(PIN_MASK);
+                Traits::EN_REG::set_bit();
             }
 
             static void disable()
             {
-                mmio::RegAccess<Traits::EN_REG>::clear_bit(PIN_MASK);
+                Traits::EN_REG::clear_bit();
             }
         };
 

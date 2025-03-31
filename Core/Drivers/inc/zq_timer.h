@@ -21,40 +21,53 @@ namespace zq
 {
     namespace timer
     {
-        // 定时器类型
-        struct TIMTag
-        {
-            typedef enum
-            {
-                TIM0 = 0,
-                TIM1 = 0x1400// 后面寄存器均为基址，需要加上偏置0x1400
-            } Type;
-        };
+        // 定时器寄存器
+        DECLARE_REGISTER(TIM0, 0x1000); // 主计数器
+        DECLARE_REGISTER(PRD0, 0x1001); // 预装载计时器
+        DECLARE_REGISTER(TCR0, 0x1002); // 控制寄存器
+        DECLARE_REGISTER(PRSC0, 0x1003); // 分频寄存器
 
-        DECLARE_REGISTER(TIM, 0x1000);// 主计数器
-        DECLARE_REGISTER(PRD, 0x1001);// 预装载计时器
-        DECLARE_REGISTER(TCR, 0x1002);// 控制寄存器
-        DECLARE_REGISTER(PRSC, 0x1003);// 分频寄存器
+        DECLARE_REGISTER(TIM1, 0x2400); // 主计数器
+        DECLARE_REGISTER(PRD1, 0x2401); // 预装载计时器
+        DECLARE_REGISTER(TCR1, 0x2402); // 控制寄存器
+        DECLARE_REGISTER(PRSC1, 0x2403); // 分频寄存器
 
-        DECLARE_BITS_FIELD_FROM_REG(PRSC, PSC, 0x01C0, 6); // 预分频值bit6~9
-        DECLARE_BITS_FIELD_FROM_REG(PRSC, TDDR, 0x0007, 0); // 用于装入PSC中
+        // PRSC寄存器位域
+        DECLARE_BITS_FIELD(PRSC0, PSC, 4, 6); // 预分频值bit6~9
+        DECLARE_BITS_FIELD(PRSC0, TDDR, 3, 0); // 用于装入PSC中
 
-        namespace TCR
-        {
-            DECLARE_BITS_FIELD(IDLEEN, 0x8000, 15); // [15] 0:不能进入IDLE状态    1：可以进入IDLE状态，当PERIS为1时进入IDLE状态
-            DECLARE_BITS_FIELD(INTEXT, 0x4000, 14); // [14]标志位：时钟源从内部切换为外部标志    0：外部时钟源没有准备好 1：外部时钟源已经准备好
-            DECLARE_BITS_FIELD(ERRTIM, 0x2000, 13); // [13]检测错误标志   0: 没有发生错误 1: 发生了错误
-            DECLARE_BITS_FIELD(FUNC, 0x1800, 11);   // [11]工作模式选择位
-            DECLARE_BITS_FIELD(TLB, 0x0600, 10);    // [10]定时器装载位
-            DECLARE_BITS_FIELD(SOFT, 0x0020, 9);    // [9]软件触发位
-            DECLARE_BITS_FIELD(FREE, 0x0100, 8);    // [8]与仿真断点有关
-            DECLARE_BITS_FIELD(PWID, 0x00C0, 6);    // [6]窄脉冲输出宽度  每当TIM归零时，输出指定宽度的窄脉冲
-            DECLARE_BITS_FIELD(ARB, 0x0010, 5);     // [5]自动重装控制位
-            DECLARE_BITS_FIELD(TSS, 0x0010, 4);     // [4]定时器停止状态位 0：启动定时器 1：停止定时器
-            DECLARE_BITS_FIELD(CP, 0x0008, 3);      // [3]定时器输出时钟/脉冲模式选择   0：脉冲模式  1：时钟模式，占空比固定为50%
-            DECLARE_BITS_FIELD(POLAR, 0x0004, 2);   // [2]时钟输出极性位
-            DECLARE_BITS_FIELD(DATOUT, 0x0002, 1);  // [1]GPIO模式下，控制引脚输出电平
-        }
+        DECLARE_BITS_FIELD(PRSC1, PSC, 4, 6); // 预分频值bit6~9
+        DECLARE_BITS_FIELD(PRSC1, TDDR, 3, 0); // 用于装入PSC中
+
+        // TCR寄存器位域
+        DECLARE_BIT_FIELD(TCR0, IDLEEN, 15); // [15] 0:不能进入IDLE状态    1：可以进入IDLE状态，当PERIS为1时进入IDLE状态
+        DECLARE_BIT_FIELD(TCR0, INTEXT, 14); // [14]标志位：时钟源从内部切换为外部标志    0：外部时钟源没有准备好 1：外部时钟源已经准备好
+        DECLARE_BIT_FIELD(TCR0, ERRTIM, 13); // [13]检测错误标志   0: 没有发生错误 1: 发生了错误
+        DECLARE_BIT_FIELD(TCR0, FUNC, 11); // [11]工作模式选择位
+        DECLARE_BIT_FIELD(TCR0, TLB, 10); // [10]定时器装载位
+        DECLARE_BIT_FIELD(TCR0, SOFT, 9); // [9]软件触发位
+        DECLARE_BIT_FIELD(TCR0, FREE, 8); // [8]与仿真断点有关
+        DECLARE_BIT_FIELD(TCR0, PWID, 6); // [6]窄脉冲输出宽度  每当TIM归零时，输出指定宽度的窄脉冲
+        DECLARE_BIT_FIELD(TCR0, ARB, 5); // [5]自动重装控制位
+        DECLARE_BIT_FIELD(TCR0, TSS, 4); // [4]定时器停止状态位 0：启动定时器 1：停止定时器
+        DECLARE_BIT_FIELD(TCR0, CP, 3); // [3]定时器输出时钟/脉冲模式选择   0：脉冲模式  1：时钟模式，占空比固定为50%
+        DECLARE_BIT_FIELD(TCR0, POLAR, 2); // [2]时钟输出极性位
+        DECLARE_BIT_FIELD(TCR0, DATOUT, 1); // [1]GPIO模式下，控制引脚输出电平
+
+        // TCR寄存器位域
+        DECLARE_BIT_FIELD(TCR1, IDLEEN, 15); // [15] 0:不能进入IDLE状态    1：可以进入IDLE状态，当PERIS为1时进入IDLE状态
+        DECLARE_BIT_FIELD(TCR1, INTEXT, 14); // [14]标志位：时钟源从内部切换为外部标志    0：外部时钟源没有准备好 1：外部时钟源已经准备好
+        DECLARE_BIT_FIELD(TCR1, ERRTIM, 13); // [13]检测错误标志   0: 没有发生错误 1: 发生了错误
+        DECLARE_BIT_FIELD(TCR1, FUNC, 11); // [11]工作模式选择位
+        DECLARE_BIT_FIELD(TCR1, TLB, 10); // [10]定时器装载位
+        DECLARE_BIT_FIELD(TCR1, SOFT, 9); // [9]软件触发位
+        DECLARE_BIT_FIELD(TCR1, FREE, 8); // [8]与仿真断点有关
+        DECLARE_BIT_FIELD(TCR1, PWID, 6); // [6]窄脉冲输出宽度  每当TIM归零时，输出指定宽度的窄脉冲
+        DECLARE_BIT_FIELD(TCR1, ARB, 5); // [5]自动重装控制位
+        DECLARE_BIT_FIELD(TCR1, TSS, 4); // [4]定时器停止状态位 0：启动定时器 1：停止定时器
+        DECLARE_BIT_FIELD(TCR1, CP, 3); // [3]定时器输出时钟/脉冲模式选择   0：脉冲模式  1：时钟模式，占空比固定为50%
+        DECLARE_BIT_FIELD(TCR1, POLAR, 2); // [2]时钟输出极性位
+        DECLARE_BIT_FIELD(TCR1, DATOUT, 1); // [1]GPIO模式下，控制引脚输出电平
 
 
         // =================================标志===============================
@@ -66,129 +79,204 @@ namespace zq
         );
 
 
-        template<TIMTag::Type TIMTag>
-        class Timer
+        // =============================== 定时器模板类 ===============================
+        /**
+         * @brief 通用定时器模板类
+         * @tparam N 定时器编号
+         * @detail 提供统一的定时器操作接口，通过模板参数区分不同定时器实例
+         */
+        class Timer0
         {
-            // 寄存器
-            typedef mmio::RegAccess<TIM::REG + TIMTag> TIM_REG; // 计数寄存器
-            typedef mmio::RegAccess<PRD::REG + TIMTag> PRD_REG;
-            typedef mmio::RegAccess<TCR::REG + TIMTag> TCR_REG;
-            typedef mmio::RegAccess<PRSC::REG + TIMTag> PRSC_REG;
-
         public:
             /**
-             * 初始化
-             * @param arr 计数重载值
-             * @param psc 预分频系数(0~15)
-             * @note 实际频率为 f/[(arr+1)(psc+1)]
+             * @brief 初始化定时器
+             * @param arr 自动重装载值
+             * @param psc 预分频系数(0-15)
+             * @note 实际频率计算公式：f = f_input / [(arr+1)(psc+1)]
              */
             static void init(const uint16_t arr, const uint16_t psc)
             {
-                // 停止计时
-                stop();
-
-                // 设置预分频系数
-                set_prescaler(psc);
-                set_prescaler_now(psc);
-                // 设置计数重载值
-                set_period(arr);
-
-                // 关闭手动重载
-                manual_reload<0>();
-                // 开启定时器自动重载
-                auto_reload<1>();
-
-                // 设置CPU为内部时钟，并且不输出
-                set_mode<Mode::HIZ>();
-
-                // 不会进入空闲状态
-                set_idle_mode<0>();
-
-                // 启动定时器
-                start();
+                stop(); // 先停止定时器
+                set_prescaler(psc); // 设置分频重载值
+                set_prescaler_now(psc); // 立即应用分频值
+                set_period(arr); // 设置周期值
+                manual_reload<0>(); // 禁用立即重载
+                auto_reload<1>(); // 启用自动重装
+                set_mode<Mode::HIZ>(); // 默认高阻模式
+                set_idle_mode<0>(); // 禁用空闲模式
+                start(); // 启动定时器
             }
 
-            // 设置period（周期计数值）
+            /** 设置周期值（自动重装载值） */
             INLINE void set_period(uint16_t arr)
             {
-                PRD_REG::write(arr);
+                PRD0::write(arr);
             }
 
-            // 设置预分频系数（后续装载）
-            INLINE void set_prescaler(uint16_t psc)
+            /** 设置预分频重载值（下次生效） */
+            INLINE void set_prescaler(const uint16_t psc)
             {
-                PRSC_REG::modify_bits(psc, PRSC::TDDR::MASK, PRSC::TDDR::SHIFT);
+                PRSC0::TDDR::write_bits(psc);
             }
 
-            // 设置当前预分频系数（立即装载）
-            INLINE void set_prescaler_now(uint16_t psc)
+            /** 立即更新预分频值 */
+            INLINE void set_prescaler_now(const uint16_t psc)
             {
-                PRSC_REG::modify_bits(psc, PRSC::PSC::MASK, PRSC::PSC::SHIFT);
+                PRSC0::PSC::write_bits(psc);
             }
 
-            // 开启定时器自动重载（硬件）
+            /** 自动重装载控制（0:禁用 1:启用） */
             template<uint16_t mode>
             INLINE void auto_reload()
             {
-                TCR_REG::modify_bits(mode, TCR::ARB::MASK, TCR::ARB::SHIFT);
+                TCR0::ARB::write_bit(mode);
             }
 
-            // 立即手动重载（软件）   0:不重新装载 1：立即重新装载
-            // 让PRD、TDDR分别赋值到TIM和PSC中
+            /** 立即触发重装载（0:正常 1:立即重载） */
             template<uint16_t mode>
             INLINE void manual_reload()
             {
-                TCR_REG::modify_bits(mode, TCR::TLB::MASK, TCR::TLB::SHIFT);
+                TCR0::TLB::write_bit(mode);
             }
 
-            // 设置定时器输出模式
+            /** 设置定时器工作模式 */
             template<Mode::Type mode>
             INLINE void set_mode()
             {
-                TCR_REG::modify_bits(mode, TCR::FUNC::MASK, TCR::FUNC::SHIFT);
+                TCR0::FUNC::write_bit(mode);
             }
 
-            // 设置TIN/TOUT的初始极性  0：正极性，从低电平开始，1：负极性，从高电平开始
+            /** 设置输出极性（0:正极性 1:负极性） */
             template<uint16_t mode>
             INLINE void set_polarity()
             {
-                TCR_REG::modify_bits(mode, TCR::POLAR::MASK, TCR::POLAR::SHIFT);
+                TCR0::POLAR::write_bit(mode);
             }
 
-            // 让计时器在遇到仿真断点仍能继续工作
+            /** 配置仿真断点行为 */
             INLINE void set_simulation_breakpoint()
             {
-                // SOFT=0表示仿真暂停时，立即停止
-                TCR_REG::modify_bits(0, TCR::SOFT::MASK, TCR::SOFT::SHIFT); // 这个我也不知道是啥，手册上和教材上都它宝贝的不说
-                TCR_REG::modify_bits(1, TCR::FREE::MASK, TCR::FREE::SHIFT);
+                TCR0::SOFT::clear_bit(); // 仿真暂停时立即停止
+                TCR0::FREE::set_bit(); // 自由运行模式
             }
 
-            // 设置空闲时的工作状态 0：定时器不会进入空闲状态 1：如果PERIS为1，那么定时器进入空闲状态
+            /** 设置空闲模式（0:保持运行 1:进入空闲） */
             template<uint16_t mode>
             INLINE void set_idle_mode()
             {
-                TCR_REG::modify_bits(mode, TCR::IDLEEN::MASK, TCR::IDLEEN::SHIFT);
+                TCR0::IDLEEN::write_bit(mode);
             }
 
-            // 启动定时器
+            /** 启动定时器 */
             INLINE void start()
             {
-                // TSS是停止状态位
-                TCR_REG::modify_bits(0, TCR::TSS::MASK, TCR::TSS::SHIFT);
+                TCR0::TSS::clear_bit(); // 清除停止位
             }
 
-            // 关闭定时器
+            /** 停止定时器 */
             INLINE void stop()
             {
-                // TSS是停止状态位
-                TCR_REG::modify_bits(1, TCR::TSS::MASK, TCR::TSS::SHIFT);
+                TCR0::TSS::set_bit(); // 设置停止位
             }
         };
 
-        // ================= 显示实例化 ================
-        typedef Timer<TIMTag::TIM0> TIM0;
-        typedef Timer<TIMTag::TIM1> TIM1;
+        class Timer1
+        {
+        public:
+            /**
+             * @brief 初始化定时器
+             * @param arr 自动重装载值
+             * @param psc 预分频系数(0-15)
+             * @note 实际频率计算公式：f = f_input / [(arr+1)(psc+1)]
+             */
+            static void init(const uint16_t arr, const uint16_t psc)
+            {
+                stop(); // 先停止定时器
+                set_prescaler(psc); // 设置分频重载值
+                set_prescaler_now(psc); // 立即应用分频值
+                set_period(arr); // 设置周期值
+                manual_reload<0>(); // 禁用立即重载
+                auto_reload<1>(); // 启用自动重装
+                set_mode<Mode::HIZ>(); // 默认高阻模式
+                set_idle_mode<0>(); // 禁用空闲模式
+                start(); // 启动定时器
+            }
+
+            /** 设置周期值（自动重装载值） */
+            INLINE void set_period(uint16_t arr)
+            {
+                PRD1::write(arr);
+            }
+
+            /** 设置预分频重载值（下次生效） */
+            INLINE void set_prescaler(const uint16_t psc)
+            {
+                PRSC1::TDDR::write_bits(psc);
+            }
+
+            /** 立即更新预分频值 */
+            INLINE void set_prescaler_now(const uint16_t psc)
+            {
+                PRSC1::PSC::write_bits(psc);
+            }
+
+            /** 自动重装载控制（0:禁用 1:启用） */
+            template<uint16_t mode>
+            INLINE void auto_reload()
+            {
+                TCR1::ARB::write_bit(mode);
+            }
+
+            /** 立即触发重装载（0:正常 1:立即重载） */
+            template<uint16_t mode>
+            INLINE void manual_reload()
+            {
+                TCR1::TLB::write_bit(mode);
+            }
+
+            /** 设置定时器工作模式 */
+            template<Mode::Type mode>
+            INLINE void set_mode()
+            {
+                TCR1::FUNC::write_bit(mode);
+            }
+
+            /** 设置输出极性（0:正极性 1:负极性） */
+            template<uint16_t mode>
+            INLINE void set_polarity()
+            {
+                TCR1::POLAR::write_bit(mode);
+            }
+
+            /** 配置仿真断点行为 */
+            INLINE void set_simulation_breakpoint()
+            {
+                TCR1::SOFT::clear_bit(); // 仿真暂停时立即停止
+                TCR1::FREE::set_bit(); // 自由运行模式
+            }
+
+            /** 设置空闲模式（0:保持运行 1:进入空闲） */
+            template<uint16_t mode>
+            INLINE void set_idle_mode()
+            {
+                TCR1::IDLEEN::write_bit(mode);
+            }
+
+            /** 启动定时器 */
+            INLINE void start()
+            {
+                TCR1::TSS::clear_bit(); // 清除停止位
+            }
+
+            /** 停止定时器 */
+            INLINE void stop()
+            {
+                TCR1::TSS::set_bit(); // 设置停止位
+            }
+        };
     }
+
+    // =============================== 定时器实例化 ===============================
 }
 
 
