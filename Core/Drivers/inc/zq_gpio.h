@@ -104,7 +104,7 @@ namespace zq
                 Traits::DIR::write(PinNum, dir);
             }
 
-            static void high() { Traits::DATA::write(PinNum); }
+            static void high() { Traits::DATA::write(PinNum,true); }
             static void low() { Traits::DATA::clear(PinNum); }
             static bool read() { return Traits::DATA::read_bit(PinNum); }
         };
@@ -120,7 +120,7 @@ namespace zq
         public:
             static void enable()
             {
-                Traits::EN::write(PinNum);
+                Traits::EN::write(PinNum,true);
             }
 
             static void disable()
