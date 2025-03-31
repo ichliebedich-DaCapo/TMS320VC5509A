@@ -152,14 +152,35 @@ template<uint32_t address>
 struct RegisterAccess
 {
     // 单位操作(操作的是掩码)
-    INLINE void write(const uint16_t data)
+    INLINE void write(const uint16_t shift)
     {
-        *MEM_MAP(address) =data;
+        *MEM_MAP(address) |=(1<<shift);
     }
 
-    INLINE uint16_t read(const uint16_t data)
+    INLINE void write(const uint16_t shift,const bool data)
+    {
+        *MEM_MAP(address) =(*MEM_MAP(address) & ~(1<<shift)) |((data << shift) & (1<<shift));
+    }
+
+    INLINE uint16_t read()
     {
         return *MEM_MAP(address);
+    }
+
+    INLINE bool read(const bool shift)
+    {
+        return ((*MEM_MAP(address)) & (1<<shift)) != 0;
+    }
+
+    INLINE void clear()
+    {
+        *MEM_MAP(address) = 0;
+    }
+
+    // 单位操作(操作的是掩码)
+    INLINE void clear(const bool shift)
+    {
+        *MEM_MAP(address) &= ~(1<<shift);
     }
 };
 

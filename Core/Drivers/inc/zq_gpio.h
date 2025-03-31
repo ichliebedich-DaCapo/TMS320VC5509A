@@ -12,28 +12,22 @@ namespace zq
         // ================= GPIO组类型定义 ================
         struct NormalGroup
         {
-
         };
 
         struct AddrGroup
         {
-
         };
 
         struct EHPIGroup
         {
-
         };
 
         // ================= 公共属性 ================
         // 类型安全方向枚举
-        struct Dir
-        {
-            typedef enum
-            {
-                Dir_Input, Dir_Output
-            }Type;
-        };
+        DECLARE_ATTRIBUTE(Dir,
+                          Dir_Input=0,
+                          Dir_Output
+        );
 
 
         // ================= 特征萃取模板 ================
@@ -46,7 +40,9 @@ namespace zq
         {
             // 普通GPIO引脚
             DECLARE_REGISTER_T(DIR, 0x3400);
+
             DECLARE_REGISTER_T(DATA, 0x3401);
+
             enum
             {
                 MAX_PIN = 7,
@@ -63,9 +59,12 @@ namespace zq
                 MAX_PIN = 15,
                 NEED_ENABLE = 1
             };
+
             // Addr GPIO引脚
             DECLARE_REGISTER_T(EN, 0x4400);
+
             DECLARE_REGISTER_T(DIR, 0x4404);
+
             DECLARE_REGISTER_T(DATA, 0x4402);
         };
 
@@ -77,9 +76,12 @@ namespace zq
                 MAX_PIN = 5,
                 NEED_ENABLE = 1
             };
+
             // EHPI引脚
             DECLARE_REGISTER_T(EN, 0x4403);
+
             DECLARE_REGISTER_T(DIR, 0x4404);
+
             DECLARE_REGISTER_T(DATA, 0x4405);
         };
 
@@ -96,23 +98,15 @@ namespace zq
             // 编译期静态断言
             COMPILE_TIME_ASSERT(PinNum <= Traits::MAX_PIN, "PinNum is out of range");
 
-            enum
-            {
-                PIN_MASK = 1 << PinNum
-            };
-
         public:
-            static void set_dir(Dir::Type dir)
+            static void set_dir(const Dir::Type dir)
             {
-                if (dir == Dir::Dir_Input)
-                    Traits::DIR_REG::clear_bit();
-                else
-                    Traits::DIR_REG::set_bit();
+                Traits::DIR::write(PinNum, dir);
             }
 
-            static void high() { Traits::DATA_REG::set_bit(); }
-            static void low() { Traits::DATA_REG::clear_bit(); }
-            static bool read() { return (Traits::DATA_REG::read_bit()) != 0; }
+            static void high() { Traits::DATA::write(PinNum); }
+            static void low() { Traits::DATA::clear(PinNum); }
+            static bool read() { return Traits::DATA::read_bit(PinNum); }
         };
 
         // 需要Enable的组实现
@@ -122,17 +116,16 @@ namespace zq
         {
         protected:
             typedef GPIO_Traits<GroupTag> Traits;
-            using GPIO_Pin_Impl<GroupTag, PinNum, false>::PIN_MASK;
 
         public:
             static void enable()
             {
-                Traits::EN_REG::set_bit();
+                Traits::EN::write(PinNum);
             }
 
             static void disable()
             {
-                Traits::EN_REG::clear_bit();
+                Traits::EN::clear(PinNum);
             }
         };
 
