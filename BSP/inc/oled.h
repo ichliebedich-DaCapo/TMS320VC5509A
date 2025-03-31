@@ -12,16 +12,16 @@ namespace bsp
 {
     namespace oled
     {
-        DECLARE_REGISTER(CTRL, 0x600801); // 如果要写入数据或者命令，那么该寄存器需要置零
-        DECLARE_REGISTER(CMD, 0x602800); // 命令寄存器
-        DECLARE_REGISTER(DATA_BASE, 0x602801);
+        DECLARE_EXMEM_REGISTER_T(CTRL, 0x600801); // 如果要写入数据或者命令，那么该寄存器需要置零
+        DECLARE_EXMEM_REGISTER_T(CMD, 0x602800); // 命令寄存器
+        DECLARE_EXMEM_REGISTER_T(DATA_BASE, 0x602801);
 
-        DECLARE_REGISTER(DATA_L, 0x602801); // 左侧的显示屏
-        DECLARE_REGISTER(DATA_R, 0x600802); // 右侧的显示屏
+        DECLARE_EXMEM_REGISTER_T(DATA_L, 0x602801); // 左侧的显示屏
+        DECLARE_EXMEM_REGISTER_T(DATA_R, 0x600802); // 右侧的显示屏
 
-        DECLARE_REGISTER(CTR_GR, 0x600800);
-        DECLARE_REGISTER(CTR_KEY, 0x602800);
-        DECLARE_REGISTER(CTR_LR, 0x602803);
+        DECLARE_EXMEM_REGISTER_T(CTR_GR, 0x600800);
+        DECLARE_EXMEM_REGISTER_T(CTR_KEY, 0x602800);
+        DECLARE_EXMEM_REGISTER_T(CTR_LR, 0x602803);
 
         DECLARE_ATTRIBUTE(OP_CMD,
             ON = 0x3f,
@@ -36,14 +36,6 @@ namespace bsp
     class OLED
     {
         // 寄存器
-        typedef zq::mmio::ExMemAccess<oled::CTRL::REG> CTRL_REG;
-        typedef zq::mmio::ExMemAccess<oled::CMD::REG> CMD_REG;
-        typedef zq::mmio::ExMemAccess<oled::DATA_BASE::REG> DATA_REG;
-        typedef zq::mmio::ExMemAccess<oled::DATA_L::REG> DATA_L_REG;
-        typedef zq::mmio::ExMemAccess<oled::DATA_R::REG> DATA_R_REG;
-        typedef zq::mmio::ExMemAccess<oled::CTR_GR::REG> CTR_GR_REG;
-        typedef zq::mmio::ExMemAccess<oled::CTR_KEY::REG> CTR_KEY_REG;
-        typedef zq::mmio::ExMemAccess<oled::CTR_LR::REG> CTR_LR_REG;
     public:
 
         /**
@@ -52,8 +44,8 @@ namespace bsp
          */
         INLINE void write_data_left(const uint16_t data)
         {
-            DATA_L_REG::write(data);
-            CTRL_REG::write(0);
+            oled::DATA_L::write(data);
+            oled::CTRL::write(0);
         }
 
         /**
@@ -62,8 +54,8 @@ namespace bsp
          */
         INLINE void write_data_right(const uint16_t data)
         {
-            DATA_R_REG::write(data);
-            CTRL_REG::write(0);
+            oled::DATA_R::write(data);
+            oled::CTRL::write(0);
         }
 
         /**
@@ -72,8 +64,8 @@ namespace bsp
          */
         INLINE void write_cmd(const uint16_t cmd)
         {
-            CMD_REG::write(cmd);
-            CTRL_REG::write(0);
+            oled::CMD::write(cmd);
+            oled::CTRL::write(0);
         }
 
         /**

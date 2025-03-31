@@ -56,6 +56,7 @@ struct NAME { \
 // ========================================寄存器映射（命名空间法）===========================================
 // 把地址映射为存储空间指针，也就是片内寄存器
 #define MEM_MAP(Address) reinterpret_cast<volatile ioport uint16_t *>(Address)
+#define EXMEM_MAP(Address) reinterpret_cast<volatile uint32_t *>(Address)
 // 根据位宽获取掩码
 #define GET_BITS_MASK(WIDTH,SHIFT) (((1<<(WIDTH))-1)<<(SHIFT))
 
@@ -148,7 +149,7 @@ namespace REG_NAME\
 
 // ========================================寄存器映射（模板类法）===========================================
 // 寄存器声明
-template<uint32_t address>
+template<uint16_t address>
 struct RegisterAccess
 {
     // 单位操作(操作的是掩码)
@@ -167,7 +168,7 @@ struct RegisterAccess
         return *MEM_MAP(address);
     }
 
-    INLINE bool read(const bool shift)
+    INLINE bool read(const uint16_t shift)
     {
         return ((*MEM_MAP(address)) & (1<<shift)) != 0;
     }
@@ -193,81 +194,68 @@ struct REG_NAME:RegisterAccess<ADDRESS>\
 
 #define BEGIN_REG_T(REG_NAME, ADDRESS)\
 struct REG_NAME:RegisterAccess<ADDRESS>\
-{
+{\
+    enum\
+    {\
+        REG = ADDRESS\
+    };
 
 // 单位字段声明，必须放在前后的宏之间
 #define DECLARE_BIT_FIELD_T(BIT_NAME, SHIFT)\
-struct BIT_NAME: BitsField<ADDRESS,SHIFT>\
+struct BIT_NAME: BitsField<REG,0,SHIFT>\
 {};
 
 // 多位字段声明，必须放在前后的宏之间
 #define DECLARE_BITS_FIELD_T(BITS_NAME, WIDTH, SHIFT)\
-struct BITS_NAME: BitsField<ADDRESS,GET_BITS_MASK(WIDTH,SHIFT),SHIFT>\
+struct BITS_NAME: BitsField<REG,GET_BITS_MASK(WIDTH,SHIFT),SHIFT>\
 {};
 
 // ========寄存器结束========
 #define END_REG_T()\
 };
 
-namespace zq
+
+// ===============================外部存储器===================================
+// 32位的地址
+template<uint32_t address>
+struct ExMemAccess
 {
-    namespace mmio
+    // 单位操作,把该位变为1
+    INLINE void write(const uint16_t value)
     {
-        /// @brief 外部存储访问
-        template<uint32_t addr>
-        struct  ExMemAccess
-        {
-            // 编译期地址计算
-            static inline volatile uint32_t *ptr()
-            {
-                return reinterpret_cast<volatile uint32_t *>(addr);
-            }
+        *EXMEM_MAP(address) =value;
+    }
 
-            // 单位操作(操作的是掩码)
-            static inline void set_bit(const uint16_t mask)
-            {
-                *ptr() |= mask;
-            }
+    INLINE void write(const uint16_t shift,const bool data)
+    {
+        *EXMEM_MAP(address) =(*EXMEM_MAP(address) & ~(1<<shift)) |((data << shift) & (1<<shift));
+    }
 
-            static inline void clear_bit(const uint16_t mask)
-            {
-                *ptr() &= ~mask;
-            }
+    INLINE uint16_t read()
+    {
+        return *EXMEM_MAP(address);
+    }
 
-            // 读取位
-            static inline bool read_bit(const uint16_t mask)
-            {
-                return (*ptr() & mask) != 0;
-            }
+    // 返回的是单位的值
+    INLINE bool read(const uint16_t shift)
+    {
+        return ((*EXMEM_MAP(address)) & (1<<shift)) != 0;
+    }
 
-            static inline bool read_bit_not(const uint16_t mask)
-            {
-                return (*ptr() & mask) == 0;
-            }
+    INLINE void clear()
+    {
+        *EXMEM_MAP(address) = 0;
+    }
 
-            /**
-             *
-             * @param value 要修改的值
-             * @param mask 掩码
-             * @param shift 位偏移
-             */
-            static inline void modify_bits(const uint16_t value, const uint16_t mask, const uint16_t shift)
-            {
-                *ptr() = (*ptr() & ~mask) | ((value << shift) & mask);
-            }
+    // 单位操作(操作的是掩码)
+    INLINE void clear(const bool shift)
+    {
+        *EXMEM_MAP(address) &= ~(1<<shift);
+    }
+};
+// 外部存储器寄存器声明
+#define DECLARE_EXMEM_REGISTER_T(REG_NAME,ADDRESS)\
+struct REG_NAME:ExMemAccess<ADDRESS> {};
 
-            // 直接向寄存器写入16位的值
-            static inline void write(const uint16_t value)
-            {
-                *ptr() = value;
-            }
 
-            static inline uint16_t read()
-            {
-                return *ptr();
-            }
-        };
-
-    } // namespace mmio
-} // namespace hal
 #endif //ZQ_CONF_H

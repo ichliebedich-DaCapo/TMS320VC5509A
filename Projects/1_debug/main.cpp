@@ -6,6 +6,7 @@
 #include <zq_conf.h>
 #include <zq_pll.h>
 #include<zq_gpio.h>
+#include<zq_timer.h>
 #if PROGRAM_INDEX == 1
 #include <stdio.h>
 
@@ -50,6 +51,7 @@ int main()
 {
     zq::pll::MainPLL::configure<10>();
     zq::gpio::GPIO_Addr0::enable();
+    zq::timer::Timer0::start();
 
     // ======初始化======
     int i = 0;

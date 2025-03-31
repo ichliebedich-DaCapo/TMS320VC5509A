@@ -14,7 +14,7 @@ namespace bsp
 {
     namespace led
     {
-        DECLARE_REGISTER(LED, 0x400001);
+        DECLARE_EXMEM_REGISTER_T(LED, 0x400001);
 
         DECLARE_ATTRIBUTE(pin,
                           LED_1 = 0x0001,
@@ -26,7 +26,6 @@ namespace bsp
 
     class LED
     {
-        typedef zq::mmio::ExMemAccess<led::LED::REG> LED_Reg;
 
     public:
         /**
@@ -35,7 +34,7 @@ namespace bsp
          */
         INLINE void on(const led::pin::Type pin)
         {
-            LED_Reg::set_bit(pin);
+            led::LED::write(pin,true);
         }
 
         /**
@@ -44,12 +43,12 @@ namespace bsp
          */
         INLINE void off(const led::pin::Type pin)
         {
-            LED_Reg::clear_bit(pin);
+            led::LED::clear(pin);
         }
 
         INLINE void set(const uint16_t value)
         {
-            LED_Reg::write(value);
+            led::LED::write(value);
         }
     };
 }

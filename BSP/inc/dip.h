@@ -14,7 +14,7 @@ namespace bsp
 {
     namespace dip
     {
-        DECLARE_REGISTER(DIP, 0x400002);
+        DECLARE_EXMEM_REGISTER_T(DIP, 0x400002);
 
         DECLARE_ATTRIBUTE(Pin, DIP_1 = 0x0001,
                           DIP_2 = 0x0002,
@@ -22,10 +22,10 @@ namespace bsp
                           DIP_4 = 0x0008);
     }
 
+
+
     class DIP
     {
-        typedef zq::mmio::ExMemAccess<dip::DIP::REG> DIP_Reg;
-
     public:
         /**
          * @brief 获取拨码开关组的状态
@@ -33,7 +33,7 @@ namespace bsp
          */
         INLINE uint16_t get()
         {
-            return DIP_Reg::read();
+            return dip::DIP::read();
         }
 
         /**
@@ -43,7 +43,7 @@ namespace bsp
          */
         INLINE uint16_t get(const dip::Pin::Type pin)
         {
-            return DIP_Reg::read_bit(pin);
+            return dip::DIP::read(pin);
         }
     };
 }
