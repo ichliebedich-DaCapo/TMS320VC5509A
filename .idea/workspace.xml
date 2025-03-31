@@ -28,9 +28,9 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a78db7b0-77d9-459c-87d1-f1d260dcb0d0" name="更改" comment="【开发】与CCS兼容，又更新了一些东西">
-      <change beforePath="$PROJECT_DIR$/.cproject" beforeDir="false" afterPath="$PROJECT_DIR$/.cproject" afterDir="false" />
+    <list default="true" id="a78db7b0-77d9-459c-87d1-f1d260dcb0d0" name="更改" comment="【开发】添加了CCS的断点">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projects/1_debug/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Projects/1_debug/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,8 +64,8 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Core/Drivers/inc/zq_conf.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Core/Drivers/inc/zq_gpio.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Projects/demo/main.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Projects/demo/ui/ui.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Projects/demo/main.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Projects/demo/ui/ui.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_HOME_DIR$/bin/cmake/win/x64/share/cmake-3.30/Modules/CMakeTestCCompiler.cmake" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_HOME_DIR$/bin/cmake/win/x64/share/cmake-3.30/Modules/CMakeTestCXXCompiler.cmake" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -129,11 +129,6 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="demo.elf" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="demo" TARGET_NAME="demo.elf" CONFIG_NAME="Debug-w64-i686-arm-none-eabi" RUN_TARGET_PROJECT_NAME="demo" RUN_TARGET_NAME="demo.elf">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -187,7 +182,8 @@
       <workItem from="1742226396755" duration="4000" />
       <workItem from="1742227139216" duration="3000" />
       <workItem from="1743379354353" duration="5941000" />
-      <workItem from="1743385379291" duration="3095000" />
+      <workItem from="1743385379291" duration="4623000" />
+      <workItem from="1743392850986" duration="7000" />
     </task>
     <task id="LOCAL-00001" summary="【工程】成功使用CLion编译TI工程">
       <option name="closed" value="true" />
@@ -469,7 +465,15 @@
       <option name="project" value="LOCAL" />
       <updated>1743387570048</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="【开发】添加了CCS的断点">
+      <option name="closed" value="true" />
+      <created>1743389896121</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1743389896121</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -491,7 +495,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="master" />
+                        <option value="ZQ" />
                       </list>
                     </value>
                   </entry>
@@ -504,7 +508,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="【开发】添加了锁相环驱动，完成了一半" />
     <MESSAGE value="【开发】完善了锁相环驱动（包含USBPLL）" />
     <MESSAGE value="【修复】USBPLL相关赋值问题" />
     <MESSAGE value="【修复】SDRAM文件放错位置问题" />
@@ -529,7 +532,8 @@
     <MESSAGE value="【开发】更新了dip和led" />
     <MESSAGE value="【开发】更新了一些东西" />
     <MESSAGE value="【开发】与CCS兼容，又更新了一些东西" />
-    <option name="LAST_COMMIT_MESSAGE" value="【开发】与CCS兼容，又更新了一些东西" />
+    <MESSAGE value="【开发】添加了CCS的断点" />
+    <option name="LAST_COMMIT_MESSAGE" value="【开发】添加了CCS的断点" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

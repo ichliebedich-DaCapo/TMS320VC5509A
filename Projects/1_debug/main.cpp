@@ -3,6 +3,8 @@
 //
 //-------------------------------相关头文件------------------------------------//
 #include<app_conf.h>
+#include <zq_conf.h>
+#include <zq_pll.h>
 #if PROGRAM_INDEX == 1
 #include <stdio.h>
 
@@ -45,18 +47,28 @@ int output_signals(int *output);
 //-----------------------------------主程序------------------------------------//
 int main()
 {
+    zq::pll::MainPLL::configure<10>();
+
     // ======初始化======
     int i = 0;
     input = inp_buffer;
     output = out_buffer;
 
+     uint32_t count=0;
     // ======无限循环======
     while (TRUE)
     {
-        read_signals(input); // 加软件断点和探针
-        write_buffer(input, output,BUF_SIZE);
-        output_signals(output);
-        // printf("Number: %d\n", i++);
+        // read_signals(input); // 加软件断点和探针
+        // write_buffer(input, output,BUF_SIZE);
+        // output_signals(output);
+        // // printf("Number: %d\n", i++);
+
+        // 如果如我预期是200MHz，那么count应该接近
+        ++count;
+        if (count >= 20000000)
+        {
+            count = 0;
+        }
     }
 }
 

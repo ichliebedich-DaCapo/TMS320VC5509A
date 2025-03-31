@@ -49,7 +49,7 @@ namespace zq
             };
 
             DECLARE_BITS_FIELD(DIV, 0x0060, 5); // 分频系数配置域（位5-6） 2位宽，有效值范围0-3（实际分频=配置值+1）
-            DECLARE_BITS_FIELD(ENABLE, 0x0008, 0x0004); // PLL使能控制位（位4）
+            DECLARE_BITS_FIELD(ENABLE, 0x0010, 4); // PLL使能控制位（位4）
             DECLARE_BITS_FIELD(BYPASS_DIV, 0x000C, 2); // 旁路模式分频配置（位2-3）     仅在旁路模式（BYPASS）下生效
             DECLARE_BITS_FIELD(BREAKLN, 0x0002, 1); // 失锁状态标志位（位1）   只读位，指示PLL当前锁定状态
             DECLARE_BITS_FIELD(LOCK, 0x0001, 0); // 工作模式标志位（位0）  只读位，指示当前工作模式
