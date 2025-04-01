@@ -9,7 +9,7 @@
 #include<zq_timer.h>
 #if PROGRAM_INDEX == 1
 #include <stdio.h>
-
+#include <zq_adc.h>
 //-------------------------------声明----------------------------------//
 #define BUF_SIZE 0x64
 #define TRUE 1
