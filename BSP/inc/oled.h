@@ -107,7 +107,6 @@ namespace bsp
 #define LCD_DATA_BASE 0x602801
 #define LCD_DATA_L (*(unsigned int *)0x602801)  // 左侧的显示屏
 #define LCD_DATA_R (*(unsigned int *)0x600802)
-#define LCD_DATA(column) (*(unsigned int *)(0x600802 + (( ( (column) & 0x40 ) << 7 ) - ((column) >> 6 & 1) )))// 动态计算列地址
 
 
 

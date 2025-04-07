@@ -151,59 +151,60 @@ void WaveformView<x, y, width, height, MAX_POINT_NUM, MAX_AMPLITUDE, H_GRIDS, V_
         const uint16_t grid = (width-1)/(MAX_POINT_NUM-1);// 从一个点到相邻的后一个点的间隔
 
         // ==================绘制算法===================
-#define Linear_Inline 1
-#if Linear_Inline
-        // 线性插值算法
-        // 峰值附近会有空缺，不知道为什么
-        coord_t x0 = x + 1;
-        coord_t y0 = get_y(0);
-        for (uint16_t i = 0; i < valid_points-1; ++i)
-        {
-            // 计算相邻点坐标
-            const coord_t x1 = x0 + grid;
-            const coord_t y1 =get_y(i+1);
-
-            // 线段绘制
-            draw_line(x0, y0, x1, y1);
-            x0 += grid;
-            y0 = y1;
-        }
-#else
-        // 样条算法
-        if (valid_points<4)return;
-        for (uint16_t i = 0; i < valid_points - 3; ++i)
-        {
-            const Point p0={
-                static_cast<uint16_t>(x + 1 + grid * i),
-                get_y(i)
-            };
-            const Point p1={
-                static_cast<uint16_t>(x + 1 + grid * (i+1)),
-                get_y(i+1)
-            };
-            const Point p2={
-                static_cast<uint16_t>(x + 1 + grid * (i+2)),
-                get_y(i+2)
-            };
-            const Point p3={
-                static_cast<uint16_t>(x + 1 + grid * (i+3)),
-                get_y(i+3)
-            };
-
-            draw_catmull_rom<8>(p0, p1, p2, p3);
-            // draw_bezier3<8>(p0, p1, p2, p3);
-        }
-#endif
-#undef Linear_Inline
-
-        // ==============触发重绘=============
-        uint16_t page = get_page(y);// 起始页
-        for (uint16_t i=0;i<GUI_PAGE_HEIGHT(y, height+2);++i)
-        {
-            update_dirty_col(page,x,x+width+1);
-            ++page;
-        }
-    }
+// #define Linear_Inline 1
+//
+// #if Linear_Inline
+//         // 线性插值算法
+//         // 峰值附近会有空缺，不知道为什么
+//         coord_t x0 = x + 1;
+//         coord_t y0 = get_y(0);
+//         for (uint16_t i = 0; i < valid_points-1; ++i)
+//         {
+//             // 计算相邻点坐标
+//             const coord_t x1 = x0 + grid;
+//             const coord_t y1 =get_y(i+1);
+//
+//             // 线段绘制
+//             draw_line(x0, y0, x1, y1);
+//             x0 += grid;
+//             y0 = y1;
+//         }
+// #else
+//         // 样条算法
+//         if (valid_points<4)return;
+//         for (uint16_t i = 0; i < valid_points - 3; ++i)
+//         {
+//             const Point p0={
+//                 static_cast<uint16_t>(x + 1 + grid * i),
+//                 get_y(i)
+//             };
+//             const Point p1={
+//                 static_cast<uint16_t>(x + 1 + grid * (i+1)),
+//                 get_y(i+1)
+//             };
+//             const Point p2={
+//                 static_cast<uint16_t>(x + 1 + grid * (i+2)),
+//                 get_y(i+2)
+//             };
+//             const Point p3={
+//                 static_cast<uint16_t>(x + 1 + grid * (i+3)),
+//                 get_y(i+3)
+//             };
+//
+//             draw_catmull_rom<8>(p0, p1, p2, p3);
+//             // draw_bezier3<8>(p0, p1, p2, p3);
+//         }
+// #endif
+// #undef Linear_Inline
+//
+//         // ==============触发重绘=============
+//         uint16_t page = get_page(y);// 起始页
+//         for (uint16_t i=0;i<GUI_PAGE_HEIGHT(y, height+2);++i)
+//         {
+//             update_dirty_col(page,x,x+width+1);
+//             ++page;
+//         }
+     }
 }
 
 
