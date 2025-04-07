@@ -106,7 +106,7 @@ namespace zq
 
             static void high() { Traits::DATA::write(PinNum,true); }
             static void low() { Traits::DATA::clear(PinNum); }
-            static bool read() { return Traits::DATA::read_bit(PinNum); }
+            static bool read() { return Traits::DATA::read(PinNum); }
         };
 
         // 需要Enable的组实现

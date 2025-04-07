@@ -11,6 +11,7 @@
 #if defined(__ARM__)||defined(SIMULATOR)
 // 定义关键字
 #define ioport
+#define interrupt
 #endif
 
 
@@ -54,8 +55,9 @@ struct NAME { \
 }
 
 // ========================================寄存器映射（命名空间法）===========================================
-// 把地址映射为存储空间指针，也就是片内寄存器    不能加volatile关键字，否则不生效
-#define MEM_MAP(Address) reinterpret_cast<ioport uint16_t *>(Address)
+// 把地址映射为存储空间指针，也就是片内寄存器    必须加上ioport关键字
+#define MEM_MAP(Address) reinterpret_cast<volatile ioport uint16_t *>(Address)
+// 片外存储器不能添加ioport和volatile关键字，否则外部存储器不生效
 #define EXMEM_MAP(Address) reinterpret_cast<unsigned int *>(Address)
 // 根据位宽获取掩码
 #define GET_BITS_MASK(WIDTH,SHIFT) (((1<<(WIDTH))-1)<<(SHIFT))

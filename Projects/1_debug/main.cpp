@@ -60,12 +60,9 @@ int main()
 {
     ZQ_Init();
 
-    // oled_init();
-    GUI_Init();
-
+    oled_init();
     oled_clear();
-
-
+    bsp::LED::clear();
 
     // ======初始化======
     int i = 0;
@@ -74,8 +71,6 @@ int main()
 
     uint32_t count = 0;
 
-
-    bsp::LED::clear();
 
     // ======无限循环======
     while (TRUE)
@@ -87,14 +82,20 @@ int main()
 
         // 如果如我预期是200MHz，那么count应该接近
         ++count;
+        static uint16_t temp =0;
         if (count >= 5000000)
         {
             count = 0;
             bsp::LED::toggle(bsp::led::pin::LED_1);
+            // temp = ~temp;
+            // if (temp)
+            //     zq::gpio::GPIO_Normal0::high();
+            // else
+            //     zq::gpio::GPIO_Normal0::low();
         }
 
         // bsp::LED::set(bsp::DIP::get());
-
+        // bsp::LED::set(zq::gpio::GPIO_Normal2::read());
     }
 }
 
@@ -120,6 +121,14 @@ int output_signals(int *output)
 {
     // 在此将输出缓冲区out_buffer中的数据发送到输出设备(比如DA)
     return (TRUE);
+}
+
+extern "C"
+{
+interrupt void TimerISR()
+{
+    bsp::LED::toggle(bsp::led::pin::LED_3);
+}
 }
 
 #endif
