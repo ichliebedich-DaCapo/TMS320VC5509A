@@ -16,10 +16,10 @@ namespace bsp
     {
         DECLARE_EXMEM_REGISTER_T(DIP, 0x400002);
 
-        DECLARE_ATTRIBUTE(Pin, DIP_1 = 0x0001,
-                          DIP_2 = 0x0002,
-                          DIP_3 = 0x0004,
-                          DIP_4 = 0x0008);
+        DECLARE_ATTRIBUTE(Pin, DIP_1 = 0x0000,
+                          DIP_2 = 0x0001,
+                          DIP_3 = 0x0002,
+                          DIP_4 = 0x0003);
     }
 
 

@@ -12,6 +12,9 @@
 #include <stdio.h>
 #include <zq_adc.h>
 #include<led.h>
+#include <dip.h>
+#include<zq_gui.h>
+#include<oled.h>
 //-------------------------------声明----------------------------------//
 #define BUF_SIZE 0x64
 #define TRUE 1
@@ -50,17 +53,25 @@ int output_signals(int *output);
 
 //-----------------------------------主程序------------------------------------//
 #define LBDS (*((unsigned int *)0x400001))
+
 int main()
 {
     ZQ_Init();
 
+    oled_init();
+
+    oled_clear();
 
     // ======初始化======
     int i = 0;
     input = inp_buffer;
     output = out_buffer;
 
-     uint32_t count=0;
+    uint32_t count = 0;
+
+
+    bsp::LED::clear();
+
     // ======无限循环======
     while (TRUE)
     {
@@ -71,21 +82,13 @@ int main()
 
         // 如果如我预期是200MHz，那么count应该接近
         ++count;
-        static uint16_t led_value = 0;
         if (count >= 5000000)
         {
             count = 0;
-            led_value=~led_value;
-            if (led_value)
-            {
-                bsp::LED::on(bsp::led::pin::LED_1);
-                // LBDS = 0x01;
-            }else
-            {
-                bsp::LED::off(bsp::led::pin::LED_1);
-                // LBDS = 0x00;
-            }
+            bsp::LED::toggle(bsp::led::pin::LED_1);
         }
+
+        // bsp::LED::set(bsp::DIP::get());
     }
 }
 

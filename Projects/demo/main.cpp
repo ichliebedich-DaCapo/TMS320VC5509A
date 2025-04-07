@@ -15,10 +15,11 @@ extern void ui_handler();
 int main()
 {
     ZQ_Init();
+    lcd_init();
     GUI_Init();
 
-    zq::timer::TIM0::init(TIM_FREQ_200M_to_1M);
 
+    lcd_clear();
 
 
     for (;;)

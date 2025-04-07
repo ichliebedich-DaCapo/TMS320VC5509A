@@ -243,6 +243,12 @@ struct ExMemAccess
         return ((*EXMEM_MAP(address)) & (1<<shift)) != 0;
     }
 
+    // 翻转
+    INLINE void toggle(const uint16_t shift)
+    {
+        *EXMEM_MAP(address) ^= (1<<shift);
+    }
+
     INLINE void clear()
     {
         *EXMEM_MAP(address) = 0;

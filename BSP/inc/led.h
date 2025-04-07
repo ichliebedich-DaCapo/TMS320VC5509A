@@ -50,6 +50,15 @@ namespace bsp
         {
             led::LED::write(value);
         }
+
+        INLINE void toggle(const led::pin::Type pin)
+        {
+            led::LED::toggle(pin);
+        }
+        INLINE void clear()
+        {
+            led::LED::clear();
+        }
     };
 }
 

@@ -6,7 +6,7 @@
 #include<zq_conf.h>
 
 // 动态计算列地址
-#define LCD_DATA(column) (*(volatile uint32_t *)(0x600802 + (( ( (column) & 0x40 ) << 7 ) - ((column) >> 6 & 1) )))
+#define LCD_DATA(column) (*(uint32_t *)(0x600802 + (( ( (column) & 0x40 ) << 7 ) - ((column) >> 6 & 1) )))
 
 namespace bsp
 {
@@ -102,18 +102,18 @@ namespace bsp
 }
 
 /*寄存器映射*/
-#define LCD_CTRL (*(volatile uint32_t *)0x600801)// 如果要写入数据或者命令，那么该寄存器需要置零
-#define LCD_CMD (*(volatile uint32_t *)0x602800)// 命令寄存器
+#define LCD_CTRL (*(unsigned int *)0x600801)// 如果要写入数据或者命令，那么该寄存器需要置零
+#define LCD_CMD (*(unsigned int *)0x602800)// 命令寄存器
 #define LCD_DATA_BASE 0x602801
-#define LCD_DATA_L (*(volatile uint32_t *)0x602801)  // 左侧的显示屏
-#define LCD_DATA_R (*(volatile uint32_t *)0x600802)
-#define LCD_DATA(column) (*(volatile uint32_t *)(0x600802 + (( ( (column) & 0x40 ) << 7 ) - ((column) >> 6 & 1) )))// 动态计算列地址
+#define LCD_DATA_L (*(unsigned int *)0x602801)  // 左侧的显示屏
+#define LCD_DATA_R (*(unsigned int *)0x600802)
+#define LCD_DATA(column) (*(unsigned int *)(0x600802 + (( ( (column) & 0x40 ) << 7 ) - ((column) >> 6 & 1) )))// 动态计算列地址
 
 
 
-#define LCD_CTR_GR (*(volatile uint32_t *)0x600800)
-#define LCD_CTR_KEY (*(volatile uint32_t *)0x602800)
-#define LCD_CTR_LR (*(volatile uint32_t *)0x602803)
+#define LCD_CTR_GR (*(unsigned int *)0x600800)
+#define LCD_CTR_KEY (*(unsigned int *)0x602800)
+#define LCD_CTR_LR (*(unsigned int *)0x602803)
 
 /*寄存器命令*/
 #define LCD_CMD_TURN_ON 0x3f
@@ -124,7 +124,7 @@ namespace bsp
 
 
 /*====================================底层基础操作=========================================*/
-//
+#include<zq_delay.h>
 /**
  * 向左侧屏幕写入数据
  * @param data 数据
@@ -132,7 +132,9 @@ namespace bsp
 INLINE void lcd_write_data_left(const uint16_t data)
 {
     LCD_DATA_L = data;
+    delay(1);
     LCD_CTRL = 0;
+    delay(1);
 }
 
 /**
@@ -142,7 +144,9 @@ INLINE void lcd_write_data_left(const uint16_t data)
 INLINE void lcd_write_data_right(const uint16_t data)
 {
     LCD_DATA_R = data;
+    delay(1);
     LCD_CTRL = 0;
+    delay(1);
 }
 
 /**
@@ -152,7 +156,9 @@ INLINE void lcd_write_data_right(const uint16_t data)
 INLINE void lcd_write_cmd(const uint16_t cmd)
 {
     LCD_CMD = cmd;
+    delay(1);
     LCD_CTRL = 0;
+    delay(1);
 }
 
 /**
@@ -171,22 +177,10 @@ INLINE void lcd_set_column(const uint16_t column)
 
 
 // 清屏
-#define lcd_clear()\
-{\
-    int i, j;\
-    lcd_write_cmd(LCD_CMD_START_LINE);\
-    for (i = 0; i < 8; ++i)\
-    {\
-        lcd_set_page(i);\
-        lcd_set_column(0);\
-        for (j = 0; j < 64; ++j)\
-            lcd_write_data_left(0);\
-        lcd_set_page(i);\
-        lcd_set_column(0);\
-        for (j = 0; j < 64; ++j)\
-            lcd_write_data_right(0);\
-    }\
-}
+void oled_clear();
+
+
+
 
 INLINE void lcd_write_data(const uint16_t page, const uint16_t column, const uint16_t data)
 {
@@ -255,7 +249,7 @@ INLINE void lcd_flush(const uint16_t *buf)
 
 /*====================================操作=========================================*/
 //
-void lcd_init();
+void oled_init();
 
 // void lcd_write_page(uint16_t page,uint16_t*buf);
 
