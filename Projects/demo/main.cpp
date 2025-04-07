@@ -11,15 +11,13 @@ extern void ui_handler();
 
 
 
+uint16_t buf[10]={
+0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF};
 
 int main()
 {
     ZQ_Init();
-    lcd_init();
     GUI_Init();
-
-
-    lcd_clear();
 
 
     for (;;)

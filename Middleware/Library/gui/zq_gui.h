@@ -334,11 +334,12 @@ void GUI_Object::write_pixel(const uint16_t x, const uint16_t y)
 template<void(*oled_write_data)(uint16_t page, uint16_t start_col, uint16_t end_col, const uint16_t *buf)>
 void GUI_Render::handler()
 {
+    // 这里不知道为什么指针会跑飞掉，暂时把draw放在ui_handler里
     // 阶段1：遍历组件
-    for (uint16_t i = 0; i < count; ++i)
-    {
-        obj_list[i]();
-    }
+    // for (uint16_t i = 0; i < count; ++i)
+    // {
+    //     obj_list[i]();
+    // }
 
     // 阶段2：硬件绘制
 

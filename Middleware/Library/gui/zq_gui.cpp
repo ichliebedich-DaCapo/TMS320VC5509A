@@ -71,6 +71,7 @@ void GUI_Object::draw_hline(uint16_t x1, uint16_t x2, uint16_t y, uint16_t color
 
     /* 更新脏区域 */
     // update_col(page, x1, x2);
+    invalidate();
 }
 
 /**
@@ -119,6 +120,7 @@ void GUI_Object::draw_vline(uint16_t y1, uint16_t y2, uint16_t x, uint16_t color
 
         /* 更新脏区域 */
         // update_col(page, x, x);
+        invalidate();
     }
 }
 
@@ -186,6 +188,9 @@ void GUI_Object::draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, u
             y0 += sy;
         }
     }
+
+    //
+    invalidate();
 }
 
 void GUI_Object::draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1)
@@ -349,6 +354,7 @@ void GUI_Object::fill_rect(uint16_t x, uint16_t y, uint16_t width, uint16_t heig
 
         /* 更新脏区域 */
         // update_col(page, x, x_end);
+        invalidate();
     }
 }
 
@@ -391,6 +397,8 @@ void GUI_Object::draw_circle(const uint16_t x0, const uint16_t y0, const uint16_
         ddF_x += 2;
         f += ddF_x + 1;
     }
+
+    invalidate();
 }
 
 

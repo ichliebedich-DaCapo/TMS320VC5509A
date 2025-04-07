@@ -3,6 +3,7 @@
 //
 //-------------------------------相关头文件------------------------------------//
 #include<app_conf.h>
+#include <gui.h>
 #include <zq_conf.h>
 #include <zq_pll.h>
 #include<zq_gpio.h>
@@ -15,6 +16,7 @@
 #include <dip.h>
 #include<zq_gui.h>
 #include<oled.h>
+#include<zq_gui.h>
 //-------------------------------声明----------------------------------//
 #define BUF_SIZE 0x64
 #define TRUE 1
@@ -58,9 +60,12 @@ int main()
 {
     ZQ_Init();
 
-    oled_init();
+    // oled_init();
+    GUI_Init();
 
     oled_clear();
+
+
 
     // ======初始化======
     int i = 0;
@@ -89,6 +94,7 @@ int main()
         }
 
         // bsp::LED::set(bsp::DIP::get());
+
     }
 }
 

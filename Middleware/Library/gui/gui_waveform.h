@@ -38,10 +38,9 @@ public:
             is_buffer_full = true;
     }
 
-protected:
     // 绘制波形函数
     static void draw();
-
+protected:
     // 计算Y坐标转换（屏幕坐标系适配）
     INLINE coord_t scale_y(const int data)
     {
