@@ -54,9 +54,9 @@ struct NAME { \
 }
 
 // ========================================寄存器映射（命名空间法）===========================================
-// 把地址映射为存储空间指针，也就是片内寄存器
-#define MEM_MAP(Address) reinterpret_cast<volatile ioport uint16_t *>(Address)
-#define EXMEM_MAP(Address) reinterpret_cast<volatile uint32_t *>(Address)
+// 把地址映射为存储空间指针，也就是片内寄存器    不能加volatile关键字，否则不生效
+#define MEM_MAP(Address) reinterpret_cast<ioport uint16_t *>(Address)
+#define EXMEM_MAP(Address) reinterpret_cast<unsigned int *>(Address)
 // 根据位宽获取掩码
 #define GET_BITS_MASK(WIDTH,SHIFT) (((1<<(WIDTH))-1)<<(SHIFT))
 
@@ -248,7 +248,7 @@ struct ExMemAccess
     }
 
     // 单位操作(操作的是掩码)
-    INLINE void clear(const bool shift)
+    INLINE void clear(const uint16_t shift)
     {
         *EXMEM_MAP(address) &= ~(1<<shift);
     }

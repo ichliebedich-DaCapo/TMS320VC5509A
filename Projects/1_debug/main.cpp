@@ -6,10 +6,12 @@
 #include <zq_conf.h>
 #include <zq_pll.h>
 #include<zq_gpio.h>
+#include <zq_init.h>
 #include<zq_timer.h>
 #if PROGRAM_INDEX == 1
 #include <stdio.h>
 #include <zq_adc.h>
+#include<led.h>
 //-------------------------------声明----------------------------------//
 #define BUF_SIZE 0x64
 #define TRUE 1
@@ -47,11 +49,11 @@ int output_signals(int *output);
 
 
 //-----------------------------------主程序------------------------------------//
+#define LBDS (*((unsigned int *)0x400001))
 int main()
 {
-    zq::pll::MainPLL::configure<10>();
-    zq::gpio::GPIO_Addr0::enable();
-    zq::timer::Timer0::start();
+    ZQ_Init();
+
 
     // ======初始化======
     int i = 0;
@@ -69,9 +71,20 @@ int main()
 
         // 如果如我预期是200MHz，那么count应该接近
         ++count;
-        if (count >= 20000000)
+        static uint16_t led_value = 0;
+        if (count >= 5000000)
         {
             count = 0;
+            led_value=~led_value;
+            if (led_value)
+            {
+                bsp::LED::on(bsp::led::pin::LED_1);
+                // LBDS = 0x01;
+            }else
+            {
+                bsp::LED::off(bsp::led::pin::LED_1);
+                // LBDS = 0x00;
+            }
         }
     }
 }

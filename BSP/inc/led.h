@@ -17,10 +17,10 @@ namespace bsp
         DECLARE_EXMEM_REGISTER_T(LED, 0x400001);
 
         DECLARE_ATTRIBUTE(pin,
-                          LED_1 = 0x0001,
-                          LED_2 = 0x0002,
-                          LED_3 = 0x0004,
-                          LED_4 = 0x0008
+                          LED_1 = 0x0000,
+                          LED_2 = 0x0001,
+                          LED_3 = 0x0002,
+                          LED_4 = 0x0003
         );
     }
 
@@ -34,7 +34,7 @@ namespace bsp
          */
         INLINE void on(const led::pin::Type pin)
         {
-            led::LED::write(pin,true);
+            led::LED::write(pin);
         }
 
         /**

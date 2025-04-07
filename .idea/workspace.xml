@@ -28,10 +28,8 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a78db7b0-77d9-459c-87d1-f1d260dcb0d0" name="更改" comment="【开发】修复了GPIO的一些错误">
-      <change afterPath="$PROJECT_DIR$/Core/Drivers/inc/zq_adc.h" afterDir="false" />
+    <list default="true" id="a78db7b0-77d9-459c-87d1-f1d260dcb0d0" name="更改" comment="【开发】今天先这样，不写了">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Projects/1_debug/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Projects/1_debug/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -130,11 +128,6 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="demo.elf" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="demo" TARGET_NAME="demo.elf" CONFIG_NAME="Debug-w64-i686-arm-none-eabi" RUN_TARGET_PROJECT_NAME="demo" RUN_TARGET_NAME="demo.elf">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -191,7 +184,8 @@
       <workItem from="1743385379291" duration="4623000" />
       <workItem from="1743392850986" duration="20082000" />
       <workItem from="1743423462875" duration="9754000" />
-      <workItem from="1743471872500" duration="758000" />
+      <workItem from="1743471872500" duration="1151000" />
+      <workItem from="1743834314112" duration="614000" />
     </task>
     <task id="LOCAL-00001" summary="【工程】成功使用CLion编译TI工程">
       <option name="closed" value="true" />
@@ -521,7 +515,15 @@
       <option name="project" value="LOCAL" />
       <updated>1743433228690</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="【开发】今天先这样，不写了">
+      <option name="closed" value="true" />
+      <created>1743473022903</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1743473022903</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -556,7 +558,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="【开发】勉强添加了一个u8g2库，后面可以再做一个模拟器辅助开发" />
     <MESSAGE value="【开发】尝试添加了一个模拟器" />
     <MESSAGE value="【开发】在GCC主工程里成功对接模拟器工程" />
     <MESSAGE value="【开发】优化了LCD的一些函数" />
@@ -581,7 +582,8 @@
     <MESSAGE value="【开发】修复了GPIO定义" />
     <MESSAGE value="【开发】修复了一些错误" />
     <MESSAGE value="【开发】修复了GPIO的一些错误" />
-    <option name="LAST_COMMIT_MESSAGE" value="【开发】修复了GPIO的一些错误" />
+    <MESSAGE value="【开发】今天先这样，不写了" />
+    <option name="LAST_COMMIT_MESSAGE" value="【开发】今天先这样，不写了" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
