@@ -34,7 +34,7 @@ namespace bsp
          */
         INLINE void on(const led::pin::Type pin)
         {
-            led::LED::write(pin);
+            led::LED::write(pin,true);
         }
 
         /**

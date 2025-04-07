@@ -220,12 +220,13 @@ struct BITS_NAME: BitsField<REG,GET_BITS_MASK(WIDTH,SHIFT),SHIFT>\
 template<uint32_t address>
 struct ExMemAccess
 {
-    // 单位操作,把该位变为1
+
     INLINE void write(const uint16_t value)
     {
         *EXMEM_MAP(address) =value;
     }
 
+    // 单位操作,把该位变为1
     INLINE void write(const uint16_t shift,const bool data)
     {
         *EXMEM_MAP(address) =(*EXMEM_MAP(address) & ~(1<<shift)) |((data << shift) & (1<<shift));
