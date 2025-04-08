@@ -190,7 +190,7 @@ namespace GUI
         {
             for (uint16_t page = start_page; page <= end_page; ++page)
             {
-                memset(buffer[page]+start_col, 0, sizeof((end_col - start_col)*sizeof(uint16_t)));
+                memset(buffer[page]+start_col, 0, sizeof((end_col - start_col+1)*sizeof(uint16_t)));
             }
         }
 
