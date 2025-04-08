@@ -51,7 +51,7 @@ void simulator_init()
     }
 
     // 创建窗口
-    window = SDL_CreateWindow("u8g2 Simulator", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+    window = SDL_CreateWindow("GUI Simulator", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
                               REAL_HOR, REAL_VER, SDL_WINDOW_SHOWN | SDL_WINDOW_INPUT_FOCUS);
 
     // 创建渲染器（此处使用硬件加速，可以使用软件加速SDL_RENDERER_SOFTWARE）
@@ -202,40 +202,8 @@ void oled_write_data_base(const uint16_t page, const uint16_t column, const uint
 
 
 void oled_write_data(uint16_t page, const uint16_t *buf) {
-    const uint16_t logical_y_base = page << 3;  // page * 8
-    const uint16_t *buf_ptr = buf;
-
-    for (uint16_t col = 0; col < REAL_VER; ++col, ++buf_ptr) {
-        const uint16_t data = *buf_ptr;
-        const uint16_t tx_base = col << 2;      // col * 4
-
-        // 展开所有循环，直接处理每个bit和像素块
-        for (uint8_t i = 0; i < 8; ++i) {
-            const uint16_t color_val = (data & (1 << i)) ? 0x0000 : 0xFFFF;
-            const uint16_t ty = (logical_y_base + i) << 2;  // (logical_y_base + i) * 4
-
-            // 直接操作显存，完全展开dy循环
-            TFT_GRAM[ty][tx_base]     = color_val;
-            TFT_GRAM[ty][tx_base+1]  = color_val;
-            TFT_GRAM[ty][tx_base+2]  = color_val;
-            TFT_GRAM[ty][tx_base+3]  = color_val;
-
-            TFT_GRAM[ty+1][tx_base]   = color_val;
-            TFT_GRAM[ty+1][tx_base+1] = color_val;
-            TFT_GRAM[ty+1][tx_base+2] = color_val;
-            TFT_GRAM[ty+1][tx_base+3] = color_val;
-
-            TFT_GRAM[ty+2][tx_base]   = color_val;
-            TFT_GRAM[ty+2][tx_base+1] = color_val;
-            TFT_GRAM[ty+2][tx_base+2] = color_val;
-            TFT_GRAM[ty+2][tx_base+3] = color_val;
-
-            TFT_GRAM[ty+3][tx_base]   = color_val;
-            TFT_GRAM[ty+3][tx_base+1] = color_val;
-            TFT_GRAM[ty+3][tx_base+2] = color_val;
-            TFT_GRAM[ty+3][tx_base+3] = color_val;
-        }
-    }
+    for (int i = 0; i < 128; ++i)
+        oled_write_data_base(page, i, buf[i]);
 }
 
 void LCD_Clear()

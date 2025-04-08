@@ -57,9 +57,9 @@ namespace GUI
 
     namespace Flag
     {
-        class draw:public FlagType<0>{};// 绘制标志
+        class render:public FlagType<0>{};// 渲染标志
         class updateMode:public FlagType<1>{};// 更新模式标志，0为默认模式，全刷新  1为分页模式，分页刷新
-
+        class draw:public FlagType<2>{};// 用户绘制界面标志
 
     }
 }
@@ -205,7 +205,7 @@ namespace GUI
 
         // 三阶贝塞尔曲线（需要4个连续点）
        template<uint16_t steps>
-void draw_bezier3(Point p0, Point p1, Point p2, Point p3);
+static void draw_bezier3(Point p0, Point p1, Point p2, Point p3);
 
     };
 
@@ -222,24 +222,26 @@ void draw_bezier3(Point p0, Point p1, Point p2, Point p3);
             draw();
 
             // ==========刷新处理==========
-            if (Flag::draw::get())
+            if (Flag::render::get())
             {
-                Flag::draw::reset();
-
                 if (Flag::updateMode::get())
-                {
-                    // 全部刷新
-                    for (uint16_t page = 0; page < GUI_PAGE; ++page)
-                    {
-                        oled_write_data(page, buffer[page]);
-                    }
-                }
-                else
                 {
                     // 分页模式，分页刷新
                     static uint16_t page = 0;
                     oled_write_data(page, buffer[page]);
                     page = (++page)&0x07;
+
+                    if (page == 0)
+                        Flag::render::reset();
+                }
+                else
+                {
+                    Flag::render::reset();
+                    // 全部刷新
+                    for (uint16_t page = 0; page < GUI_PAGE; ++page)
+                    {
+                        oled_write_data(page, buffer[page]);
+                    }
                 }
 
             }

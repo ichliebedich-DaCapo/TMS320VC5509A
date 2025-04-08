@@ -19,31 +19,35 @@ typedef struct
 // 静态界面元素缓存
 Oscilloscope osc;
 
+// 界面开发
+namespace GUI
+{
+
+   class SpectrumAnalyzer {
+    public:
+        void startAnalysis(); // 开始频谱分析
+        void stopAnalysis();  // 停止分析
+    };
+
+}
 
 
 
 
 namespace GUI
 {
+    // 初始化界面
     void Render::init()
     {
-        /* 初始化波形数据 */
+
 
     }
 
 
     void Render::draw()
     {
-        /* 更新波形数据 */
-        static uint32_t time = 0;
-        ++time;
-        if (time>=8)
-        {
-            time = 0;
-            static uint16_t phase = 0;
-            const uint16_t value = (100 * (sin(phase * 0.17 ) + 1.1));
-            phase++;
+        /* 更新频谱数据 */
 
-        }
+
     }
 }

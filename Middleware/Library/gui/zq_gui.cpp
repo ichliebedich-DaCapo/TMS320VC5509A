@@ -25,6 +25,7 @@ namespace GUI
 #endif
         Tools::clear();// 清屏
         Render::init();// 初始化渲染器
+        Flag::render::set();// 设置渲染标志位
     }
 }
 
