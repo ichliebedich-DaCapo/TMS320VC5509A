@@ -12,481 +12,252 @@
 #endif
 #include <cstdio>
 #include <cstring>
-// =====================需要的外部函数=====================
-
-
-// ====================宏定义=====================
-// 控制宏
-#define GUI_PAGE_MODE  8    // 页模式，有8和16两种模式。两种模式均为逻辑页，实际页固定为8页。默认8页，如果要改成16页，一些函数是需要完善的
-#define GUI_MAX_OBJ_NUM 16 // 设置最大组件数量，静态分配内存
 
 // 属性声明
 #define GUI_HOR 128 // 2^7，考虑到一行正好是2^7，那么就可以通过移位代替乘法，提高效率
-#define GUI_HOR_MAX_INDEX 127
 #define GUI_VOR 64
-#define GUI_VOR_MAX_INDEX 63
-#if GUI_PAGE_MODE == 8
-#define GUI_PAGE 8     // 根据具体情况，把绘制区域分成16页，左8页，右8页
-#define GUI_HALF_PAGE 4
-#define DIRTY_FULL_COL 0x7F00    // 全满脏列，用于重绘 8页：0x7F00 16页：0x3F00
-#else
-#define GUI_PAGE 16     // 根据具体情况，把绘制区域分成16页，左8页，右8页
-#define GUI_HALF_PAGE 8
-#define DIRTY_FULL_COL 0x3F00    // 全满脏列，用于重绘 8页：0x7F00 16页：0x3F00
-#endif
+#define GUI_PAGE 8
 #define color_white 0
 #define color_black 1
-#define DIRTY_MIN_COL 0x00FF    // 低8位作为最小列存储
-#define DIRTY_MAX_COL 0xFF00    // 高8位作为最大列存储
 #define DIRTY_DUMMY_COL 0x00FF    // 无效脏列，用于重置脏标记
 
-
-// 根据高度，获得所需的页数，用于定义数组
-#define GUI_PAGE_HEIGHT(y0,h) ((((y0) + (h) + 7) >> 3) - ((y0) >>3))
-
-// ====================数据类型声明=====================
-// 类型别名
-typedef uint16_t coord_t; // 坐标类型
-typedef void (*DrawFunc)(); // 定义函数指针类型
-
-// 脏页管理（结构体提高缓存效率）
-typedef struct
+namespace GUI
 {
-    uint16_t is_dirty; // 考虑到共16页，那么每位可作为一页的标志
-    uint16_t col[GUI_PAGE]; // 考虑到1页只有128列，用8位即可存储，那么一个16位即可存储最小列和最大列
-} PageDirtyInfo;
+    // ====================数据类型声明=====================
+    // 类型别名
+    typedef uint16_t coord_t; // 坐标类型
 
-// 点结构体
-typedef struct Point
-{
-    coord_t x;
-    coord_t y;
-} Point;
-
-
-// =====================辅助内联函数====================
-INLINE void swap(uint16_t &a, uint16_t &b)
-{
-    const uint16_t t = a;
-    a = b;
-    b = t;
-}
-
-INLINE uint16_t min(const uint16_t &a, const uint16_t &b)
-{
-    return a < b ? a : b;
-}
-
-INLINE uint16_t max(const uint16_t &a, const uint16_t &b)
-{
-    return a > b ? a : b;
-}
-
-// 绝对值差
-INLINE uint16_t abs_diff(const uint16_t &a, const uint16_t &b)
-{
-    return ((a) > (b) ? (a) - (b) : (b) - (a));
+    // 点结构体
+    typedef struct Point
+    {
+        coord_t x;
+        coord_t y;
+    } Point;
 }
 
 
-// =====================================组件基类=====================================
-class GUI_Base
+namespace GUI
 {
-protected:
-    // 计算实际缓冲区索引。使用引用，避免输入常量，因为这种情况不应出现
-    INLINE coord_t Index(const uint16_t &page, const uint16_t &x)
+    // 适配C55x系列的标志类
+    class FlagBase
     {
-#if GUI_PAGE_MODE == 8
-        return (page << 7) + x; // 8页的情况下
-#else
-        return (page <<6) + x;// 16页的情况下
-#endif
+    protected:
+        static uint16_t flag;
+    };
+
+    // 标志类
+    template<uint16_t shift>
+    class FlagType:public FlagBase
+    {
+    public:
+        INLINE void set(){flag|=(1<<shift); }// 设置标志
+        INLINE void reset(){flag&=~(1<<shift);}// 重置标志
+        INLINE bool get() {return flag&(1<<shift);}// 获取标志
+    };
+
+    namespace Flag
+    {
+        class draw:public FlagType<0>{};// 绘制标志
+        class updateMode:public FlagType<1>{};// 更新模式标志，0为默认模式，全刷新  1为分页模式，分页刷新
+
+
     }
+}
 
-    INLINE coord_t Index_xy(const uint16_t &x, uint16_t y)
+
+// 初始化函数
+namespace GUI
+{
+    void init();
+}
+
+
+
+
+namespace GUI
+{
+    // 基类
+    class Base
     {
-#if GUI_PAGE_MODE == 8
-        y = get_page(y); // 获取页数
-        return (y << 7) + x; // 8页的情况下
-#else
-        y = get_page(x, y);// 获取页数
-        return (page <<6) + x;// 16页的情况下
-#endif
-    }
+    protected:
+        static uint16_t buffer[GUI_PAGE][GUI_HOR]; // 显示缓冲区：8页 x 128列，每个字节存储一列的8行数据
+    };
 
-    INLINE uint16_t get_min_col(const uint16_t &page) { return dirty_info.col[page] & DIRTY_MIN_COL; }
-    INLINE uint16_t get_max_col(const uint16_t &page) { return (dirty_info.col[page] & DIRTY_MAX_COL) >> 8; }
-    INLINE void set_min_col(const uint16_t &page, const uint16_t &col)
+    class Tools:Base
     {
-        dirty_info.col[page] &= ~DIRTY_MIN_COL;
-        dirty_info.col[page] |= col;
-    }
-
-    INLINE void set_max_col(const uint16_t &page, const uint16_t &col)
-    {
-        dirty_info.col[page] &= ~DIRTY_MAX_COL;
-        dirty_info.col[page] |= col << 8;
-    }
-
-    INLINE void set_col(const uint16_t &page, const uint16_t &min_col, const uint16_t &max_col)
-    {
-        dirty_info.col[page] = (min_col & DIRTY_MIN_COL) | ((max_col << 8) & DIRTY_MAX_COL);
-    }
-
-    // 设置脏标记并更新脏列（如果最小列比旧值小，那么更新最小列；如果最大列比旧值大，那么更新最大列）
-    INLINE void update_dirty_col(const uint16_t page, const uint16_t min_col, const uint16_t max_col)
-    {
-        dirty_info.is_dirty |= 1 << page;
-        if (min_col < get_min_col(page)) set_min_col(page, min_col);
-        if (max_col > get_max_col(page)) set_max_col(page, max_col);
-    }
-
-    // 根据y坐标获取page
-    // 128*64分成左右两个页区，左页区有0、2、4等页，由页区有1、3、5等页。由x坐标来区分左右页
-#if GUI_PAGE_MODE == 8
-    INLINE uint16_t get_page(const uint16_t &y)
-    {
-        return (y >> 3);
-    }
-#else
-    INLINE uint16_t get_page(const uint16_t &x, const uint16_t &y)
-    {
-
-        return ((y >> 3) << 1) + (x >> 6);
-    }
-#endif
-
-    // 取低3位，相当于y对8取余，获取在一个字节的位置
-    INLINE uint16_t get_mask(const uint16_t &y) { return 1 << (y & 0x07); }
-
-    INLINE uint16_t get_dirty(const uint16_t &page) { return dirty_info.is_dirty & (1 << page); }
-    INLINE void set_dirty(const uint16_t &page)
-    {
-        dirty_info.is_dirty |= 1 << page;
-    }
-
-    // 重置某页脏标记，包括脏列
-    INLINE void reset_dirty(const uint16_t &page)
-    {
-        dirty_info.is_dirty &= ~(1 << page);
-        dirty_info.col[page] = DIRTY_DUMMY_COL;
-    }
-
-    // 触发重绘（把所有脏标记置为1）
-    static void invalidate();
-
-    /**
-    * 缓冲区拷贝，把缓冲区拷贝到显示缓冲区中
-    * @tparam x 显示缓冲区x坐标
-    * @tparam y 显示缓冲区y坐标
-    * @tparam buf 缓冲区指针，即需要拷贝的缓冲区指针
-    * @tparam width 缓冲区宽度
-    * @tparam height 缓冲区高度
-    */
-    template<uint16_t x, uint16_t y, uint16_t *buf, uint16_t width, uint16_t height>
-    static void buffer_copy()
-    {
-        for (uint16_t i = 0; i < GUI_PAGE_HEIGHT(y, height); ++i)
+    public:
+        // 绘制像素点（黑白都有）
+        INLINE void write_pixel(const uint16_t x, const uint16_t y, const bool color)
         {
-            // 一行一行地传输
-            memcpy(buffer + (((y >> 3) + i) << 7) + x, buf + i * width, width * sizeof(uint16_t));
+            if (x >= GUI_HOR || y >= GUI_VOR) return;
+
+            const uint16_t page = y >> 3;
+            const uint16_t bit = y & 0x07;
+            const uint16_t mask = 1 << bit;
+            if (color) {
+                buffer[page][x] |= mask;
+            } else {
+                buffer[page][x] &= ~mask;
+            }
         }
-    }
 
-protected:
-    static uint16_t buffer[GUI_PAGE * GUI_HOR]; // 显示缓冲区：8页 x 128列，每个字节存储一列的8行数据
-    static DrawFunc obj_list[GUI_MAX_OBJ_NUM];
-    static PageDirtyInfo dirty_info;
-    static uint16_t count; // 组件数量
-};
+        // 绘制像素点(默认黑色）
+        INLINE void write_pixel(const uint16_t x, const uint16_t y)
+        {
+            if (x >= GUI_HOR || y >= GUI_VOR) return;
 
-/**
- * 基本组件
- * @note
- */
-class GUI_Object : public GUI_Base
-{
-public:
-    // 基本操作
-    static void create(const DrawFunc &draw)
-    {
-        obj_list[count] = draw;
-        ++count;
-    } // 没有进行判断是否越界，因为目前的界面非常简单，暂时没必要
-    static void destroy() { --count; }
+            const uint16_t page = y >> 3;
+            const uint16_t bit = y & 0x07;
+            const uint16_t mask = 1 << bit;
+            buffer[page][x] |= mask;
+        }
 
+        // 绘制横线(默认黑色)
+        INLINE void draw_hline(uint16_t x_start, uint16_t x_end, const uint16_t y)
+        {
+            if (y >= GUI_VOR) return;  // 越界检查
+            if (x_start > x_end) swap(x_start, x_end);  // 确保顺序
 
-    // =======基本绘制函数======
-    INLINE void write_pixel(uint16_t x, uint16_t y, uint16_t data);
+            // 限制坐标在屏幕范围内
+            x_start = (x_start >= GUI_HOR) ? GUI_HOR-1 : x_start;
+            x_end = (x_end >= GUI_HOR) ? GUI_HOR-1 : x_end;
 
-    INLINE void write_pixel(uint16_t x, uint16_t y); // 绘制黑色
+            const uint16_t page = y >> 3;         // 计算所在页
+            const uint16_t mask = 1 << (y & 0x07); // 生成位掩码
 
-    static void draw_hline(uint16_t x1, uint16_t x2, uint16_t y, uint16_t color);
+            // 批量设置该行所有列的对应位
+            for (uint16_t x = x_start; x <= x_end; ++x) {
+                buffer[page][x] |= mask;
+            }
+        }
 
-    static void draw_vline(uint16_t y1, uint16_t y2, uint16_t x, uint16_t color);
+        // 绘制竖线(默认黑色)
+        INLINE void draw_vline(const uint16_t x, uint16_t y_start, uint16_t y_end)
+        {
+            if (x >= GUI_HOR) return;  // 越界检查
+            if (y_start > y_end) swap(y_start, y_end);  // 确保顺序
 
-    static void draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint16_t color);
+            // 限制坐标在屏幕范围内
+            y_start = (y_start >= GUI_VOR) ? GUI_VOR-1 : y_start;
+            y_end = (y_end >= GUI_VOR) ? GUI_VOR-1 : y_end;
 
-    static void draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1); // 默认绘制黑色
+            const uint16_t start_page = y_start >> 3;  // 起始页
+            const uint16_t end_page = y_end >> 3;      // 结束页
 
-    static void draw_rect(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint16_t color);
+            // 逐页设置位掩码
+            for (uint16_t page = start_page; page <= end_page; ++page)
+            {
+                uint16_t bit_mask = 0xFF;  // 默认全页覆盖
+                if (page == start_page) {  // 起始页的特殊处理
+                    bit_mask &= (0xFF << (y_start & 0x07));
+                }
+                if (page == end_page) {    // 结束页的特殊处理
+                    bit_mask &= (0xFF >> (7 - (y_end & 0x07)));
+                }
+                buffer[page][x] |= bit_mask;  // 应用位掩码
+            }
+        }
 
-    static void fill_rect(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint16_t color);
+        // 绘制直线(默认黑色，Bresenham算法优化)
+        INLINE void draw_line(uint16_t x0, uint16_t y0, const uint16_t x1, const uint16_t y1)
+        {
+            // 坐标越界直接返回
+            if (x0 >= GUI_HOR || y0 >= GUI_VOR || x1 >= GUI_HOR || y1 >= GUI_VOR) return;
 
-    static void draw_circle(uint16_t x0, uint16_t y0, uint16_t radius, uint16_t color);
+            const int16_t dx = abs_diff(x0,x1);
+            const int16_t dy = -abs_diff(y0,y1);
+            const int16_t sx = (x0 < x1) ? 1 : -1;
+            const int16_t sy = (y0 < y1) ? 1 : -1;
+            int16_t err = dx + dy;
 
-    // ============绘制曲线算法===========
-    // 样条算法
-    template<uint16_t steps >
+            while (true)
+            {
+                write_pixel(x0, y0);  // 调用默认黑色像素绘制
+                if (x0 == x1 && y0 == y1) break;
+                const int16_t e2 =err<<1;
+                if (e2 >= dy) {  // 水平步进
+                    err += dy;
+                    x0 += sx;
+                }
+                if (e2 <= dx) {  // 垂直步进
+                    err += dx;
+                    y0 += sy;
+                }
+            }
+        }
+
+        INLINE void clear(const uint16_t start_page, const uint16_t end_page, const uint16_t start_col,uint16_t end_col)
+        {
+            for (uint16_t page = start_page; page <= end_page; ++page)
+            {
+                memset(buffer[page]+start_col, 0, sizeof((end_col - start_col)*sizeof(uint16_t)));
+            }
+        }
+
+        INLINE void clear()
+        {
+                memset(&buffer[0][0], 0, sizeof(GUI_HOR*GUI_PAGE*sizeof(uint16_t)));
+        }
+
+        // Catmull-Rom样条（需要4个连续点）
+    template<uint16_t steps>
     static void draw_catmull_rom(Point p0, Point p1, Point p2, Point p3);
 
-    // 3次贝塞尔曲线算法
-    template<uint16_t steps >
-    static void draw_bezier3(Point p0, Point p1, Point p2, Point p3);
+        // 三阶贝塞尔曲线（需要4个连续点）
+       template<uint16_t steps>
+void draw_bezier3(Point p0, Point p1, Point p2, Point p3);
 
+    };
 
-    // 指定缓冲区 模板化 默认黑色
-    template<uint16_t * buf, uint16_t width, uint16_t height>
-    static void draw_hline(coord_t x1, coord_t x2, coord_t y);
-
-    template<uint16_t * buf, coord_t width, coord_t height>
-    static void draw_vline(coord_t y1, coord_t y2, coord_t x);
-
-    template<uint16_t * buf, coord_t width, coord_t height>
-    static void draw_line(coord_t x0, coord_t y0, coord_t x1, coord_t y1);
-
-
-};
-
-// =====================================示波器组件=====================================
-
-
-// =====================================渲染引擎=====================================
-
-class GUI_Render : public GUI_Base
-{
-public:
-#if GUI_PAGE_MODE == 8
-    template<void(*oled_write_data)(uint16_t page, uint16_t start_col, uint16_t end_col, const uint16_t *buf)>
-    static void handler();
-
-#else
-    template<void(*oled_write_data_left)(uint16_t page, uint16_t start_col, uint16_t end_col, const uint16_t *buf),
-    void(*oled_write_data_right)(uint16_t page, uint16_t start_col, uint16_t end_col, const uint16_t *buf)
->
-static void handler();
-#endif
-    static void clear();
-};
-
-
-// ==================================内联函数定义=========================================
-/**
- * 设置单点像素
- * @param x 列坐标 (0~127)
- * @param y 行坐标 (0~63)
- * @param data 像素颜色，0：熄灭，1：点亮
- */
-void GUI_Object::write_pixel(const uint16_t x, const uint16_t y, const uint16_t data)
-{
-    if (x >= GUI_HOR || y >= GUI_VOR) return;
-
-#if GUI_PAGE_MODE == 8
-    const uint16_t page = get_page(y);
-#else
-    const uint16_t page = get_page(x, y);
-#endif
-
-    const uint16_t mask = get_mask(y);
-
-    // 原子操作更新缓冲区
-    if (data)
+    class Render:Base
     {
-        buffer[Index(page, x)] |= mask;
-    }
-    else
-    {
-        buffer[Index(page, x)] &= ~mask;
-    }
+    public:
+        static void init();// 初始化函数，由用户自己实现
+        static void draw();// 绘制函数，由用户自己实现
 
-    // // 更新脏区域（使用分支避免多余判断）
-    // set_dirty(page);
-    // update_col(page, x, x);
-}
-
-void GUI_Object::write_pixel(const uint16_t x, const uint16_t y)
-{
-    if (x >= GUI_HOR || y >= GUI_VOR) return;
-
-#if GUI_PAGE_MODE == 8
-    const uint16_t page = get_page(y);
-#else
-    const uint16_t page = get_page(x, y);
-#endif
-
-
-    // 原子操作更新缓冲区
-    buffer[Index(page, x)] |= get_mask(y);
-}
-
-/*===================================缓冲区管理===================================*/
-#if GUI_PAGE_MODE == 8
-template<void(*oled_write_data)(uint16_t page, uint16_t start_col, uint16_t end_col, const uint16_t *buf)>
-void GUI_Render::handler()
-{
-    // 这里不知道为什么指针会跑飞掉，暂时把draw放在ui_handler里
-    // 阶段1：遍历组件
-    // for (uint16_t i = 0; i < count; ++i)
-    // {
-    //     obj_list[i]();
-    // }
-
-    // 阶段2：硬件绘制
-
-    /*一次遍历所有页，阻塞时间长，不易造成画面撕裂*/
-    for (uint16_t page = 0; page < GUI_PAGE; ++page)
-    {
-        if (!get_dirty(page))continue;
-        oled_write_data(page, get_min_col(page), get_max_col(page), buffer + Index(page, get_min_col(page)));
-        reset_dirty(page); // 重置脏标记
-    }
-
-    /*一次只刷新一页，阻塞时间短，可能会造成画面撕裂*/
-    // static uint16_t page = 0;
-    // if (get_dirty(page))
-    // {
-    //     oled_write_data(page, get_min_col(page), get_max_col(page),buffer+Index(page, get_min_col(page)));
-    //     reset_dirty(page);// 重置脏标记
-    // }
-    // page = (++page)&0x07;
-}
-#else
-template<void(*oled_write_data_left)(uint16_t page, uint16_t start_col, uint16_t end_col, const uint16_t *buf),
-    void(*oled_write_data_right)(uint16_t page, uint16_t start_col, uint16_t end_col, const uint16_t *buf)
->
-void GUI_Render::handler()
-{
-    for (uint16_t page = 0; page < GUI_PAGE; page += 2)
-    {
-        if (get_dirty(page))
+        template<void(*oled_write_data)(uint16_t page, const uint16_t *buf)>
+        static void handler()
         {
-            if (get_min_col(page) <= get_max_col(page))
+            // 绘制处理
+            draw();
+
+            // ==========刷新处理==========
+            if (Flag::draw::get())
             {
-                // page需要右移1位，因为要转为实际的页区
-                oled_write_data_left(page>>1, get_min_col(page), get_max_col(page),
-                                    buffer + Index(page, get_min_col(page)));
+                Flag::draw::reset();
+
+                if (Flag::updateMode::get())
+                {
+                    // 全部刷新
+                    for (uint16_t page = 0; page < GUI_PAGE; ++page)
+                    {
+                        oled_write_data(page, buffer[page]);
+                    }
+                }
+                else
+                {
+                    // 分页模式，分页刷新
+                    static uint16_t page = 0;
+                    oled_write_data(page, buffer[page]);
+                    page = (++page)&0x07;
+                }
+
             }
-            reset_dirty(page); // 重置脏标记
-        }
 
-        if (get_dirty(page + 1))
-        {
-            if (get_min_col(page + 1) <= get_max_col(page + 1))
-            {
-                // page需要右移1位，因为要转为实际的页区
-                oled_write_data_right(page>>1, get_min_col(page + 1)+64, get_max_col(page + 1)+64,
-                                     buffer + Index(page + 1, get_min_col(page + 1)));
-            }
-            reset_dirty(page + 1); // 重置脏标记
         }
-    }
+    };
+
 }
 
 
-#endif
 
-// ====================================模板函数实现====================================
 
-template<uint16_t * buf, coord_t width, coord_t height>
-void GUI_Object::draw_hline(coord_t x1, coord_t x2, coord_t y)
+
+namespace GUI
 {
-    // 计算目标存储页（每页8行）
-    const coord_t page = get_page(y); // 等价于 y / 8
-
-    // 生成目标位的掩码（黑色对应置1）
-    const uint16_t bit_mask = get_mask(y);
-
-    // 线性缓冲区访问模式
-    const coord_t start_index = page * width;
-    for (coord_t x = x1; x <= x2; ++x)
-    {
-        // 计算目标存储单元在缓冲区中的位置
-        buf[start_index + x] |= bit_mask;
-    }
-}
-
-template<uint16_t * buf, coord_t width, coord_t height>
-void GUI_Object::draw_vline(coord_t y1, coord_t y2, coord_t x)
-{
-    // 逐行设置位模式
-    for (coord_t y = y1; y <= y2; ++y)
-    {
-        // 计算目标存储页（每8行为一页）
-        const coord_t page = get_page(y); // 等价于 y / 8
-
-        // 生成位掩码（黑色对应位置1）
-        const uint16_t bit_mask = get_mask(y);
-
-        // 计算缓冲区索引
-        const coord_t index = page * width + x;
-
-        // 执行位操作（保证原子性）
-        buf[index] |= bit_mask;
-    }
-}
-
-
-template<
-    uint16_t * buf, // 显示缓冲区
-    coord_t width, // 屏幕宽度
-    coord_t height // 屏幕高度
->
-void GUI_Object::draw_line(coord_t x0, coord_t y0, coord_t x1, coord_t y1)
-{
-
-    // Bresenham 算法参数计算（编译期常量）
-    const coord_t dx = (x1 > x0) ? (x1 - x0) : (x0 - x1);
-    const coord_t dy = (y1 > y0) ? (y1 - y0) : (y0 - y1);
-    const coord_t sx = (x0 < x1) ? 1 : -1;
-    const coord_t sy = (y0 < y1) ? 1 : -1;
-
-    // 运行时变量（需要保留算法逻辑）
-    coord_t x = x0;
-    coord_t y = y0;
-    int err = (dx > dy ? dx : -dy) / 2;
-
-    while (true)
-    {
-        // 处理当前像素点
-        const coord_t page = y >> 3;
-        const uint16_t mask = 1 << (y & 0x7);
-        const coord_t index = page * width + x;
-
-        // 根据颜色模板参数选择操作
-        buf[index] |= mask;
-
-
-        // 终止条件
-        if (x == x1 && y == y1) break;
-
-        // 更新步进
-        const int e2 = err;
-        if (e2 > -dx)
-        {
-            err -= dy;
-            x += sx;
-        }
-        if (e2 < dy)
-        {
-            err += dx;
-            y += sy;
-        }
-    }
-}
-
 template<uint16_t steps>
 // Catmull-Rom样条（需要4个连续点）
-void GUI_Object::draw_catmull_rom(const Point p0, const Point p1, const Point p2, const Point p3)
+void Tools::draw_catmull_rom(const Point p0, const Point p1, const Point p2, const Point p3)
 {
     for (uint16_t i = 0; i <= steps; ++i)
     {
@@ -516,7 +287,7 @@ void GUI_Object::draw_catmull_rom(const Point p0, const Point p1, const Point p2
  * @tparam steps 采样点数（越多越平滑，但性能越低）
  */
 template<uint16_t steps>
-void GUI_Object::draw_bezier3(const Point p0, const Point p1, const Point p2, const Point p3)
+void Tools::draw_bezier3(const Point p0, const Point p1, const Point p2, const Point p3)
 {
     for (uint16_t i = 0; i <= steps; ++i) {
         // 计算t的范围[0.0, 1.0]
@@ -544,5 +315,5 @@ void GUI_Object::draw_bezier3(const Point p0, const Point p1, const Point p2, co
 
     }
 }
-
+}
 #endif //ZQ_GUI_H

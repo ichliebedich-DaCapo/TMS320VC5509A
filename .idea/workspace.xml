@@ -28,8 +28,14 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a78db7b0-77d9-459c-87d1-f1d260dcb0d0" name="更改" comment="【开发】今天先这样，不写了">
+    <list default="true" id="a78db7b0-77d9-459c-87d1-f1d260dcb0d0" name="更改" comment="【开发】GPIO可用，确定了片内和片外寄存器的映射情况">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapter/GUI/gui-simulator/Drivers/simulator.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/gui-simulator/Drivers/simulator.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapter/GUI/gui-simulator/Drivers/simulator.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/gui-simulator/Drivers/simulator.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Drivers/inc/zq_conf.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Drivers/inc/zq_conf.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Drivers/inc/zq_interrupt.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Drivers/inc/zq_interrupt.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middleware/Library/gui/zq_gui.h" beforeDir="false" afterPath="$PROJECT_DIR$/Middleware/Library/gui/zq_gui.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projects/1_debug/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Projects/1_debug/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,8 +69,10 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Core/Drivers/inc/zq_conf.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Core/Drivers/inc/zq_gpio.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Projects/1_debug/main.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Projects/demo/main.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Projects/demo/ui/ui.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Projects/demo/ui/ui.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/vectors.s55" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_HOME_DIR$/bin/cmake/win/x64/share/cmake-3.30/Modules/CMakeTestCCompiler.cmake" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_HOME_DIR$/bin/cmake/win/x64/share/cmake-3.30/Modules/CMakeTestCXXCompiler.cmake" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -110,7 +118,7 @@
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode.C/C++&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;two.files.diff.last.used.file&quot;: &quot;E:/Program/Embedded/MCU/TI/Program/new_demo/demo/VC5509.cmd&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
@@ -186,6 +194,10 @@
       <workItem from="1743423462875" duration="9754000" />
       <workItem from="1743471872500" duration="1151000" />
       <workItem from="1743834314112" duration="614000" />
+      <workItem from="1743983230243" duration="13129000" />
+      <workItem from="1744085672093" duration="27000" />
+      <workItem from="1744131186037" duration="107000" />
+      <workItem from="1744131957895" duration="43000" />
     </task>
     <task id="LOCAL-00001" summary="【工程】成功使用CLion编译TI工程">
       <option name="closed" value="true" />
@@ -523,7 +535,55 @@
       <option name="project" value="LOCAL" />
       <updated>1743473022903</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="【开发】修复了寄存器映射不生效的问题">
+      <option name="closed" value="true" />
+      <created>1743985164025</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1743985164026</updated>
+    </task>
+    <task id="LOCAL-00044" summary="【开发】修复了led">
+      <option name="closed" value="true" />
+      <created>1743985519143</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1743985519143</updated>
+    </task>
+    <task id="LOCAL-00045" summary="【开发】修复了oled">
+      <option name="closed" value="true" />
+      <created>1743988936741</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1743988936741</updated>
+    </task>
+    <task id="LOCAL-00046" summary="【开发】oled底层函数测试成功，但上层应用不行，应与复制缓冲区有关">
+      <option name="closed" value="true" />
+      <created>1743992220199</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1743992220199</updated>
+    </task>
+    <task id="LOCAL-00047" summary="【开发】应用层重新考虑">
+      <option name="closed" value="true" />
+      <created>1743992695468</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1743992695468</updated>
+    </task>
+    <task id="LOCAL-00048" summary="【开发】GPIO可用，确定了片内和片外寄存器的映射情况">
+      <option name="closed" value="true" />
+      <created>1743994742298</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1743994742298</updated>
+    </task>
+    <option name="localTasksCounter" value="49" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -558,12 +618,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="【开发】尝试添加了一个模拟器" />
-    <MESSAGE value="【开发】在GCC主工程里成功对接模拟器工程" />
-    <MESSAGE value="【开发】优化了LCD的一些函数" />
-    <MESSAGE value="【开发】创建新的GUI框架" />
-    <MESSAGE value="【开发】优化了刷新函数和绘制像素点函数" />
-    <MESSAGE value="【开发】搭建一个GUI框架" />
     <MESSAGE value="【开发】纠正了数字类型错误" />
     <MESSAGE value="【开发】工程改为C/C++混编" />
     <MESSAGE value="【开发】与CCS相兼容" />
@@ -583,7 +637,13 @@
     <MESSAGE value="【开发】修复了一些错误" />
     <MESSAGE value="【开发】修复了GPIO的一些错误" />
     <MESSAGE value="【开发】今天先这样，不写了" />
-    <option name="LAST_COMMIT_MESSAGE" value="【开发】今天先这样，不写了" />
+    <MESSAGE value="【开发】修复了寄存器映射不生效的问题" />
+    <MESSAGE value="【开发】修复了led" />
+    <MESSAGE value="【开发】修复了oled" />
+    <MESSAGE value="【开发】oled底层函数测试成功，但上层应用不行，应与复制缓冲区有关" />
+    <MESSAGE value="【开发】应用层重新考虑" />
+    <MESSAGE value="【开发】GPIO可用，确定了片内和片外寄存器的映射情况" />
+    <option name="LAST_COMMIT_MESSAGE" value="【开发】GPIO可用，确定了片内和片外寄存器的映射情况" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

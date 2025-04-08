@@ -77,7 +77,14 @@ namespace zq
 
     namespace isr
     {
-       DECLARE_REGISTER(IER0, 0x0);
+      INLINE void start_timer()
+      {
+          cpu::IER0::TINT0::set_bit();
+          cpu::DBIER0::write(cpu::DBIER0::read()|0x10);
+          cpu::IFR0::write(0xFF);
+          asm(" BCLR INTM");
+
+      }
 
 
 

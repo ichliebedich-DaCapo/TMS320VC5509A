@@ -199,20 +199,13 @@ void oled_write_data_base(const uint16_t page, const uint16_t column, const uint
     }
 }
 
-// // 不需要判断start_col<=end_col，因为for循环内含了边界判断
-// void oled_write_data(uint16_t page, uint16_t start_col, uint16_t end_col, const uint16_t *buf)
-// {
-//     for (int16_t col = start_col; col <= end_col; ++col)
-//     {
-//         oled_write_data_base(page, col, buf[col - start_col]); // 写入LCD
-//     }
-// }
 
-void oled_write_data(uint16_t page, uint16_t start_col, uint16_t end_col, const uint16_t *buf) {
+
+void oled_write_data(uint16_t page, const uint16_t *buf) {
     const uint16_t logical_y_base = page << 3;  // page * 8
     const uint16_t *buf_ptr = buf;
 
-    for (uint16_t col = start_col; col <= end_col; ++col, ++buf_ptr) {
+    for (uint16_t col = 0; col < REAL_VER; ++col, ++buf_ptr) {
         const uint16_t data = *buf_ptr;
         const uint16_t tx_base = col << 2;      // col * 4
 

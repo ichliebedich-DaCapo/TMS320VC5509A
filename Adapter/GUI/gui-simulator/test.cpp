@@ -5,7 +5,6 @@
 
 #include <cmath>
 #include <unistd.h>
-#include<gui.h>
 #include "simulator.hpp"
 #include <SDL2/SDL.h>
 #include <windows.h>

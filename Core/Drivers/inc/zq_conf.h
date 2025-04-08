@@ -267,4 +267,28 @@ struct ExMemAccess
 struct REG_NAME:ExMemAccess<ADDRESS> {};
 
 
+// =====================辅助内联函数====================
+INLINE void swap(uint16_t &a, uint16_t &b)
+{
+    const uint16_t t = a;
+    a = b;
+    b = t;
+}
+
+INLINE uint16_t min(const uint16_t &a, const uint16_t &b)
+{
+    return a < b ? a : b;
+}
+
+INLINE uint16_t max(const uint16_t &a, const uint16_t &b)
+{
+    return a > b ? a : b;
+}
+
+// 绝对值差
+INLINE uint16_t abs_diff(const uint16_t &a, const uint16_t &b)
+{
+    return ((a) > (b) ? (a) - (b) : (b) - (a));
+}
+
 #endif //ZQ_CONF_H

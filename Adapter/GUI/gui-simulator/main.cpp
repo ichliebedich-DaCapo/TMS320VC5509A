@@ -1,7 +1,8 @@
 #include <iostream>
+#include <zq_gui.h>
 #include <SDL2/SDL.h>
 #include "simulator.hpp"
-#include "gui.h"
+
 
 extern int keyboard_thread(void *data);
 
@@ -37,7 +38,7 @@ int main(int argc, char *argv[])
     SDL_CreateThread(tick_handler, "tick", nullptr);
 #endif
 
-    GUI_Init();
+    GUI::init();
 
     // 主循环
     while (simulator_is_running())
@@ -48,15 +49,7 @@ int main(int argc, char *argv[])
 #endif
 
         // --------------测量开始-------------
-
-        ui_handler();
-
-#if GUI_PAGE_MODE==8
-        GUI_Render::handler<oled_write_data>(); // 界面处理（动态）
-#else
-        GUI_Render::handler<oled_write_data,oled_write_data>();// 界面处理（动态）
-#endif
-
+        GUI::Render::handler<oled_write_data>();
         // --------------测量结束-------------
 #if MEASURE_ENABLE
         current_tick[tick_index] = tick;

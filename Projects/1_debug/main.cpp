@@ -8,6 +8,7 @@
 #include <zq_pll.h>
 #include<zq_gpio.h>
 #include <zq_init.h>
+#include <zq_interrupt.h>
 #include<zq_timer.h>
 #if PROGRAM_INDEX == 1
 #include <stdio.h>
@@ -54,8 +55,7 @@ int output_signals(int *output);
 
 
 //-----------------------------------主程序------------------------------------//
-#define LBDS (*((unsigned int *)0x400001))
-
+uint32_t count =0;
 int main()
 {
     ZQ_Init();
@@ -64,26 +64,25 @@ int main()
     oled_clear();
     bsp::LED::clear();
 
+    zq::timer::Timer0::init(TIM_FREQ_200M_to_100K);
+zq::isr::start_timer();
+
     // ======初始化======
     int i = 0;
     input = inp_buffer;
     output = out_buffer;
 
-    uint32_t count = 0;
 
 
     // ======无限循环======
     while (TRUE)
     {
-        // read_signals(input); // 加软件断点和探针
-        // write_buffer(input, output,BUF_SIZE);
-        // output_signals(output);
-        // // printf("Number: %d\n", i++);
-
         // 如果如我预期是200MHz，那么count应该接近
-        ++count;
+        // ++count;
         static uint16_t temp =0;
-        if (count >= 5000000)
+
+        // count = zq::timer::TIM<0>::read();
+        if (count >= 20000)// 5000000
         {
             count = 0;
             bsp::LED::toggle(bsp::led::pin::LED_1);
@@ -94,39 +93,25 @@ int main()
             //     zq::gpio::GPIO_Normal0::low();
         }
 
+
+        static uint16_t tim = zq::timer::TIM<0>::read();
+        static uint16_t psc = zq::timer::PRSC<0>::PSC::read_bits();
+
+
+
+//  拨码开关
         // bsp::LED::set(bsp::DIP::get());
         // bsp::LED::set(zq::gpio::GPIO_Normal2::read());
     }
 }
 
 //---------------------------------子程序--------------------------------------//
-// 读取输入信号
-int read_signals(int *input)
-{
-    // 在此读取采集数据信号放到输入缓冲区input[]
-    return (TRUE);
-}
-
-// 将数据进行处理后搬移到输出缓冲区
-int write_buffer(const int *input, int *output, const int count)
-{
-    int i;
-    for (i = 0; i < count; i++)
-        output[i] = input[i] * volume; // 处理：将输入数据放大volume倍放到输出缓冲区
-    return (TRUE);
-}
-
-// 输出处理后的信号
-int output_signals(int *output)
-{
-    // 在此将输出缓冲区out_buffer中的数据发送到输出设备(比如DA)
-    return (TRUE);
-}
 
 extern "C"
 {
 interrupt void TimerISR()
 {
+    count ++;
     bsp::LED::toggle(bsp::led::pin::LED_3);
 }
 }
