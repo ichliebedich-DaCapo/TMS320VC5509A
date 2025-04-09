@@ -158,6 +158,39 @@ namespace GUI
                 }
             }
         }
+
+        // 新函数：自动查找字符元数据
+        static void draw_char(const uint16_t c, const uint16_t x, const uint16_t y) {
+            // 验证字符是否存在
+            if (c < '0' || c >= '0' + font_table_size) {
+                return; // 字符不在字模表中
+            }
+
+            // 获取字符元数据
+            const FontChar& fc = font_table[c - '0'];
+            const uint16_t char_width = fc.width;
+            const uint16_t char_height = fc.height;
+            const uint16_t* font_data = fc.data;
+
+            // 绘制逻辑（与原函数相同）
+            for (int row_char = 0; row_char < char_height; row_char++) {
+                const uint16_t byte = font_data[row_char]; // 强制转换为uint8_t
+
+                for (uint16_t bit = 0; bit < char_width; bit++) {
+                    if (byte & (1 << bit)) {
+                        const uint16_t y_total = y + row_char;
+                        const uint16_t x_total = x + bit;
+
+                        if (y_total < 0 || y_total >= 64) continue;
+                        if (x_total < 0 || x_total >= 128) continue;
+
+                        const uint16_t page = y_total / 8;
+                        const uint16_t row_in_page = y_total % 8;
+                        buffer[page][x_total] |= (1 << row_in_page);
+                    }
+                }
+            }
+        }
     };
 
 
