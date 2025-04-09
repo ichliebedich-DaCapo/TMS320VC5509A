@@ -66,6 +66,7 @@ target_sources(${PROJECT_NAME} PRIVATE
         ${GUI_SRCS}
         ${UI_SRCS}
 )
+
 include_directories(
         ${DRIVERS_INC_DIRS}
         ${MY_GUI_INC_DIRS}
