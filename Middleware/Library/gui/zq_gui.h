@@ -141,7 +141,7 @@ namespace GUI
             const uint16_t char_height = fc->height;
 
             for (uint16_t row_char = 0; row_char < char_height; row_char++) {
-                const uint16_t byte = font_data[row_char]; // 强制转换为uint8_t
+                const uint16_t byte = font_data[row_char];
 
                 for (uint16_t bit = 0; bit < char_width; bit++) {
                     if (byte & (1 << bit)) {
