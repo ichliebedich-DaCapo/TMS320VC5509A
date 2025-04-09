@@ -130,50 +130,17 @@ namespace GUI
         template<uint16_t steps>
         static void draw_bezier3(Point p0, Point p1, Point p2, Point p3); // 绘制三阶贝塞尔曲线（需要4个连续控制点）
 
-        static void draw_char(uint16_t c, int x, int y, const uint16_t* font_data, int char_width, int char_height) {
-            // 遍历字符的每一行
-            for (int row_char = 0; row_char < char_height; row_char++) {
-                // 获取当前行的字节数据（强制转换为uint8_t）
-                const uint16_t byte = static_cast<uint16_t>(font_data[row_char]);
-
-                // 遍历该行的每一位（对应字符的列）
-                for (int bit = 0; bit < char_width; bit++) {
-                    // 如果该位被点亮
-                    if (byte & (1 << bit)) {
-                        // 计算实际屏幕坐标
-                        int y_total = y + row_char;
-                        int x_total = x + bit;
-
-                        // 越界检查（可选，根据需求决定是否保留）
-                        if (y_total < 0 || y_total >= 64) continue;
-                        if (x_total < 0 || x_total >= 128) continue;
-
-                        // 计算对应的页和页内行号
-                        int page = y_total / 8;
-                        int row_in_page = y_total % 8;
-
-                        // 设置对应位（使用位操作保证高性能）
-                        buffer[page][x_total] |= (1 << row_in_page);
-                    }
-                }
-            }
-        }
 
         // 新函数：自动查找字符元数据
-        static void draw_char(const uint16_t c, const uint16_t x, const uint16_t y) {
-            // 验证字符是否存在
-            if (c < '0' || c >= '0' + font_table_size) {
-                return; // 字符不在字模表中
-            }
+        static void draw_char(const char* name, const uint16_t x, const uint16_t y) {
+            const Font::FontChar* fc = Font::find_char_by_name(name);
+            if (!fc) return;
 
-            // 获取字符元数据
-            const FontChar& fc = font_table[c - '0'];
-            const uint16_t char_width = fc.width;
-            const uint16_t char_height = fc.height;
-            const uint16_t* font_data = fc.data;
+            const uint16_t* font_data = fc->data;
+            const uint16_t char_width = fc->width;
+            const uint16_t char_height = fc->height;
 
-            // 绘制逻辑（与原函数相同）
-            for (int row_char = 0; row_char < char_height; row_char++) {
+            for (uint16_t row_char = 0; row_char < char_height; row_char++) {
                 const uint16_t byte = font_data[row_char]; // 强制转换为uint8_t
 
                 for (uint16_t bit = 0; bit < char_width; bit++) {
@@ -184,8 +151,8 @@ namespace GUI
                         if (y_total < 0 || y_total >= 64) continue;
                         if (x_total < 0 || x_total >= 128) continue;
 
-                        const uint16_t page = y_total / 8;
-                        const uint16_t row_in_page = y_total % 8;
+                        const uint16_t page = y_total >>3;
+                        const uint16_t row_in_page = y_total & 0x07;
                         buffer[page][x_total] |= (1 << row_in_page);
                     }
                 }

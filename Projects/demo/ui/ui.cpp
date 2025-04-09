@@ -53,7 +53,8 @@ namespace GUI
             Tools::draw_hline(99,100,3+12*i);
         }
 
-        Tools::draw_char(0,12,12,font_16x16[0],16,16);
+        // Tools::draw_char(0,12,12,font_16x16[0],16,16);
+        Tools::draw_char("0",12,12);
 
     }
 
