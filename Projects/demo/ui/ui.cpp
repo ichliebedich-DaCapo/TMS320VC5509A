@@ -54,7 +54,7 @@ namespace GUI
         }
 
         // Tools::draw_char(0,12,12,font_16x16[0],16,16);
-        Tools::draw_char("大",12,12);
+        Tools::draw_char("家",12,12);
 
     }
 

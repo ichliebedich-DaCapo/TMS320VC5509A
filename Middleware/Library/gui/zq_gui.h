@@ -136,24 +136,26 @@ namespace GUI
             const Font::FontChar* fc = Font::find_char_by_name(name);
             if (!fc) return;
 
+            uint16_t total_bits = fc->width;
             const uint16_t* font_data = fc->data;
             const uint16_t char_height = fc->height;
             const uint16_t char_length = fc->width/fc->height+1;
 
             for (uint16_t length =0;length<char_length;++length)
             {
-                const uint16_t start_index = length * char_height;
-                const uint16_t start_x = x + (length <<3);
+                const uint16_t start_index = length * char_height;// 字符数据起始位置
+                const uint16_t start_x = x + (length <<3);// 字符数据起始位置 因为一个字节是8位，所以需要左移3位
+                const uint16_t bits = (total_bits>>3)?8:total_bits;// 获取当前行需要绘制的位数
+
                 for (uint16_t row_char = 0; row_char < char_height; ++row_char) {
                     const uint16_t byte = font_data[start_index+row_char];
-
-                    for (uint16_t bit = 0; bit < 8; bit++) {
+                    for (uint16_t bit = 0; bit < bits; ++bit) {
                         if (byte & (1 << bit)) {
                             const uint16_t y_total = y + row_char;
                             const uint16_t x_total = start_x + bit;
 
-                            if (y_total < 0 || y_total >= 64) continue;
-                            if (x_total < 0 || x_total >= 128) continue;
+                            if (y_total < 0 || y_total >= GUI_VOR) continue;
+                            if (x_total < 0 || x_total >= GUI_HOR) continue;
 
                             const uint16_t page = y_total >>3;
                             const uint16_t row_in_page = y_total & 0x07;
@@ -161,6 +163,8 @@ namespace GUI
                         }
                     }
                 }
+
+                total_bits -= bits;// 减去绘制位数
             }
         }
     };
