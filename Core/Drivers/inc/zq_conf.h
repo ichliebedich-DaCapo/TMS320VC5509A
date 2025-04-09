@@ -13,7 +13,9 @@
 #define ioport
 #define interrupt
 #endif
-
+#if !defined(SIMULATOR)
+#define nullptr NULL
+#endif
 
 // ======================兼容GCC======================
 // 类型定义

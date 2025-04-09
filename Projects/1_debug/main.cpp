@@ -3,7 +3,6 @@
 //
 //-------------------------------相关头文件------------------------------------//
 #include<app_conf.h>
-#include <gui.h>
 #include <zq_conf.h>
 #include <zq_pll.h>
 #include<zq_gpio.h>

@@ -174,83 +174,15 @@ INLINE void lcd_set_column(const uint16_t column)
     lcd_write_cmd(LCD_CMD_VER_ADDRESS + column); // 左半屏
 }
 
-
 // 清屏
 void oled_clear();
 
-
-
-
-INLINE void lcd_write_data(const uint16_t page, const uint16_t column, const uint16_t data)
-{
-    lcd_set_page(page);
-    if (column > 63)
-    {
-        lcd_set_column(column - 64);
-        lcd_write_data_right(data);
-    }
-    else
-    {
-        lcd_set_column(column);
-        lcd_write_data_left(data);
-    }
-}
-
-// 更高效的写入语句,不会刷新流水线，从而避免分支惩罚
-INLINE void lcd_write_data_fast(const uint16_t page, const uint16_t column, const uint16_t data)
-{
-    lcd_set_page(page);
-    lcd_set_column(column & 0x3f);
-    LCD_DATA(column) = data;
-    LCD_CTRL = 0;
-}
-
-void oled_write_data(uint16_t page, uint16_t start_col, uint16_t end_col, const uint16_t *buf);
-
-
-// 理论上更高效的写入语句，但是需要测试！！
-// buf: 128字节
-INLINE void lcd_flush(const uint16_t *buf)
-{
-    // int i, j;
-    // lcd_write_cmd(LCD_CMD_START_LINE);
-    // for (i = 0; i < 8; ++i)
-    // {
-    //     // 左半边屏幕
-    //     lcd_set_page(i);
-    //     lcd_set_column(0);
-    //     for (j = 0; j < 64; ++j)
-    //         lcd_write_data_left(buf[i<<7+j]);
-    //
-    //     // 右半边屏幕
-    //     lcd_set_page(i);
-    //     lcd_set_column(0);
-    //     for (j = 0; j < 64; ++j)
-    //         lcd_write_data_right(buf[i<<7+j+64]);
-    // }
-
-    int16_t i, j;
-    lcd_write_cmd(LCD_CMD_START_LINE);
-    for (i = 0; i < 8; ++i)
-    {
-        lcd_set_page(i);
-        lcd_set_column(0); // 设置一次列地址
-
-        // 合并左右屏写入
-        for (j = 0; j < 64; ++j)
-        {
-            lcd_write_data_left(buf[(i << 7) + j]); // 左屏
-            lcd_write_data_right(buf[(i << 7) + j + 64]); // 右屏
-        }
-    }
-}
+void oled_write_data(uint16_t page, const unsigned char *buf);
 
 
 /*====================================操作=========================================*/
 //
 void oled_init();
-
-// void lcd_write_page(uint16_t page,uint16_t*buf);
 
 
 #endif //DEMO_LCD_H

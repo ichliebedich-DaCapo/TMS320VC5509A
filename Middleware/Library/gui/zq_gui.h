@@ -6,12 +6,11 @@
 
 #ifdef SIMULATOR
 #include<stdint.h>
-#include <zq_conf.h>
-#include<zq_font.h>
-#include<zq_image.h>
 #else
 #include <oled.h>
 #endif
+#include<zq_font.h>
+#include<zq_image.h>
 #include <cstdio>
 #include <cstring>
 
@@ -125,6 +124,9 @@ namespace GUI
 
 
         static void draw_char(const char *name, uint16_t x, uint16_t y, const Font::FontChar fonts[]);// 自动查找字符元数据
+
+        static void draw_string(const char *str, uint16_t x, uint16_t y, const Font::FontChar fonts[]);
+
     };
 
 
@@ -190,8 +192,8 @@ namespace GUI
         if (x >= GUI_HOR || y >= GUI_VOR) return;
 
         const uint16_t page = y >> 3;
-        const uint8_t bit = y & 0x07;
-        const uint8_t mask = 1 << bit;
+        const unsigned char bit = y & 0x07;
+        const unsigned char mask = 1 << bit;
 
         color ? (buffer[page][x] |= mask) : (buffer[page][x] &= ~mask);
     }
@@ -207,7 +209,7 @@ namespace GUI
         if (x >= GUI_HOR || y >= GUI_VOR) return;
 
         const uint16_t page = y >> 3;
-        const uint8_t bit = y & 0x07;
+        const unsigned char bit = y & 0x07;
         buffer[page][x] |= (1 << bit);
     }
 
@@ -224,14 +226,14 @@ namespace GUI
         for (uint16_t page = start_page; page <= end_page; ++page)
         {
             const uint16_t length = end_col - start_col + 1;
-            memset(buffer[page] + start_col, 0, length * sizeof(unsigned char));
+            std::memset(buffer[page] + start_col, 0, length * sizeof(unsigned char));
         }
     }
 
     // 全屏清除
     void Tools::clear()
     {
-        memset(&buffer[0][0], 0, GUI_HOR * GUI_PAGE * sizeof(unsigned char));
+        std::memset(&buffer[0][0], 0, GUI_HOR * GUI_PAGE * sizeof(unsigned char));
     }
 
 

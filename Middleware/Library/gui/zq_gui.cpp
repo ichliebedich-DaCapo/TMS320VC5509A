@@ -15,11 +15,9 @@ namespace GUI
 }
 
 
-
 // =====================函数定义==========================
 namespace GUI
 {
-
     /**
     * @brief 绘制水平线段（默认黑色）
     * @param x_start 起始点横坐标
@@ -158,6 +156,85 @@ namespace GUI
             }
 
             total_bits -= bits; // 减去绘制位数
+        }
+    }
+
+    // 绘制字符串
+    void Tools::draw_string(const char *str, const uint16_t x, const uint16_t y, const Font::FontChar fonts[])
+    {
+        uint16_t x_offset = 0;
+        while (*str)
+        {
+            uint16_t len = 0;
+            // 确定当前字符的字节长度
+            if ((*str & 0x80) == 0)
+            {
+                len = 1;
+            }
+            else if ((*str & 0xE0) == 0xC0)
+            {
+                len = 2;
+            }
+            else if ((*str & 0xF0) == 0xE0)
+            {
+                len = 3;
+            }
+            else if ((*str & 0xF8) == 0xF0)
+            {
+                len = 4;
+            }
+            else
+            {
+                // 处理非法字节，这里假设跳过1个字节
+                len = 1;
+            }
+
+            // 使用临时数组存储当前字符的字节
+            char temp[5]; // 最大4字节 + 终止符
+            std::memcpy(temp, str, len);
+            temp[len] = '\0';
+
+            // 在字模表中查找匹配项
+            const Font::FontChar *fc = Font::find_char_by_name(fonts, temp);
+
+            // 继续处理下一个字符
+            str += len;
+
+            uint16_t total_bits = fc->width;
+            const unsigned char *font_data = fc->data;
+            const uint16_t char_height = fc->height;
+            const uint16_t char_length = fc->width / fc->height + 1;
+
+            for (uint16_t length = 0; length < char_length; ++length)
+            {
+                const uint16_t start_index = length * char_height; // 字符数据起始位置
+                const uint16_t start_x = x + x_offset + (length << 3); // 字符数据起始位置 因为一个字节是8位，所以需要左移3位
+                const uint16_t bits = (total_bits >> 3) ? 8 : total_bits; // 获取当前行需要绘制的位数
+
+                for (uint16_t row_char = 0; row_char < char_height; ++row_char)
+                {
+                    const unsigned char byte = font_data[start_index + row_char];
+                    for (uint16_t bit = 0; bit < bits; ++bit)
+                    {
+                        if (byte & (1 << bit))
+                        {
+                            const uint16_t y_total = y + row_char;
+                            const uint16_t x_total = start_x + bit;
+
+                            if (y_total < 0 || y_total >= GUI_VOR) continue;
+                            if (x_total < 0 || x_total >= GUI_HOR) continue;
+
+                            const uint16_t page = y_total >> 3;
+                            const uint16_t row_in_page = y_total & 0x07;
+                            buffer[page][x_total] |= (1 << row_in_page);
+                        }
+                    }
+                }
+
+                total_bits -= bits; // 减去绘制位数
+
+            }
+            x_offset += fc->width; // 绘制完一个字符后，偏移x轴
         }
     }
 }

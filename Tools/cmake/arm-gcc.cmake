@@ -26,7 +26,7 @@ add_compile_options(-finline-functions)
 # 关闭异常处理
 add_compile_options(-fno-exceptions)
 # 关闭运行时错误处理(可以降低一些ROM占用)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-rtti")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-rtti -fno-exceptions")
 
 # ----------------------调试选项--------------------------
 # 开启内联警告，当函数内联失败时，编译器会发出警告。

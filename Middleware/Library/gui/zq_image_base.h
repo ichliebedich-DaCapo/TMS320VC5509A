@@ -21,7 +21,7 @@ namespace GUI
         {
             for (uint16_t i = 0; image_table[i].name != nullptr; ++i)
             {
-                if (strcmp(image_table[i].name, name) == 0)
+                if (std::strcmp(image_table[i].name, name) == 0)
                 {
                     return &image_table[i];
                 }

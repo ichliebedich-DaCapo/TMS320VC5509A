@@ -5,7 +5,7 @@
 #define ZQ_FONT_BASE_H
 #include <cstring>
 #include<zq_conf.h>
-
+#include <cstdio>
 namespace GUI
 {
     // 行列式，逆向
@@ -25,7 +25,7 @@ namespace GUI
         {
             for (uint16_t i = 0; font_table[i].name != nullptr; ++i)
             {
-                if (strcmp(font_table[i].name, name) == 0)
+                if (std::strcmp(font_table[i].name, name) == 0)
                 {
                     return &font_table[i];
                 }

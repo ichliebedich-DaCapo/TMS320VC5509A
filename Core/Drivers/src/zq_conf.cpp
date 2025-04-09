@@ -112,6 +112,18 @@ void *_sbrk(ptrdiff_t incr)
 
     return (void *)0;
 }
+
+    int __exidx_start()
+{
+    return -1;
 }
+
+    int __exidx_end()
+{
+    return -1;
+}
+}
+
+
 
 #endif

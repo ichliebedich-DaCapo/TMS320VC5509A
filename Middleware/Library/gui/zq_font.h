@@ -4,6 +4,8 @@
 #ifndef ZQ_FONT_H
 #define ZQ_FONT_H
 #include<fonts_18x18.h>
+#include<fonts_16x16.h>
+
 
 
 

@@ -176,6 +176,7 @@ def generate_code(input_file,output_path):
     macro = f'ZQ_FONT_{H_ascii}X{H_ascii}_H'
     # output_filename = f'fonts_{H_ascii}x{H_ascii}.cpp'
     output_name = input_file.with_suffix(".h").name
+    font_name = Path(output_name).stem
     output_filename = f'{output_path}/{output_name}'
 
     # 输出文件校验 判断字体大小与文件名是否合理
@@ -195,7 +196,7 @@ namespace GUI
 {{
     namespace Font
     {{
-        const FontChar font_{H_ascii}x{H_ascii}[] = {{
+        const FontChar {font_name}[] = {{
             {(""
                 "").join(structs)}// end
             {{

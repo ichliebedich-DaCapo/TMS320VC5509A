@@ -29,13 +29,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a78db7b0-77d9-459c-87d1-f1d260dcb0d0" name="更改" comment="【开发】GPIO可用，确定了片内和片外寄存器的映射情况">
+      <change beforePath="$PROJECT_DIR$/.cproject" beforeDir="false" afterPath="$PROJECT_DIR$/.cproject" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/gui-simulator/Drivers/simulator.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/gui-simulator/Drivers/simulator.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/gui-simulator/Drivers/simulator.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/gui-simulator/Drivers/simulator.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapter/GUI/gui-simulator/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/gui-simulator/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Adapter/GUI/python/font.py" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/python/font.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BSP/inc/oled.h" beforeDir="false" afterPath="$PROJECT_DIR$/BSP/inc/oled.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BSP/src/oled.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/BSP/src/oled.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Drivers/inc/zq_conf.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Drivers/inc/zq_conf.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Drivers/inc/zq_interrupt.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Drivers/inc/zq_interrupt.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Drivers/src/zq_conf.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Drivers/src/zq_conf.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middleware/Library/gui/fonts_18x18.h" beforeDir="false" afterPath="$PROJECT_DIR$/Middleware/Library/gui/fonts_18x18.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middleware/Library/gui/zq_font.h" beforeDir="false" afterPath="$PROJECT_DIR$/Middleware/Library/gui/zq_font.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middleware/Library/gui/zq_font_base.h" beforeDir="false" afterPath="$PROJECT_DIR$/Middleware/Library/gui/zq_font_base.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middleware/Library/gui/zq_gui.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Middleware/Library/gui/zq_gui.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Middleware/Library/gui/zq_gui.h" beforeDir="false" afterPath="$PROJECT_DIR$/Middleware/Library/gui/zq_gui.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middleware/Library/gui/zq_image_base.h" beforeDir="false" afterPath="$PROJECT_DIR$/Middleware/Library/gui/zq_image_base.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Projects/1_debug/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Projects/1_debug/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projects/demo/ui/ui.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Projects/demo/ui/ui.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tools/cmake/arm-gcc.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/Tools/cmake/arm-gcc.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tools/scripts/C55x_GCC_LinkerScript.ld" beforeDir="false" afterPath="$PROJECT_DIR$/Tools/scripts/C55x_GCC_LinkerScript.ld" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,7 +82,7 @@
     <setting file="file://$PROJECT_DIR$/Core/Drivers/inc/zq_gpio.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Projects/1_debug/main.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Projects/demo/main.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Projects/demo/ui/ui.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Projects/demo/ui/ui.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/vectors.s55" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_HOME_DIR$/bin/cmake/win/x64/share/cmake-3.30/Modules/CMakeTestCCompiler.cmake" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_HOME_DIR$/bin/cmake/win/x64/share/cmake-3.30/Modules/CMakeTestCXXCompiler.cmake" root0="FORCE_HIGHLIGHTING" />
@@ -136,6 +147,11 @@
     </key>
   </component>
   <component name="RunManager">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="demo.elf" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="demo" TARGET_NAME="demo.elf" CONFIG_NAME="Debug-w64-i686-arm-none-eabi" RUN_TARGET_PROJECT_NAME="demo" RUN_TARGET_NAME="demo.elf">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -198,6 +214,7 @@
       <workItem from="1744085672093" duration="27000" />
       <workItem from="1744131186037" duration="107000" />
       <workItem from="1744131957895" duration="43000" />
+      <workItem from="1744214857721" duration="1985000" />
     </task>
     <task id="LOCAL-00001" summary="【工程】成功使用CLion编译TI工程">
       <option name="closed" value="true" />

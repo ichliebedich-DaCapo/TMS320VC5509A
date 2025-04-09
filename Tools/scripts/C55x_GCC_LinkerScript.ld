@@ -7,7 +7,6 @@ MEMORY {
     /* 数据存储器 (DMEM) - 分多个物理bank */
     DARAM (rwx) : ORIGIN = 0x00020000, LENGTH = 64K  /* 双访问RAM */
     SARAM (rwx) : ORIGIN = 0x00030000, LENGTH = 192K  /* 单访问RAM */
-    CONST (rw): ORIGIN = 0x00040000, LENGTH = 8K/*临时创建的*/
     /* 外设寄存器空间 (需根据实际映射调整) */
     IO_REGS (rw) : ORIGIN = 0x00C00000, LENGTH = 1M
 }
@@ -18,6 +17,15 @@ SECTIONS {
         KEEP(*(.intvecs))  /* 保持向量表不被优化 */
     } > PMEM
 
+    .ARM.exidx :AT (ADDR(.intvecs) + SIZEOF(.intvecs)) {
+        *(.ARM.exidx*)
+    } > PMEM
+
+    /* 异常表段（必须显式定义） */
+    .ARM.extab :AT (ADDR(.ARM.exidx) + SIZEOF(.ARM.exidx)) {
+        *(.ARM.extab*)
+    } > PMEM
+
     /* 可执行代码段 */
     .text : {
         *(.text)           /* 主程序代码 */
@@ -26,14 +34,14 @@ SECTIONS {
         KEEP(*(.fini))     /* 系统终止代码 */
     } > SARAM
 
-    /* 常量数据 (ROM中) */
+    /* 只读数据段（.rodata）分配到DARAM */
     .rodata : {
         *(.rodata)
         *(.rodata.*)
-    } > CONST
+    } > DARAM
 
     /* 初始化数据 (加载在PMEM，运行时拷贝到DARAM) */
-    .data : AT (ADDR(.rodata) + SIZEOF(.rodata) + SIZEOF(.ARM.exidx)) {
+    .data : AT (ADDR(.rodata) + SIZEOF(.rodata)) {
         _data_load = LOADADDR(.data);  /* 记录加载地址 */
         _data_start = .;
         *(.data)
