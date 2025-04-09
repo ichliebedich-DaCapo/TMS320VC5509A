@@ -52,7 +52,15 @@ namespace GUI
     public:
         INLINE void set() { flag |= (1 << shift); } // 设置标志
         INLINE void reset() { flag &= ~(1 << shift); } // 重置标志
-        INLINE bool get() { return flag & (1 << shift); } // 获取标志
+        // 获取标志，并清除
+        INLINE bool get()
+        {
+            const uint16_t mask = (1) << shift;  // 确保类型匹配
+            const bool ret = flag & mask;       // 直接转换为bool
+            flag &= ~mask;                      // 清除标记位
+            return ret;
+        }
+        INLINE bool read(){ return flag & (1 << shift);}// 仅读取标志
     };
 
     namespace Flag
