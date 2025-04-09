@@ -1,5 +1,7 @@
 import re
 import math
+from pathlib import Path
+
 
 def find_H_ascii(N_ascii):
     """根据ASCII字符元素数量推断字高"""
@@ -43,10 +45,7 @@ def process_char(name, index, H, W, data_str):
                 }}
             }},'''
 
-def main():
-    input_file = 'fonts.txt'
-    output_file = 'fonts_auto.c'
-
+def generate_code(input_file,output_path):
     chars_data = []
     current_elements = []
 
@@ -116,7 +115,13 @@ def main():
 
     # 生成输出文件名
     macro = f'ZQ_FONT_{H_ascii}X{H_ascii}_H'
-    output_filename = f'fonts_{H_ascii}x{H_ascii}.cpp'
+    # output_filename = f'fonts_{H_ascii}x{H_ascii}.cpp'
+    output_name = input_file.with_suffix(".h").name
+    output_filename = f'{output_path}/{output_name}'
+
+    # 输出文件校验 判断字体大小与文件名是否合理
+    if output_name != f'fonts_{H_ascii}x{H_ascii}.h':
+        raise ValueError(f"Fonts Name Error {output_name} -> fonts_{H_ascii}x{H_ascii}.cpp")
 
     # 生成最终代码
     output_code = f'''#ifndef {macro}
@@ -129,7 +134,13 @@ namespace GUI
     {{
         const FontChar font_{H_ascii}x{H_ascii}[] = {{
             {(""
-                "").join(structs)}
+                "").join(structs)}// end
+            {{
+                .name = nullptr,
+                .width = 0,
+                .height = 0,
+                .data = nullptr
+            }},  
         }};
     }}
 }}
@@ -140,4 +151,14 @@ namespace GUI
         f.write(output_code)
 
 if __name__ == "__main__":
-    main()
+    input_path = Path("../font")
+    output_path = Path("../../../Middleware/Library/gui")
+
+
+    # 遍历所有 .txt 文件
+    for file in input_path.glob("*.TXT"):
+        # 过滤文件名不含 "index" 的文件（不区分大小写可改为 .lower()）
+        if "index" not in file.stem:
+            # 调用你的生成函数
+            generate_code(file, output_path)
+            print(f"Process done: {file}")

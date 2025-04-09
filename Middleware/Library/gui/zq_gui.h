@@ -132,8 +132,8 @@ namespace GUI
 
 
         // 新函数：自动查找字符元数据
-        static void draw_char(const char* name, const uint16_t x, const uint16_t y) {
-            const Font::FontChar* fc = Font::find_char_by_name(name);
+        static void draw_char(const char* name, const uint16_t x, const uint16_t y,const Font::FontChar fonts[]) {
+            const Font::FontChar* fc = find_char_by_name(fonts, name);
             if (!fc) return;
 
             uint16_t total_bits = fc->width;

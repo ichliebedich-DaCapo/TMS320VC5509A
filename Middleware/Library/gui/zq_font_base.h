@@ -21,9 +21,9 @@ namespace GUI
         } FontChar;
 
         // 根据名称查找字符
-        inline const FontChar *find_char_by_name(const FontChar font_table[], const uint16_t size,const char *name)
+        inline const FontChar *find_char_by_name(const FontChar font_table[], const char *name)
         {
-            for (uint16_t i = 0; i < size; ++i)
+            for (uint16_t i = 0; font_table[i].name != nullptr; ++i)
             {
                 if (strcmp(font_table[i].name, name) == 0)
                 {
@@ -32,10 +32,6 @@ namespace GUI
             }
             return nullptr; // 未找到
         }
-
-#define FIND_CHAR(font_table, name) \
-    find_char_by_name(font_table, sizeof(font_table)/sizeof(FontChar), name)
-
-}
+    }
 }
 #endif //ZQ_FONT_BASE_H
