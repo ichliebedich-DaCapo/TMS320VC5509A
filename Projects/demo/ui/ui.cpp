@@ -42,8 +42,6 @@ namespace GUI
         Tools::draw_vline(0,0,63);
         Tools::draw_vline(101,0,63);
 
-
-
         for (uint16_t i=1;i<5;++i)
         {
             // 绘制竖线刻度
@@ -54,6 +52,8 @@ namespace GUI
             // 总共64-2-2行，最后减去的那两行是竖线刻度的长度，那么步进为60/(4+1)=12
             Tools::draw_hline(99,100,3+12*i);
         }
+
+        Tools::draw_char(0,12,12,font_16x16[0],16,16);
 
     }
 
