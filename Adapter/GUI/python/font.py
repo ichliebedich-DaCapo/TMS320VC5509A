@@ -45,6 +45,65 @@ def process_char(name, index, H, W, data_str):
                 }}
             }},'''
 
+def add_to_header(header_file,include_name):
+    with open(header_file, 'r') as f:
+        lines = f.readlines()
+
+    include_line = f'#include<{include_name}>\n'
+    if include_line in lines:
+        return  # 已存在，无需操作
+
+    # 找到#ifndef的行
+    ifndef_line = None
+    for line in lines:
+        stripped = line.strip()
+        if stripped.startswith('#ifndef'):
+            ifndef_line = stripped
+            break
+    if ifndef_line is None:
+        return  # 文件结构不正确
+
+    # 获取宏名称
+    macro_name = ifndef_line.split()[1]
+
+    # 找到对应的#define行的位置
+    define_line = f'#define {macro_name}\n'
+    define_pos = None
+    for i, line in enumerate(lines):
+        stripped = line.strip()
+        if stripped.startswith('#define') and stripped.endswith(macro_name):
+            define_pos = i
+            break
+    if define_pos is None:
+        return  # 文件结构不正确
+
+    # 找到所有#include的索引
+    include_indices = [i for i, line in enumerate(lines) if line.startswith('#include')]
+
+    if include_indices:
+        insert_pos = include_indices[-1] + 1
+    else:
+        # 在#define之后插入
+        insert_pos = define_pos + 1
+
+    # 找到#endif的位置以确保插入在正确区域
+    endif_pos = None
+    for i, line in reversed(list(enumerate(lines))):
+        stripped = line.strip()
+        if stripped.startswith('#endif'):
+            endif_pos = i
+            break
+    if insert_pos > endif_pos:
+        # 如果插入位置超过#endif，调整到#endif之前
+        insert_pos = endif_pos - 1
+
+    # 插入新行
+    lines.insert(insert_pos, include_line)
+
+    # 写回文件
+    with open(header_file, 'w') as f:
+        f.writelines(lines)
+
 def generate_code(input_file,output_path):
     chars_data = []
     current_elements = []
@@ -122,6 +181,10 @@ def generate_code(input_file,output_path):
     # 输出文件校验 判断字体大小与文件名是否合理
     if output_name != f'fonts_{H_ascii}x{H_ascii}.h':
         raise ValueError(f"Fonts Name Error {output_name} -> fonts_{H_ascii}x{H_ascii}.cpp")
+
+    # 添加头文件
+    font_header_file = f'{output_path}/zq_font.h'
+    add_to_header(font_header_file,output_name)
 
     # 生成最终代码
     output_code = f'''#ifndef {macro}

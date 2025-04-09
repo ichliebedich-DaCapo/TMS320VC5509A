@@ -15,8 +15,8 @@ namespace GUI
         typedef struct
         {
             const char *name; // 字符名称（如"8"、"中"）
-            int width; // 字符宽度（像素）
-            int height; // 字符高度（像素）
+            uint16_t width; // 字符宽度（像素）
+            uint16_t height; // 字符高度（像素）
             const uint16_t *data; // 字模数据指针
         } FontChar;
 

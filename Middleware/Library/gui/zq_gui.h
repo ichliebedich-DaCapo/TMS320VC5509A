@@ -8,6 +8,7 @@
 #include<stdint.h>
 #include <zq_conf.h>
 #include<zq_font.h>
+#include<zq_image.h>
 #else
 #include <oled.h>
 #endif
@@ -125,6 +126,7 @@ namespace GUI
 
         template<uint16_t steps>
         static void draw_bezier3(Point p0, Point p1, Point p2, Point p3); // 绘制三阶贝塞尔曲线（需要4个连续控制点）
+
 
         static void draw_char(const char *name, uint16_t x, uint16_t y, const Font::FontChar fonts[]);// 自动查找字符元数据
     };
