@@ -137,23 +137,28 @@ namespace GUI
             if (!fc) return;
 
             const uint16_t* font_data = fc->data;
-            const uint16_t char_width = fc->width;
             const uint16_t char_height = fc->height;
+            const uint16_t char_length = fc->width/fc->height+1;
 
-            for (uint16_t row_char = 0; row_char < char_height; row_char++) {
-                const uint16_t byte = font_data[row_char];
+            for (uint16_t length =0;length<char_length;++length)
+            {
+                const uint16_t start_index = length * char_height;
+                const uint16_t start_x = x + (length <<3);
+                for (uint16_t row_char = 0; row_char < char_height; ++row_char) {
+                    const uint16_t byte = font_data[start_index+row_char];
 
-                for (uint16_t bit = 0; bit < char_width; bit++) {
-                    if (byte & (1 << bit)) {
-                        const uint16_t y_total = y + row_char;
-                        const uint16_t x_total = x + bit;
+                    for (uint16_t bit = 0; bit < 8; bit++) {
+                        if (byte & (1 << bit)) {
+                            const uint16_t y_total = y + row_char;
+                            const uint16_t x_total = start_x + bit;
 
-                        if (y_total < 0 || y_total >= 64) continue;
-                        if (x_total < 0 || x_total >= 128) continue;
+                            if (y_total < 0 || y_total >= 64) continue;
+                            if (x_total < 0 || x_total >= 128) continue;
 
-                        const uint16_t page = y_total >>3;
-                        const uint16_t row_in_page = y_total & 0x07;
-                        buffer[page][x_total] |= (1 << row_in_page);
+                            const uint16_t page = y_total >>3;
+                            const uint16_t row_in_page = y_total & 0x07;
+                            buffer[page][x_total] |= (1 << row_in_page);
+                        }
                     }
                 }
             }
