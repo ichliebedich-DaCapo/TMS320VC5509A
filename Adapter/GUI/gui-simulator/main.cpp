@@ -32,13 +32,12 @@ int tick_handler(void *data)
 int main(int argc, char *argv[])
 {
     // GUI初始化
-    simulator_init();
+    GUI::Render::init<simulator_init>();
+
     SDL_CreateThread(keyboard_thread, "keyboard", nullptr); // 键盘线程
 #if MEASURE_ENABLE
     SDL_CreateThread(tick_handler, "tick", nullptr);
 #endif
-
-    GUI::init();
 
     // 主循环
     while (simulator_is_running())

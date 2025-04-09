@@ -9,24 +9,11 @@
 namespace GUI
 {
     // 变量定义
-    uint16_t Base::buffer[GUI_PAGE][GUI_HOR];
+    unsigned char Base::buffer[GUI_PAGE][GUI_HOR];
 
     uint16_t FlagBase::flag = 0;
 }
 
-
-namespace GUI
-{
-    void init()
-    {
-#ifndef SIMULATOR
-        oled_init();
-#endif
-        Tools::clear(); // 清屏
-        Render::init(); // 初始化渲染器
-        Flag::render::set(); // 设置渲染标志位
-    }
-}
 
 
 // =====================函数定义==========================
@@ -140,7 +127,7 @@ namespace GUI
         if (!fc) return;
 
         uint16_t total_bits = fc->width;
-        const uint16_t *font_data = fc->data;
+        const unsigned char *font_data = fc->data;
         const uint16_t char_height = fc->height;
         const uint16_t char_length = fc->width / fc->height + 1;
 
@@ -152,7 +139,7 @@ namespace GUI
 
             for (uint16_t row_char = 0; row_char < char_height; ++row_char)
             {
-                const uint16_t byte = font_data[start_index + row_char];
+                const unsigned char byte = font_data[start_index + row_char];
                 for (uint16_t bit = 0; bit < bits; ++bit)
                 {
                     if (byte & (1 << bit))

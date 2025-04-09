@@ -201,7 +201,7 @@ void oled_write_data_base(const uint16_t page, const uint16_t column, const uint
 
 
 
-void oled_write_data(uint16_t page, const uint16_t *buf) {
+void oled_write_data(const unsigned char page, const unsigned char *buf) {
     for (int i = 0; i < 128; ++i)
         oled_write_data_base(page, i, buf[i]);
 }

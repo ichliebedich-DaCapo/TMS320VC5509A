@@ -17,12 +17,12 @@
 
 
 // 属性声明
-#define GUI_HOR 128 // 2^7，考虑到一行正好是2^7，那么就可以通过移位代替乘法，提高效率
+#define GUI_HOR 128
 #define GUI_VOR 64
 #define GUI_PAGE 8
 #define color_white 0
 #define color_black 1
-#define DIRTY_DUMMY_COL 0x00FF    // 无效脏列，用于重置脏标记
+
 
 namespace GUI
 {
@@ -69,33 +69,29 @@ namespace GUI
 
     namespace Flag
     {
+        // 渲染标志
         class render : public FlagType<0>
         {
-        }; // 渲染标志
+        };
+        // 更新模式标志，0为默认模式，全刷新  1为分页模式，分页刷新
         class updateMode : public FlagType<1>
         {
-        }; // 更新模式标志，0为默认模式，全刷新  1为分页模式，分页刷新
+        };
+        // 用户绘制界面标志
         class draw : public FlagType<2>
         {
-        }; // 用户绘制界面标志
+        };
     }
 }
 
 
-// 初始化函数
 namespace GUI
 {
-    void init();
-}
-
-
-namespace GUI
-{
-    // 基类
+    // 数据基类
     class Base
     {
     protected:
-        static uint16_t buffer[GUI_PAGE][GUI_HOR]; // 显示缓冲区：8页 x 128列，每个字节存储一列的8行数据
+        static unsigned char buffer[GUI_PAGE][GUI_HOR]; // 显示缓冲区：8页 x 128列，每个字节存储一列的8行数据
     };
 
 
@@ -135,10 +131,19 @@ namespace GUI
     class Render : Base
     {
     public:
-        static void init(); // 初始化函数，由用户自己实现
+        template<void(*oled_init)()>
+        static void init()
+        {
+            oled_init();// 初始化OLED驱动
+            Tools::clear(); // 清屏
+            screen(); // 初始化界面
+            Flag::render::set(); // 设置渲染标志位
+        }
+
+        static void screen();// 界面函数，由用户自己实现
         static void draw(); // 绘制函数，由用户自己实现
 
-        template<void(*oled_write_data)(uint16_t page, const uint16_t *buf)>
+        template<void(*oled_write_data)(unsigned char page, const unsigned char *buf)>
         static void handler()
         {
             // 绘制处理
@@ -180,7 +185,7 @@ namespace GUI
      * @param y 纵坐标（0起始）
      * @param color 颜色标识，true为黑色，false为白色
      */
-    void Tools::write_pixel(uint16_t x, uint16_t y, bool color)
+    void Tools::write_pixel(const uint16_t x, const uint16_t y, const bool color)
     {
         if (x >= GUI_HOR || y >= GUI_VOR) return;
 
@@ -213,20 +218,20 @@ namespace GUI
      * @param start_col 起始列
      * @param end_col 结束列
      */
-    void Tools::clear(uint16_t start_page, uint16_t end_page,
-                      uint16_t start_col, uint16_t end_col)
+    void Tools::clear(const uint16_t start_page, const uint16_t end_page,
+                      const uint16_t start_col, const uint16_t end_col)
     {
         for (uint16_t page = start_page; page <= end_page; ++page)
         {
             const uint16_t length = end_col - start_col + 1;
-            memset(buffer[page] + start_col, 0, length * sizeof(uint16_t));
+            memset(buffer[page] + start_col, 0, length * sizeof(unsigned char));
         }
     }
 
     // 全屏清除
     void Tools::clear()
     {
-        memset(&buffer[0][0], 0, GUI_HOR * GUI_PAGE * sizeof(uint16_t));
+        memset(&buffer[0][0], 0, GUI_HOR * GUI_PAGE * sizeof(unsigned char));
     }
 
 

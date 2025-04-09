@@ -40,7 +40,7 @@ def process_char(name, index, H, W, data_str):
                 .name = "{name}",
                 .width = {W},
                 .height = {H},
-                .data = (const uint16_t[]){{ 
+                .data = (const unsigned char[]){{ 
                     {data_str}
                 }}
             }},'''

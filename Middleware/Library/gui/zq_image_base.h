@@ -13,8 +13,21 @@ namespace GUI
             const char *name; // 字符名称（如"8"、"中"）
             uint16_t width; // 图像宽度（像素）
             uint16_t height; // 图像高度（像素）
-            const uint16_t *data; // 字模数据指针
+            const unsigned char *data; // 字模数据指针
         } ImageInfo;
+
+        // 根据名称查找字符
+        inline const ImageInfo *find_image_by_name(const ImageInfo image_table[], const char *name)
+        {
+            for (uint16_t i = 0; image_table[i].name != nullptr; ++i)
+            {
+                if (strcmp(image_table[i].name, name) == 0)
+                {
+                    return &image_table[i];
+                }
+            }
+            return nullptr; // 未找到
+        }
 
     }
 }
