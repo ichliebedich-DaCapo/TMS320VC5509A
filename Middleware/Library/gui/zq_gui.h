@@ -132,6 +132,9 @@ namespace GUI
 
     class Render : Base
     {
+    protected:
+        static void screen();// 界面函数，由用户自己实现
+        static void draw(); // 绘制函数，由用户自己实现
     public:
         template<void(*oled_init)()>
         static void init()
@@ -142,8 +145,7 @@ namespace GUI
             Flag::render::set(); // 设置渲染标志位
         }
 
-        static void screen();// 界面函数，由用户自己实现
-        static void draw(); // 绘制函数，由用户自己实现
+
 
         template<void(*oled_write_data)(unsigned char page, const unsigned char *buf)>
         static void handler()

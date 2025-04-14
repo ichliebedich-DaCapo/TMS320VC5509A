@@ -1,9 +1,10 @@
 #include<app_conf.h>
+#include <zq_gui.h>
 #include <zq_timer.h>
 #include<zq_interrupt.h>
 #if PROGRAM_INDEX == 0
 #include <zq_init.h>
-#include<gui.h>
+
 #include <AsyncDelay.h>
 #include<Flag.h>
 
@@ -17,13 +18,21 @@ uint16_t buf[10]={
 int main()
 {
     ZQ_Init();
-    GUI_Init();
-
-
+    GUI::Render::init<oled_init>();
     for (;;)
     {
-        ui_handler();
-        GUI_Render::handler<oled_write_data>(); // 处理GUI事件
+
+       GUI::Render::handler<oled_write_data>();// 处理GUI事件
     }
 }
+
+extern "C"
+{
+    interrupt void TimerISR()
+    {
+        // count ++;
+        // bsp::LED::toggle(bsp::led::pin::LED_3);
+    }
+}
+
 #endif

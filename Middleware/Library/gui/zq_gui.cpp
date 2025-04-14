@@ -145,8 +145,8 @@ namespace GUI
                         const uint16_t y_total = y + row_char;
                         const uint16_t x_total = start_x + bit;
 
-                        if (y_total < 0 || y_total >= GUI_VOR) continue;
-                        if (x_total < 0 || x_total >= GUI_HOR) continue;
+                        if ( y_total >= GUI_VOR) continue;
+                        if ( x_total >= GUI_HOR) continue;
 
                         const uint16_t page = y_total >> 3;
                         const uint16_t row_in_page = y_total & 0x07;

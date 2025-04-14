@@ -64,7 +64,7 @@ namespace GUI
         // Tools::draw_char("2",30,12,Font::font_18x18);
 
         // Tools::draw_string("中2",12,12,Font::font_18x18);
-        Tools::draw_string("未曾",5,12,Font::fonts_16x16);
+        //Tools::draw_string("未曾",5,12,Font::fonts_16x16);
 
     }
 
@@ -88,7 +88,7 @@ namespace GUI
         for (int x = 1; x <= 100; x++)
         {
             // 计算当前点的y值
-            const float y_val = 32.5f + 29.5f * sin((phase+(offset++))*(2 * M_PI) / 100); // 中心32.5，振幅29.5，范围3~62
+            const float y_val = 32.5f + 29.5f * sin((phase+(offset++))*(2 * 3.14159) / 100); // 中心32.5，振幅29.5，范围3~62
             const int y = static_cast<int>(y_val + 0.5f); // 四舍五入到整数
 
             // 处理第一个点

@@ -177,7 +177,7 @@ INLINE void lcd_set_column(const uint16_t column)
 // 清屏
 void oled_clear();
 
-void oled_write_data(uint16_t page, const unsigned char *buf);
+void oled_write_data(unsigned char page, const unsigned char *buf);
 
 
 /*====================================操作=========================================*/

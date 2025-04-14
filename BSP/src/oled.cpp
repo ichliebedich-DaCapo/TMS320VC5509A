@@ -34,7 +34,7 @@ void oled_clear()
     }
 }
 
-void oled_write_data(uint16_t page, const unsigned char *buf)
+void oled_write_data(const unsigned char page, const unsigned char *buf)
 {
     lcd_write_cmd(LCD_CMD_START_LINE);
     lcd_set_page(page);
