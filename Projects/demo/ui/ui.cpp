@@ -63,53 +63,53 @@ namespace GUI
         // Tools::draw_char("中",12,12,Font::font_18x18);
         // Tools::draw_char("2",30,12,Font::font_18x18);
 
-        // Tools::draw_string("中2",12,12,Font::font_18x18);
-        //Tools::draw_string("未曾",5,12,Font::fonts_16x16);
+         Tools::draw_string("中2",12,35,Font::fonts_18x18);
+        Tools::draw_string("未曾",5,12,Font::fonts_16x16);
 
     }
 
 
     void Render::draw()
     {
-        /* 清除绘制区域的背景色 */
-        Tools::clear(0, 7, 1, 100); // 清除绘制区域的背景色
-
-        /* 重新绘制清除的边界 */
-        Tools::draw_hline(1, 101, 0);
-        Tools::draw_hline(1, 101, 63);
-        for (uint16_t i = 1; i < 5; ++i)
-            Tools::draw_vline(20 * i, 1, 2);
-
-        /* 更新频谱数据 */
-        static uint16_t phase = 0;
-
-        int prev_x = 0, prev_y = 0;
-        float offset =0;
-        for (int x = 1; x <= 100; x++)
-        {
-            // 计算当前点的y值
-            const float y_val = 32.5f + 29.5f * sin((phase+(offset++))*(2 * 3.14159) / 100); // 中心32.5，振幅29.5，范围3~62
-            const int y = static_cast<int>(y_val + 0.5f); // 四舍五入到整数
-
-            // 处理第一个点
-            if (x == 1)
-            {
-                prev_x = x;
-                prev_y = y;
-            }
-            else
-            {
-                // 绘制从前一个点到当前点的直线
-                Tools::draw_line(prev_x, prev_y, x, y);
-                prev_x = x;
-                prev_y = y;
-            }
-        }
-        ++phase;
-
-        // 模拟ADC数据等待过程
-        static uint32_t tick =0;
-        if ((tick++)%3==0)
-            Flag::render::set();
+        // /* 清除绘制区域的背景色 */
+        // Tools::clear(0, 7, 1, 100); // 清除绘制区域的背景色
+        //
+        // /* 重新绘制清除的边界 */
+        // Tools::draw_hline(1, 101, 0);
+        // Tools::draw_hline(1, 101, 63);
+        // for (uint16_t i = 1; i < 5; ++i)
+        //     Tools::draw_vline(20 * i, 1, 2);
+        //
+        // /* 更新频谱数据 */
+        // static uint16_t phase = 0;
+        //
+        // int prev_x = 0, prev_y = 0;
+        // float offset =0;
+        // for (int x = 1; x <= 100; x++)
+        // {
+        //     // 计算当前点的y值
+        //     const float y_val = 32.5f + 29.5f * sin((phase+(offset++))*(2 * 3.14159) / 100); // 中心32.5，振幅29.5，范围3~62
+        //     const int y = static_cast<int>(y_val + 0.5f); // 四舍五入到整数
+        //
+        //     // 处理第一个点
+        //     if (x == 1)
+        //     {
+        //         prev_x = x;
+        //         prev_y = y;
+        //     }
+        //     else
+        //     {
+        //         // 绘制从前一个点到当前点的直线
+        //         Tools::draw_line(prev_x, prev_y, x, y);
+        //         prev_x = x;
+        //         prev_y = y;
+        //     }
+        // }
+        // ++phase;
+        //
+        // // 模拟ADC数据等待过程
+        // static uint32_t tick =0;
+        // if ((tick++)%3==0)
+        //     Flag::render::set();
     }
 }
