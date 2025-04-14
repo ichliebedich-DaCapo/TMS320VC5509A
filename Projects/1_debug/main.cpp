@@ -54,7 +54,8 @@ int output_signals(int *output);
 
 
 //-----------------------------------主程序------------------------------------//
-uint32_t count =0;
+uint32_t count = 0;
+
 int main()
 {
     ZQ_Init();
@@ -64,7 +65,7 @@ int main()
     bsp::LED::clear();
 
     zq::timer::Timer0::init(TIM_FREQ_200M_to_100K);
-zq::isr::start_timer();
+    zq::isr::start_timer();
 
     // ======初始化======
     int i = 0;
@@ -74,16 +75,15 @@ zq::isr::start_timer();
     output = out_buffer;
 
 
-
     // ======无限循环======
     while (TRUE)
     {
         // 如果如我预期是200MHz，那么count应该接近
         // ++count;
-        static uint16_t temp =0;
+        static uint16_t temp = 0;
 
         // count = zq::timer::TIM<0>::read();
-        if (count >= 20000)// 5000000
+        if (count >= 20000) // 5000000
         {
             count = 0;
             bsp::LED::toggle(bsp::led::pin::LED_1);
@@ -99,8 +99,7 @@ zq::isr::start_timer();
         static uint16_t psc = zq::timer::PRSC<0>::PSC::read_bits();
 
 
-
-//  拨码开关
+        //  拨码开关
         // bsp::LED::set(bsp::DIP::get());
         // bsp::LED::set(zq::gpio::GPIO_Normal2::read());
     }
@@ -112,7 +111,7 @@ extern "C"
 {
 interrupt void TimerISR()
 {
-    count ++;
+    count++;
     bsp::LED::toggle(bsp::led::pin::LED_3);
 }
 }
