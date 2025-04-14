@@ -35,12 +35,12 @@ def format_data(elements, elements_per_line):
 def process_char(name, index, H, W, array_name):
     """生成C结构体"""
     return f'''// "{name}"
-            {{
-                .name = "{name}",
-                .width = {W},
-                .height = {H},
-                .data = {array_name}
-            }},'''
+        {{
+            .name = "{name}",
+            .width = {W},
+            .height = {H},
+            .data = {array_name}
+        }},'''
 
 def add_to_header(header_file, include_name):
     with open(header_file, 'r') as f:
@@ -178,8 +178,8 @@ namespace GUI
     namespace Font
     {{
         // 所有字模数据数组定义
-        {("""
-        """).join(data_arrays)}  // 每个数组占一行
+    {("""
+    """).join(data_arrays)}  // 每个数组占一行
 
         const FontChar {font_name}[] = {{
             {"".join(structs)}
