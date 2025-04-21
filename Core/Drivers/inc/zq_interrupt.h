@@ -79,9 +79,12 @@ namespace zq
     {
       INLINE void start_timer()
       {
+
+          //cpu::IVPD::write(0x01);
+          //cpu::IVPH::write(0x01);
           cpu::IER0::TINT0::set_bit();
           cpu::DBIER0::write(cpu::DBIER0::read()|0x10);
-          cpu::IFR0::write(0xFF);
+          cpu::IFR0::write(0xFFFF);
           asm(" BCLR INTM");
 
       }

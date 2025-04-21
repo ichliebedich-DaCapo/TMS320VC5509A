@@ -59,17 +59,11 @@ uint32_t count = 0;
 int main()
 {
     ZQ_Init();
-
-    oled_init();
-    oled_clear();
     bsp::LED::clear();
-
     zq::timer::Timer0::init(TIM_FREQ_200M_to_100K);
     zq::isr::start_timer();
-
     // ======初始化======
     int i = 0;
-
 
     input = inp_buffer;
     output = out_buffer;
@@ -95,10 +89,10 @@ int main()
         }
 
 
-        static uint16_t tim = zq::timer::TIM<0>::read();
-        static uint16_t psc = zq::timer::PRSC<0>::PSC::read_bits();
-
-
+        static uint16_t tim ;
+        static uint16_t psc;
+        tim = zq::timer::TIM<0>::read();
+        psc = zq::timer::PRSC<0>::PSC::read_bits();
         //  拨码开关
         // bsp::LED::set(bsp::DIP::get());
         // bsp::LED::set(zq::gpio::GPIO_Normal2::read());

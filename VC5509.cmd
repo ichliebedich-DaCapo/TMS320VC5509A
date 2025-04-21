@@ -16,7 +16,9 @@
 MEMORY
 {
     MMR:     o = 0x000000  l = 0x0000c0  /* 192B Memory Mapped Registers */
-    DARAM0:  o = 0x0000C0  l = 0x001F40  /* 8kB Dual Access RAM 0 */
+    VECT:    o = 0x000100  l = 0x000100
+    VECS:    o = 0x000200  l = 0x000100  /* reset vector */
+    DARAM0:  o = 0x001000  l = 0x001000  /* 8kB Dual Access RAM 0 */
     DARAM1:  o = 0x002000  l = 0x002000  /* 8kB Dual Access RAM 1 */
     DARAM2:  o = 0x004000  l = 0x002000  /* 8kB Dual Access RAM 2 */
     DARAM3:  o = 0x006000  l = 0x002000  /* 8kB Dual Access RAM 3 */  
@@ -24,6 +26,7 @@ MEMORY
     DARAM5:  o = 0x00A000  l = 0x002000  /* 8kB Dual Access RAM 5 */
     DARAM6:  o = 0x00C000  l = 0x002000  /* 8kB Dual Access RAM 6 */
     DARAM7:  o = 0x00E000  l = 0x002000  /* 8kB Dual Access RAM 7 */
+
   
     SARAM0:   o = 0x010000  l = 0x002000  /* 8kB Single Access RAM 0 */
     SARAM1:   o = 0x012000  l = 0x002000  /* 8kB Single Access RAM 1 */
@@ -55,12 +58,14 @@ MEMORY
     CE2:     o = 0x800000  l = 0x400000  /* 4MB CE2 external memory space */
     CE3:     o = 0xC00000  l = 0x3F0000  /* 4MB CE3 external memory space */
     ROM:     o = 0xFF0000  l = 0x00FF00  /* 64kB ROM (MPNMC=0) or CE3 (MPNMC=1) */
-    VECS:    o = 0xFFFF00  l = 0x000100  /* reset vector */
+    /*VECS:    o = 0xFFFF00  l = 0x000100*/  /* reset vector */
+
 }                   
                     
 SECTIONS            
-{                   
-    vectors (NOLOAD)  >  VECS  /* 中断向量表段 若使用MPNMC=1（手动初始化存储器），需移除NOLOAD以强制加载 */
+{
+     vectors   >  VECT  /* 中断向量表段 若使用MPNMC=1（手动初始化存储器），需移除NOLOAD以强制加载 */
+    .vectors:{} > VECS
     .cinit            >  DARAM0  /* C初始化数据段 */
     .text             >> SARAM0|SARAM1|SARAM2|SARAM3|SARAM4|SARAM5|SARAM6|SARAM7|SARAM8|SARAM9|SARAM10|SARAM11|SARAM12|SARAM13|SARAM14|SARAM15|SARAM16|SARAM17|SARAM18|SARAM19|SARAM20|SARAM21|SARAM22|SARAM23
     .stack            >  DARAM0 /* 主堆栈段 */

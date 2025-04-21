@@ -94,6 +94,7 @@ namespace zq
                 set_prescaler(psc); // 设置分频重载值
                 set_prescaler_now(psc); // 立即应用分频值
                 set_period(arr); // 设置周期值
+                set_simulation_breakpoint();
                 manual_reload<0>(); // 禁用立即重载
                 auto_reload<1>(); // 启用自动重装
                 set_mode<Mode::HIZ>(); // 默认高阻模式

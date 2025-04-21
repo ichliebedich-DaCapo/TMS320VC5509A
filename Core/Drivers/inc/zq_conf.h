@@ -62,7 +62,7 @@ struct NAME { \
 // 片外存储器不能添加ioport和volatile关键字，否则外部存储器不生效
 #define EXMEM_MAP(Address) reinterpret_cast<unsigned int *>(Address)
 // 根据位宽获取掩码
-#define GET_BITS_MASK(WIDTH,SHIFT) (((1<<(WIDTH))-1)<<(SHIFT))
+#define GET_BITS_MASK(WIDTH,SHIFT) (((1U << (WIDTH)) - 1U) << (SHIFT))
 
 // 位域模板结构体
 template<uint16_t address,uint16_t mask,uint16_t shift>
