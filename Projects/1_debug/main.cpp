@@ -76,7 +76,7 @@ int main()
         static uint16_t temp = 0;
 
         // count = zq::timer::TIM<0>::read();
-        if (count >= 20000) // 5000000
+        if (count >= 200) // 5000000
         {
             count = 0;
             bsp::LED::toggle(bsp::led::pin::LED_1);
@@ -88,10 +88,9 @@ int main()
         }
 
 
-        static uint16_t tim ;
-        static uint16_t psc;
-        tim = zq::timer::TIM<0>::read();
-        psc = zq::timer::PRSC<0>::PSC::read_bits();
+
+      //  tim = zq::timer::TIM<0>::read();
+       // psc = zq::timer::PRSC<0>::PSC::read_bits();
         //  拨码开关
         // bsp::LED::set(bsp::DIP::get());
         // bsp::LED::set(zq::gpio::GPIO_Normal2::read());
