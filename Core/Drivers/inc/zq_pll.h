@@ -11,18 +11,15 @@ namespace zq
     {
         // =========================== 基础属性声明 ===========================
         // PLL类型标签
-        struct MainPLLTag
-        {
-        };
+        struct MainPLLTag {};
 
-        struct USB_PLLTag
-        {
-        };
+        struct USB_PLLTag {};
 
         // 通用特征模板
         template<typename PLLType>
         struct PLL_Traits;
 
+        // ==================== 主PLL ==================
         DECLARE_REGISTER(SYSR, 0x07FD); // 系统寄存器地址（SYSR） 控制系统时钟输出分频系数
         DECLARE_REG_FIELD(SYSR, DIV, 3, 0);
 
@@ -39,6 +36,7 @@ namespace zq
         DECLARE_REG_BIT(CLKMD, LOCK, 0); // 工作模式标志位（位0）  只读位，指示当前工作模式
 
 
+        // ==================== USB PLL ==================
         // 数字锁相环寄存器 为了向后兼容性，默认选择DPLL
         DECLARE_REGISTER(DPLL, 0x1E00);
 
@@ -269,7 +267,7 @@ namespace zq
             /**
              * @brief 设置数字 PLL 锁相环时钟频率
              * @note 为了简化配置，默认启用APLL，并且已经配置为最高可用频率。此处CVDD接1.6V，因此最高推荐频率为200MHz，
-             *       而外部晶振为20MHz，因此倍频为10
+             *       而外部晶振为12MHz，因此倍频为10
              * @details 默认配置模式：
              *              退出Idle后的PLL锁定行为：保持退出前的锁定状态
              *              失锁处理方式：切换到旁路模式
@@ -277,7 +275,7 @@ namespace zq
              */
             template<uint16_t Mult>
             static void configure(const Main::DIV::Type div = Main::DIV::DIV_1,
-                                  const Main::CLKOUT_DIV::Type out_div = Main::CLKOUT_DIV::DIV_4,
+                                  const Main::CLKOUT_DIV::Type out_div = Main::CLKOUT_DIV::DIV_10,
                                   const Main::Mode::IAI::Type iai = Main::Mode::IAI::SAME, // 退出Idle后的PLL锁定行为
                                   const Main::Mode::IOB::Type iob = Main::Mode::IOB::SWITCH_BYPASS, // 失锁处理方式
                                   const Main::Mode::BYPASS_DIV::Type bypass_div = Main::Mode::BYPASS_DIV::DIV_1
@@ -285,12 +283,10 @@ namespace zq
             )
             {
                 Controller::disable();
-                while (Controller::is_locked()) {}// 等待失锁
+                while (Controller::is_locked()) {} // 等待失锁
 
-
-                // 等待解锁
                 Controller::set_divider(div); // 不分频
-                Controller::set_out_divider(out_div); // 输出不分频
+                Controller::set_out_divider(out_div); // 输出10分频，因为GPIO翻转没那么快
                 // 设置PLL工作模式——
                 Controller::set_mode(iai, iob, bypass_div);
                 Controller::set_multiplier(MainPLL_Mult::create<Mult>()); // 设置倍频系数

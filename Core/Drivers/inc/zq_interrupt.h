@@ -106,10 +106,15 @@ namespace zq
         // 中断初始化
         INLINE void init()
         {
+#if !defined(__ARM__)
             asm(" BSET INTM"); // BSET也就是置1，即禁止所有可屏蔽中断
-            cpu::IVPD::write(0x80);
-            cpu::IVPH::write(0x80);
+#endif
+            cpu::IVPD::write(0x02);
+            cpu::IVPH::write(0x02);
+#if !defined(__ARM__)
             asm(" BCLR INTM"); // 允许所有可屏蔽中断
+#endif
+
             cpu::IFR0::write(0xffff); // 清除所有中断标志位
         }
 

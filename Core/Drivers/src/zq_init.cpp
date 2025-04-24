@@ -10,7 +10,7 @@
 // 函数
 void ZQ_Init()
 {
-    zq::pll::MainPLL::configure<10>();// 配置主PLL
+    zq::pll::MainPLL::configure<16>();// 配置主PLL为16*12=192MHz
     ZQ_SDRAM_Init();// 初始化SDRAM
     zq::isr::init();// 初始化中断
 }

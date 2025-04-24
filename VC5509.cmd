@@ -16,14 +16,13 @@
 MEMORY
 {
     MMR:     o = 0x000000  l = 0x0000c0  /* 192B Memory Mapped Registers */
+    VECT:    o = 0x000200  l = 0x000100
 
-    /*VECS:    o = 0x000200  l = 0x000100*/  /* reset vector */
     DARAM0:  o = 0x001000  l = 0x001000  /* 8kB Dual Access RAM 0 */
     DARAM1:  o = 0x002000  l = 0x002000  /* 8kB Dual Access RAM 1 */
     DARAM2:  o = 0x004000  l = 0x002000  /* 8kB Dual Access RAM 2 */
     DARAM3:  o = 0x006000  l = 0x002000  /* 8kB Dual Access RAM 3 */
-    VECT:    o = 0x008000  l = 0x000100
-    DARAM4:  o = 0x008200  l = 0x001E00  /* 8kB Dual Access RAM 4 */
+    DARAM4:  o = 0x008000  l = 0x002000  /* 8kB Dual Access RAM 4 */
     DARAM5:  o = 0x00A000  l = 0x002000  /* 8kB Dual Access RAM 5 */
     DARAM6:  o = 0x00C000  l = 0x002000  /* 8kB Dual Access RAM 6 */
     DARAM7:  o = 0x00E000  l = 0x002000  /* 8kB Dual Access RAM 7 */

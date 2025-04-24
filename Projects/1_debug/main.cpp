@@ -26,6 +26,9 @@ int main()
     ZQ_Init();
 
     // ====== 外设初始化 ======
+    // 100K → 5次：10s → 比预期慢了50倍 → 4MHz
+    // 250K → 10次：20s
+    // 1M →
     bsp::LED::clear();
     zq::timer::Timer0::init(TIM_FREQ_200M_to_100K);
     zq::isr::start_timer();
@@ -35,9 +38,9 @@ int main()
     // ======无限循环======
     while (true)
     {
-        // 如果如我预期是200MHz，那么count应该接近
+        // 我预期是200MHz，实际大概在2MHz
 
-        if (count >= 200) // 5000000
+        if (count >= 1000) // 5000000
         {
             count = 0;
             bsp::LED::toggle(bsp::led::pin::LED_1);
