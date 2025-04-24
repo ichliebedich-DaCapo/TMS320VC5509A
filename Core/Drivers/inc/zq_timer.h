@@ -22,11 +22,13 @@ namespace zq
     namespace timer
     {
         // ========定时器寄存器========
+        // 主计数器
         template<uint16_t offset>
-        DECLARE_REGISTER_T(TIM, 0x1000+offset); // 主计数器
+        DECLARE_REGISTER_T(TIM, 0x1000+offset);
 
+        // 预装载计时器
         template<uint16_t offset>
-        DECLARE_REGISTER_T(PRD, 0x1001+offset); // 预装载计时器
+        DECLARE_REGISTER_T(PRD, 0x1001+offset);
 
         // TCR寄存器位域
         template<uint16_t offset>
@@ -84,11 +86,11 @@ namespace zq
         public:
             /**
              * @brief 初始化定时器
-             * @param arr 自动重装载值
              * @param psc 预分频系数(0-15)
+             * @param arr 自动重装载值
              * @note 实际频率计算公式：f = f_input / [(arr+1)(psc+1)]
              */
-            static void init(const uint16_t arr, const uint16_t psc)
+            static void init(const uint16_t psc,const uint16_t arr)
             {
                 stop(); // 先停止定时器
                 set_prescaler(psc); // 设置分频重载值

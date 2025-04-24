@@ -28,10 +28,9 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a78db7b0-77d9-459c-87d1-f1d260dcb0d0" name="更改" comment="【优化】优化了命名空间法下的寄存器声明">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Drivers/inc/zq_interrupt.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Drivers/inc/zq_interrupt.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Drivers/src/zq_init.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Drivers/src/zq_init.cpp" afterDir="false" />
+    <list default="true" id="a78db7b0-77d9-459c-87d1-f1d260dcb0d0" name="更改" comment="【优化】整理了中断初始化">
+      <change beforePath="$PROJECT_DIR$/Core/Drivers/inc/zq_timer.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Drivers/inc/zq_timer.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projects/1_debug/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Projects/1_debug/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -204,15 +203,7 @@
       <workItem from="1744131957895" duration="43000" />
       <workItem from="1745194203263" duration="6944000" />
       <workItem from="1745515646586" duration="7952000" />
-      <workItem from="1745524906117" duration="5774000" />
-    </task>
-    <task id="LOCAL-00006" summary="【开发】GPIO库已经补全了">
-      <option name="closed" value="true" />
-      <created>1740813892407</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1740813892407</updated>
+      <workItem from="1745524906117" duration="6300000" />
     </task>
     <task id="LOCAL-00007" summary="【修复】修复了GPIO库">
       <option name="closed" value="true" />
@@ -598,7 +589,15 @@
       <option name="project" value="LOCAL" />
       <updated>1745530109921</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="【优化】整理了中断初始化">
+      <option name="closed" value="true" />
+      <created>1745530782398</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1745530782398</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -633,7 +632,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="【开发】USB锁相环先构建一点点" />
     <MESSAGE value="【开发】与CCS兼容" />
     <MESSAGE value="【开发】更新了dip和led" />
     <MESSAGE value="【开发】更新了一些东西" />
@@ -658,7 +656,8 @@
     <MESSAGE value="【测试】链接脚本与中断向量表没有问题，问题只能是初始化" />
     <MESSAGE value="【测试】找到原因了，并非所有的寄存器都能用ioport关键字来声明，有些必须使用int*或者unsigned int *" />
     <MESSAGE value="【优化】优化了命名空间法下的寄存器声明" />
-    <option name="LAST_COMMIT_MESSAGE" value="【优化】优化了命名空间法下的寄存器声明" />
+    <MESSAGE value="【优化】整理了中断初始化" />
+    <option name="LAST_COMMIT_MESSAGE" value="【优化】整理了中断初始化" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
