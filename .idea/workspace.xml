@@ -28,10 +28,13 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a78db7b0-77d9-459c-87d1-f1d260dcb0d0" name="更改" comment="【测试】链接脚本与中断向量表没有问题，问题只能是初始化">
+    <list default="true" id="a78db7b0-77d9-459c-87d1-f1d260dcb0d0" name="更改" comment="【测试】找到原因了，并非所有的寄存器都能用ioport关键字来声明，有些必须使用int*或者unsigned int *">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Drivers/inc/zq_conf.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Drivers/inc/zq_conf.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Drivers/inc/zq_cpu.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Drivers/inc/zq_cpu.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Drivers/inc/zq_interrupt.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Drivers/inc/zq_interrupt.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Drivers/inc/zq_pll.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Drivers/inc/zq_pll.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Drivers/inc/zq_timer.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Drivers/inc/zq_timer.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,6 +69,8 @@
     <setting file="file://$PROJECT_DIR$/BSP/inc/led.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/BSP/inc/oled.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/BSP/src/oled.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://E:/Program/Embedded/MCU/TI/Program/new_demo/demo/Core/Drivers/inc/zq_conf.h" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://E:/Program/Embedded/MCU/TI/Program/new_demo/demo/Core/Drivers/inc/zq_conf.h" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Core/Drivers/inc/zq_conf.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Core/Drivers/inc/zq_gpio.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Core/Drivers/inc/zq_interrupt.h" root0="FORCE_HIGHLIGHTING" />
@@ -201,15 +206,8 @@
       <workItem from="1744131186037" duration="107000" />
       <workItem from="1744131957895" duration="43000" />
       <workItem from="1745194203263" duration="6944000" />
-      <workItem from="1745515646586" duration="6771000" />
-    </task>
-    <task id="LOCAL-00004" summary="【？？】更新一下，clangd就可以正常使用了，代码补全也回来了">
-      <option name="closed" value="true" />
-      <created>1740765878480</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1740765878480</updated>
+      <workItem from="1745515646586" duration="7952000" />
+      <workItem from="1745524906117" duration="5033000" />
     </task>
     <task id="LOCAL-00005" summary="【体验提升】添加了clangd配置文件，让其不对ioport关键字报错，并整理了CMakeLists，测试了内联语法">
       <option name="closed" value="true" />
@@ -595,7 +593,15 @@
       <option name="project" value="LOCAL" />
       <updated>1745521724875</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="【测试】找到原因了，并非所有的寄存器都能用ioport关键字来声明，有些必须使用int*或者unsigned int *">
+      <option name="closed" value="true" />
+      <created>1745523022154</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1745523022154</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -630,7 +636,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="【开发】开始搭建锁相环框架" />
     <MESSAGE value="【开发】主锁相环框架已经搭建好了" />
     <MESSAGE value="【开发】USB锁相环先构建一点点" />
     <MESSAGE value="【开发】与CCS兼容" />
@@ -655,7 +660,8 @@
     <MESSAGE value="【困局】无法使用中断，准备切换为老师的，再尝试一遍" />
     <MESSAGE value="【转机】老师的代码可以正常使用，为毛同样的原理我不行，艹" />
     <MESSAGE value="【测试】链接脚本与中断向量表没有问题，问题只能是初始化" />
-    <option name="LAST_COMMIT_MESSAGE" value="【测试】链接脚本与中断向量表没有问题，问题只能是初始化" />
+    <MESSAGE value="【测试】找到原因了，并非所有的寄存器都能用ioport关键字来声明，有些必须使用int*或者unsigned int *" />
+    <option name="LAST_COMMIT_MESSAGE" value="【测试】找到原因了，并非所有的寄存器都能用ioport关键字来声明，有些必须使用int*或者unsigned int *" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

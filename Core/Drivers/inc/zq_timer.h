@@ -151,8 +151,8 @@ namespace zq
             /** 配置仿真断点行为 */
             INLINE void set_simulation_breakpoint()
             {
-                TCR_REG::SOFT::clear_bit(); // 仿真暂停时立即停止
-                TCR_REG::FREE::set_bit(); // 自由运行模式
+                TCR_REG::SOFT::clear(); // 仿真暂停时立即停止
+                TCR_REG::FREE::set(); // 自由运行模式
             }
 
             /** 设置空闲模式（0:保持运行 1:进入空闲） */
@@ -165,13 +165,13 @@ namespace zq
             /** 启动定时器 */
             INLINE void start()
             {
-                TCR_REG::TSS::clear_bit(); // 清除停止位
+                TCR_REG::TSS::clear(); // 清除停止位
             }
 
             /** 停止定时器 */
             INLINE void stop()
             {
-                TCR_REG::TSS::set_bit(); // 设置停止位
+                TCR_REG::TSS::set(); // 设置停止位
             }
         };
 
