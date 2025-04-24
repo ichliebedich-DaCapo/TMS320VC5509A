@@ -28,11 +28,10 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a78db7b0-77d9-459c-87d1-f1d260dcb0d0" name="更改" comment="【转机】老师的代码可以正常使用，为毛同样的原理我不行，艹">
+    <list default="true" id="a78db7b0-77d9-459c-87d1-f1d260dcb0d0" name="更改" comment="【测试】链接脚本与中断向量表没有问题，问题只能是初始化">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Projects/1_debug/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Projects/1_debug/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VC5509.cmd" beforeDir="false" afterPath="$PROJECT_DIR$/VC5509.cmd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vectors.s55" beforeDir="false" afterPath="$PROJECT_DIR$/vectors.s55" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Drivers/inc/zq_cpu.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Drivers/inc/zq_cpu.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Drivers/inc/zq_interrupt.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Drivers/inc/zq_interrupt.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -202,15 +201,7 @@
       <workItem from="1744131186037" duration="107000" />
       <workItem from="1744131957895" duration="43000" />
       <workItem from="1745194203263" duration="6944000" />
-      <workItem from="1745515646586" duration="5489000" />
-    </task>
-    <task id="LOCAL-00003" summary="【修复】自定义编译器信息yaml">
-      <option name="closed" value="true" />
-      <created>1740764437256</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1740764437256</updated>
+      <workItem from="1745515646586" duration="6771000" />
     </task>
     <task id="LOCAL-00004" summary="【？？】更新一下，clangd就可以正常使用了，代码补全也回来了">
       <option name="closed" value="true" />
@@ -596,7 +587,15 @@
       <option name="project" value="LOCAL" />
       <updated>1745520453426</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="【测试】链接脚本与中断向量表没有问题，问题只能是初始化">
+      <option name="closed" value="true" />
+      <created>1745521724875</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1745521724875</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -631,7 +630,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="【开发】GPIO基本框架已经搭建好了" />
     <MESSAGE value="【开发】开始搭建锁相环框架" />
     <MESSAGE value="【开发】主锁相环框架已经搭建好了" />
     <MESSAGE value="【开发】USB锁相环先构建一点点" />
@@ -656,7 +654,8 @@
     <MESSAGE value="【准备】使用中断需要开启全局中断" />
     <MESSAGE value="【困局】无法使用中断，准备切换为老师的，再尝试一遍" />
     <MESSAGE value="【转机】老师的代码可以正常使用，为毛同样的原理我不行，艹" />
-    <option name="LAST_COMMIT_MESSAGE" value="【转机】老师的代码可以正常使用，为毛同样的原理我不行，艹" />
+    <MESSAGE value="【测试】链接脚本与中断向量表没有问题，问题只能是初始化" />
+    <option name="LAST_COMMIT_MESSAGE" value="【测试】链接脚本与中断向量表没有问题，问题只能是初始化" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

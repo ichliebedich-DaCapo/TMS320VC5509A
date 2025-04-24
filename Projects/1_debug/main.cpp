@@ -59,21 +59,17 @@ uint32_t count = 0;
 int main()
 {
     ZQ_Init();
+
     bsp::LED::clear();
     zq::timer::Timer0::init(TIM_FREQ_200M_to_100K);
     zq::isr::start_timer();
     // ======初始化======
-
-    input = inp_buffer;
-    output = out_buffer;
 
 
     // ======无限循环======
     while (TRUE)
     {
         // 如果如我预期是200MHz，那么count应该接近
-        // ++count;
-        static uint16_t temp = 0;
 
         // count = zq::timer::TIM<0>::read();
         if (count >= 200) // 5000000

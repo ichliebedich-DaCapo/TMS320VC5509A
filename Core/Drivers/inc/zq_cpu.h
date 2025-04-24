@@ -119,8 +119,8 @@ namespace zq
         DECLARE_REGISTER(DBIER1, 0x0048);  // 调试中断使能寄存器1   [15-0]
 
         // 系统类寄存器
-        DECLARE_REGISTER(IVPD,   0x0049);  // 中断向量页指针        [15-0]
-        DECLARE_REGISTER(IVPH,   0x004A);  // 中断向量页指针       [15-0]
+        DECLARE_EXMEM_REGISTER_T(IVPD,   0x0049);  // 中断向量页指针        [15-0]
+        DECLARE_EXMEM_REGISTER_T(IVPH,   0x004A);  // 中断向量页指针       [15-0]
         DECLARE_REGISTER(ST2_55, 0x004B);  // 保留区域             [15-0]
         DECLARE_REGISTER(SSP,    0x004C);  // 系统堆栈指针          [15-0]
         DECLARE_REGISTER(USP,     0x004D);  // 用户堆栈指针          [15-0](原为SP)
