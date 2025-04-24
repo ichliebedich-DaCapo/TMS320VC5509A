@@ -63,7 +63,6 @@ int main()
     zq::timer::Timer0::init(TIM_FREQ_200M_to_100K);
     zq::isr::start_timer();
     // ======初始化======
-    int i = 0;
 
     input = inp_buffer;
     output = out_buffer;

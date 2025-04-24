@@ -28,11 +28,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a78db7b0-77d9-459c-87d1-f1d260dcb0d0" name="更改" comment="【准备】使用中断需要开启全局中断">
-      <change beforePath="$PROJECT_DIR$/.idea/editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/editor.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Adapter/GUI/gui-simulator/.idea/editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Adapter/GUI/gui-simulator/.idea/editor.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Drivers/inc/zq_interrupt.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Drivers/inc/zq_interrupt.h" afterDir="false" />
+    <list default="true" id="a78db7b0-77d9-459c-87d1-f1d260dcb0d0" name="更改" comment="【困局】无法使用中断，准备切换为老师的，再尝试一遍">
       <change beforePath="$PROJECT_DIR$/VC5509.cmd" beforeDir="false" afterPath="$PROJECT_DIR$/VC5509.cmd" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vectors.s55" beforeDir="false" afterPath="$PROJECT_DIR$/vectors.s55" afterDir="false" />
     </list>
@@ -141,11 +137,6 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="demo.elf" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="demo" TARGET_NAME="demo.elf" CONFIG_NAME="Debug-w64-i686-arm-none-eabi" RUN_TARGET_PROJECT_NAME="demo" RUN_TARGET_NAME="demo.elf">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -209,14 +200,7 @@
       <workItem from="1744131186037" duration="107000" />
       <workItem from="1744131957895" duration="43000" />
       <workItem from="1745194203263" duration="6944000" />
-    </task>
-    <task id="LOCAL-00001" summary="【工程】成功使用CLion编译TI工程">
-      <option name="closed" value="true" />
-      <created>1740759239975</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1740759239975</updated>
+      <workItem from="1745515646586" duration="4177000" />
     </task>
     <task id="LOCAL-00002" summary="【修复】CMakeLists收集编译器信息收到警告">
       <option name="closed" value="true" />
@@ -602,7 +586,15 @@
       <option name="project" value="LOCAL" />
       <updated>1745196472390</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="【困局】无法使用中断，准备切换为老师的，再尝试一遍">
+      <option name="closed" value="true" />
+      <created>1745519868299</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1745519868299</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -637,7 +629,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="【开发】与CCS相兼容" />
     <MESSAGE value="【开发】开始使用C++来搭建驱动库，目前GPIO已经搭建好框架了" />
     <MESSAGE value="【开发】GPIO基本框架已经搭建好了" />
     <MESSAGE value="【开发】开始搭建锁相环框架" />
@@ -662,7 +653,8 @@
     <MESSAGE value="【开发】GPIO可用，确定了片内和片外寄存器的映射情况" />
     <MESSAGE value="【开发】与CCS同步" />
     <MESSAGE value="【准备】使用中断需要开启全局中断" />
-    <option name="LAST_COMMIT_MESSAGE" value="【准备】使用中断需要开启全局中断" />
+    <MESSAGE value="【困局】无法使用中断，准备切换为老师的，再尝试一遍" />
+    <option name="LAST_COMMIT_MESSAGE" value="【困局】无法使用中断，准备切换为老师的，再尝试一遍" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
