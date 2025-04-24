@@ -103,7 +103,8 @@ int main()
 
 extern "C"
 {
-interrupt void TimerISR()
+
+void interrupt Timer0_ISR()
 {
     count++;
     bsp::LED::toggle(bsp::led::pin::LED_3);

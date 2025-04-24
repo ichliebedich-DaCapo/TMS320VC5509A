@@ -30,27 +30,27 @@ namespace zq
 
         // TCR寄存器位域
         template<uint16_t offset>
-        BEGIN_REG_T(TCR, 0x1002+offset); // 控制寄存器
-        DECLARE_BIT_FIELD_T(IDLEEN, 15); // [15] 0:不能进入IDLE状态    1：可以进入IDLE状态，当PERIS为1时进入IDLE状态
-        DECLARE_BIT_FIELD_T(INTEXT, 14); // [14]标志位：时钟源从内部切换为外部标志    0：外部时钟源没有准备好 1：外部时钟源已经准备好
-        DECLARE_BIT_FIELD_T(ERRTIM, 13); // [13]检测错误标志   0: 没有发生错误 1: 发生了错误
-        DECLARE_BIT_FIELD_T(FUNC, 11); // [11]工作模式选择位
-        DECLARE_BIT_FIELD_T(TLB, 10); // [10]定时器装载位
-        DECLARE_BIT_FIELD_T(SOFT, 9); // [9]软件触发位
-        DECLARE_BIT_FIELD_T(FREE, 8); // [8]与仿真断点有关
-        DECLARE_BIT_FIELD_T(PWID, 6); // [6]窄脉冲输出宽度  每当TIM归零时，输出指定宽度的窄脉冲
-        DECLARE_BIT_FIELD_T(ARB, 5); // [5]自动重装控制位
-        DECLARE_BIT_FIELD_T(TSS, 4); // [4]定时器停止状态位 0：启动定时器 1：停止定时器
-        DECLARE_BIT_FIELD_T(CP, 3); // [3]定时器输出时钟/脉冲模式选择   0：脉冲模式  1：时钟模式，占空比固定为50%
-        DECLARE_BIT_FIELD_T(POLAR, 2); // [2]时钟输出极性位
-        DECLARE_BIT_FIELD_T(DATOUT, 1); // [1]GPIO模式下，控制引脚输出电平
+        BEGIN_REG_T(TCR, 0x1002+offset) // 控制寄存器
+        DECLARE_BIT_FIELD_T(IDLEEN, 15) // [15] 0:不能进入IDLE状态    1：可以进入IDLE状态，当PERIS为1时进入IDLE状态
+        DECLARE_BIT_FIELD_T(INTEXT, 14) // [14]标志位：时钟源从内部切换为外部标志    0：外部时钟源没有准备好 1：外部时钟源已经准备好
+        DECLARE_BIT_FIELD_T(ERRTIM, 13) // [13]检测错误标志   0: 没有发生错误 1: 发生了错误
+        DECLARE_BIT_FIELD_T(FUNC, 11) // [11]工作模式选择位
+        DECLARE_BIT_FIELD_T(TLB, 10) // [10]定时器装载位
+        DECLARE_BIT_FIELD_T(SOFT, 9) // [9]软件触发位
+        DECLARE_BIT_FIELD_T(FREE, 8) // [8]与仿真断点有关
+        DECLARE_BIT_FIELD_T(PWID, 6) // [6]窄脉冲输出宽度  每当TIM归零时，输出指定宽度的窄脉冲
+        DECLARE_BIT_FIELD_T(ARB, 5) // [5]自动重装控制位
+        DECLARE_BIT_FIELD_T(TSS, 4) // [4]定时器停止状态位 0：启动定时器 1：停止定时器
+        DECLARE_BIT_FIELD_T(CP, 3) // [3]定时器输出时钟/脉冲模式选择   0：脉冲模式  1：时钟模式，占空比固定为50%
+        DECLARE_BIT_FIELD_T(POLAR, 2) // [2]时钟输出极性位
+        DECLARE_BIT_FIELD_T(DATOUT, 1) // [1]GPIO模式下，控制引脚输出电平
         END_REG_T()
 
         // PRSC寄存器位域
         template<uint16_t offset>
-        BEGIN_REG_T(PRSC, 0x1003+offset);// 分频寄存器
-        DECLARE_BITS_FIELD_T(PSC, 4, 6); // 预分频值bit6~9
-        DECLARE_BITS_FIELD_T(TDDR, 3, 0); // 用于装入PSC中
+        BEGIN_REG_T(PRSC, 0x1003+offset)// 分频寄存器
+        DECLARE_BITS_FIELD_T(PSC, 4, 6) // 预分频值bit6~9
+        DECLARE_BITS_FIELD_T(TDDR, 3, 0) // 用于装入PSC中
         END_REG_T()
 
 

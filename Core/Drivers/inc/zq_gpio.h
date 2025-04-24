@@ -39,9 +39,9 @@ namespace zq
         struct GPIO_Traits<NormalGroup>
         {
             // 普通GPIO引脚
-            DECLARE_REGISTER_T(DIR, 0x3400);
+            DECLARE_REGISTER_T(DIR, 0x3400)
 
-            DECLARE_REGISTER_T(DATA, 0x3401);
+            DECLARE_REGISTER_T(DATA, 0x3401)
 
             enum
             {
@@ -61,11 +61,11 @@ namespace zq
             };
 
             // Addr GPIO引脚
-            DECLARE_REGISTER_T(EN, 0x4400);
+            DECLARE_REGISTER_T(EN, 0x4400)
 
-            DECLARE_REGISTER_T(DIR, 0x4404);
+            DECLARE_REGISTER_T(DIR, 0x4404)
 
-            DECLARE_REGISTER_T(DATA, 0x4402);
+            DECLARE_REGISTER_T(DATA, 0x4402)
         };
 
         template<>
@@ -78,11 +78,11 @@ namespace zq
             };
 
             // EHPI引脚
-            DECLARE_REGISTER_T(EN, 0x4403);
+            DECLARE_REGISTER_T(EN, 0x4403)
 
-            DECLARE_REGISTER_T(DIR, 0x4404);
+            DECLARE_REGISTER_T(DIR, 0x4404)
 
-            DECLARE_REGISTER_T(DATA, 0x4405);
+            DECLARE_REGISTER_T(DATA, 0x4405)
         };
 
         // ================= 基础模板分层设计 ===============

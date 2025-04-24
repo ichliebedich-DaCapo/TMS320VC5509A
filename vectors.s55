@@ -21,7 +21,7 @@
 * Remember that your interrupt service routines need to be referenced here.
 *------------------------------------------------------------------------------
         .ref _c_int00
-        .ref _TimerISR
+        .ref _Timer0_ISR
 
       .def nmi, int0, int1, int2, int3, int4, int5, int6
       .def int7, int8, int9, int10, int11, int12, int13
@@ -37,9 +37,9 @@ int0    .ivec no_isr
         nop_16
 int1    .ivec no_isr
         nop_16
-int2    .ivec _TimerISR
+int2    .ivec no_isr
         nop_16
-int3    .ivec no_isr
+int3    .ivec _Timer0_ISR
         nop_16
 int4    .ivec no_isr
         nop_16
@@ -99,7 +99,6 @@ int29   .ivec no_isr
 *------------------------------------------------------------------------------
         .text
         .def no_isr
-
 no_isr:
         b #no_isr
 *------------------------------------------------------------------------------

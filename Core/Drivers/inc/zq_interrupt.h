@@ -6,6 +6,7 @@
 #include<zq_conf.h>
 #include<zq_cpu.h>
 
+
 namespace zq
 {
     // 补充相关寄存器的位域
@@ -79,13 +80,13 @@ namespace zq
     {
       INLINE void start_timer()
       {
-
-          //cpu::IVPD::write(0x01);
-          //cpu::IVPH::write(0x01);
+          asm(" BSET INTM");
+          cpu::IVPD::write(0x80);
+          cpu::IVPH::write(0x80);
           cpu::IER0::TINT0::set_bit();
-          cpu::DBIER0::write(cpu::DBIER0::read()|0x10);
+          cpu::DBIER0::write(0x10);// DBIER0与IER0要相同
           cpu::IFR0::write(0xFFFF);
-          asm(" BCLR INTM");
+          asm(" BCLR INTM");// BSET也就是置1，即禁止所有可屏蔽中断
 
       }
 
