@@ -6,7 +6,7 @@
 #include<zq_conf.h>
 namespace zq
 {
-    namespace cpu
+    namespace mmr
     {
         // C55x的一堆CPU寄存器映射
         /******************** 中断控制类寄存器 ​********************/

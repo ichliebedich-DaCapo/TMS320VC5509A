@@ -4,12 +4,12 @@
 #ifndef ZQ_INTERRUPT_H
 #define ZQ_INTERRUPT_H
 #include<zq_conf.h>
-#include<zq_cpu.h>
+#include<zq_mmr.h>
 
 namespace zq
 {
     // 补充相关寄存器的位域
-    namespace cpu
+    namespace mmr
     {
         // 中断标志寄存器
         DECLARE_EXEMEM_BIT(IFR0, DMAC5, 15);    // DMA通道5中断标志/屏蔽位
@@ -109,13 +109,13 @@ namespace zq
 #if !defined(__ARM__)
             asm(" BSET INTM"); // BSET也就是置1，即禁止所有可屏蔽中断
 #endif
-            cpu::IVPD::write(0x02);
-            cpu::IVPH::write(0x02);
+            mmr::IVPD::write(0x02);
+            mmr::IVPH::write(0x02);
 #if !defined(__ARM__)
             asm(" BCLR INTM"); // 允许所有可屏蔽中断
 #endif
 
-            cpu::IFR0::write(0xffff); // 清除所有中断标志位
+            mmr::IFR0::write(0xffff); // 清除所有中断标志位
         }
 
 

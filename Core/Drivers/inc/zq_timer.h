@@ -201,12 +201,12 @@ namespace zq
                 // 没有constexpr很麻烦
                 if (offset ==0 )
                 {
-                    cpu::IER0::TINT0::set();
-                    cpu::DBIER0::TINT0::set();
+                    mmr::IER0::TINT0::set();
+                    mmr::DBIER0::TINT0::set();
                 } else
                 {
-                    cpu::IER1::TINT1::set();
-                    cpu::DBIER1::TINT1::set();
+                    mmr::IER1::TINT1::set();
+                    mmr::DBIER1::TINT1::set();
                 }
             }
 
@@ -214,12 +214,12 @@ namespace zq
             {
                 if (offset ==0 )
                 {
-                    cpu::IER0::TINT0::clear();
-                    cpu::DBIER0::TINT0::clear();
+                    mmr::IER0::TINT0::clear();
+                    mmr::DBIER0::TINT0::clear();
                 } else
                 {
-                    cpu::IER1::TINT1::clear();
-                    cpu::DBIER1::TINT1::clear();
+                    mmr::IER1::TINT1::clear();
+                    mmr::DBIER1::TINT1::clear();
                 }
             }
         };
