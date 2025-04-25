@@ -26,11 +26,12 @@ int main()
     ZQ_Init();
 
     // ====== 外设初始化 ======
-    // 100K → 5次：10s → 比预期慢了50倍 → 4MHz
-    // 250K → 10次：20s
-    // 1M →
+    // 理论   分频      实际
+    // 100K → 2000 → 732
+    // 10K  → 20000 → 732
+    // 1M   → 200 →
     bsp::LED::clear();
-    zq::timer::Timer0::init(TIM_FREQ_200M_to_100K);
+    zq::timer::Timer0::init(TIM_FREQ_200M_to_1M);
     zq::isr::start_timer();
 
 

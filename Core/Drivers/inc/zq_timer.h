@@ -98,6 +98,8 @@ namespace zq
                 set_simulation_breakpoint();
                 manual_reload<0>(); // 禁用立即重载
                 auto_reload<1>(); // 启用自动重装
+                TCR_REG::CP::set();// 时钟模式，输出方波
+                set_polarity<1>();// 设置为正则极性
                 set_mode<Mode::OUTPUT>(); // 默认高阻模式
                 set_idle_mode<0>(); // 禁用空闲模式
                 start(); // 启动定时器
