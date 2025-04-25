@@ -221,11 +221,11 @@ typedef hw_registers::BitsField<hw_registers::ExmemTag,REG_NAME::REG,GET_BITS_MA
 
     // ======== 寄存器声明 ========
 #define DECLARE_REGISTER_T(REG_NAME,ADDRESS)\
-struct REG_NAME:RegisterAccess<ADDRESS>{};
+struct REG_NAME:RegisterAccess<(ADDRESS)>{};
 
 // 两者不能合并
 #define BEGIN_REG_T(REG_NAME, ADDRESS)\
-struct REG_NAME:RegisterAccess<ADDRESS>\
+struct REG_NAME:RegisterAccess<(ADDRESS)>\
 {\
 enum\
 {\

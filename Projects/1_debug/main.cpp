@@ -30,8 +30,25 @@ int main()
     // 100K → 2000 → 732
     // 10K  → 20000 → 732
     // 1M   → 200 →
+    // arr,psc
+    // 9,39     183
+    // 9,79     183
+    // 9,4      293
+    // 1,1      732
+    // 9,10     488
+    // 9,9      732
+    // 4,4      293
+    // 2,4      293
+
+    // psc,arr
+    // 2,2      488
+    // 4,2      293
+    // 4,5      293
+    // 9,2      146
+    // 14,5     97
+    // 14,99    97
     bsp::LED::clear();
-    zq::timer::Timer0::init(TIM_FREQ_200M_to_1M);
+    zq::timer::Timer0::init(14,99);
     zq::isr::start_timer();
 
 
@@ -39,9 +56,7 @@ int main()
     // ======无限循环======
     while (true)
     {
-        // 我预期是200MHz，实际大概在2MHz
-
-        if (count >= 1000) // 5000000
+        if (count >= 500) // 5000000
         {
             count = 0;
             bsp::LED::toggle(bsp::led::pin::LED_1);

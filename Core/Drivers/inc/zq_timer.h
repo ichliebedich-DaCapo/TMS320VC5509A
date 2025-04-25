@@ -52,7 +52,7 @@ namespace zq
         template<uint16_t offset>
         BEGIN_REG_T(PRSC, 0x1003+offset) // 分频寄存器
             DECLARE_BITS_FIELD_T(PSC, 4, 6) // 预分频值bit6~9
-            DECLARE_BITS_FIELD_T(TDDR, 3, 0) // 用于装入PSC中
+            DECLARE_BITS_FIELD_T(TDDR, 4, 0) // 用于装入PSC中
         END_REG_T()
 
 
@@ -78,7 +78,7 @@ namespace zq
         class Timer
         {
             // 寄存器映射
-            typedef TIM<offset> TIM_REG;
+            // typedef TIM<offset> TIM_REG;
             typedef PRD<offset> PRD_REG;
             typedef PRSC<offset> PRSC_REG;
             typedef TCR<offset> TCR_REG;
@@ -92,17 +92,29 @@ namespace zq
              */
             static void init(const uint16_t psc, const uint16_t arr)
             {
-                stop(); // 先停止定时器
-                set_prescaler(psc); // 设置分频重载值
-                set_period(arr); // 设置周期值
-                set_simulation_breakpoint();
-                manual_reload<0>(); // 禁用立即重载
-                auto_reload<1>(); // 启用自动重装
+                // stop(); // 先停止定时器
+                // set_prescaler(psc); // 设置分频重载值
+                // set_period(arr); // 设置周期值
+                // set_simulation_breakpoint();
+                // manual_reload<0>(); // 禁用立即重载
+                // auto_reload<1>(); // 启用自动重装
+                // TCR_REG::CP::set();// 时钟模式，输出方波
+                // set_polarity<1>();// 设置为正则极性
+                // set_mode<Mode::OUTPUT>(); // 默认高阻模式
+                // set_idle_mode<0>(); // 禁用空闲模式
+                // start(); // 启动定时器
+
+                TCR_REG::TSS::set();// 先停止
+                TCR_REG::IDLEEN::clear();// 禁用空闲模式
+                PRSC_REG::TDDR::write_bits(psc);
+                PRD_REG::write(arr);
+                TCR_REG::FUNC::write_bits(0x01);// 工作模式
+                TCR_REG::TLB::clear();// 重新装载
+                TCR_REG::ARB::set();// 自动重装
                 TCR_REG::CP::set();// 时钟模式，输出方波
-                set_polarity<1>();// 设置为正则极性
-                set_mode<Mode::OUTPUT>(); // 默认高阻模式
-                set_idle_mode<0>(); // 禁用空闲模式
-                start(); // 启动定时器
+                TCR_REG::TSS::clear();// 启动
+                TCR_REG::TLB::clear();// 禁止自动加载
+
             }
 
             /** 设置周期值（自动重装载值） */
