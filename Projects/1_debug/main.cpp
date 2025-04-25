@@ -48,7 +48,7 @@ int main()
     // 14,5     97
     // 14,99    97
     bsp::LED::clear();
-    zq::timer::Timer0::init(14,99);
+    zq::timer::Timer0::init(TIM_FREQ_200M_to_100K);
     zq::isr::start_timer();
 
 

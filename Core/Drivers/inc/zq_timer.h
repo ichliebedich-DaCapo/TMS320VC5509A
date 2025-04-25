@@ -105,11 +105,12 @@ namespace zq
                 // start(); // 启动定时器
 
                 TCR_REG::TSS::set();// 先停止
+                TCR_REG::TLB::set();// 重新装载
                 TCR_REG::IDLEEN::clear();// 禁用空闲模式
                 PRSC_REG::TDDR::write_bits(psc);
                 PRD_REG::write(arr);
                 TCR_REG::FUNC::write_bits(0x01);// 工作模式
-                TCR_REG::TLB::clear();// 重新装载
+
                 TCR_REG::ARB::set();// 自动重装
                 TCR_REG::CP::set();// 时钟模式，输出方波
                 TCR_REG::TSS::clear();// 启动

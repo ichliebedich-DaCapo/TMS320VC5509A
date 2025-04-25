@@ -178,59 +178,20 @@ typedef hw_registers::BitsField<hw_registers::ExmemTag,REG_NAME::REG,GET_BITS_MA
 }
 
 // ========================================寄存器映射（模板类法）===========================================
-
-
-    // 寄存器声明
-    template<uint16_t address>
-    struct RegisterAccess
-    {
-        // 单位操作(操作的是掩码)
-        INLINE void write(const uint16_t shift)
-        {
-            *REG_MAP(address) |=(1<<shift);
-        }
-
-        INLINE void write(const uint16_t shift,const bool data)
-        {
-            *REG_MAP(address) =(*REG_MAP(address) & ~(1<<shift)) |((data << shift) & (1<<shift));
-        }
-
-        INLINE uint16_t read()
-        {
-            return *REG_MAP(address);
-        }
-
-        INLINE bool read(const uint16_t shift)
-        {
-            return ((*REG_MAP(address)) & (1<<shift)) != 0;
-        }
-
-        INLINE void clear()
-        {
-            *REG_MAP(address) = 0;
-        }
-
-        // 单位操作(操作的是掩码)
-        INLINE void clear(const bool shift)
-        {
-            *REG_MAP(address) &= ~(1<<shift);
-        }
-    };
-
-
-
+template<uint32_t address>
+struct RegisterAccess
+{
+    INLINE void write(uint16_t value){*REG_MAP(address) =value;}
+    INLINE uint16_t read(){return *REG_MAP(address);}
+};
     // ======== 寄存器声明 ========
 #define DECLARE_REGISTER_T(REG_NAME,ADDRESS)\
 struct REG_NAME:RegisterAccess<(ADDRESS)>{};
 
-// 两者不能合并
+// 与前面不能合并
 #define BEGIN_REG_T(REG_NAME, ADDRESS)\
 struct REG_NAME:RegisterAccess<(ADDRESS)>\
-{\
-enum\
-{\
-REG = ADDRESS\
-};
+{enum{REG = ADDRESS};
 
     // 单位字段声明，必须放在前后的宏之间
 #define DECLARE_BIT_FIELD_T(BIT_NAME, SHIFT)\
