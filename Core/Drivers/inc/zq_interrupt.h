@@ -118,11 +118,7 @@ namespace zq
             cpu::IFR0::write(0xffff); // 清除所有中断标志位
         }
 
-        INLINE void start_timer()
-        {
-            cpu::IER0::TINT0::set();
-            cpu::DBIER0::TINT0::set();
-        }
+
     }
 }
 

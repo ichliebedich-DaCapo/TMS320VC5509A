@@ -4,18 +4,27 @@
 #ifndef ZQ_TIMER_H
 #define ZQ_TIMER_H
 #include<zq_conf.h>
-
+#include <zq_interrupt.h>
 // 定时器频率宏
-#define TIM_FREQ_200M_to_10M 1,9
-#define TIM_FREQ_200M_to_5M 1,19
-#define TIM_FREQ_200M_to_2M 3,24
-#define TIM_FREQ_200M_to_1M 9,19
-#define TIM_FREQ_200M_to_500K 9,39
-#define TIM_FREQ_200M_to_250K 9,79
-#define TIM_FREQ_200M_to_100K 9,199
-#define TIM_FREQ_200M_to_50K 9,399
-#define TIM_FREQ_200M_to_25K 9,799
-#define TIM_FREQ_200M_to_10K 9,1999
+/* 分频公式：F_out = 192MHz / ((psc+1) * (arr+1)) */
+//---------------------------------------------------------------------------------------------------------
+#define TIM_FREQ_192M_to_10M     0,18    // 10.105MHz (+1.05%)  (0+1)*(18+1)=19 → 192M/19≈10.105M
+#define TIM_FREQ_192M_to_5M      1,18    // 5.0526MHz (+1.05%)  (1+1)*(18+1)=38 → 192M/38≈5.0526M
+#define TIM_FREQ_192M_to_2M     11, 7    // 2MHz (0%)           (11+1)*(7+1)=96 → 192M/96=2M
+#define TIM_FREQ_192M_to_1M     15,11    // 1MHz (0%)           (15+1)*(11+1)=192 → 192M/192=1M
+#define TIM_FREQ_192M_to_500K   15,23    // 500KHz (0%)         (15+1)*(23+1)=384 → 192M/384=500K
+#define TIM_FREQ_192M_to_200K   15,59    // 200KHz (0%)         (15+1)*(59+1)=960 → 192M/960=200K
+#define TIM_FREQ_192M_to_100K   15,119   // 100KHz (0%)         (15+1)*(119+1)=1920 → 192M/1920=100K
+#define TIM_FREQ_192M_to_50K    15,239   // 50KHz (0%)          (15+1)*(239+1)=3840 → 192M/3840=50K
+#define TIM_FREQ_192M_to_48K     9,399    // 48.0kHz (0%误差)       (9 * 40=360 → 192/360=0.48M)
+#define TIM_FREQ_192M_to_20K    15,599   // 20KHz (0%)          (15+1)*(599+1)=9600 → 192M/9600=20K
+#define TIM_FREQ_192M_to_10K    15,1199  // 10KHz (0%)          (15+1)*(1199+1)=19200 → 192M/19200=10K
+#define TIM_FREQ_192M_to_5K     15,2399  // 5KHz (0%)           (15+1)*(2399+1)=38400 → 192M/38400=5K
+#define TIM_FREQ_192M_to_2K     15,5999  // 2KHz (0%)           (15+1)*(5999+1)=96000 → 192M/96000=2K
+#define TIM_FREQ_192M_to_1K     15,11999 // 1KHz (0%)           (15+1)*(11999+1)=192000 → 192M/192000=1K
+#define TIM_FREQ_192M_to_500HZ  15,23999 // 500Hz (0%)          (15+1)*(23999+1)=384000 → 192M/384000=500
+#define TIM_FREQ_192M_to_200HZ  15,59999 // 200Hz (0%)          (15+1)*(59999+1)=960000 → 192M/960000=200
+#define TIM_FREQ_192M_to_100HZ  15,65535 // 183.1Hz (实际目标183Hz)  (15+1)*65536=1048576 → 192M/1048576≈183.1Hz
 
 namespace zq
 {
@@ -92,29 +101,29 @@ namespace zq
              */
             static void init(const uint16_t psc, const uint16_t arr)
             {
-                // stop(); // 先停止定时器
-                // set_prescaler(psc); // 设置分频重载值
-                // set_period(arr); // 设置周期值
-                // set_simulation_breakpoint();
-                // manual_reload<0>(); // 禁用立即重载
-                // auto_reload<1>(); // 启用自动重装
-                // TCR_REG::CP::set();// 时钟模式，输出方波
-                // set_polarity<1>();// 设置为正则极性
-                // set_mode<Mode::OUTPUT>(); // 默认高阻模式
-                // set_idle_mode<0>(); // 禁用空闲模式
-                // start(); // 启动定时器
-
-                TCR_REG::TSS::set();// 先停止
-                TCR_REG::TLB::set();// 重新装载
-                TCR_REG::IDLEEN::clear();// 禁用空闲模式
-                PRSC_REG::TDDR::write_bits(psc);
-                PRD_REG::write(arr);
-                TCR_REG::FUNC::write_bits(0x01);// 工作模式
-
-                TCR_REG::ARB::set();// 自动重装
+                stop(); // 先停止定时器
+                set_prescaler(psc); // 设置分频重载值
+                set_period(arr); // 设置周期值
+                set_simulation_breakpoint();
+                manual_reload<0>(); // 禁用立即重载
+                auto_reload<1>(); // 启用自动重装
                 TCR_REG::CP::set();// 时钟模式，输出方波
-                TCR_REG::TSS::clear();// 启动
-                TCR_REG::TLB::clear();// 禁止自动加载
+                set_polarity<1>();// 设置为正则极性
+                set_mode<Mode::OUTPUT>(); // 默认高阻模式
+                set_idle_mode<0>(); // 禁用空闲模式
+                start(); // 启动定时器
+
+                // TCR_REG::TSS::set();// 先停止
+                // TCR_REG::TLB::set();// 重新装载
+                // TCR_REG::IDLEEN::clear();// 禁用空闲模式
+                // PRSC_REG::TDDR::write_bits(psc);
+                // PRD_REG::write(arr);
+                // TCR_REG::FUNC::write_bits(0x01);// 工作模式
+                //
+                // TCR_REG::ARB::set();// 自动重装
+                // TCR_REG::CP::set();// 时钟模式，输出方波
+                // TCR_REG::TSS::clear();// 启动
+                // TCR_REG::TLB::clear();// 禁止自动加载
 
             }
 
@@ -183,6 +192,34 @@ namespace zq
             INLINE void stop()
             {
                 TCR_REG::TSS::set(); // 设置停止位
+            }
+
+            // 开启中断
+            INLINE void start_IT()
+            {
+                // 没有constexpr很麻烦
+                if (offset ==0 )
+                {
+                    cpu::IER0::TINT0::set();
+                    cpu::DBIER0::TINT0::set();
+                } else
+                {
+                    cpu::IER1::TINT1::set();
+                    cpu::DBIER1::TINT1::set();
+                }
+            }
+
+            INLINE void stop_IT()
+            {
+                if (offset ==0 )
+                {
+                    cpu::IER0::TINT0::clear();
+                    cpu::DBIER0::TINT0::clear();
+                } else
+                {
+                    cpu::IER1::TINT1::clear();
+                    cpu::DBIER1::TINT1::clear();
+                }
             }
         };
 

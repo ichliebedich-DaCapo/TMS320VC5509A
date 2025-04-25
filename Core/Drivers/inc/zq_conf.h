@@ -178,7 +178,7 @@ typedef hw_registers::BitsField<hw_registers::ExmemTag,REG_NAME::REG,GET_BITS_MA
 }
 
 // ========================================寄存器映射（模板类法）===========================================
-template<uint32_t address>
+template<uint16_t address>
 struct RegisterAccess
 {
     INLINE void write(uint16_t value){*REG_MAP(address) =value;}
@@ -213,11 +213,7 @@ struct BITS_NAME: hw_registers::BitsField<hw_registers::RegTag,REG,GET_BITS_MASK
     template<uint32_t address>
     struct ExMemAccess
     {
-
-        INLINE void write(const uint16_t value)
-        {
-            *EXMEM_MAP(address) =value;
-        }
+        INLINE void write(const uint16_t value){*EXMEM_MAP(address) =value;}
 
         // 单位操作,把该位变为1
         INLINE void write(const uint16_t shift,const bool data)
@@ -225,33 +221,18 @@ struct BITS_NAME: hw_registers::BitsField<hw_registers::RegTag,REG,GET_BITS_MASK
             *EXMEM_MAP(address) =(*EXMEM_MAP(address) & ~(1<<shift)) |((data << shift) & (1<<shift));
         }
 
-        INLINE uint16_t read()
-        {
-            return *EXMEM_MAP(address);
-        }
+        INLINE uint16_t read(){return *EXMEM_MAP(address);}
 
         // 返回的是单位的值
-        INLINE bool read(const uint16_t shift)
-        {
-            return ((*EXMEM_MAP(address)) & (1<<shift)) != 0;
-        }
+        INLINE bool read(const uint16_t shift){return ((*EXMEM_MAP(address)) & (1<<shift)) != 0;}
 
         // 翻转
-        INLINE void toggle(const uint16_t shift)
-        {
-            *EXMEM_MAP(address) ^= (1<<shift);
-        }
+        INLINE void toggle(const uint16_t shift){*EXMEM_MAP(address) ^= (1<<shift);}
 
-        INLINE void clear()
-        {
-            *EXMEM_MAP(address) = 0;
-        }
+        INLINE void clear(){*EXMEM_MAP(address) = 0;}
 
         // 单位操作(操作的是掩码)
-        INLINE void clear(const uint16_t shift)
-        {
-            *EXMEM_MAP(address) &= ~(1<<shift);
-        }
+        INLINE void clear(const uint16_t shift){*EXMEM_MAP(address) &= ~(1<<shift);}
     };
     // 外部存储器寄存器声明
 #define DECLARE_EXMEM_REGISTER_T(REG_NAME,ADDRESS)\
