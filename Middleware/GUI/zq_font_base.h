@@ -4,7 +4,7 @@
 #ifndef ZQ_FONT_BASE_H
 #define ZQ_FONT_BASE_H
 #include <cstring>
-#include<zq_conf.h>
+#include <zq_conf.h>
 #include <cstdio>
 namespace GUI
 {

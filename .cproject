@@ -96,9 +96,9 @@
 					</folderInfo>
 					<sourceEntries>
 						<entry excluding="GUI_Simulator|User|Adapter/GUI/gui-simulator" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
-						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Adapter/GUI/gui-simulator/SDL2"/>
-						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Adapter/GUI/gui-simulator/Drivers"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Adapter/GUI/gui-simulator/.idea"/>
+						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Adapter/GUI/gui-simulator/Drivers"/>
+						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Adapter/GUI/gui-simulator/SDL2"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Adapter/GUI/gui-simulator/cmake-build-debug-mingw32/.cmake"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Adapter/GUI/gui-simulator/cmake-build-debug-mingw32/CMakeFiles/3.30.5"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Adapter/GUI/gui-simulator/cmake-build-debug-mingw32/CMakeFiles/3.31.6"/>
@@ -112,6 +112,8 @@
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Adapter/GUI/gui-simulator/cmake-build-debug-mingw32/Testing"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Adapter/GUI/gui-simulator/cmake-build-debug-mingw32/bin"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Adapter/GUI/gui-simulator/cmake-build-debug-mingw32/lib"/>
+						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="GUI_Simulator/gui-simulator/cmake-build-debug-mingw32/CMakeFiles/3.30.5"/>
+						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="GUI_Simulator/gui-simulator/cmake-build-debug-mingw32/CMakeFiles/CMakeScratch"/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>

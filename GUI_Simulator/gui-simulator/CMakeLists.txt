@@ -2,20 +2,14 @@ cmake_minimum_required(VERSION 3.10)
 project(Simulator LANGUAGES C CXX)
 include(common_functions.cmake)
 
-# ------------------------ 配置选项 ------------------------
-set(PROJECT_DIR ../../../Projects/demo)  # 项目选择
-#options_enable_static_lib_ld()
-# 引入命名空间后，这该死的静态库链接容易出问题
-#message(WARNING "static_lib_ld has some problems!")
 # ------------------------ 路径配置 ------------------------
 # 基础路径
 set(PROJECT_ROOT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/..")
-set(THIRD_PARTY_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../../../Middleware/Third_Party")
 
 # 组件路径配置
 set(SDL2_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/SDL2/i686-w64-mingw32")
-set(MY_GUI_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../../../Middleware/Library/gui")
-set(UI_DIR "${PROJECT_DIR}/ui")  # 通过PROJECT_DIR自动生成
+set(MY_GUI_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../../Middleware/GUI")
+set(UI_DIR "../../Core/ui")
 set(GUI_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../")
 
 # 输出目录统一配置
@@ -73,7 +67,7 @@ include_directories(
         ${GUI_INC_DIRS}
         ${SDL2_ROOT}/include
         ${UI_INC_DIRS}
-        ../../../Core/Drivers/inc
+        ../../Drivers/inc
 )
 target_link_libraries(${PROJECT_NAME} PRIVATE ${SDL2_LIB})
 

@@ -27,7 +27,7 @@ public:
     // ==================== 事件处理 ====================
     static void handler()
     {
-        zq::systick::Delay::us(50);
+        // zq::systick::Delay::us(50);
         zq::gpio::GPIO_Normal0::toggle();
 
         // if (testDelay.is_timeout())

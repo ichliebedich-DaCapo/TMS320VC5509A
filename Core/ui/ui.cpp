@@ -44,12 +44,14 @@ namespace GUI
 
     void Render::draw()
     {
-        // // 清屏
-        // Tools::clear();
-        //
-        // /*界面开发……*/
-        //
-        // // 设置刷新标志
-        // Flag::render::set();
+        // 清屏
+        Tools::clear();
+
+        /*界面开发……*/
+        static uint16_t phase=0;
+        phase = (++phase) & 127;
+        Tools::draw_vline(phase,10,20);
+        // 设置刷新标志
+        Flag::render::set();
     }
 }

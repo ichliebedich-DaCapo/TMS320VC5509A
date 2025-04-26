@@ -41,7 +41,7 @@ namespace zq
                 while ((get_tick() - start) < _ms){}/* 空循环等待 溢出自动处理 */
             }
 
-            // 阻塞式微秒延时（只能输入1ms以内，超过范围请自觉切换，且不能输入0）
+            // 阻塞式微秒延时（只能输入1ms以内，超过范围请自觉切换）
             static void us(const uint16_t us)
             {
                 const uint16_t start = TIM_REG::read();
@@ -57,6 +57,12 @@ namespace zq
                         elapsed_ticks = start - current;
                     }
                 } while (elapsed_ticks < delay_ticks);
+
+                // // 下面这个延时有问题
+                // const uint16_t start = TIM_REG::read();
+                // const uint16_t delay_ticks = us * 12;  // 12个TIM周期=1us
+                // // 利用无符号数溢出特性自动处理定时器递减和重载
+                // while ( static_cast<uint16_t>(start - TIM_REG::read()) < delay_ticks ) {}
             }
         };
 
