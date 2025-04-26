@@ -4,7 +4,7 @@
 
          .sect ".vectors"
 
-RSV:     .ivec    _c_int00, NO_RETA  ; Reset / Software Interrupt #0
+RSV:     .ivec _c_int00, NO_RETA  ; Reset / Software Interrupt #0
 
 NMI:     .ivec no_isr             ; Nonmaskable / Software Interrupt #1
          nop_16

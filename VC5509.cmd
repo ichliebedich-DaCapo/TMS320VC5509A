@@ -18,6 +18,7 @@ MEMORY
     MMR:     o = 0x000000  l = 0x0000c0  /* 192B Memory Mapped Registers */
     VECT:    o = 0x000200  l = 0x000100  /*真正的中断向量表*/
     VECS:    o = 0x000300  l = 0x000100  /* rts55x.lib自带的 */
+    UNMAP:   o = 0x000400  l = 0x000C00  /* 未映射区域 */
 
     DARAM0:  o = 0x001000  l = 0x001000  /* 8kB Dual Access RAM 0 */
     DARAM1:  o = 0x002000  l = 0x002000  /* 8kB Dual Access RAM 1 */
@@ -64,15 +65,19 @@ MEMORY
 
 SECTIONS
 {
+     /*切记，代码段、常量段等适合放在SARAM里，常用数据段应放在DARAM，因为DARAM可以同时读写*/
+
      vectors          >  VECS  /* rts55x.lib中断向量表段，没啥用，只是为了不报警告 */
     .vectors:{}       >  VECT  /*你才是真正的中断向量表段*/
     .cinit            >  DARAM0  /* C初始化数据段 */
-    .text             >> SARAM0|SARAM1|SARAM2|SARAM3|SARAM4|SARAM5|SARAM6|SARAM7|SARAM8|SARAM9|SARAM10|SARAM11|SARAM12|SARAM13|SARAM14|SARAM15|SARAM16|SARAM17|SARAM18|SARAM19|SARAM20|SARAM21|SARAM22|SARAM23
+    .text             >> SARAM0|SARAM1|SARAM2|SARAM3|SARAM4|SARAM5|SARAM6|SARAM7|SARAM8|SARAM9|SARAM10|SARAM11|SARAM12|SARAM13|SARAM14|SARAM15
+    .pinit            >  SARAM16|SARAM17    /*全局对象初始化*/
+    .const            >  SARAM18|SARAM19|SARAM20|SARAM21|SARAM22|SARAM23 /* 常量数据段 */
     .stack            >  DARAM0 /* 主堆栈段 */
     .sysstack         >  DARAM0 /* 系统堆栈段 */
-    .sysmem           >  DARAM2 /* 动态内存池（malloc等） */
+    .sysmem           >  DARAM1 /* 动态内存池（malloc等） */
     .data             >  DARAM2 /* 已初始化的全局变量 */
-    .cio              >  DARAM6 /* C I/O缓冲区 */
-    .bss              >  DARAM3 /* 未初始化的全局变量 */
-    .const            >> DARAM4|DARAM5 /* 常量数据段 */
+    .cio              >  DARAM3 /* C I/O缓冲区 */
+    .bss              >  DARAM4 /* 未初始化的全局变量 */
+
 }

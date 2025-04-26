@@ -65,7 +65,7 @@ namespace zq
             struct Config {
                 uint32_t system_clock;    // 系统时钟频率(Hz)
                 uint32_t bitrate;         // 目标比特率
-                uint8_t own_address;      // 自身地址(从机模式使用)
+                uint16_t own_address;      // 自身地址(从机模式使用)
                 bool loopback;            // 环回模式使能
             };
 
@@ -106,7 +106,7 @@ namespace zq
             }
 
             // 发送数据（文档3中的DXR操作）
-            static void send(const uint8_t data) {
+            static void send(const uint16_t data) {
                 using namespace detail;
                 while(!STR::XRDY::read_bit()) {}
                 // 等待发送就绪
