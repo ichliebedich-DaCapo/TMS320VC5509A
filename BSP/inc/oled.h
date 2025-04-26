@@ -14,8 +14,9 @@
 // 1us:      8.6ms      [异常]
 // 5us:      26.4ms
 // 2us:      13.2ms     [些许异常]
-// 3us:      17.4ms     [最佳]
-
+// 3us:      17.4ms     [最佳]        未开优化[开优化后会有些许异常]
+// 4us:      2.2ms(分页) [开启优化]
+#define OLED_CMD_DATA_DELAY 4
 namespace bsp
 {
     namespace oled
@@ -71,9 +72,9 @@ namespace bsp
         INLINE void write_data_left(const uint16_t data)
         {
             oled::detail::DATA_L::write(data);
-            zq::systick::Delay::us(3);
+            zq::systick::Delay::us(OLED_CMD_DATA_DELAY);
             oled::detail::CTRL::write(0);
-            zq::systick::Delay::us(3);
+            zq::systick::Delay::us(OLED_CMD_DATA_DELAY);
         }
 
         /**
@@ -83,9 +84,9 @@ namespace bsp
         INLINE void write_data_right(const uint16_t data)
         {
             oled::detail::DATA_R::write(data);
-            zq::systick::Delay::us(3);
+            zq::systick::Delay::us(OLED_CMD_DATA_DELAY);
             oled::detail::CTRL::write(0);
-            zq::systick::Delay::us(3);
+            zq::systick::Delay::us(OLED_CMD_DATA_DELAY);
         }
 
         /**
@@ -95,9 +96,9 @@ namespace bsp
         INLINE void write_cmd(const uint16_t cmd)
         {
             oled::detail::CMD::write(cmd);
-            zq::systick::Delay::us(3);
+            zq::systick::Delay::us(OLED_CMD_DATA_DELAY);
             oled::detail::CTRL::write(0);
-            zq::systick::Delay::us(3);
+            zq::systick::Delay::us(OLED_CMD_DATA_DELAY);
         }
 
         /**
