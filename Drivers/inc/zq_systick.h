@@ -33,24 +33,6 @@ namespace zq
             typedef timer::detail::TIM<timer::detail::Offset::TIM0> TIM_REG;
             typedef timer::detail::PRSC<timer::detail::Offset::TIM0>::PSC PSC_REG;
 
-            // 计算当前总时钟周期数
-            // 获取当前总时钟周期数（允许有限次重试）
-            static uint32_t get_current_cycles() {
-                uint16_t tim, psc;
-                uint16_t retries = 3; // 最大重试次数
-
-                do {
-                    tim = TIM_REG::read();
-                    psc = PSC_REG::read_bits();
-                    // 如果 TIM 未变化，说明 PSC 值有效
-                    if (TIM_REG::read() == tim) break;
-                    --retries;
-                } while (retries > 0);
-
-                // 最终使用最后一次读取的值（可能包含轻微误差）
-                return (11999 - tim) * 16 + (15 - psc);
-            }
-
         public:
             // 阻塞式毫秒延时
             static void ms(const uint32_t _ms)
@@ -59,31 +41,22 @@ namespace zq
                 while ((get_tick() - start) < _ms){}/* 空循环等待 溢出自动处理 */
             }
 
-            // 阻塞式微秒延时（只能输入1ms以内，超过范围请自觉切换）
+            // 阻塞式微秒延时（只能输入1ms以内，超过范围请自觉切换，且不能输入0）
             static void us(const uint16_t us)
             {
-                if (us == 0) return;
+                const uint16_t start = TIM_REG::read();
+                const uint16_t delay_ticks = us * 12; // 每个 us 对应 12 个 TIM 周期
+                uint32_t elapsed_ticks;
 
-                const uint32_t delay_cycles = static_cast<uint32_t>(us) * 192; // 目标周期数
-                const uint32_t start_cycles = get_current_cycles();
-
-                while (true) {
-                    const uint32_t current_cycles = get_current_cycles();
-                    uint32_t elapsed;
-
-                    if (current_cycles >= start_cycles) {
-                        elapsed = current_cycles - start_cycles;
-                    } else
-                    {
-                        const uint32_t timer_period = 192000;
-                        // 处理溢出：当前周期已绕回
-                        elapsed = (timer_period - start_cycles) + current_cycles;
+                do {
+                    const uint16_t current = TIM_REG::read();
+                    // 处理溢出：若 current > start，说明 TIM 已重载
+                    if (current > start) {
+                        elapsed_ticks = (start + 12000) - current; // 12000 = 11999 +1
+                    } else {
+                        elapsed_ticks = start - current;
                     }
-
-                    if (elapsed >= delay_cycles) break;
-                }
-
-
+                } while (elapsed_ticks < delay_ticks);
             }
         };
 
