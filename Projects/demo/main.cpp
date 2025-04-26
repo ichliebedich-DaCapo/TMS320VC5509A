@@ -14,15 +14,21 @@ int main()
 {
     ZQ_Init();
     GUI::Render::init<oled_init>();
-    GUI::Flag::updateMode::set();
+    GUI::Flag::partialUpdate::set();
 
     bsp::led::LED::clear(); // 熄灭LED
 
+    zq::systick::AsyncDelay testDelay;
+        testDelay.start(500);
 
     for (;;)
     {
-        zq::systick::Delay::ms(500);
-        bsp::led::LED::toggle(bsp::led::pin::LED_2);
+        // zq::systick::Delay::ms(500);
+        if (testDelay.is_timeout())
+        {
+            bsp::led::LED::toggle(bsp::led::pin::LED_2);
+        }
+
         GUI::Render::handler<oled_write_data>(); // 处理GUI事件
     }
 }

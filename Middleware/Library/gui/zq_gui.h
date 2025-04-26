@@ -69,17 +69,13 @@ namespace GUI
     namespace Flag
     {
         // 渲染标志
-        class render : public FlagType<0>
-        {
-        };
+        class render : public FlagType<0> {};
+
         // 更新模式标志，0为默认模式，全刷新  1为分页模式，分页刷新
-        class updateMode : public FlagType<1>
-        {
-        };
+        class partialUpdate : public FlagType<1> {};
+
         // 用户绘制界面标志
-        class draw : public FlagType<2>
-        {
-        };
+        class draw : public FlagType<2> {};
     }
 }
 
@@ -123,28 +119,26 @@ namespace GUI
         static void draw_bezier3(Point p0, Point p1, Point p2, Point p3); // 绘制三阶贝塞尔曲线（需要4个连续控制点）
 
 
-        static void draw_char(const char *name, uint16_t x, uint16_t y, const Font::FontChar fonts[]);// 自动查找字符元数据
+        static void draw_char(const char *name, uint16_t x, uint16_t y, const Font::FontChar fonts[]); // 自动查找字符元数据
 
         static void draw_string(const char *str, uint16_t x, uint16_t y, const Font::FontChar fonts[]);
-
     };
 
 
     class Render : Base
     {
     protected:
-        static void screen();// 界面函数，由用户自己实现
+        static void screen(); // 界面函数，由用户自己实现
         static void draw(); // 绘制函数，由用户自己实现
     public:
         template<void(*oled_init)()>
         static void init()
         {
-            oled_init();// 初始化OLED驱动
+            oled_init(); // 初始化OLED驱动
             Tools::clear(); // 清屏
             screen(); // 初始化界面
             Flag::render::set(); // 设置渲染标志位
         }
-
 
 
         template<void(*oled_write_data)(unsigned char page, const unsigned char *buf)>
@@ -156,7 +150,7 @@ namespace GUI
             // ==========刷新处理==========
             if (Flag::render::read())
             {
-                if (Flag::updateMode::read())
+                if (Flag::partialUpdate::read())
                 {
                     // 分页模式，分页刷新
                     static uint16_t page = 0;
