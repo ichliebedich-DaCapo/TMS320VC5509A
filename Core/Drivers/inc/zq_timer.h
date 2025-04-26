@@ -103,29 +103,17 @@ namespace zq
             static void init(const uint16_t psc, const uint16_t arr)
             {
                 stop(); // 先停止定时器
+                manual_reload<1>(); // 启用立即重载
                 set_prescaler(psc); // 设置分频重载值
                 set_period(arr); // 设置周期值
                 set_simulation_breakpoint();
-                manual_reload<0>(); // 禁用立即重载
                 auto_reload<1>(); // 启用自动重装
-                TCR_REG::CP::set();// 时钟模式，输出方波
+                // TCR_REG::CP::set();// 时钟模式，输出方波
                 set_polarity<1>();// 设置为正则极性
-                set_mode<detail::Mode::OUTPUT>(); // 默认高阻模式
+                set_mode<detail::Mode::HIZ>(); // 默认高阻模式
                 set_idle_mode<0>(); // 禁用空闲模式
                 start(); // 启动定时器
-
-                // TCR_REG::TSS::set();// 先停止
-                // TCR_REG::TLB::set();// 重新装载
-                // TCR_REG::IDLEEN::clear();// 禁用空闲模式
-                // PRSC_REG::TDDR::write_bits(psc);
-                // PRD_REG::write(arr);
-                // TCR_REG::FUNC::write_bits(0x01);// 工作模式
-                //
-                // TCR_REG::ARB::set();// 自动重装
-                // TCR_REG::CP::set();// 时钟模式，输出方波
-                // TCR_REG::TSS::clear();// 启动
-                // TCR_REG::TLB::clear();// 禁止自动加载
-
+                manual_reload<0>(); // 禁用立即重载
             }
 
             /** 设置周期值（自动重装载值） */

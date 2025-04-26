@@ -1,5 +1,5 @@
 ; ============================== 中断向量表 ======================================
-         .ref    _c_int00,_Timer0_ISR	;_Timer0,_Timer1,
+         .ref    _c_int00,_Timer0_ISR,_Timer1_ISR
          .def    RSV, no_isr
 
          .sect ".vectors"
@@ -48,7 +48,7 @@ DMAC2:   .ivec no_isr             ; DMA Channel #2 / Software Interrupt #20
          nop_16
 DMAC3:   .ivec no_isr             ; DMA Channel #3 / Software Interrupt #21
          nop_16
-TINT1:   .ivec no_isr             ; Timer #1 / Software Interrupt #22
+TINT1:   .ivec _Timer1_ISR        ; Timer #1 / Software Interrupt #22
          nop_16
 INT5:    .ivec no_isr             ; Ext. User Interrupt #5 / Software Interrupt #23
          nop_16

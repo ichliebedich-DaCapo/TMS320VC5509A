@@ -158,6 +158,7 @@ def generate_code(input_file, output_path):
         data_array = f"    const unsigned char {array_name}[] = {{ {data_str} }};"
         data_arrays.append(data_array)
 
+        array_name = f"detail::{array_name}"
         struct = process_char(name, index, H, W, array_name)
         structs.append(struct)
 
@@ -178,9 +179,12 @@ namespace GUI
     namespace Font
     {{
         // 所有字模数据数组定义
-    {("""
-    """).join(data_arrays)}  // 每个数组占一行
-
+        namespace detail
+        {{
+        {("""
+        """).join(data_arrays)}  // 每个数组占一行
+        }}
+        
         const FontChar {font_name}[] = {{
             {"".join(structs)}
             // 结束标记

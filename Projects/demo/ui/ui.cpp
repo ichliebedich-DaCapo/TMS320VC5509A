@@ -34,18 +34,20 @@ namespace GUI
 namespace GUI
 {
     // 初始化界面
-    void Render::screen() {}
+    void Render::screen()
+    {
+        Tools::draw_string("你是我未曾",10,20,Font::fonts_16x16);
+    }
 
-    uint16_t tick = 0;
 
     void Render::draw()
     {
-        // 清屏
-        Tools::clear();
-
-        /*界面开发……*/
-
-        // 设置刷新标志
-        Flag::render::set();
+        // // 清屏
+        // Tools::clear();
+        //
+        // /*界面开发……*/
+        //
+        // // 设置刷新标志
+        // Flag::render::set();
     }
 }
