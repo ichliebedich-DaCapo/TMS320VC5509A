@@ -38,7 +38,7 @@ add_link_options(-mfloat-abi=hard -mfpu=fpv4-sp-d16)
 add_link_options(-mcpu=cortex-m4 -mthumb -mthumb-interwork)
 add_link_options(-Wl,-gc-sections,--relax,--as-needed,--print-memory-usage,-Map=${CMAKE_BINARY_DIR}/${PROJECT_NAME}.map)
 # 添加链接脚本
-add_link_options(-T${CMAKE_SOURCE_DIR}/Tools/scripts/C55x_GCC_LinkerScript.ld)
+add_link_options(-T${CMAKE_SOURCE_DIR}/User/Tools/scripts/C55x_GCC_LinkerScript.ld)
 
 # =====================设置项目文件=====================
 set(CMAKE_C_COMPILER_WORKS ON)   # 强制绕过编译器检查

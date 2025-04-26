@@ -6,6 +6,8 @@
 #include<math.h>
 #include<zq_font.h>
 
+// *************先这样，后续会迁移到ui.h里*************
+
 typedef struct
 {
     uint16_t waveform[128];

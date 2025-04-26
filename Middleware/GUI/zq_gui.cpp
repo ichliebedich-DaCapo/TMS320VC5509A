@@ -10,7 +10,7 @@ namespace GUI
 {
     // 变量定义
     unsigned char Base::buffer[GUI_PAGE][GUI_HOR];
-
+    uint16_t Render::refresh_page = 0;
     uint16_t FlagBase::flag = 0;
 }
 

@@ -1,11 +1,9 @@
-#include<app_conf.h>
+
 #include <zq_gui.h>
 #include <zq_timer.h>
 #include<zq_interrupt.h>
-#if PROGRAM_INDEX == 0
 #include <zq_init.h>
 
-#include <AsyncDelay.h>
 #include<Flag.h>
 #include <led.h>
 #include <zq_systick.h>
@@ -33,11 +31,11 @@ int main()
     }
 }
 
-//---------------------------------子程序--------------------------------------//
+//---------------------------------中断处理函数--------------------------------------//
 
 extern "C"
 {
 void interrupt Timer1_ISR() {}
 }
 
-#endif
+

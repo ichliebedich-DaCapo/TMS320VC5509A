@@ -127,6 +127,7 @@ namespace GUI
 
     class Render : Base
     {
+        static uint16_t refresh_page; // 类级别静态变量
     protected:
         static void screen(); // 界面函数，由用户自己实现
         static void draw(); // 绘制函数，由用户自己实现
@@ -153,11 +154,10 @@ namespace GUI
                 if (Flag::partialUpdate::read())
                 {
                     // 分页模式，分页刷新
-                    static uint16_t page = 0;
-                    oled_write_data(page, buffer[page]);
-                    page = (++page) & 0x07;
+                    oled_write_data(refresh_page, buffer[refresh_page]);
+                    refresh_page = (++refresh_page) & 0x07;
 
-                    if (page == 0)
+                    if (refresh_page == 0)
                         Flag::render::reset();
                 }
                 else

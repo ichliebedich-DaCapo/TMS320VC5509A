@@ -14,7 +14,7 @@ namespace zq {
             const uint32_t TIM_PRESCALER = 15;
             const uint32_t TIM_PERIOD = 11999;
             const uint32_t CYCLES_PER_US = 12;          // 12 cycles/μs
-            const uint32_t TOTAL_CYCLES_PER_MS = 12000 * 16; // 192000 cycles
+            const uint32_t TOTAL_CYCLES_PER_MS = 192000; // 12000*16=192000 cycles
         }
 
         inline uint32_t get_tick(){return detail::systick;}
