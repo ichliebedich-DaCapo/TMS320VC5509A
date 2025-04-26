@@ -5,13 +5,13 @@
 int main()
 {
     ZQ_Init(); // 系统初始化
-    GUI::Render::init<oled_init>(); // GUI初始化
-    GUI::Flag::partialUpdate::set(); // 分页刷新
+    GUI::Render::init<bsp::OLED::init>(); // GUI初始化
+    // GUI::Flag::partialUpdate::set(); // 分页刷新
     Core::init(); // 核心逻辑初始化
     for (;;)
     {
         Core::handler(); // 核心逻辑
-        GUI::Render::handler<oled_write_data>(); // 处理GUI事件
+        GUI::Render::handler<bsp::OLED::write_data>(); // 处理GUI事件
     }
 }
 
