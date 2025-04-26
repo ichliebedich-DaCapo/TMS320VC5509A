@@ -5,7 +5,7 @@
 #include<zq_gui.h>
 #include<math.h>
 #include<zq_font.h>
-
+#include <zq_systick.h>
 // *************先这样，后续会迁移到ui.h里*************
 
 typedef struct
@@ -32,6 +32,7 @@ namespace GUI
     };
 }
 
+zq::systick::AsyncDelay uiDelay;
 
 namespace GUI
 {
@@ -39,18 +40,23 @@ namespace GUI
     void Render::screen()
     {
         Tools::draw_string("你是我未曾",10,20,Font::fonts_16x16);
+        uiDelay.start(133);
     }
 
 
     void Render::draw()
     {
-        // 清屏
-        Tools::clear();
+
 
         /*界面开发……*/
         static uint16_t phase=0;
-        phase = (++phase) & 127;
-        Tools::draw_vline(phase,10,20);
+        if (uiDelay.is_timeout())
+        {
+            // 清屏
+            Tools::clear();
+            phase = (++phase) & 127;
+            Tools::draw_vline(phase, 10, 20);
+        }
         // 设置刷新标志
         Flag::render::set();
     }

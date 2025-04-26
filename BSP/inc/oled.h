@@ -5,6 +5,16 @@
 #define DEMO_LCD_H
 #include<zq_conf.h>
 #include<zq_delay.h>
+#include<zq_systick.h>
+
+// 原本278ms 换成C++后需要340ms
+// 延时
+// 100us：   428ms
+// 10us:     46.8ms
+// 1us:      8.6ms      [异常]
+// 5us:      26.4ms
+// 2us:      13.2ms     [些许异常]
+// 3us:      17.4ms     [最佳]
 
 namespace bsp
 {
@@ -35,6 +45,8 @@ namespace bsp
         }
     }
 
+
+
     class OLED
     {
         // 寄存器
@@ -48,7 +60,7 @@ namespace bsp
             oled::detail::CTR_LR::write(0x40);
             oled::detail::CTR_LR::write(0xc0);
             write_cmd(oled::detail::OP_CMD::OFF);
-            delay(10);
+            zq::systick::Delay::ms(1);
             write_cmd(oled::detail::OP_CMD::ON);
         }
 
@@ -59,9 +71,9 @@ namespace bsp
         INLINE void write_data_left(const uint16_t data)
         {
             oled::detail::DATA_L::write(data);
-            delay(1);
+            zq::systick::Delay::us(3);
             oled::detail::CTRL::write(0);
-            delay(1);
+            zq::systick::Delay::us(3);
         }
 
         /**
@@ -71,9 +83,9 @@ namespace bsp
         INLINE void write_data_right(const uint16_t data)
         {
             oled::detail::DATA_R::write(data);
-            delay(1);
+            zq::systick::Delay::us(3);
             oled::detail::CTRL::write(0);
-            delay(1);
+            zq::systick::Delay::us(3);
         }
 
         /**
@@ -83,9 +95,9 @@ namespace bsp
         INLINE void write_cmd(const uint16_t cmd)
         {
             oled::detail::CMD::write(cmd);
-            delay(1);
+            zq::systick::Delay::us(3);
             oled::detail::CTRL::write(0);
-            delay(1);
+            zq::systick::Delay::us(3);
         }
 
         /**
