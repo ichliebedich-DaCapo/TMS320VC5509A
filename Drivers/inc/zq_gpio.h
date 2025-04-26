@@ -10,17 +10,11 @@ namespace zq
     namespace gpio
     {
         // ================= GPIO组类型定义 ================
-        struct NormalGroup
-        {
-        };
+        struct NormalGroup {};
 
-        struct AddrGroup
-        {
-        };
+        struct AddrGroup {};
 
-        struct EHPIGroup
-        {
-        };
+        struct EHPIGroup {};
 
         // ================= 公共属性 ================
         // 类型安全方向枚举
@@ -99,13 +93,10 @@ namespace zq
             COMPILE_TIME_ASSERT(PinNum <= Traits::MAX_PIN, "PinNum is out of range");
 
         public:
-            static void set_dir(const Dir::Type dir)
-            {
-                Traits::DIR::write(PinNum, dir);
-            }
-
-            static void high() { Traits::DATA::write(PinNum,true); }
-            static void low() { Traits::DATA::clear(PinNum); }
+            static void set_dir(const Dir::Type dir) { Traits::DIR::write_bit(PinNum, dir); }
+            static void high() { Traits::DATA::set_bit(PinNum); }
+            static void low() { Traits::DATA::clear_bit(PinNum); }
+            static void toggle() { Traits::DATA::toggle_bit(PinNum); }
             static bool read() { return Traits::DATA::read(PinNum); }
         };
 
@@ -120,7 +111,7 @@ namespace zq
         public:
             static void enable()
             {
-                Traits::EN::write(PinNum,true);
+                Traits::EN::set_bit(PinNum);
             }
 
             static void disable()
@@ -132,25 +123,17 @@ namespace zq
         // ================= 统一接口层 ================
         template<typename GroupTag, uint16_t PinNum>
         class GPIO_Pin
-                : public GPIO_Pin_Impl<GroupTag, PinNum, GPIO_Traits<GroupTag>::NEED_ENABLE>
-        {
-        };
+                : public GPIO_Pin_Impl<GroupTag, PinNum, GPIO_Traits<GroupTag>::NEED_ENABLE> {};
 
         // ================= 分组别名模板 ================
         template<uint16_t Pin>
-        class NormalPin : public GPIO_Pin<NormalGroup, Pin>
-        {
-        };
+        class NormalPin : public GPIO_Pin<NormalGroup, Pin> {};
 
         template<uint16_t Pin>
-        class AddrPin : public GPIO_Pin<AddrGroup, Pin>
-        {
-        };
+        class AddrPin : public GPIO_Pin<AddrGroup, Pin> {};
 
         template<uint16_t Pin>
-        class EHPIPin : public GPIO_Pin<EHPIGroup, Pin>
-        {
-        };
+        class EHPIPin : public GPIO_Pin<EHPIGroup, Pin> {};
 
         // ================= 显示实例化 ================
         // 普通GPIO引脚

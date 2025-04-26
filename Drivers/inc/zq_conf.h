@@ -181,8 +181,12 @@ typedef hw_registers::BitsField<hw_registers::ExmemTag,REG_NAME::REG,GET_BITS_MA
 template<uint16_t address>
 struct RegisterAccess
 {
-    INLINE void write(uint16_t value){*REG_MAP(address) =value;}
+    INLINE void write(const uint16_t value){*REG_MAP(address) =value;}
     INLINE uint16_t read(){return *REG_MAP(address);}
+    INLINE void set_bit(const uint16_t shift){*REG_MAP(address) |=(1<<shift);}
+    INLINE void write_bit(const uint16_t shift,const bool value){*REG_MAP(address) =*REG_MAP(address) & ~(1<<shift)|(value<<shift);}
+    INLINE void clear_bit(const uint16_t shift){*REG_MAP(address) &= ~(1<<shift);}
+    INLINE void toggle_bit(const uint16_t shift){*REG_MAP(address) ^= (1<<shift);}
 };
     // ======== 寄存器声明 ========
 #define DECLARE_REGISTER_T(REG_NAME,ADDRESS)\
