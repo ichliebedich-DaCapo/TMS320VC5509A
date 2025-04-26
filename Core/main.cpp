@@ -6,7 +6,7 @@ int main()
 {
     ZQ_Init(); // 系统初始化
     GUI::Render::init<bsp::OLED::init>(); // GUI初始化
-    // GUI::Flag::partialUpdate::set(); // 分页刷新
+    GUI::Flag::partialUpdate::set(); // 分页刷新
     Core::init(); // 核心逻辑初始化
     for (;;)
     {

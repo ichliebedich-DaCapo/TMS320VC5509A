@@ -103,7 +103,6 @@ namespace zq
                 /* 溢出安全的时间差比较 */
                 const uint32_t current = get_tick();
                 const int32_t diff = static_cast<int32_t>(current - next_target_);
-
                 if (diff >= 0)
                 {
                     // 当前时间 >= 目标时间（处理溢出）
