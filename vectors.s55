@@ -1,5 +1,5 @@
 ; ============================== 中断向量表 ======================================
-         .ref    _c_int00,_Timer0_ISR,_Timer1_ISR
+         .ref    _c_int00,_Timer0_ISR,_Timer1_ISR,_EXINT2_ISR
          .def    RSV, no_isr
 
          .sect ".vectors"
@@ -10,7 +10,7 @@ NMI:     .ivec no_isr             ; Nonmaskable / Software Interrupt #1
          nop_16
 INT0:    .ivec no_isr             ; Ext. User Interrupt #0 / Software Interrupt #2
          nop_16
-INT2:    .ivec no_isr             ; Ext. User Interrupt #2 / Software Interrupt #3
+INT2:    .ivec _EXINT2_ISR         ; Ext. User Interrupt #2 / Software Interrupt #3
          nop_16
 TINT0:   .ivec _Timer0_ISR        ; Timer #0 / Software Interrupt #4
          nop_16

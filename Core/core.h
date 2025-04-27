@@ -6,6 +6,12 @@
 #include <zq_drivers.h>
 #include <led.h>
 #include <zq_i2c.h>
+#include <key.h>
+#define CTRKEY (*(unsigned int *)0x602800)		//       ݻض  Ĵ
+#define CTRCLKEY (*(unsigned int *)0x600801)	//      ̼Ĵ
+
+extern volatile uint16_t temp;
+extern volatile uint16_t temp2;
 /**
  * @brief 核心逻辑类
  * @note 为了把核心业务逻辑与main分离，定义了这个类，同时为了避免调用开销，只得写在头文件里。
@@ -20,7 +26,7 @@ public:
         using namespace zq;
         using namespace bsp;
         gpio::GPIO_Normal0::set_dir(gpio::Dir::Dir_Output);
-        testDelay.start(400);
+        testDelay.start(1000);
         led::LED::clear(); // 熄灭LED
 
         i2c::Config cfg;
@@ -29,8 +35,7 @@ public:
         cfg.loopback=false;
         I2C::init(cfg);
 
-
-
+        Key::init();
     }
 
 
@@ -42,18 +47,26 @@ public:
 
 
         // 发送数据到温度传感器
-        const uint16_t temp_sensor_addr = 0x48;
-        const uint16_t cmd = 0x00; // 读取温度命令
+        // const uint16_t temp_sensor_addr = 0x48;
+        // const uint16_t cmd = 0x00; // 读取温度命令
+        // I2C::start();
+        // I2C::send(temp_sensor_addr << 1);
+        // I2C::send(cmd);
+        // I2C::stop();
 
-        I2C::start();
-        I2C::send(temp_sensor_addr << 1);
-        I2C::send(cmd);
-        I2C::stop();
-
-        if (testDelay.is_timeout())
-        {
-            led::LED::toggle(led::pin::LED_2);
-        }
+        // if (testDelay.is_timeout())
+        // {
+        //     // led::LED::toggle(led::pin::LED_1);
+        //     temp = mmr::IER0::read();
+        //     temp2 = mmr::IFR0::read();
+        //     // led::LED::toggle(key::detail::KEY::read()%4);
+        // }
+        //
+        //
+        // if (Key::readSign())
+        // {
+        //     led::LED::toggle(Key::getCode()%4);
+        // }
     }
 private:
 };

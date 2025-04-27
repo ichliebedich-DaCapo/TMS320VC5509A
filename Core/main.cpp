@@ -11,7 +11,7 @@ int main()
     for (;;)
     {
         Core::handler(); // 核心逻辑
-        GUI::Render::handler<bsp::OLED::write_data>(); // 处理GUI事件
+        // GUI::Render::handler<bsp::OLED::write_data>(); // 处理GUI事件
     }
 }
 

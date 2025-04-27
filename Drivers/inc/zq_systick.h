@@ -45,14 +45,14 @@ namespace zq
             static void us(const uint16_t us)
             {
                 const uint16_t start = TIM_REG::read();
-                const uint16_t delay_ticks = us * 12; // 每个 us 对应 12 个 TIM 周期
+                const uint32_t delay_ticks = us << 6; // 每个 us 对应 64 个 TIM 周期
                 uint32_t elapsed_ticks;
 
                 do {
                     const uint16_t current = TIM_REG::read();
                     // 处理溢出：若 current > start，说明 TIM 已重载
                     if (current > start) {
-                        elapsed_ticks = (start + 12000) - current; // 12000 = 11999 +1
+                        elapsed_ticks = (start + 64000) - current; // 64000 = 63999 +1
                     } else {
                         elapsed_ticks = start - current;
                     }

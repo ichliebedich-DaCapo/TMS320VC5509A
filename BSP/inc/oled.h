@@ -63,6 +63,7 @@ namespace bsp
             write_cmd(oled::detail::OP_CMD::OFF);
             zq::systick::Delay::ms(1);
             write_cmd(oled::detail::OP_CMD::ON);
+            // volatile uint16_t temp=oled::detail::CTRL::read();// 必须进行读键清零
         }
 
         /**

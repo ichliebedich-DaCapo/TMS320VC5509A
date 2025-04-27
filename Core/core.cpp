@@ -4,3 +4,5 @@
 #include <core.h>
 // 变量定义
 zq::systick::AsyncDelay Core::testDelay;
+volatile uint16_t temp;
+volatile uint16_t temp2;

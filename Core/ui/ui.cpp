@@ -48,16 +48,16 @@ namespace GUI
     {
 
 
-        /*界面开发……*/
-        static uint16_t phase=0;
-        if (uiDelay.is_timeout())
-        {
-            // 清屏
-            Tools::clear();
-            phase = (++phase) & 127;
-            Tools::draw_vline(phase, 10, 20);
-        }
-        // 设置刷新标志
+        // /*界面开发……*/
+        // static uint16_t phase=0;
+        // if (uiDelay.is_timeout())
+        // {
+        //     // 清屏
+        Tools::clear();
+        //     phase = (++phase) & 127;
+        //     Tools::draw_vline(phase, 10, 20);
+        // }
+        // // 设置刷新标志
         Flag::render::set();
     }
 }
