@@ -28,19 +28,16 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a78db7b0-77d9-459c-87d1-f1d260dcb0d0" name="更改" comment="【开发】如预期那样，I2C一试就死机，需要根据源码重新捋一下">
-      <change afterPath="$PROJECT_DIR$/BSP/inc/key.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BSP/src/key.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.cproject" beforeDir="false" afterPath="$PROJECT_DIR$/.cproject" afterDir="false" />
+    <list default="true" id="a78db7b0-77d9-459c-87d1-f1d260dcb0d0" name="更改" comment="【备份】……">
+      <change afterPath="$PROJECT_DIR$/GUI_Simulator/font/fonts_8x10.TXT" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BSP/inc/oled.h" beforeDir="false" afterPath="$PROJECT_DIR$/BSP/inc/oled.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/core.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/core.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/core.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/core.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/main.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/ui/ui.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/ui/ui.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Drivers/inc/zq_systick.h" beforeDir="false" afterPath="$PROJECT_DIR$/Drivers/inc/zq_systick.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Drivers/inc/zq_timer.h" beforeDir="false" afterPath="$PROJECT_DIR$/Drivers/inc/zq_timer.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vectors.s55" beforeDir="false" afterPath="$PROJECT_DIR$/vectors.s55" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI_Simulator/gui-simulator/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/GUI_Simulator/gui-simulator/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI_Simulator/python/font.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI_Simulator/python/font.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middleware/GUI/fonts_16x16.h" beforeDir="false" afterPath="$PROJECT_DIR$/Middleware/GUI/fonts_16x16.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middleware/GUI/fonts_18x18.h" beforeDir="false" afterPath="$PROJECT_DIR$/Middleware/GUI/fonts_18x18.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middleware/GUI/zq_font.h" beforeDir="false" afterPath="$PROJECT_DIR$/Middleware/GUI/zq_font.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middleware/GUI/zq_gui.h" beforeDir="false" afterPath="$PROJECT_DIR$/Middleware/GUI/zq_gui.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -221,15 +218,8 @@
       <workItem from="1745648647112" duration="3339000" />
       <workItem from="1745656879956" duration="546000" />
       <workItem from="1745677729769" duration="2915000" />
-      <workItem from="1745711653530" duration="11091000" />
-    </task>
-    <task id="LOCAL-00021" summary="【开发】创建新的GUI框架">
-      <option name="closed" value="true" />
-      <created>1741836775284</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1741836775284</updated>
+      <workItem from="1745711653530" duration="11917000" />
+      <workItem from="1745726253145" duration="1415000" />
     </task>
     <task id="LOCAL-00022" summary="【开发】优化了刷新函数和绘制像素点函数">
       <option name="closed" value="true" />
@@ -615,7 +605,15 @@
       <option name="project" value="LOCAL" />
       <updated>1745676116550</updated>
     </task>
-    <option name="localTasksCounter" value="70" />
+    <task id="LOCAL-00070" summary="【备份】……">
+      <option name="closed" value="true" />
+      <created>1745723494458</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1745723494458</updated>
+    </task>
+    <option name="localTasksCounter" value="71" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -650,7 +648,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="【开发】oled底层函数测试成功，但上层应用不行，应与复制缓冲区有关" />
     <MESSAGE value="【开发】应用层重新考虑" />
     <MESSAGE value="【开发】GPIO可用，确定了片内和片外寄存器的映射情况" />
     <MESSAGE value="【开发】与CCS同步" />
@@ -675,7 +672,8 @@
     <MESSAGE value="【优化】OLED优化到了极致" />
     <MESSAGE value="【备份】接下来尝试测试I2C" />
     <MESSAGE value="【开发】如预期那样，I2C一试就死机，需要根据源码重新捋一下" />
-    <option name="LAST_COMMIT_MESSAGE" value="【开发】如预期那样，I2C一试就死机，需要根据源码重新捋一下" />
+    <MESSAGE value="【备份】……" />
+    <option name="LAST_COMMIT_MESSAGE" value="【备份】……" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -101,6 +101,11 @@ namespace GUI
 
         INLINE void write_pixel(uint16_t x, uint16_t y); // 绘制黑色像素点（默认）
 
+        INLINE void write_data(const uint16_t page, const uint16_t column, const uint8_t data)
+        {
+            buffer[page][column]=data;
+        }
+
         INLINE void clear(uint16_t start_page, uint16_t end_page, uint16_t start_col, uint16_t end_col); // 区域清除
 
         INLINE void clear(); // 清除整个屏幕的显存

@@ -19,19 +19,19 @@ namespace GUI
             // "1"
         {
             .name = "1",
-            .width = 9,
+            .width = 18,
             .height = 18,
             .data = detail::fonts_18x18_0
         },// "2"
         {
             .name = "2",
-            .width = 9,
+            .width = 18,
             .height = 18,
             .data = detail::fonts_18x18_1
         },// "3"
         {
             .name = "3",
-            .width = 9,
+            .width = 18,
             .height = 18,
             .data = detail::fonts_18x18_2
         },// "中"

@@ -6,6 +6,7 @@
 #include<zq_font_base.h>
 #include<fonts_16x16.h>
 #include<fonts_18x18.h>
+#include<fonts_8x10.h>
 
 
 

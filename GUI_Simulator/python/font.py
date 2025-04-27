@@ -144,6 +144,9 @@ def generate_code(input_file, output_path):
             W = H
             bytes_per_row = math.ceil(H / 8)
 
+
+
+
         required = H * bytes_per_row
         if len(elements) != required:
             raise ValueError(f"字符'{name}'数据数量错误：应为{required}，实际{len(elements)}")
@@ -159,13 +162,14 @@ def generate_code(input_file, output_path):
         data_arrays.append(data_array)
 
         array_name = f"detail::{array_name}"
+        # 解析出字高和字宽
+        match = re.search(r'fonts_(\d+)x(\d+)\.h', output_name)
+        if match:
+            W =  int(match.group(1))
+            H = int(match.group(2))
         struct = process_char(name, index, H, W, array_name)
         structs.append(struct)
 
-
-
-    if output_name != f'fonts_{H_ascii}x{H_ascii}.h':
-        raise ValueError(f"Fonts Name Error {output_name} -> fonts_{H_ascii}x{H_ascii}.cpp")
 
     font_header_file = f'{output_path}/zq_font.h'
     add_to_header(font_header_file, output_name)
@@ -205,7 +209,7 @@ namespace GUI
 
 if __name__ == "__main__":
     input_path = Path("../font")
-    output_path = Path("../../../Middleware/Library/gui")
+    output_path = Path("../../Middleware/gui")
 
     for file in input_path.glob("*.TXT"):
         if "index" not in file.stem:

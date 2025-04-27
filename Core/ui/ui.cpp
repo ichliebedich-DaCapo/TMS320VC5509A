@@ -5,7 +5,7 @@
 #include<zq_gui.h>
 #include<math.h>
 #include<zq_font.h>
-#include <zq_systick.h>
+
 // *************先这样，后续会迁移到ui.h里*************
 
 typedef struct
@@ -32,15 +32,24 @@ namespace GUI
     };
 }
 
-zq::systick::AsyncDelay uiDelay;
+
 
 namespace GUI
 {
     // 初始化界面
     void Render::screen()
     {
-        Tools::draw_string("你是我未曾",10,20,Font::fonts_16x16);
-        uiDelay.start(133);
+        uint16_t data =0x55;
+        for (int i=0;i<32;++i)
+        {
+            for (int j=0;j<4;++j)
+                Tools::write_data(j, i, data);
+            data =~data;
+        }
+
+            // Tools::draw_string("你是我未曾",10,20,Font::fonts_16x16);
+        Tools::draw_string("LCDDONE",0,48,Font::fonts_8x10);
+
     }
 
 
@@ -53,11 +62,11 @@ namespace GUI
         // if (uiDelay.is_timeout())
         // {
         //     // 清屏
-        Tools::clear();
-        //     phase = (++phase) & 127;
-        //     Tools::draw_vline(phase, 10, 20);
-        // }
-        // // 设置刷新标志
-        Flag::render::set();
+        // Tools::clear();
+        // //     phase = (++phase) & 127;
+        // //     Tools::draw_vline(phase, 10, 20);
+        // // }
+        // // // 设置刷新标志
+        // Flag::render::set();
     }
 }
