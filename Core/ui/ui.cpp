@@ -47,9 +47,21 @@ namespace GUI
             data =~data;
         }
 
-            // Tools::draw_string("你是我未曾",10,20,Font::fonts_16x16);
-        Tools::draw_string("LCDDONE",0,48,Font::fonts_10x8);
+        // 生成的字库
+        Tools::draw_string("LCD",0,47,Font::fonts_12x8);
+        Tools::draw_string("DONE",20,47,Font::fonts_12x8);
 
+        // 手动字库
+        Tools::draw_string("L", 0, 55, Font::fonts_10x8);
+        Tools::draw_string("C", 6, 55, Font::fonts_10x8);
+        Tools::draw_string("D", 12, 55, Font::fonts_10x8);
+        Tools::draw_string("D", 21, 55, Font::fonts_10x8);
+        Tools::draw_string("O", 27, 55, Font::fonts_10x8);
+        Tools::draw_string("N", 33, 55, Font::fonts_10x8);
+        Tools::draw_string("E", 39, 55, Font::fonts_10x8);
+
+        Tools::draw_line(64,0,95,63);// 左半边折线
+        Tools::draw_line(127,0,96,63);// 右半边折线
     }
 
 

@@ -129,7 +129,7 @@ def generate_code(input_file, output_path):
     structs = []
     data_arrays = []
 
-    macro = f'ZQ_FONT_{H_ascii}X{H_ascii}_H'
+
     output_name = input_file.with_suffix(".h").name
     font_name = Path(output_name).stem
     output_filename = f'{output_path}/{output_name}'
@@ -166,6 +166,7 @@ def generate_code(input_file, output_path):
     font_header_file = f'{output_path}/zq_font.h'
     add_to_header(font_header_file, output_name)
 
+    macro = f'ZQ_FONT_{W}X{H}_H'
     output_code = f'''#ifndef {macro}
 #define {macro}
 #include<zq_font_base.h>

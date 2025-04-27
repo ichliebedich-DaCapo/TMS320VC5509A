@@ -1,5 +1,5 @@
-#ifndef ZQ_FONT_8X8_H
-#define ZQ_FONT_8X8_H
+#ifndef ZQ_FONT_5X8_H
+#define ZQ_FONT_5X8_H
 #include<zq_font_base.h>
 
 namespace GUI
