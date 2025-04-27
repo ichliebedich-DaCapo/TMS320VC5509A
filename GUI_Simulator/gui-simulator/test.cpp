@@ -12,7 +12,7 @@
 #include <unordered_map>
 #include <functional>
 #include <utility>
-
+#include <ui.h>
 // 去他宝贝的宏
 #undef main
 #undef interface
@@ -56,7 +56,7 @@ public:
 
 private:
     std::unordered_map<char, bool> keyStates; // 按键状态
-    std::unordered_map<char, std::function<void()>> keyCallbacks; // 按键回调函数
+    std::unordered_map<char, std::function<void()> > keyCallbacks; // 按键回调函数
 };
 
 /**
@@ -76,39 +76,33 @@ int keyboard_thread(void *data)
     {
         std::cout << "A pressed" << std::endl;
 
+        GUI::SpectrumDisplay::Pan(1);
+    });
+    keyboard.addKeyCheck('W', []()
+    {
+        std::cout << "W pressed" << std::endl;
+        GUI::SpectrumDisplay::SetZoom(GUI::SpectrumDisplay::ZOOM_4X);
     });
 
     keyboard.addKeyCheck('S', []()
     {
         std::cout << "S pressed" << std::endl;
-
+        GUI::SpectrumDisplay::SetZoom(GUI::SpectrumDisplay::ZOOM_2X);
     });
 
     keyboard.addKeyCheck('D', []()
     {
         std::cout << "D pressed" << std::endl;
+        GUI::SpectrumDisplay::Pan(0);
     });
 
-    keyboard.addKeyCheck('F', []()
-    {
+    keyboard.addKeyCheck('F', []() {});
 
-    });
+    keyboard.addKeyCheck('G', []() {});
 
-    keyboard.addKeyCheck('G', []()
-    {
+    keyboard.addKeyCheck('H', []() {});
 
-    });
-
-    keyboard.addKeyCheck('H', []()
-    {
-
-    });
-
-    keyboard.addKeyCheck('J', []()
-    {
-
-    });
-
+    keyboard.addKeyCheck('J', []() {});
 
 
     // 主循环
