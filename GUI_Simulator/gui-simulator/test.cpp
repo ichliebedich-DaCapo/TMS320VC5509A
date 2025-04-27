@@ -81,7 +81,7 @@ int keyboard_thread(void *data)
     keyboard.addKeyCheck('S', []()
     {
         std::cout << "S pressed" << std::endl;
-//        gui::interface::pressS();
+
     });
 
     keyboard.addKeyCheck('D', []()

@@ -13,15 +13,20 @@ zq::systick::AsyncDelay<get_tick> uiDelay;
 #include <array>
 #include <cmath>
 // 添加自定义数学函数实现避免报错
+constexpr uint16_t  MAX_VALUE = 100;
 namespace constexpr_math {
     constexpr float pow(float x, int n) {
         return n == 0 ? 1.0f : x * pow(x, n-1);
     }
 
     constexpr float exp(float x) {
+        // 处理负指数
+        if(x < 0) return 1.0f / exp(-x);
+
+        // 增加泰勒展开项数到15项
         float result = 1.0f;
         float term = 1.0f;
-        for(int n=1; n<10; ++n) { // 泰勒展开近似
+        for(int n=1; n<15; ++n) {
             term *= x/n;
             result += term;
         }
@@ -33,8 +38,8 @@ constexpr std::array<float, 1024> generate_spectrum_data()
     std::array<float, 1024> data{};
 
     // 主频峰参数
-    constexpr float peak_freq = 256.0f; // 主频位置
-    constexpr float peak_width = 30.0f; // 主频宽度
+    constexpr float peak_freq = 128.0f;  // 中心位置左移
+    constexpr float peak_width = 100.0f; // 增大宽度
     constexpr float peak_amplitude = 1.0f; // 主峰幅值
 
     // 噪声参数
@@ -54,13 +59,15 @@ constexpr std::array<float, 1024> generate_spectrum_data()
         // 叠加信号
         data[i] = gaussian + noise;
 
+        data[i]*=MAX_VALUE;
+
         // 限制幅值范围
         data[i] = data[i] < 0.0f ? 0.0f : data[i];
-        data[i] = data[i] > 1.0f ? 1.0f : data[i];
+        data[i] = data[i] > MAX_VALUE*1.5 ? MAX_VALUE*1.5 : data[i];
+
     }
     return data;
 }
-
 constexpr auto spectrum_data = generate_spectrum_data();
 // ====================== 仿真数据 =======================
 
