@@ -8,6 +8,7 @@
 #include<fonts_18x18.h>
 #include<fonts_10x8.h>
 #include<fonts_12x8.h>
+#include<fonts_10x10.h>
 
 
 
