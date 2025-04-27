@@ -28,6 +28,8 @@ static bool press_state = false;
 static int32_t last_x = 0;
 static int32_t last_y = 0;
 
+static uint32_t tick_cnt=0;
+uint32_t get_tick(){return tick_cnt;}
 /***********************************内部函数**************************************/
 void mouse_handler(SDL_Event *event);
 
@@ -85,6 +87,16 @@ void simulator_init()
                      }
                      return 1;
                      }, "updateSDLGram", nullptr);
+
+    SDL_CreateThread([](void * data)
+{
+    while (true)
+    {
+        ++tick_cnt;
+        SDL_Delay(1);
+    }
+    return 0;
+},"tick",nullptr);
 }
 
 

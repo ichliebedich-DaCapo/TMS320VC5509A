@@ -5,7 +5,7 @@
 #include<zq_gui.h>
 #include<math.h>
 #include<zq_font.h>
-
+#include <zq_systick.h>
 // *************先这样，后续会迁移到ui.h里*************
 
 typedef struct
@@ -32,7 +32,8 @@ namespace GUI
     };
 }
 
-
+#include<simulator.hpp>
+zq::systick::AsyncDelay<get_tick> uiDelay;
 
 namespace GUI
 {
@@ -47,38 +48,40 @@ namespace GUI
             data =~data;
         }
 
-        // 生成的字库
-        Tools::draw_string("LCD",0,47,Font::fonts_12x8);
-        Tools::draw_string("DONE",20,47,Font::fonts_12x8);
-
-        // 手动字库
-        Tools::draw_string("L", 0, 55, Font::fonts_10x8);
-        Tools::draw_string("C", 6, 55, Font::fonts_10x8);
-        Tools::draw_string("D", 12, 55, Font::fonts_10x8);
-        Tools::draw_string("D", 21, 55, Font::fonts_10x8);
-        Tools::draw_string("O", 27, 55, Font::fonts_10x8);
-        Tools::draw_string("N", 33, 55, Font::fonts_10x8);
-        Tools::draw_string("E", 39, 55, Font::fonts_10x8);
-
         Tools::draw_line(64,0,95,63);// 左半边折线
         Tools::draw_line(127,0,96,63);// 右半边折线
+
+        uiDelay.start(800);
     }
 
 
     void Render::draw()
     {
+        /*界面开发……*/
+        if (uiDelay.is_timeout())
+        {
+            // 清屏
+            Tools::clear(6,7,0,63);
+            static bool flag = false;
+            flag = !flag;
+            if (flag)
+            {
+                // 手动字库
+                Tools::draw_string("L", 0, 55, Font::fonts_10x8);
+                Tools::draw_string("C", 6, 55, Font::fonts_10x8);
+                Tools::draw_string("D", 12, 55, Font::fonts_10x8);
+                Tools::draw_string("D", 21, 55, Font::fonts_10x8);
+                Tools::draw_string("O", 27, 55, Font::fonts_10x8);
+                Tools::draw_string("N", 33, 55, Font::fonts_10x8);
+                Tools::draw_string("E", 39, 55, Font::fonts_10x8);
+            }else
+            {
+                // 生成的字库
+                Tools::draw_string("LCD",0,47,Font::fonts_12x8);
+                Tools::draw_string("DONE",20,47,Font::fonts_12x8);
+            }
 
-
-        // /*界面开发……*/
-        // static uint16_t phase=0;
-        // if (uiDelay.is_timeout())
-        // {
-        //     // 清屏
-        // Tools::clear();
-        // //     phase = (++phase) & 127;
-        // //     Tools::draw_vline(phase, 10, 20);
-        // // }
-        // // // 设置刷新标志
-        // Flag::render::set();
+            Flag::render::set();
+        }
     }
 }

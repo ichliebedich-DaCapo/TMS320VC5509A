@@ -18,6 +18,9 @@ static uint32_t current_tick[TICK_ARRAY_SIZE];
 static uint32_t last_tick[TICK_ARRAY_SIZE];
 static uint16_t tick_index = 0;
 
+
+
+
 int tick_handler(void *data)
 {
     while (simulator_is_running())
@@ -35,6 +38,8 @@ int main(int argc, char *argv[])
     GUI::Render::init<simulator_init>();
 
     SDL_CreateThread(keyboard_thread, "keyboard", nullptr); // 键盘线程
+
+
 #if MEASURE_ENABLE
     SDL_CreateThread(tick_handler, "tick", nullptr);
 #endif

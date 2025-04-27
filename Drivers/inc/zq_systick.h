@@ -19,11 +19,14 @@ namespace zq
             const uint32_t CYCLES_PER_US = 12; // 12 cycles/μs
             const uint32_t TOTAL_CYCLES_PER_MS = 192000; // 12000*16=192000 cycles
         }
-
+#ifndef SIMULATOR
         inline uint32_t get_tick() { return detail::systick; }
 
         inline void init()
         {
+
+
+
             timer::Timer0::init(TIM_FREQ_192M_to_1K);
             timer::Timer0::start_IT();
         }
@@ -65,8 +68,9 @@ namespace zq
                 // while ( static_cast<uint16_t>(start - TIM_REG::read()) < delay_ticks ) {}
             }
         };
-
+#endif
         // 非阻塞式循环定时器（溢出安全）
+        template<uint32_t(*getTick)()>
         class AsyncDelay
         {
             uint32_t next_target_; // 下一次超时时间点
@@ -86,7 +90,7 @@ namespace zq
                     return;
                 }
                 is_active_ = true;
-                next_target_ = get_tick() + interval_;
+                next_target_ = getTick() + interval_;
             }
 
             // 停止定时器
@@ -101,7 +105,7 @@ namespace zq
                 if (!is_active_) return false;
 
                 /* 溢出安全的时间差比较 */
-                const uint32_t current = get_tick();
+                const uint32_t current = getTick();
                 const int32_t diff = static_cast<int32_t>(current - next_target_);
                 if (diff >= 0)
                 {
@@ -117,10 +121,15 @@ namespace zq
             uint32_t remaining() const
             {
                 if (!is_active_) return 0;
-                const uint32_t current = get_tick();
+                const uint32_t current = getTick();
                 return (next_target_ - current) + (current > next_target_ ? 0xFFFFFFFF : 0);
             }
         };
+
+#ifndef SIMULATOR
+        typedef AsyncDelay<get_tick> ZQAsyncDelay;
+#endif
+
     }
 }
 

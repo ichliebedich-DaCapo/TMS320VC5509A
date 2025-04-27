@@ -22,6 +22,7 @@ void simulator_event_Handler();
 
 uint8_t simulator_is_running();
 
+uint32_t get_tick();
 /********************LCD驱动接口***********************/
 void oled_write_data( unsigned char page, const unsigned char *buf);
 
