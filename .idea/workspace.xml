@@ -29,8 +29,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a78db7b0-77d9-459c-87d1-f1d260dcb0d0" name="更改" comment="【备份】……">
-      <change beforePath="$PROJECT_DIR$/Core/ui/ui.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/ui/ui.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/ui/ui.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/ui/ui.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI_Simulator/gui-simulator/test.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/GUI_Simulator/gui-simulator/test.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

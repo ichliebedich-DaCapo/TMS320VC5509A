@@ -70,6 +70,8 @@ int keyboard_thread(void *data)
 {
     // 创建 KeyboardInput 对象
     KeyboardInput keyboard;
+    // 临时变量
+    static int temp=0;
 
     // 添加按键检测
     keyboard.addKeyCheck('A', []()
@@ -81,13 +83,53 @@ int keyboard_thread(void *data)
     keyboard.addKeyCheck('W', []()
     {
         std::cout << "W pressed" << std::endl;
-        GUI::SpectrumDisplay::SetZoom(GUI::SpectrumDisplay::ZOOM_4X);
+        temp++;
+        if (temp>3)temp=3;
+        GUI::SpectrumDisplay::ZoomLevel zoom;
+        switch (temp)
+        {
+            case 0:
+                zoom = GUI::SpectrumDisplay::ZOOM_1X;
+                break;
+            case 1:
+                zoom = GUI::SpectrumDisplay::ZOOM_2X;
+                break;
+            case 2:
+                zoom = GUI::SpectrumDisplay::ZOOM_4X;
+                break;
+            case 3:
+                zoom = GUI::SpectrumDisplay::ZOOM_8X;
+                break;
+            default:
+                zoom = GUI::SpectrumDisplay::ZOOM_1X;
+        }
+        GUI::SpectrumDisplay::SetZoom(zoom);
     });
 
     keyboard.addKeyCheck('S', []()
     {
         std::cout << "S pressed" << std::endl;
-        GUI::SpectrumDisplay::SetZoom(GUI::SpectrumDisplay::ZOOM_2X);
+        temp--;
+        if (temp<0)temp=0;
+        GUI::SpectrumDisplay::ZoomLevel zoom;
+        switch (temp)
+        {
+            case 0:
+                zoom = GUI::SpectrumDisplay::ZOOM_1X;
+                break;
+            case 1:
+                zoom = GUI::SpectrumDisplay::ZOOM_2X;
+                break;
+            case 2:
+                zoom = GUI::SpectrumDisplay::ZOOM_4X;
+                break;
+            case 3:
+                zoom = GUI::SpectrumDisplay::ZOOM_8X;
+                break;
+            default:
+                zoom = GUI::SpectrumDisplay::ZOOM_1X;
+        }
+        GUI::SpectrumDisplay::SetZoom(zoom);
     });
 
     keyboard.addKeyCheck('D', []()
