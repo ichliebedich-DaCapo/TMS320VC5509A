@@ -159,7 +159,7 @@ namespace GUI
         }
     }
 
-    // 绘制字符串
+    // 绘制字符串（字体必须以UTF-8形式保存）
     void Tools::draw_string(const char *str, const uint16_t x, const uint16_t y, const Font::FontChar fonts[])
     {
         uint16_t x_offset = 0;
@@ -224,7 +224,7 @@ namespace GUI
                             if ( y_total >= GUI_VOR || x_total >= GUI_HOR) continue;
 
                             const uint16_t page = y_total >> 3;
-                            const uint16_t row_in_page = y_total & 0x07;
+                            const uint16_t row_in_page = y_total & 0x07;// 确定在哪一页的第几行
                             buffer[page][x_total] |= (1 << row_in_page);
                         }
                     }

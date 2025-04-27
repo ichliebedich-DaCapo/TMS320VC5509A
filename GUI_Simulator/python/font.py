@@ -135,22 +135,18 @@ def generate_code(input_file, output_path):
     output_filename = f'{output_path}/{output_name}'
 
     for name, index, count, elements in chars_data:
+        # 解析出字高和字宽
+        match = re.search(r'fonts_(\d+)x(\d+)\.h', output_name)
+        if match:
+            W =  int(match.group(1))
+            H = int(match.group(2))
         if len(name) == 1 and ord(name) < 128:
-            H = H_ascii
-            W = H // 2
+            W = W // 2
             bytes_per_row = math.ceil(W / 8)
         else:
-            H = find_H_non(count)
-            W = H
             bytes_per_row = math.ceil(H / 8)
 
-
-
-
         required = H * bytes_per_row
-        if len(elements) != required:
-            raise ValueError(f"字符'{name}'数据数量错误：应为{required}，实际{len(elements)}")
-
         elements_per_line = bytes_per_row
         data_str = format_data(elements, elements_per_line)
 
@@ -162,11 +158,7 @@ def generate_code(input_file, output_path):
         data_arrays.append(data_array)
 
         array_name = f"detail::{array_name}"
-        # 解析出字高和字宽
-        match = re.search(r'fonts_(\d+)x(\d+)\.h', output_name)
-        if match:
-            W =  int(match.group(1))
-            H = int(match.group(2))
+
         struct = process_char(name, index, H, W, array_name)
         structs.append(struct)
 

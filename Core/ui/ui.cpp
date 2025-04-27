@@ -48,7 +48,7 @@ namespace GUI
         }
 
             // Tools::draw_string("你是我未曾",10,20,Font::fonts_16x16);
-        Tools::draw_string("LCDDONE",0,48,Font::fonts_8x10);
+        Tools::draw_string("LCDDONE",0,48,Font::fonts_10x8);
 
     }
 

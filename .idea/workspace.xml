@@ -29,15 +29,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a78db7b0-77d9-459c-87d1-f1d260dcb0d0" name="更改" comment="【备份】……">
-      <change afterPath="$PROJECT_DIR$/GUI_Simulator/font/fonts_8x10.TXT" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/ui/ui.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/ui/ui.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI_Simulator/gui-simulator/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/GUI_Simulator/gui-simulator/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI_Simulator/font/fonts_8x10.TXT" beforeDir="false" afterPath="$PROJECT_DIR$/GUI_Simulator/font/fonts_10x8.TXT" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI_Simulator/python/font.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI_Simulator/python/font.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Middleware/GUI/fonts_16x16.h" beforeDir="false" afterPath="$PROJECT_DIR$/Middleware/GUI/fonts_16x16.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Middleware/GUI/fonts_18x18.h" beforeDir="false" afterPath="$PROJECT_DIR$/Middleware/GUI/fonts_18x18.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middleware/GUI/fonts_8x10.h" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Middleware/GUI/zq_font.h" beforeDir="false" afterPath="$PROJECT_DIR$/Middleware/GUI/zq_font.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Middleware/GUI/zq_gui.h" beforeDir="false" afterPath="$PROJECT_DIR$/Middleware/GUI/zq_gui.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middleware/GUI/zq_gui.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Middleware/GUI/zq_gui.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -53,19 +53,19 @@ namespace GUI
         },// "1"
         {
             .name = "1",
-            .width = 16,
+            .width = 8,
             .height = 16,
             .data = detail::fonts_16x16_5
         },// "2"
         {
             .name = "2",
-            .width = 16,
+            .width = 8,
             .height = 16,
             .data = detail::fonts_16x16_6
         },// "3"
         {
             .name = "3",
-            .width = 16,
+            .width = 8,
             .height = 16,
             .data = detail::fonts_16x16_7
         },
